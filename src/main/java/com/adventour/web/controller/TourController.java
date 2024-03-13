@@ -24,4 +24,9 @@ public class TourController {
         model.addAttribute("tours", tourDtos);
         return "tour-list";
     }
+
+    @GetMapping("/")
+    public String home(Model model){
+        return "index";
+    }
 }
