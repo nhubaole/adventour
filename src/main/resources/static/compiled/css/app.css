@@ -4268,7 +4268,8 @@ textarea.form-control-lg {
 .navbar-collapse {
     flex-basis: 100%;
     flex-grow: 1;
-    align-items: center
+    align-items: center;
+    margin-bottom: 1rem
 }
 
 .navbar-toggler {
@@ -22586,7 +22587,7 @@ body .bi:before,[class^=bi-]:before,[class*=" bi-"]:before {
 }
 
 .sidebar-wrapper .sidebar-header img {
-    height: 1.2rem
+    height: 3.2rem
 }
 
 .sidebar-wrapper .sidebar-toggler.x {
@@ -22600,7 +22601,7 @@ body .bi:before,[class^=bi-]:before,[class*=" bi-"]:before {
     padding-left: 0;
     margin-top: 2rem;
     padding: 0 2rem;
-    font-weight: 600
+    font-weight: 300
 }
 
 .sidebar-wrapper .menu .sidebar-title {
@@ -22655,7 +22656,8 @@ body .bi:before,[class^=bi-]:before,[class*=" bi-"]:before {
 }
 
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link span {
-    color: #fff
+    color: #fff;
+    font-weight: 600
 }
 
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link svg,.sidebar-wrapper .menu .sidebar-item.active>.sidebar-link i {
@@ -23423,6 +23425,7 @@ body .bi:before,[class^=bi-]:before,[class*=" bi-"]:before {
 #main {
     margin-left: 300px;
     padding: 2rem;
+    padding-top: 0rem;
     min-height: 100vh
 }
 

@@ -27,6 +27,6 @@ public class TourController {
 
     @GetMapping("/")
     public String home(Model model){
-        return "index";
+        return "/pages/add-new-tour";
     }
 }
