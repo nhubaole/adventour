@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .empty{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .full{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .addBtn{
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background-color: #52a6f3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+                        <div class="empty">
+                            Còn chỗ
+                        </div>
+                    </h6>
+                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        0586180354
+                    </p>
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            68,000,000 đ
+                        </div>
+                        34,000,000 đ
+                        <div class="discount">
+                            -50%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin chuyến
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách khách hàng
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div>
+
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-lg">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Khách Hàng</th>
+                                        <th>Ngày sinh</th>
+                                        <th>CMND/CCCD</th>
+                                        <th>Giới tính</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-1">
+                                            <div class="d-flex align-items-center">
+                                                1
+                                            </div>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="d-flex align-items-center">
+                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                12/10/2003
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                079202015275
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                Nam
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-1">
+                                            <div class="d-flex align-items-center">
+                                                2
+                                            </div>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="d-flex align-items-center">
+                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                12/10/2003
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                079202015275
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                Nam
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-1">
+                                            <div class="d-flex align-items-center">
+                                                3
+                                            </div>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="d-flex align-items-center">
+                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                12/10/2003
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                079202015275
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                Nam
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-1">
+                                            <div class="d-flex align-items-center">
+                                                4
+                                            </div>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="d-flex align-items-center">
+                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                12/10/2003
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                079202015275
+                                            </div>
+                                        </td>
+                                        <td class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                Nam
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="dataTable-bottom" style="display: flex;align-items: center;justify-content: space-between;">
+                                <div class="dataTable-info">
+                                </div>
+                                <nav class="dataTable-pagination">
+                                    <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
+                                        <li class="pager page-item">
+                                            <a href="#" data-page="2" class="page-link">&lt;</a>
+                                        </li>
+                                        <li class="active page-item">
+                                            <a href="#" data-page="1" class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" data-page="2" class="page-link">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" data-page="3" class="page-link">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" data-page="4" class="page-link">4</a>
+                                        </li>
+                                        <li class="pager page-item">
+                                            <a href="#" data-page="2" class="page-link">&gt;</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+                <div class="addBtn">
+                    <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
+                    Thêm phiếu đặt chỗ mới
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>
