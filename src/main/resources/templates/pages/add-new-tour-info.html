@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <form class="form">
+            <div class="row">
+              <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                <div class="form-group">
+                  <input style="height: 55px;" type="text" id="tour-name" class="form-control" placeholder="Tên tuyến du lịch" name="city-column">
+                </div>
+              </div>
+              <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                <div class="form-group">
+                  <select class="form-select" aria-label="Default select example" style="height: 55px;">
+                    <option selected>Chọn loại tuyến</option>
+                    <option value="1">Trong nước</option>
+                    <option value="2">Nước ngoài</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                <div class="form-group">
+                  <select class="form-select" aria-label="Default select example" style="height: 55px;">
+                    <option selected>Nơi xuất phát</option>
+                    <option value="1">TP HCM</option>
+                    <option value="2">Hà Nội</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                <div class="form-group">
+                  <select class="form-select" aria-label="Default select example" style="height: 55px;">
+                    <option selected>Số ngày đêm</option>
+                    <option value="1">2 ngày 1 đêm</option>
+                    <option value="2">3 ngày 2 đêm</option>
+                    <option value="3">4 ngày 3 đêm</option>
+                    <option value="4">5 ngày 4 đêm</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12" style="margin-bottom: 15px;">
+                <div class="form-group">
+                  <input style="height: 55px;" type="text" id="est-price" class="form-control" placeholder="Giá vé dự kiến" name="city-column">
+                </div>
+              </div>
+              <div class="col-12 d-flex justify-content-end">
+                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</button>
+                <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

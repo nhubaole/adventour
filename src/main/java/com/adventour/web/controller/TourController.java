@@ -35,6 +35,11 @@ public class TourController {
         return "/pages/all-tour";
     }
 
+    @GetMapping("/add-new-tour/info")
+    public String addNewTourInfo(Model model){
+        return "/pages/add-new-tour-info";
+    }
+
     //===========================================================
     @GetMapping("/dashboard")
     public String dashboard(Model model){
