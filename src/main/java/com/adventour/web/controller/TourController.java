@@ -27,9 +27,15 @@ public class TourController {
 
     @GetMapping("/")
     public String home(Model model){
-        return "/pages/add-new-tour";
+        return "/index";
     }
 
+    @GetMapping("/all-tour")
+    public String allTour(Model model){
+        return "/pages/all-tour";
+    }
+
+    //===========================================================
     @GetMapping("/dashboard")
     public String dashboard(Model model){
         return  "/pages/dashboard";
