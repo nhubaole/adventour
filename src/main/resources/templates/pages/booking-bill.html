@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .accept{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-img d-flex align-items-center">
+                    <div class="avatar avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
+                        <img src="/compiled/jpg/1.jpg" style="width: 100px;height: 100px;">
+                    </div>
+                </div>
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Đỗ Thị Thùy</h6>
+                    <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-phone" style="display: flex; margin-right: 5px;"></i>
+                        0586180354
+                    </p>
+                    <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-envelope" style="display: flex; margin-right: 5px;"></i>
+                        20521165@gm.uit.edu.vn
+                    </p>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-2" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-person" style="display: flex; margin-right: 20px;"></i>
+                            Hồ Sơ
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pass" style="display: flex; margin-right: 20px;"></i>
+                            Phiếu đặt chỗ
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="card">
+                        <div class="card-body" style="padding: 0px !important;">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-lg">
+                                    <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã phiếu</th>
+                                        <th>Số lượng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">P34567890</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">05/04/2024</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0 waiting setting">Đang chờ</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">50,000,000đ</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">P34567890</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">05/04/2024</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0 accept setting">Hoàn tất</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">50,000,000đ</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">P34567890</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">05/04/2024</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0 waiting setting">Đang chờ</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">50,000,000đ</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">P34567890</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">05/04/2024</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0 accept setting">Hoàn tất</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">50,000,000đ</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">P34567890</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">1</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">05/04/2024</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0 waiting setting">Đang chờ</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">50,000,000đ</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

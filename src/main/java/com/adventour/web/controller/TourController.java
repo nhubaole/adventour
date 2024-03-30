@@ -27,6 +27,40 @@ public class TourController {
 
     @GetMapping("/")
     public String home(Model model){
-        return "index";
+        return "/pages/add-new-tour";
     }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model){
+        return  "/pages/dashboard";
+    }
+
+    @GetMapping("/customer")
+    public String customer(Model model){
+        return  "/pages/customer";
+    }
+
+    @GetMapping("/add-new-customer")
+    public String addNewCustomer(Model model){ return "/pages/add-new-customer";}
+
+    @GetMapping("/profile")
+    public String profile(Model model){return "/pages/profile";}
+
+    @GetMapping("/booking")
+    public String booking(Model model){return "/pages/booking-bill";}
+
+    @GetMapping("/statistic")
+    public String statistic(Model model){return "/pages/statistic";}
+
+    @GetMapping("/alltrip")
+    public String AllTrip(Model model){return "/pages/all-trip";}
+
+    @GetMapping("/information")
+    public String information(Model model){return "/pages/trip-information";}
+
+    @GetMapping("/train-info")
+    public String trainInfo(Model model){return "/pages/train-info";}
+
+    @GetMapping("/add-new-trip")
+    public String addNewTrip(Model model){return "/pages/add-new-trip";}
 }
