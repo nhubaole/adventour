@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .custom-file-upload {
+            height: 100px;
+            display: block;
+            width: 10%;
+            padding: 20px;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            align-content: center;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <label for="file" class="custom-file-upload">
+                        <i class="bi bi-camera align-items-center"></i>
+                    </label>
+                    <input type="file" id="file" name="file" accept="image/*" required>
+                </div>
+                <div class="card-content">
+                    <div class="card-body" style="min-height: 200px;">
+                        <form class="form">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="text" id="first-name-column" class="form-control" placeholder="Tên địa điểm" name="fname-column" style="height: 45px;">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="text" id="last-name-column" class="form-control" placeholder="Địa chỉ" name="lname-column" style="height: 45px;">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea  class="form-control" placeholder="Mô tả" cols="90" rows="10" style="height: 94px; resize: none;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end" style="margin-top: 35px;">
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</button>
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

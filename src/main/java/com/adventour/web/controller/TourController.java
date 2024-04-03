@@ -45,6 +45,11 @@ public class TourController {
         return "/pages/all-place";
     }
 
+    @GetMapping("/add-new-place")
+    public String addNewPlace(Model model){
+        return "/pages/add-new-place";
+    }
+
     //===========================================================
     @GetMapping("/dashboard")
     public String dashboard(Model model){
