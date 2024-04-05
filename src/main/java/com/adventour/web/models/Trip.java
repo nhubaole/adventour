@@ -9,6 +9,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +23,6 @@ public class Trip {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     public Long id;
-    public String tourName;
-    public String typeOfTrip;
     public int slots;
     @CreationTimestamp
     public LocalDateTime startDate;
@@ -29,6 +30,29 @@ public class Trip {
     public LocalDateTime endDate;
     public int minPassenger;
     public int actualPassenger;
+
+    //các thng tin để dẽ truy xất, cập nhập
+    @ManyToOne
+    @JoinColumn(name = "id_tour", nullable = false )
+    private Tour tour;
+
+    @ManyToOne
+    @JoinColumn(name = "id_type_of_trip", nullable = false )
+    private TypeOfTrip typeOfTrip;
+
+
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
+    private Set<Passenger> passengers = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
+    private Set<Schedule> schedules = new HashSet<>();
+
+    @ManyToMany(mappedBy = "trips")
+    private Set<TourGuide> tourGuides;
+
+
+
 
 
 }

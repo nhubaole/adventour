@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tourGuides")
+@Table(name = "tour_guides")
 public class TourGuide {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,13 @@ public class TourGuide {
     public LocalDate dateOfBirth;
     public String addressTourGuide;
     public String phoneNumber;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tour_manager",
+            joinColumns = @JoinColumn(name = "id_tour_guild"),
+            inverseJoinColumns = @JoinColumn(name = "id_trip"))
+    Set<Tour> trips;
 
 
 

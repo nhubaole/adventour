@@ -20,5 +20,4 @@ public class Vehicle {
     public String description;
     public int capacity;
 
-
 }

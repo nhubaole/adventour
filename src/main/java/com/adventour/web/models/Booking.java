@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -18,15 +20,33 @@ import java.time.LocalDateTime;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
     @CreationTimestamp
-    public LocalDateTime bookingDate;
-    public String status;
-    public int numberOfPassengers;
-    public int totalAmount;
-    public int amountPaid;
-    public Long idTrip;
-    public Long idAccount;
-    public Long[] idPassengers;
-    public Long[] idPaymentInfor;
+    private LocalDateTime bookingDate;
+    private String [] imagesUrl;
+    private String status;
+    private int numberOfPassengers;
+    private int totalAmount;
+    private int amountPaid;
+
+    @ManyToOne
+    @JoinColumn(name="id_trip", nullable=false)
+    private Trip trip;
+
+    @ManyToOne
+    @JoinColumn(name="id_customer", nullable=false)
+    private Customer customer;
+
+
+    @OneToMany(mappedBy = "booking")
+    private Set<Passenger> passengers = new HashSet<>();
+
+    @OneToMany(mappedBy = "booking")
+    private Set<PaymentInformation> paymentInformation;
+
+    //1 booking => nhều vé
+    @OneToMany(mappedBy = "booking")
+    private Set<Ticket> tickets;
+
+
 }
