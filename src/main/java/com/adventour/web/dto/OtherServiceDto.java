@@ -1,4 +1,14 @@
 package com.adventour.web.dto;
 
-public class OtherServiceDto {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class OtherServiceDto
+{
 }

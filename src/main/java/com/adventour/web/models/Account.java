@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "accounts")
 public class Account {
-    //tài koản
+    //tài koản to login
     @Id
     @Column(nullable = false)
     private String nameAccount;
