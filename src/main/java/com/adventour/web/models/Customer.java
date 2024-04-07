@@ -28,6 +28,4 @@ public class Customer {
     private String addressCustomer;
     private String [] imagesCustomer;
 
-
-
 }

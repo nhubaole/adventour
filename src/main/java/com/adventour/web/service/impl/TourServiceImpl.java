@@ -26,7 +26,7 @@ public class TourServiceImpl implements TourService {
     }
 
     private TourDto mapToTourDto(Tour tour) {
-        TourDto tourDto = TourDto.builder()
+        return TourDto.builder()
                 .id(tour.getId())
                 .tourName(tour.getTourName())
                 .departureLocation(tour.getDepartureLocation())
@@ -35,6 +35,5 @@ public class TourServiceImpl implements TourService {
                 .numberOfNights(tour.getNumberOfNights())
                 .tourType(tour.getTourType())
                 .build();
-        return tourDto;
     }
 }

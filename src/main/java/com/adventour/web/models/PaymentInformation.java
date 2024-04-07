@@ -1,5 +1,6 @@
 package com.adventour.web.models;
 
+import com.adventour.web.enums.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ public class PaymentInformation {
     @CreationTimestamp
     public LocalDateTime paymentTime;
     public String status;
-    public String paymentMethod;
+    public PaymentMethod paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "id_booking", nullable = false)

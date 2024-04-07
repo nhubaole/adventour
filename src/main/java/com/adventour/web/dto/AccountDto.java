@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccountDto {
     private String nameAccount;
-
-    private String password;
 }
