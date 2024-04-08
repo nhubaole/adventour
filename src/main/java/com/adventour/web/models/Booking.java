@@ -1,5 +1,6 @@
 package com.adventour.web.models;
 
+import com.adventour.web.enums.StatusOfBooking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ public class Booking {
     @CreationTimestamp
     private LocalDateTime bookingDate;
     private String [] imagesUrl;
-    private String status;
+    private StatusOfBooking status;
     private int numberOfPassengers;
     private int totalAmount;
     private int amountPaid;
@@ -42,11 +43,11 @@ public class Booking {
     private Set<Passenger> passengers = new HashSet<>();
 
     @OneToMany(mappedBy = "booking")
-    private Set<PaymentInformation> paymentInformation;
+    private Set<PaymentInformation> paymentInformation = new HashSet<>();
 
     //1 booking => nhều vé
     @OneToMany(mappedBy = "booking")
-    private Set<Ticket> tickets;
+    private Set<Ticket> tickets = new HashSet<>();
 
 
 }

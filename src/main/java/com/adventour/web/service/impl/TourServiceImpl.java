@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TourServiceImpl implements TourService {
-    private TourRepository tourRepository;
+    private final TourRepository tourRepository;
 
     @Autowired
     public TourServiceImpl(TourRepository tourRepository) {

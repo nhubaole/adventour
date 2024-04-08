@@ -19,13 +19,12 @@ import java.time.LocalDateTime;
 public class PaymentInformation {
     @Id
     @GeneratedValue (strategy =  GenerationType.IDENTITY)
-    public Long id;
-    public Long idBooking;
-    public int amountOfMoney;
+    private Long id;
+    private int amountOfMoney;
     @CreationTimestamp
-    public LocalDateTime paymentTime;
-    public String status;
-    public PaymentMethod paymentMethod;
+    private LocalDateTime paymentTime;
+    private String status;
+    private PaymentMethod paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "id_booking", nullable = false)

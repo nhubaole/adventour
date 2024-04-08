@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -39,21 +40,21 @@ public class Schedule {
             name = "detail_location",
             joinColumns = @JoinColumn(name = "id_schedule"),
             inverseJoinColumns = @JoinColumn(name = "id_location"))
-    Set<Location> locations;
+    private Set<Location> locations = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "detail_hotel",
             joinColumns = @JoinColumn(name = "id_schedule"),
             inverseJoinColumns = @JoinColumn(name = "id_hotel"))
-    Set<Location> hotels;
+    private Set<Location> hotels =  new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "detail_restaurant",
             joinColumns = @JoinColumn(name = "id_schedule"),
             inverseJoinColumns = @JoinColumn(name = "id_restaurant"))
-    Set<Location> restaurants;
+    private Set<Location> restaurants = new HashSet<>();
 
 
     @ManyToMany
@@ -61,17 +62,13 @@ public class Schedule {
             name = "detail_vehicle",
             joinColumns = @JoinColumn(name = "id_schedule"),
             inverseJoinColumns = @JoinColumn(name = "id_vehicle"))
-    Set<Location> vehicles;
+    private Set<Location> vehicles = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "detail_other_service",
             joinColumns = @JoinColumn(name = "id_schedule"),
             inverseJoinColumns = @JoinColumn(name = "id_other_service"))
-    Set<Location> otherServices;
-
-
-
-
+    private Set<Location> otherServices = new HashSet<>();
 
 }

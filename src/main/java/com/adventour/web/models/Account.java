@@ -21,5 +21,6 @@ public class Account {
     @Column(nullable = false)
     private String nameAccount;
 
+    @Column(nullable = false)
     private String password;
 }

@@ -1,4 +1,6 @@
 package com.adventour.web.service.impl;
 
-public class TripServiceImpl {
+import com.adventour.web.service.TripService;
+
+public class TripServiceImpl implements TripService {
 }
