@@ -63,4 +63,31 @@ public class TourController {
 
     @GetMapping("/add-new-trip")
     public String addNewTrip(Model model){return "/pages/add-new-trip";}
+
+    @GetMapping("/all-tour")
+    public String allTour(Model model) {return "/pages/all-tour";}
+
+    @GetMapping("/tour-info")
+    public String tourInfo(Model model) {return "/pages/tour-info";}
+
+    @GetMapping("/tour-maps")
+    public String tourMap(Model model){return "/pages/tour-map";}
+
+    @GetMapping("/add-tour")
+    public String addNewTour(Model model){return "/pages/add-tour";}
+
+    @GetMapping("/tour-detail")
+    public String tourDetail(Model model){return "/pages/tour-detail";}
+
+    @GetMapping("/all-place")
+    public String allPlace(Model model){return "/pages/all-place";}
+
+    @GetMapping("/place-detail")
+    public String placeDetail(Model model){return "/pages/place-detail";}
+
+    @GetMapping("/add-new-place")
+    public String addPlace(Model model){return "/pages/add-new-place";}
+
+    @GetMapping("/add-schedule")
+    public String addSchedule(Model model){return "/pages/add-Schedule";}
 }
