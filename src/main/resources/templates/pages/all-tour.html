@@ -6,15 +6,10 @@
     <title>Title</title>
     <style>
         th{
-            color: #b3b3b8 !important;
+            color: #b3b3b8;
         }
-
         td{
-            color: black !important;
-        }
-
-        .pd{
-            padding: 6px !important;
+            color: black;
         }
 
         .input-style{
@@ -41,8 +36,14 @@
             padding-left: 5px;
         }
 
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
         .accept{
-            background-color: #ECF9F3;
+            background-color: #fef9e9;
             border-radius: 4px;
             font-size: 14px;
             height: 28px;
@@ -75,13 +76,13 @@
                 <div class="form-group position-relative has-icon-left">
                     <input type="text" class="form-control" placeholder="Tìm kiếm tuyến du lịch" style="width: 400px; height: 42px">
                     <div class="form-control-icon">
-                        <i class="bi bi-search"></i>
+                        <i class="bi bi-person"></i>
                     </div>
                 </div>
                 <div>
                     <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
                         <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm tuyến du lịch mới
+                        Thêm tuến du lịch mới
                     </button>
                 </div>
             </div>
@@ -90,49 +91,46 @@
                     <table class="table table-hover table-lg">
                         <thead>
                         <tr>
-                            <th class="pd">STT</th>
-                            <th class="pd">Tên tuyến</th>
-                            <th class="pd">Mã tuyến</th>
-                            <th class="pd">Khởi hành tại</th>
-                            <th class="pd">Loại tuyến</th>
-                            <th class="pd">Trạng thái</th>
-                            <th class="pd"></th>
+                            <th>STT</th>
+                            <th>Tên tuyến</th>
+                            <th>Mã tuyến</th>
+                            <th>Thời gian</th>
+                            <th>Số vé</th>
+                            <th>Trạng thái</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     1
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    TP HCM
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nước ngoài
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center accept">
-                                    Đang mở
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 cancel setting">Đã dừng</p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -140,40 +138,36 @@
                                 </div>
                             </td>
                         </tr>
-
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     2
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    TP HCM
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nước ngoài
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center accept">
-                                    Đang mở
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 accept setting"> Đang mở </p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -181,40 +175,36 @@
                                 </div>
                             </td>
                         </tr>
-
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     3
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    TP HCM
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nước ngoài
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center accept">
-                                    Đang mở
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 cancel setting">Đã dừng</p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -222,40 +212,36 @@
                                 </div>
                             </td>
                         </tr>
-
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     4
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    TP HCM
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nước ngoài
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center accept">
-                                    Đang mở
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 accept setting"> Đang mở </p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -264,38 +250,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     5
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    TP HCM
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nước ngoài
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center accept">
-                                    Đang mở
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 cancel setting">Đã dừng</p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -304,38 +287,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     6
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Thái Lan: Phuket - Đảo Phi Phi</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Hà Nội
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Trong nước
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center cancel">
-                                    Đã đóng
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 accept setting"> Đang mở </p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -344,38 +324,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     7
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Thái Lan: Phuket - Đảo Phi Phi</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Hà Nội
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Trong nước
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center cancel">
-                                    Đã đóng
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 cancel setting">Đã dừng</p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -384,38 +361,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1 pd">
+                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     8
                                 </div>
                             </td>
-                            <td class="col-4 pd" style="">
+                            <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Thái Lan: Phuket - Đảo Phi Phi</p>
+                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
                                     T34532123
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Hà Nội
+                                    8:10
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Trong nước
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center cancel">
-                                    Đã đóng
+                                    100
                                 </div>
                             </td>
-                            <td class="col-auto pd">
+                            <td class="col-auto">
+                                <p class=" mb-0 accept setting"> Đang mở </p>
+                            </td>
+                            <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -423,87 +397,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="col-1 pd">
-                                <div class="d-flex align-items-center">
-                                    9
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Thái Lan: Phuket - Đảo Phi Phi</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    Hà Nội
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    Trong nước
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center cancel">
-                                    Đã đóng
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd">
-                                <div class="d-flex align-items-center">
-                                    10
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Thái Lan: Phuket - Đảo Phi Phi</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    Hà Nội
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    Trong nước
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center cancel">
-                                    Đã đóng
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-
                         </tbody>
                     </table>
                 </div>

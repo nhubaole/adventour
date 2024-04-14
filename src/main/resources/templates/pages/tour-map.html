@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .accept{
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+        .border-style{
+            height: 60px;
+            padding-left: 16px;
+            border-left: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right bottom, #abd4f9, #0085ff);
+        }
+
+        .place-content{
+            margin-left: 25px;
+            margin-top: 15px;
+        }
+
+        .convenience{
+            display: flex;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            margin-left: 25px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .func-btn{
+            background-color: #52a6f3;
+            color: white;
+            font-size: 14px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            border-radius: 5px;
+            padding: 0px 8px;
+        }
+
+        .day-element{
+            width: 100%;
+            margin-left: 15px;
+            font-size: 14px;
+            margin-top: 10px;
+            color: black;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-img d-flex align-items-center">
+                    <div class="avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
+                        <img src="/compiled/jpg/travel1.jpg" style="width: 100px;height: 100px;">
+                    </div>
+                </div>
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Phan Thiết - Mũi Né - KDL Núi Tà Cú - Đồi Cát Bay - Resort tương đương 4*</h6>
+                    <p class=" mb-0 accept setting" style="width: 100px;"> Đang mở </p>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin chuyến
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
+                            Chi tiết lịch trình
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8" style="margin-right: 30px;">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class = "card" style="border: 1px solid #e8e8ea; display:flex; align-items: center;">
+                                <div class="day-element">
+                                    <i class="bi bi-circle-fill" style="display: flex; align-items: center; font-size:10px; color:#3fc28a; "></i>
+                                    Ngày 1
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class = "card" style="border: 1px solid #e8e8ea; display:flex; align-items: center;">
+                                <div class="day-element">
+                                    <i class="bi bi-circle-fill" style="display: flex; align-items: center; font-size:10px; color:#3fc28a; "></i>
+                                    Ngày 2
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "card col-10" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class = "place-content border-style">
+                                        <div class = "info-place">
+                                            Sân bay Tân Sơn Nhất
+                                        </div>
+                                        <span style="font-size: 12px; color: #bcbbc1;">
+                                        Đến
+                                    </span>
+                                        <div class = "info-place">
+                                            Sân bay Đà Nẵng
+                                        </div>
+                                    </div>
+                                    <div class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size:20px;"></i>
+                                        <div style="display: flex;">
+                                            <div class="func-btn">
+                                                Máy bay
+                                            </div>
+                                            <div class="func-btn">
+                                                Xe trung chuyển
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dataTable-bottom" style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-bottom: 30px;
+                            margin-right: 30px;
+                    ">
+                <div class="dataTable-info">
+                </div>
+                <nav class="dataTable-pagination">
+                    <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
+                        <li class="pager page-item">
+                            <a href="#" data-page="2" class="page-link"><</a>
+                        </li>
+                        <li class="active page-item">
+                            <a href="#" data-page="1" class="page-link">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" data-page="2" class="page-link">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" data-page="3" class="page-link">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" data-page="4" class="page-link">4</a>
+                        </li>
+                        <li class="pager page-item">
+                            <a href="#" data-page="2" class="page-link">></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>
