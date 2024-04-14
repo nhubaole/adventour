@@ -34,10 +34,9 @@ public class TourController {
     public String allTour(Model model){
         return "/pages/all-tour";
     }
-
-    @GetMapping("/add-new-place")
-    public String addNewPlace(Model model){
-        return "/pages/add-new-place";
+    @GetMapping("/ticket-detail")
+    public String viewTicketDetail(Model model){
+        return "/pages/ticket-detail";
     }
 
     //===========================================================
