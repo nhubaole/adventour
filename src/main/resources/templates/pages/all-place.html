@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        th{
+            color: #b3b3b8 !important;
+        }
+
+        td{
+            color: black !important;
+        }
+
+        .pd{
+            padding: 20px !important;
+        }
+
+        .input-style{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-style{
+            display: flex;
+            align-items: center;
+            margin: 0px !important;
+            height: 42px;
+            padding: 0 25px;
+            color: white;
+            background-color: #52a6f3;
+        }
+        .page-link{
+            background-color: white !important;
+            color: #52A6F3 !important;
+        }
+
+        .page-item + .page-item{
+            padding-left: 5px;
+        }
+
+        .discount{
+            width: 47px;
+            height: 24px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ecf9f3;
+            color: #5fcd9e;
+            margin-left: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class = "col-12">
+        <div class="card">
+            <div class="card-header input-style">
+                <div class="form-group position-relative has-icon-left">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm địa điểm" style="width: 400px; height: 42px">
+                    <div class="form-control-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-lg">
+                        <thead>
+                        <tr>
+                            <th class="pd">STT</th>
+                            <th class="pd">Tên địa điểm</th>
+                            <th class="pd">Mã địa điểm</th>
+                            <th class="pd">Địa chỉ</th>
+                            <th class="pd"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    1
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    2
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    3
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    4
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    5
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    6
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    7
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    8
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    9
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1 pd border-left-choose active">
+                                <div class="d-flex align-items-center">
+                                    10
+                                </div>
+                            </td>
+                            <td class="col-3 pd" style="">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-md">
+                                        <img src="/compiled/jpg/5.jpg">
+                                    </div>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    DD3453212
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div class="d-flex align-items-center">
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
+                                </div>
+                            </td>
+                            <td class="col-auto pd">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="dataTable-bottom" style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                    ">
+                    <div></div>
+                    <nav class="dataTable-pagination">
+                        <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
+                            <li class="pager page-item">
+                                <a href="#" data-page="2" class="page-link"><</a>
+                            </li>
+                            <li class="active page-item">
+                                <a href="#" data-page="1" class="page-link">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" data-page="2" class="page-link">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" data-page="3" class="page-link">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" data-page="4" class="page-link">4</a>
+                            </li>
+                            <li class="pager page-item">
+                                <a href="#" data-page="2" class="page-link">></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>
