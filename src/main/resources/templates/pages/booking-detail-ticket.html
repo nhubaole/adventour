@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ticket-frame-small {
+            height: 120px;
+            display: block;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url(/compiled/png/ticket_bg_small.png);
+            background-size: 100% 100%;
+            background-position: center;
+            margin: auto;
+        }
+
+        .ticket-frame {
+            height: 700px;
+            display: block;
+            width: 70%;
+            padding: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url(/compiled/png/ticket_bg.png);
+            background-size: 100% 100%;
+            background-position: center;
+            margin: auto;
+        }
+
+        .empty{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .full{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+    </style>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+                        <div class="empty">
+                            Còn chỗ
+                        </div>
+                    </h6>
+                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        0586180354
+                    </p>
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            68,000,000 đ
+                        </div>
+                        34,000,000 đ
+                        <div class="discount">
+                            -50%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin chuyến
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách khách hàng
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body p-0">
+<!--                            empty layout-->
+<!--                            <div class="d-flex justify-content-center align-items-center" style="height: 400px;">-->
+<!--                                <h6 class="fw-normal" style="font-size: 0.8rem;">Bạn cần hoàn tất thanh toán để có thể xuất vé.</h6>-->
+<!--                            </div>-->
+
+<!--                            items layout-->
+                            <div class="d-flex flex-wrap">
+                                <div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <div class="ticket-frame-small">
+                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                            <div class="col-3 ">
+                                                <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
+                                            </div>
+                                            <div class="col-9 p-3">
+                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: TSK-XXX-XX</h6>
+                                                <h6 class="text-start">Le Bao Nhu</h6>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Người lớn</h6>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Chưa sử dụng</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <div class="ticket-frame-small">
+                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                            <div class="col-3 ">
+                                                <img src="/compiled/png/ic_ticket_used.png" style="width: 40px; height: 40px;">
+                                                <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;">12:30 15/03/2024</h6>
+                                            </div>
+                                            <div class="col-9 p-3">
+                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: TSK-XXX-XX</h6>
+                                                <h6 class="text-start">Le Bao Nhu</h6>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Người lớn</h6>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="color: #F45B69 !important; font-size: 0.8rem;">Đã sử dụng</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <div class="ticket-frame-small">
+                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                            <div class="col-3 ">
+                                                <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
+                                            </div>
+                                            <div class="col-9 p-3">
+                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: TSK-XXX-XX</h6>
+                                                <h6 class="text-start">Le Bao Nhu</h6>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Người lớn</h6>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Chưa sử dụng</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <div class="ticket-frame-small">
+                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                            <div class="col-3 ">
+                                                <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
+                                            </div>
+                                            <div class="col-9 p-3">
+                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: TSK-XXX-XX</h6>
+                                                <h6 class="text-start">Le Bao Nhu</h6>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Người lớn</h6>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Chưa sử dụng</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                    <div class="ticket-frame-small">
+                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                            <div class="col-3 ">
+                                                <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
+                                            </div>
+                                            <div class="col-9 p-3">
+                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: TSK-XXX-XX</h6>
+                                                <h6 class="text-start">Le Bao Nhu</h6>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Người lớn</h6>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Chưa sử dụng</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade modal-borderless" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                                         role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin vé
+                                                </h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <i data-feather="x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card ticket-frame">
+                                                    <div class="card-header p-1 h-25">
+                                                        <img alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3" src="/compiled/jpg/building.jpg">
+                                                    </div>
+                                                    <div class="card-body p-2">
+                                                        <h6 class="text-start mt-3">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</h6>
+                                                        <div class="row py-3">
+                                                            <div class="col-6">
+                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại</h6>
+                                                                <p class="fw-medium text-start mb-0 text-black">Người lớn</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Thời gian</h6>
+                                                                <p class="fw-medium text-start mb-0 text-black">04/05/2024</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row py-3">
+                                                            <div class="col-6">
+                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Hành khách</h6>
+                                                                <p class="fw-medium text-start mb-0 text-black">Lê Bảo Như</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Số CMND/CCCD</h6>
+                                                                <p class="fw-medium text-start mb-0 text-black">079303041236</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <img class="mt-5" id="barcode" src="https://api.qrserver.com/v1/create-qr-code/?data=TSK-XXX-XX&amp;size=100x100" alt="" title="HELLO" width="100" height="100">
+                                                    <h6 class="fw-bold mb-1 mt-4 text-black" style="font-size: 0.8rem;">MÃ CODE:
+                                                        <span style="color: #52a6f3 !important;">TSK-XXX-XX</span></h6>
+                                                    <h6 class="fw-medium mb-1 mt-3 text-black" style="font-size: 0.7rem;">Vé chỉ sử dụng được
+                                                        <span class="fw-bold" style="color: #52a6f3 !important;"> một lần</span> duy nhất.</h6>
+                                                    <h6 class="fw-medium mb-1 text-black" style="font-size: 0.7rem;">Vui lòng không chia sẻ thông tin vé cho bất kỳ ai.</h6>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light-secondary"
+                                                        data-bs-dismiss="mvodal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Hủy</span>
+                                                </button>
+                                                <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">In</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

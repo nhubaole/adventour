@@ -39,6 +39,11 @@ public class TourController {
         return "/pages/ticket-detail";
     }
 
+    @GetMapping("/booking-detail/tickets")
+    public String viewBookingDetailTicket(Model model){
+        return "/pages/booking-detail-ticket";
+    }
+
     //===========================================================
     @GetMapping("/dashboard")
     public String dashboard(Model model){
