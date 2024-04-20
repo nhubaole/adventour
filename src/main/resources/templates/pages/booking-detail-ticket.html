@@ -82,22 +82,65 @@
             margin-left: 10px;
             border-radius: 5px;
         }
+
+        .addBtn{
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background-color: #52a6f3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .border-style{
+            height: 60px;
+            padding-left: 16px;
+            border-left: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right bottom, #abd4f9, #0085ff);
+        }
+
+        .place-content{
+            margin-left: 25px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .form-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center; /* Align items vertically centered */
+                    padding: 0px;
+                     /* Optional: add border to form-container */
+                    flex: 1;
+                    border-radius:5px;
+                    margin-left: 5px;
+                }
+
+
+                .left-text {
+                    flex: 0 1 auto;
+                    margin-right: 10px;
+                }
+
     </style>
+</head>
 <body>
 <section class="section" layout:fragment="content">
     <div class="col-12">
-        <div class = "card">
+        <div class="card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
                     <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
                         Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
-                        <div class="empty">
-                            Còn chỗ
-                        </div>
+
                     </h6>
+
                     <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
-                        0586180354
+                        04/05/2024
                     </p>
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
@@ -110,6 +153,12 @@
                             -50%
                         </div>
                     </div>
+                    <div>
+                        <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                            Đặt lúc 10:23 09/03/2024
+                        </p>
+
+                    </div>
                 </div>
             </div>
             <div style="display:flex; justify-content: space-between">
@@ -117,23 +166,31 @@
                     <div class="list-group">
                         <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
-                            Thông tin chuyến
+                            Thông tin liên hệ
                         </button>
                         <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
-                            Danh sách khách hàng
+                            Hành khách
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
+                            Thông tin thanh toán
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách vé
                         </button>
                     </div>
                 </div>
                 <div class="col-12 col-lg-8">
                     <div class="card">
                         <div class="card-body p-0">
-<!--                            empty layout-->
-<!--                            <div class="d-flex justify-content-center align-items-center" style="height: 400px;">-->
-<!--                                <h6 class="fw-normal" style="font-size: 0.8rem;">Bạn cần hoàn tất thanh toán để có thể xuất vé.</h6>-->
-<!--                            </div>-->
+                            <!--                            empty layout-->
+                            <!--                            <div class="d-flex justify-content-center align-items-center" style="height: 400px;">-->
+                            <!--                                <h6 class="fw-normal" style="font-size: 0.8rem;">Bạn cần hoàn tất thanh toán để có thể xuất vé.</h6>-->
+                            <!--                            </div>-->
 
-<!--                            items layout-->
+                            <!--                            items layout-->
                             <div class="d-flex flex-wrap">
                                 <div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                                     <div class="ticket-frame-small">
@@ -319,6 +376,10 @@
                     </div>
                 </div>
             </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+
+            </div>
+
         </div>
     </div>
 </section>
