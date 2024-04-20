@@ -27,9 +27,24 @@ public class TourController {
 
     @GetMapping("/")
     public String home(Model model){
-        return "/pages/add-new-tour";
+        return "/index";
     }
 
+    @GetMapping("/all-tour")
+    public String allTour(Model model){
+        return "/pages/all-tour";
+    }
+    @GetMapping("/ticket-detail")
+    public String viewTicketDetail(Model model){
+        return "/pages/ticket-detail";
+    }
+
+    @GetMapping("/booking-detail/tickets")
+    public String viewBookingDetailTicket(Model model){
+        return "/pages/booking-detail-ticket";
+    }
+
+    //===========================================================
     @GetMapping("/dashboard")
     public String dashboard(Model model){
         return  "/pages/dashboard";
@@ -64,8 +79,6 @@ public class TourController {
     @GetMapping("/add-new-trip")
     public String addNewTrip(Model model){return "/pages/add-new-trip";}
 
-    @GetMapping("/all-tour")
-    public String allTour(Model model) {return "/pages/all-tour";}
 
     @GetMapping("/tour-info")
     public String tourInfo(Model model) {return "/pages/tour-info";}
