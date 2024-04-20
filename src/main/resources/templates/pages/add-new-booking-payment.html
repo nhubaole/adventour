@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .custom-btn{
+            border: none;
+            background-color: white;
+            margin-right:20px;
+        }
+
+        .active{
+            color: #52a6f3;
+            border-bottom: 4px solid #52a6f3;
+        }
+        .custom-file-upload {
+            height: 100px;
+            display: block;
+            width: 10%;
+            padding: 20px;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url('/compiled/jpg/Profile Photo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+         .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding-right: 30px;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .form-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center; /* Align items vertically centered */
+                    padding: 0px;
+                     /* Optional: add border to form-container */
+                    flex: 1;
+                    border-radius:5px;
+                    margin-left: 5px;
+                }
+
+
+        .left-text {
+            flex: 0 1 auto;
+            margin-right: 10px;
+        }
+
+
+        .input-group {
+            flex:1;
+            display: flex;
+            align-items: center;
+        }
+        .input-group button{
+            margin-right:5px;
+        }
+        .input-group input {
+            width: 40px;
+            padding: 5px;
+            margin: 0 5px;
+        }
+ .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="card" style="margin: 0 25px;">
+            <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
+                <button type="button" class=" custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
+                    Thông tin liên hệ
+                </button>
+                <button type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-people-fill" style="display: flex; margin-right: 10px;"></i>
+                    Hành khách
+                </button>
+                <button type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-credit-card" style="display: flex; margin-right: 10px;"></i>
+                    Thanh toán
+                </button>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="mini-card col-12">
+                        <div class="row">
+                            <div class="col-md-6 col-12" style="">
+
+
+                                <fieldset class="form-group" style="border-bottom: 1px solid #d5d5d5; padding-bottom: 20px;">
+                                    <input style="height: 50px;" type="cash" id="cash" class="form-control" placeholder="Số tièn thanh toán" name="fname-column">
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <div class="input-wrapper" style="position: relative;">
+                                        <i class="bi bi-cash" style="position: absolute; left: 10px; top: 20px;"></i>
+                                        <input style="height: 50px; padding-left: 35px;" type="money-pay" id="moneypay" class="form-control" placeholder="Tiền mặt" name="fname-column">
+                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                    </div>
+
+
+
+
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <div class="input-wrapper" style="position: relative;">
+                                        <i class="bi bi-credit-card" style="position: absolute; left: 10px; top: 20px;"></i>
+                                        <input style="height: 50px; padding-left: 35px;" type="card-pay" id="card-pay" class="form-control" placeholder="Chuyển khoản" name="fname-column">
+                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                    </div>
+
+
+
+
+                                </fieldset><fieldset class="form-group">
+                                <div class="input-wrapper" style="position: relative;">
+                                    <i class="bi bi-wallet2" style="position: absolute; left: 10px; top: 20px;"></i>
+                                    <input style="height: 50px; padding-left: 35px;" type="momo-pay" id="momopay" class="form-control" placeholder="Ví điện từ momo" name="fname-column">
+                                    <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                </div>
+
+
+
+
+                            </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12 " style="flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                                <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                                    Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+
+                                </h6>
+
+                                <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                                    <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                                    04/05/2024
+                                </p>
+                                <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                                    <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                                    <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                                        68,000,000 đ
+                                    </div>
+                                    34,000,000 đ
+                                    <div class="discount">
+                                        -50%
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                                        Đặt lúc 10:23 09/03/2024
+                                    </p>
+
+                                </div>
+
+                                <div class="">
+                                    <div style=" padding-bottom: 20px;padding-top:20px; border-bottom: 1px solid #d5d5d5; border-top: 1px solid #d5d5d5; ">
+                                        <div class="form-container" style="display: flex;">
+                                            <div style="font-weight: bold;">Người lớn</div>
+                                            <div style="font-size: 14px;" class="">2 x 34,000,000 đ</div>
+                                        </div>
+                                        <div class="form-container" style="display: flex;">
+                                            <div style="font-weight: bold;">Trẻ em</div>
+                                            <div style="font-size: 14px;" class="">1 x 5,000,000 đ</div>
+                                        </div><div class="form-container" style="display: flex;">
+                                        <div style="font-weight: bold;">Em bé</div>
+                                        <div style="font-size: 14px;" class="">1 x 0 đ</div>
+                                    </div>
+                                    </div>
+
+                                    <div style="margin-top: 20px;">
+                                        <div class="form-container" style="display: flex;">
+                                            <div style="font-weight: bold;">Tổng tiền</div>
+                                            <div style="font-size: 14px;" class="">72,000,000 đ</div>
+                                        </div>
+                                        <div class="form-container" style="display: flex;">
+                                            <div style="font-weight: bold;">Đã thanh toán</div>
+                                            <div style="font-size: 14px;" class="">12,000,000 đ</div>
+                                        </div><div class="form-container" style="display: flex;">
+                                        <div style="font-weight: bold;">Còn lại</div>
+                                        <div style="font-size: 14px;" class="">60,000,000 đ</div>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex justify-content-end" style="margin-top:10px">
+                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</button>
+                                        <button style="width:70px; margin-left:10px;" class=" btn btn-primary me-1 mb-1" type="save" data-bs-toggle="modal" data-bs-target="#default">Lưu</button>
+                                        <div class="modal fade text-left" id="default" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                <div class="modal-content" style="min-width: 590px">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="myModalLabel1">Thanh Toán</h5>
+                                                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="col-12" style="">
+
+
+                                                            <fieldset class="form-group" style="border-bottom: 1px solid #d5d5d5; padding-bottom: 20px;">
+                                                                <input style="height: 50px;" type="money-pay" id="money-pay" class="form-control" placeholder="Số tiền thanh toán" name="fname-column">
+                                                            </fieldset>
+                                                            <fieldset class="form-group">
+                                                                <div class="input-wrapper" style="position: relative;">
+                                                                    <i class="bi bi-cash" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                                    <input style="height: 50px; padding-left: 35px;" type="money" id="money" class="form-control" placeholder="Tiền mặt" name="fname-column">
+                                                                    <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                                                </div>
+
+
+
+
+                                                            </fieldset>
+                                                            <fieldset class="form-group">
+                                                                <div class="input-wrapper" style="position: relative;">
+                                                                    <i class="bi bi-credit-card" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                                    <input style="height: 50px; padding-left: 35px;" type="tradebyaccount" id="tradebyaccount" class="form-control" placeholder="Chuyển khoản" name="fname-column">
+                                                                    <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                                                </div>
+
+
+
+
+                                                            </fieldset><fieldset class="form-group">
+                                                            <div class="input-wrapper" style="position: relative;">
+                                                                <i class="bi bi-wallet2" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                                <input style="height: 50px; padding-left: 35px;" type="tradebymomo" id="tradebymomo" class="form-control" placeholder="Ví điện từ momo" name="fname-column">
+                                                                <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                                            </div>
+
+
+
+
+                                                        </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                                            <i class="bx bx-x d-block d-sm-none"></i>
+                                                            <span class="d-none d-sm-block">Hủy</span>
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                            <i class="bx bx-check d-block d-sm-none"></i>
+                                                            <span class="d-none d-sm-block">Lưu</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
