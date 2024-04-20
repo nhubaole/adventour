@@ -100,14 +100,14 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin chuyến
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{train-info}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
-                            Danh sách khách hàng
-                        </button>
+                            Danh sách hành khách
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-lg-8">
@@ -164,10 +164,12 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
-                <div class="addBtn">
-                    <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
-                    Thêm phiếu đặt chỗ mới
-                </div>
+                <a th:href="@{add-new-booking-information}">
+                    <div class="addBtn">
+                        <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
+                        Thêm phiếu đặt chỗ mới
+                    </div>
+                </a>
             </div>
         </div>
     </div>

@@ -60,18 +60,18 @@
     <div class="col-12">
         <div class="card" style="margin: 0 25px;">
             <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
-                <button type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <a th:href="@{add-new-booking-information}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
                     Thông tin liên hệ
-                </button>
-                <button type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                </a>
+                <a th:href="@{add-new-booking-passenger}" type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-people-fill" style="display: flex; margin-right: 10px;"></i>
                     Hành khách
-                </button>
-                <button type="button" class=" custom-btn" style="height: 50px;display: flex;align-items: center;">
+                </a>
+                <a th:href="@{add-new-booking-payment}" type="button" class=" custom-btn" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-credit-card" style="display: flex; margin-right: 10px;"></i>
                     Thanh toán
-                </button>
+                </a>
             </div>
             <div class="card-content">
                 <div class="card-body">
@@ -140,8 +140,8 @@
                             </div>
 
                             <div class="col-12 d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</button>
-                                <button type="continue" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
+                                <a th:href="@{information}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <a th:href="@{add-new-booking-passenger}" type="continue" class="btn btn-primary me-1 mb-1">Tiếp tục</a>
                             </div>
                         </div>
                     </form>

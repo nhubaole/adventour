@@ -22,14 +22,14 @@
     <div class="col-12">
         <div class="card" style="margin: 0 25px;">
             <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
-                <button type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <a th:href="@{add-tour}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
                     Thông tin tuyến
-                </button>
-                <button type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                </a>
+                <a th:href="@{add-schedule}" type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-map" style="display: flex; margin-right: 10px;"></i>
                     Chi tiết lịch trình
-                </button>
+                </a>
             </div>
             <div class="card-content">
                 <div class="card-body">
@@ -79,8 +79,8 @@
                             </div>
 
                             <div class="col-12 d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</button>
-                                <button type="submit" class="btn btn-primary me-1 mb-1">Xác nhận</button>
+                                <a th:href="@{all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <a th:href="@{add-schedule}" type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</a>
                             </div>
                         </div>
                     </form>

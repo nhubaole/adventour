@@ -80,10 +80,10 @@
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                    <a th:href="@{add-tour}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
                         <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm tuến du lịch mới
-                    </button>
+                        Thêm tuyến du lịch mới
+                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -132,7 +132,7 @@
                             </td>
                             <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <a th:href="@{tour-info}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
                                     <i class="bi bi-trash3"></i>
                                 </div>
