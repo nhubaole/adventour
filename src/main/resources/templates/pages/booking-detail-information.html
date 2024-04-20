@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .empty{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .full{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .addBtn{
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background-color: #52a6f3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="card">
+            <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+
+                    </h6>
+
+                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        04/05/2024
+                    </p>
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            68,000,000 đ
+                        </div>
+                        34,000,000 đ
+                        <div class="discount">
+                            -50%
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                            Đặt lúc 10:23 09/03/2024
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin liên hệ
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
+                            Hành khách
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
+                            Thông tin thanh toán
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách vé
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="#" method="get">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="trainID" class="form-label">Mã khách hàng</label>
+                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã chuyến" value="12335111">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="name" class="form-label">Họ và tên</label>
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Họ và tên" value="Nguyễn Thị Xuân Thủy">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="estimateNum" class="form-label">Số điện thoại</label>
+                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" value="0987654321">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="mail" class="form-label">Địa chỉ email</label>
+                                        <input style="border: none;" type="text" name="mail" id="mail" class="form-control" placeholder="Địa chỉ email" value="thuy.ntx@gmail.com">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="birthday" class="form-label">Ngày sinh</label>
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Ngày sinh" value="12/10/2000">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">CMND/CCCD</label>
+                                        <input style="border: none;" type="text" name="ID" id="ID" class="form-control" placeholder="CMND/CCCD" value="0203946765421">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="male/female" class="form-label">Giới tính</label>
+                                        <input style="border: none;" type="text" name="male/female" id="male/female" class="form-control" placeholder="Giới tính" value="04/05/2024">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">Quốc tịch</label>
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" value="Việt Nam">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
+                                    <label for="address" class="form-label">Địa chỉ</label>
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" value="23 Cây Keo, Tam Phú, TP Thủ Đức, Hồ Chí Minh">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

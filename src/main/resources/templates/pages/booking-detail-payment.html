@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .empty{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .full{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .addBtn{
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background-color: #52a6f3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            color: white;
+            cursor: pointer;
+        }
+.border-style{
+            height: 60px;
+            padding-left: 16px;
+            border-left: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right bottom, #abd4f9, #0085ff);
+        }
+
+        .place-content{
+            margin-left: 25px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+.form-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center; /* Align items vertically centered */
+                    padding: 0px;
+                     /* Optional: add border to form-container */
+                    flex: 1;
+                    border-radius:5px;
+                    margin-left: 5px;
+                }
+
+
+                .left-text {
+                    flex: 0 1 auto;
+                    margin-right: 10px;
+                }
+
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="card">
+            <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+
+                    </h6>
+
+                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        04/05/2024
+                    </p>
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            68,000,000 đ
+                        </div>
+                        34,000,000 đ
+                        <div class="discount">
+                            -50%
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                            Đặt lúc 10:23 09/03/2024
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin liên hệ
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
+                            Hành khách
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
+                            Thông tin thanh toán
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách vé
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8" style="display:flex;">
+                    <div class="card"><div style="margin-left: 30px; margin-bottom: 10px;"> Lịch sử giao dịch</div>
+
+                        <div class="col-12 col-lg-4" style="margin-left: 30px;">
+                            <div style="display: flex;">
+                                <div class="form-container">
+
+                                    <div class="left-text">
+                                        <div style="font-weight:bold">9:30</div>
+                                        <div style="font-size: 14px">10/02/2024</div>
+                                    </div>
+
+
+                                </div>
+                                <div class=" border-style" style="margin-left: 10px"></div>
+                                <div class="left-text">
+                                    <div style="font-size:14px">Tiền mặt</div>
+                                    <div style="color: #52A6F3;">5,000,000đ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4" style="margin-left: 30px; margin-top: 10px">
+                            <div style="display: flex;">
+                                <div class="form-container">
+
+                                    <div class="left-text">
+                                        <div style="font-weight:bold">22:12</div>
+                                        <div style="font-size: 14px">12/02/2024</div>
+                                    </div>
+
+
+                                </div>
+                                <div class=" border-style" style="margin-left: 10px"></div>
+                                <div class="left-text">
+                                    <div style="font-size:14px">Chuyển khoản</div>
+                                    <div style="color: #52A6F3;">2,000,000đ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div style=" padding-bottom: 20px; border-bottom: 1px solid #d5d5d5; ">
+                            <div class="form-container" style="display: flex;">
+                                <div style="font-weight: bold;">Người lớn</div>
+                                <div style="font-size: 14px;" class="">2 x 34,000,000 đ</div>
+                            </div>
+                            <div class="form-container" style="display: flex;">
+                                <div style="font-weight: bold;">Trẻ em</div>
+                                <div style="font-size: 14px;" class="">1 x 5,000,000 đ</div>
+                            </div><div class="form-container" style="display: flex;">
+                            <div style="font-weight: bold;">Em bé</div>
+                            <div style="font-size: 14px;" class="">1 x 0 đ</div>
+                        </div>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <div class="form-container" style="display: flex;">
+                                <div style="font-weight: bold;">Tổng tiền</div>
+                                <div style="font-size: 14px;" class="">72,000,000 đ</div>
+                            </div>
+                            <div class="form-container" style="display: flex;">
+                                <div style="font-weight: bold;">Đã thanh toán</div>
+                                <div style="font-size: 14px;" class="">12,000,000 đ</div>
+                            </div><div class="form-container" style="display: flex;">
+                            <div style="font-weight: bold;">Còn lại</div>
+                            <div style="font-size: 14px;" class="">60,000,000 đ</div>
+                        </div>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end" style="margin-top:20px">
+                            <button type="payment" class="btn btn-primary me-1 mb-1" style="">Thanh toán</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

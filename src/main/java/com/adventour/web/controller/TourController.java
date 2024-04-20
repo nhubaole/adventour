@@ -103,4 +103,25 @@ public class TourController {
 
     @GetMapping("/add-schedule")
     public String addSchedule(Model model){return "/pages/add-Schedule";}
+
+    @GetMapping("/all-booking")
+    public String allBooking(Model model){return "/pages/all-booking";}
+
+    @GetMapping("/booking-detail-information")
+    public String bookingInfo(Model model){return "/pages/booking-detail-information";}
+
+    @GetMapping("/add-new-booking-information")
+    public String addNewBookingInfo(Model model){return "/pages/add-new-booking-information";}
+
+    @GetMapping("/booking-detail-passenger")
+    public String bookingDetailPassenger(Model model){return "/pages/booking-detail-passenger";}
+
+    @GetMapping("/add-new-booking-passenger")
+    public String addNewBookingPassenger(Model model){return "/pages/add-new-booking-passenger";}
+
+    @GetMapping("/booking-detail-payment")
+    public String bookingDetailPayment(Model model){return "/pages/booking-detail-payment";}
+
+    @GetMapping("/add-new-booking-payment")
+    public String addNewBookingPayment(Model model){return "/pages/add-new-booking-payment";}
 }
