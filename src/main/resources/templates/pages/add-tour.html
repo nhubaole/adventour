@@ -33,28 +33,35 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form">
+                    <form role="form" method="post" class="form" th:action="@{/add-tour}" th:object="${tour}">
                         <div class="row">
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <input style="height: 50px;" type="text" id="first-name-column" class="form-control" placeholder="Tên tuyến du lịch" name="fname-column">
+                                    <input style="height: 50px;"
+                                           type="text"
+                                           id="first-name-column"
+                                           class="form-control"
+                                           placeholder="Tên tuyến du lịch"
+                                           name="fname-column"
+                                           th:field="*{tourName}"
+                                    >
                                 </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
-                                <fieldset class="form-group">
-                                    <select class="form-select" id="basicSelect">
-                                        <option>Chọn loại tuyến</option>
-                                        <option>Trong nước</option>
-                                        <option>Nước ngoài</option>
+                                <fieldset class="form-group" >
+                                    <select style="height: 50px;" class="form-select"
+                                            th:field="*{tourType}">
+                                        <option th:value="'Trong nước'" th:text="'Trong nước'"></option>
+                                        <option th:value="'Nước ngoài'" th:text="'Nước ngoài'"></option>
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
-                                <fieldset class="form-group">
-                                    <select style="height: 50px;" class="form-select" id="basicSelect1">
-                                        <option>Nơi xuất phát</option>
-                                        <option>Hà Nội</option>
-                                        <option>Hồ Chí Minh</option>
+                                <fieldset class="form-group" >
+                                    <select style="height: 50px;" class="form-select"
+                                            th:field="*{departureLocation}">
+                                        <option th:value="'Hà Nội'" th:text="'Hà Nội'"></option>
+                                        <option th:value="'TP HCM'" th:text="'TP HCM'"></option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -69,7 +76,14 @@
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <input style="height: 50px;" type="text" id="company-column" class="form-control" name="company-column" placeholder="Giá vé dự kiến">
+                                    <input style="height: 50px;"
+                                           type="text"
+                                           id="company-column"
+                                           class="form-control"
+                                           name="company-column"
+                                           placeholder="Giá vé dự kiến"
+                                           th:field="*{estimatedPrice}"
+                                    >
                                 </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
@@ -80,7 +94,7 @@
 
                             <div class="col-12 d-flex justify-content-end">
                                 <a th:href="@{all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
-                                <a th:href="@{add-schedule}" type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</a>
+                                <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
                             </div>
                         </div>
                     </form>
