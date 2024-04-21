@@ -136,22 +136,22 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin liên hệ
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
                             Hành khách
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
                             Thông tin thanh toán
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
                             Danh sách vé
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-lg-8" style="display:flex;">
@@ -225,7 +225,56 @@
                         </div>
 
                         <div class="col-12 d-flex justify-content-end" style="margin-top:20px">
-                            <button type="payment" class="btn btn-primary me-1 mb-1" style="">Thanh toán</button>
+                            <button class=" btn btn-primary me-1 mb-1" type="save" data-bs-toggle="modal" data-bs-target="#default">Thanh toán</button>
+                            <div class="modal fade text-left" id="default" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                    <div class="modal-content" style="min-width: 590px">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="myModalLabel1">Thanh Toán</h5>
+                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col-12" style="">
+                                                <fieldset class="form-group" style="border-bottom: 1px solid #d5d5d5; padding-bottom: 20px;">
+                                                    <input style="height: 50px;" type="money-pay" id="money-pay" class="form-control" placeholder="Số tiền thanh toán" name="fname-column">
+                                                </fieldset>
+                                                <fieldset class="form-group">
+                                                    <div class="input-wrapper" style="position: relative;">
+                                                        <i class="bi bi-cash" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                        <input style="height: 50px; padding-left: 35px;" type="money" id="money" class="form-control" placeholder="Tiền mặt" name="fname-column">
+                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset class="form-group">
+                                                    <div class="input-wrapper" style="position: relative;">
+                                                        <i class="bi bi-credit-card" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                        <input style="height: 50px; padding-left: 35px;" type="tradebyaccount" id="tradebyaccount" class="form-control" placeholder="Chuyển khoản" name="fname-column">
+                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                                    </div>
+                                                </fieldset><fieldset class="form-group">
+                                                <div class="input-wrapper" style="position: relative;">
+                                                    <i class="bi bi-wallet2" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                    <input style="height: 50px; padding-left: 35px;" type="tradebymomo" id="tradebymomo" class="form-control" placeholder="Ví điện từ momo" name="fname-column">
+                                                    <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;">
+                                                </div>
+                                            </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Hủy</span>
+                                            </button>
+                                            <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Lưu</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

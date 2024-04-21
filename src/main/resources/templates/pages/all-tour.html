@@ -80,10 +80,10 @@
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                    <a th:href="@{add-tour}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
                         <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm tuến du lịch mới
-                    </button>
+                        Thêm tuyến du lịch mới
+                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -94,309 +94,48 @@
                             <th>STT</th>
                             <th>Tên tuyến</th>
                             <th>Mã tuyến</th>
-                            <th>Thời gian</th>
-                            <th>Số vé</th>
+                            <th>Khởi hành tại</th>
+                            <th>Loại tuyến</th>
                             <th>Trạng thái</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 cancel setting">Đã dừng</p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    2
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 accept setting"> Đang mở </p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    3
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 cancel setting">Đã dừng</p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    4
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 accept setting"> Đang mở </p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    5
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 cancel setting">Đã dừng</p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    6
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 accept setting"> Đang mở </p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    7
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 cancel setting">Đã dừng</p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    8
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    T34532123
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    8:10
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 accept setting"> Đang mở </p>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
+                        <th:block th:each="tour, tourStat : ${tours}">
+                            <tr>
+                                <td class="col-1">
+                                    <div class="d-flex align-items-center">
+                                        <p th:text="${tourStat.count}"></p>
+                                    </div>
+                                </td>
+                                <td class="col-4">
+                                    <div class="d-flex align-items-center">
+                                        <p class="font-bold ms-3 mb-0" th:text="${tour.tourName}"/>
+                                    </div>
+                                </td>
+                                <td class="col-auto">
+                                    <div class="d-flex align-items-center">
+                                        T34532123
+                                    </div>
+                                </td>
+                                <td class="col-auto">
+                                    <div class="d-flex align-items-center"  th:text="${tour.departureLocation}"/>
+                                </td>
+                                <td class="col-auto">
+                                    <div class="d-flex align-items-center" th:text="${tour.tourType}"/>
+                                </td>
+                                <td class="col-auto">
+                                    <p class=" mb-0 cancel setting">Đã dừng</p>
+                                </td>
+                                <td class="col-auto">
+                                    <div style="color: black; cursor: pointer;">
+                                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                        <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                        <i class="bi bi-trash3"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>

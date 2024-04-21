@@ -47,21 +47,21 @@
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
-                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Phan Thiết - Mũi Né - KDL Núi Tà Cú - Đồi Cát Bay - Resort tương đương 4*</h6>
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;" th:text="${tour.tourName}"/>
                     <p class=" mb-0 accept setting" style="width: 100px;"> Đang mở </p>
                 </div>
             </div>
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
                             Thông tin chuyến
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{/tour-maps}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
                             Chi tiết lịch trình
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-lg-8">
@@ -104,7 +104,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </form>
                         </div>

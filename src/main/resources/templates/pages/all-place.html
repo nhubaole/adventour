@@ -66,6 +66,12 @@
                         <i class="bi bi-search"></i>
                     </div>
                 </div>
+                <div>
+                    <a th:href="@{add-new-place}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                        <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
+                        Thêm địa điểm mới
+                    </a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -106,7 +112,7 @@
                             </td>
                             <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <a th:href="@{place-detail}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
                                     <i class="bi bi-trash3"></i>
                                 </div>
