@@ -9,18 +9,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TourDto {
-    private Long id;
-    private String tourName;
-    private String departureLocation;
-    private int estimatedPrice;
-    private int numberOfDays;
-    private int numberOfNights;
-    private String tourType;
+public class TourGuideDto {
+
+    public Long id;
+    public String nameTourGuide;
+    public boolean isMale;
+    public LocalDate dateOfBirth;
+    public String addressTourGuide;
+    public String phoneNumber;
 }

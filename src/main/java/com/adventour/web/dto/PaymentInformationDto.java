@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TourDto {
-    private Long id;
-    private String tourName;
-    private String departureLocation;
-    private int estimatedPrice;
-    private int numberOfDays;
-    private int numberOfNights;
-    private String tourType;
+public class PaymentInformationDto {
+
+    public Long id;
+    public Long idBooking;
+    public int amountOfMoney;
+    public LocalDateTime paymentTime;
+    public String status;
+    public String paymentMethod;
 }
