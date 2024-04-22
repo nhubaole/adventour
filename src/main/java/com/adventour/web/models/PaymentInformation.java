@@ -20,7 +20,6 @@ public class PaymentInformation {
     @Id
     @GeneratedValue (strategy =  GenerationType.IDENTITY)
     public Long id;
-    public Long idBooking;
     public int amountOfMoney;
     @CreationTimestamp
     public LocalDateTime paymentTime;

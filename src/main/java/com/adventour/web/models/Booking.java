@@ -47,6 +47,4 @@ public class Booking {
     //1 booking => nhều vé
     @OneToMany(mappedBy = "booking")
     private Set<Ticket> tickets;
-
-
 }

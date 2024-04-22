@@ -18,7 +18,6 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idPassenger;
     private String statusTicket;
     private LocalDateTime datePaid;
     private int price;

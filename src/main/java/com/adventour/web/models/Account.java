@@ -19,7 +19,7 @@ public class Account {
     //tài koản to login
     @Id
     @Column(nullable = false)
-    private String nameAccount;
+    private String name;
 
     private String password;
 }

@@ -32,7 +32,7 @@ public class TourGuide {
             name = "tour_manager",
             joinColumns = @JoinColumn(name = "id_tour_guild"),
             inverseJoinColumns = @JoinColumn(name = "id_trip"))
-    Set<Tour> trips;
+    Set<Trip> trips;
 
 
 

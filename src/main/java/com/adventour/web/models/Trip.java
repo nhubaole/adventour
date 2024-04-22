@@ -45,8 +45,8 @@ public class Trip {
     private Set<Passenger> passengers = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
-    private Set<Schedule> schedules = new HashSet<>();
+//    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
+//    private Set<Schedule> schedules = new HashSet<>();
 
     @ManyToMany(mappedBy = "trips")
     private Set<TourGuide> tourGuides;
