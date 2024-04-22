@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .custom-btn{
+            border: none;
+            background-color: white;
+            margin-right:20px;
+        }
+
+        .active{
+            color: #52a6f3;
+            border-bottom: 4px solid #52a6f3;
+        }
+        .custom-file-upload {
+            height: 100px;
+            display: block;
+            width: 10%;
+            padding: 20px;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url('/compiled/jpg/Profile Photo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+         .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding-right: 30px;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="card" style="margin: 0 25px;">
+            <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
+                <a th:href="@{add-new-booking-information}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
+                    Thông tin liên hệ
+                </a>
+                <a th:href="@{add-new-booking-passenger}" type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-people-fill" style="display: flex; margin-right: 10px;"></i>
+                    Hành khách
+                </a>
+                <a th:href="@{add-new-booking-payment}" type="button" class=" custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-credit-card" style="display: flex; margin-right: 10px;"></i>
+                    Thanh toán
+                </a>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <form class="form">
+                        <div class="row">
+                            <div class="col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input style="height: 50px;" type="text" id="first-name-column" class="form-control" placeholder="Chọn khách hàng" name="fname-column">
+                                    <div style="margin-top: 10px">
+                                        <input type="checkbox" value="check" name="check"> Chưa tồn tại thông tin khách hàng</div>
+                                </div>
+                            </div>
+
+
+                            <div class="">
+                                <fieldset class="form-group">
+                                    <div class="card-header">
+                                        <label for="file" class="custom-file-upload">
+                                        </label>
+                                        <input type="file" id="file" name="file" accept="image/*" required="">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12" style="margin-bottom: 15px;">
+                                <input style="height: 50px;" type="text" id="name" class="form-control" placeholder="Họ và tên" name="fname-column">
+                            </div>                           <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                            <fieldset class="form-group">
+                                <input style="height: 50px;" type="text" id="phoneNumber" class="form-control" placeholder="Số điện thoại" name="fname-column">
+                            </fieldset>
+                        </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group">
+                                    <input style="height: 50px;" type="text" id="email" class="form-control" placeholder="địa chỉ email" name="fname-column">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group">
+                                    <div class="input-wrapper">
+                                        <input style="height: 50px;" type="text" id="birthday" class="form-control" placeholder="Ngày sinh" name="fname-column">
+                                        <i class="bi bi-calendar-event"></i>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group">
+                                    <input style="height: 50px;" type="text" id="ID" class="form-control" placeholder="CMND/CCCD" name="fname-column">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <select style="height: 50px;" class="form-select" id="basicSelect1">
+                                        <option>Giới tính</option>
+                                        <option>Nam</option>
+                                        <option>Nữ </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <select style="height: 50px;" class="form-select" id="basicSelect2">
+                                        <option>Quốc tịch</option>
+                                        <option>Việt Nam </option>
+                                        <option>Mỹ </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <a th:href="@{information}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <a th:href="@{add-new-booking-passenger}" type="continue" class="btn btn-primary me-1 mb-1">Tiếp tục</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

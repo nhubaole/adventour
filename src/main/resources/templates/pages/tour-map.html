@@ -98,14 +98,14 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{tour-info}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
                             Thông tin chuyến
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{/tour-maps}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
                             Chi tiết lịch trình
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-lg-8" style="margin-right: 30px;">

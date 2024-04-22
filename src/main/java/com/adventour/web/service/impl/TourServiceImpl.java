@@ -25,8 +25,19 @@ public class TourServiceImpl implements TourService {
         return tours.stream().map((tour) -> mapToTourDto(tour)).collect(Collectors.toList());
     }
 
+    @Override
+    public TourDto findByTourId(long tourId) {
+        Tour tour = tourRepository.findById(tourId).get();
+        return mapToTourDto(tour);
+    }
+
+    @Override
+    public Tour saveTour(Tour tour) {
+        return tourRepository.save(tour);
+    }
+
     private TourDto mapToTourDto(Tour tour) {
-        TourDto tourDto = TourDto.builder()
+        return TourDto.builder()
                 .id(tour.getId())
                 .tourName(tour.getTourName())
                 .departureLocation(tour.getDepartureLocation())
@@ -35,6 +46,5 @@ public class TourServiceImpl implements TourService {
                 .numberOfNights(tour.getNumberOfNights())
                 .tourType(tour.getTourType())
                 .build();
-        return tourDto;
     }
 }
