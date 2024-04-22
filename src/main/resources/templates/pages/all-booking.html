@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>all booking</title>
     <style>
         th{
             color: #b3b3b8;
@@ -35,6 +35,52 @@
         .page-item + .page-item{
             padding-left: 5px;
         }
+
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .accept{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+        .finish{
+            background-color: #3FC28A1A;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #3FC28A !important;
+            justify-content: center;
+        }
+        table {
+            table-layout: fixed;
+        }
+
+        .column-width-200 {
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -43,16 +89,10 @@
         <div class="card">
             <div class="card-header input-style">
                 <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm phiếu đặt chỗ" style="width: 400px; height: 42px">
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>
-                </div>
-                <div>
-                    <a th:href="@{add-new-customer}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
-                        <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm khách hàng mới
-                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -61,11 +101,12 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên Khách Hàng</th>
-                            <th>Mã số</th>
-                            <th>CMND/CCCD</th>
-                            <th>Số điện thoại</th>
-                            <th>Giới tính</th>
+                            <th class=" column column-width-200">Tên khách hàng</th>
+                            <th>Mã phiếu</th>
+                            <th>Số lượng</th>
+                            <th>Ngày đặt</th>
+                            <th>Trạng thái</th>
+                            <th>Tổng tiền</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -78,35 +119,35 @@
                             </td>
                             <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Lê Bảo Như</p>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    P3453212
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    1
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    0938787577
+                                    05/04/2024
                                 </div>
                             </td>
                             <td class="col-auto">
+                                <p class=" mb-0 waiting">Đang chờ</p>
+                            </td>
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nam
+                                    50,000,000đ
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
-                                    <a th:href="@{profile}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                    <a th:href="@{booking-detail-information}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
                                     <i class="bi bi-trash3"></i>
                                 </div>
@@ -115,35 +156,119 @@
                         <tr>
                             <td class="col-1">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    2
                                 </div>
                             </td>
                             <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Huỳnh Ngọc Ý Nhi</p>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    P9878903
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    1
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    0938787577
+                                    05/04/2024
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <p class=" mb-0 finish">Hoàn tất</p>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    12,540,000đ
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1">
+                                <div class="d-flex align-items-center">
+                                    3
+                                </div>
+                            </td>
+                            <td class="col-4">
+                                <div class="d-flex align-items-center">
+                                    <p class="font-bold ms-3 mb-0">Phạm Quốc Danh</p>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nam
+                                    P4533671
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    1
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    05/04/2024
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <p class=" mb-0 waiting">Đang chờ</p>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    6,500,000đ
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div style="color: black; cursor: pointer;">
+                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                    <i class="bi bi-trash3"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-1">
+                                <div class="d-flex align-items-center">
+                                    4
+                                </div>
+                            </td>
+                            <td class="col-4">
+                                <div class="d-flex align-items-center">
+                                    <p class="font-bold ms-3 mb-0">Hà Mai Anh</p>
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    P3453212
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    1
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    05/04/2024
+                                </div>
+                            </td>
+                            <td class="col-auto">
+                                <p class=" mb-0 waiting">Đang chờ</p>
+                            </td>
+                            <td class="col-auto">
+                                <div class="d-flex align-items-center">
+                                    100,000,000đ
                                 </div>
                             </td>
                             <td class="col-auto">
@@ -162,30 +287,30 @@
                             </td>
                             <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Lê Tiến Hoàng</p>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    P4536778
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    1
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    0938787577
+                                    05/04/2024
                                 </div>
                             </td>
                             <td class="col-auto">
+                                <p class=" mb-0 finish">Hoàn tất</p>
+                            </td>
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    Nam
+                                    50,000,000đ
                                 </div>
                             </td>
                             <td class="col-auto">
@@ -204,72 +329,30 @@
                             </td>
                             <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Nguyễn Tiến Dũng</p>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    P0099187
                                 </div>
                             </td>
                             <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     1
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    05/04/2024
                                 </div>
                             </td>
                             <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    KH3453212
-                                </div>
+                                <p class=" mb-0 cancel">đã hủy</p>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
+                                    32,000,000đ
                                 </div>
                             </td>
                             <td class="col-auto">
@@ -280,216 +363,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    KH3453212
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    KH3453212
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    KH3453212
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    KH3453212
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="/compiled/jpg/5.jpg">
-                                    </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    KH3453212
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    079202015275
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>

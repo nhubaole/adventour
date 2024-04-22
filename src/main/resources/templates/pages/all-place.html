@@ -6,10 +6,15 @@
     <title>Title</title>
     <style>
         th{
-            color: #b3b3b8;
+            color: #b3b3b8 !important;
         }
+
         td{
-            color: black;
+            color: black !important;
+        }
+
+        .pd{
+            padding: 20px !important;
         }
 
         .input-style{
@@ -35,6 +40,19 @@
         .page-item + .page-item{
             padding-left: 5px;
         }
+
+        .discount{
+            width: 47px;
+            height: 24px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ecf9f3;
+            color: #5fcd9e;
+            margin-left: 15px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -43,15 +61,15 @@
         <div class="card">
             <div class="card-header input-style">
                 <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm địa điểm" style="width: 400px; height: 42px">
                     <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
+                        <i class="bi bi-search"></i>
                     </div>
                 </div>
                 <div>
-                    <a th:href="@{add-new-customer}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                    <a th:href="@{add-new-place}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
                         <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm khách hàng mới
+                        Thêm địa điểm mới
                     </a>
                 </div>
             </div>
@@ -60,93 +78,71 @@
                     <table class="table table-hover table-lg">
                         <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Tên Khách Hàng</th>
-                            <th>Mã số</th>
-                            <th>CMND/CCCD</th>
-                            <th>Số điện thoại</th>
-                            <th>Giới tính</th>
-                            <th></th>
+                            <th class="pd">STT</th>
+                            <th class="pd">Tên địa điểm</th>
+                            <th class="pd">Mã địa điểm</th>
+                            <th class="pd">Địa chỉ</th>
+                            <th class="pd"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
                                     1
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
-                                    <a th:href="@{profile}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                    <a th:href="@{place-detail}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
                                     <i class="bi bi-trash3"></i>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    2
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -155,40 +151,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    3
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -197,40 +183,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    4
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -239,40 +215,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    5
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -281,40 +247,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    6
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -323,40 +279,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    7
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -365,40 +311,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    8
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -407,40 +343,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    9
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -449,40 +375,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-1">
+                            <td class="col-1 pd border-left-choose active">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    10
                                 </div>
                             </td>
-                            <td class="col-4">
+                            <td class="col-3 pd" style="">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-md">
                                         <img src="/compiled/jpg/5.jpg">
                                     </div>
-                                    <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                    <p class="font-bold ms-3 mb-0">Vịnh Hạ Long</p>
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    KH3453212
+                                    DD3453212
                                 </div>
                             </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div class="d-flex align-items-center">
-                                    079202015275
+                                    Đảo Rều, phường Bãi Cháy, TP. Hạ Long, Quảng Ninh
                                 </div>
                             </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    0938787577
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    Nam
-                                </div>
-                            </td>
-                            <td class="col-auto">
+                            <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
                                     <i class="bi bi-eye" style="padding-right: 5px;"></i>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
@@ -498,8 +414,7 @@
                             align-items: center;
                             justify-content: space-between;
                     ">
-                    <div class="dataTable-info">
-                    </div>
+                    <div></div>
                     <nav class="dataTable-pagination">
                         <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
                             <li class="pager page-item">

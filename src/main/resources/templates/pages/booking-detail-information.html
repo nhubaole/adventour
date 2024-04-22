@@ -71,18 +71,17 @@
 <body>
 <section class="section" layout:fragment="content">
     <div class="col-12">
-        <div class = "card">
+        <div class="card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
                     <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
                         Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
-                        <div class="empty">
-                            Còn chỗ
-                        </div>
+
                     </h6>
+
                     <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
-                        0586180354
+                        04/05/2024
                     </p>
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
@@ -95,18 +94,32 @@
                             -50%
                         </div>
                     </div>
+                    <div>
+                        <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                            Đặt lúc 10:23 09/03/2024
+                        </p>
+
+                    </div>
                 </div>
             </div>
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
-                            Thông tin chuyến
+                            Thông tin liên hệ
                         </a>
-                        <a th:href="@{train-info}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
-                            Danh sách hành khách
+                            Hành khách
+                        </a>
+                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
+                            Thông tin thanh toán
+                        </a>
+                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách vé
                         </a>
                     </div>
                 </div>
@@ -116,47 +129,47 @@
                             <form action="#" method="get">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="trainID" class="form-label">Mã chuyến</label>
+                                        <label for="trainID" class="form-label">Mã khách hàng</label>
                                         <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã chuyến" value="12335111">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="traintype" class="form-label">Loại chuyến</label>
-                                        <input style="border: none;" type="text" name="email" id="traintype" class="form-control" placeholder="Loại chuyến" value="Khuyến mãi">
+                                        <label for="name" class="form-label">Họ và tên</label>
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Họ và tên" value="Nguyễn Thị Xuân Thủy">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="estimateNum" class="form-label">Số lượng dự kiến</label>
-                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" value="100">
+                                        <label for="estimateNum" class="form-label">Số điện thoại</label>
+                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" value="0987654321">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="realNum" class="form-label">Số lượng thực tế</label>
-                                        <input style="border: none;" type="text" name="birthday" id="realNum" class="form-control" placeholder="Số lượng thực tế" value="30">
-                                    </div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="estimateTicket" class="form-label">Giá vé dự kiến</label>
-                                        <input style="border: none;" type="text" name="birthday" id="estimateTicket" class="form-control" placeholder="Giá vé dự kiến" value="68,000,000 đ">
-                                    </div>
-                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="discount" class="form-label">CMND/CCCD</label>
-                                        <input style="border: none;" type="text" name="national" id="discount" class="form-control" placeholder="Giảm giá" value="50%">
+                                        <label for="mail" class="form-label">Địa chỉ email</label>
+                                        <input style="border: none;" type="text" name="mail" id="mail" class="form-control" placeholder="Địa chỉ email" value="thuy.ntx@gmail.com">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="startDay" class="form-label">Quốc tịch</label>
-                                        <input style="border: none;" type="text" name="national" id="startDay" class="form-control" placeholder="Ngày bắt đầu" value="04/05/2024">
+                                        <label for="birthday" class="form-label">Ngày sinh</label>
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Ngày sinh" value="12/10/2000">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="endDay" class="form-label">Số điện thoại</label>
-                                        <input style="border: none;" type="text" name="national" id="endDay" class="form-control" placeholder="Ngày kết thúc" value="08/05/2024">
+                                        <label for="national" class="form-label">CMND/CCCD</label>
+                                        <input style="border: none;" type="text" name="ID" id="ID" class="form-control" placeholder="CMND/CCCD" value="0203946765421">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="male/female" class="form-label">Giới tính</label>
+                                        <input style="border: none;" type="text" name="male/female" id="male/female" class="form-control" placeholder="Giới tính" value="04/05/2024">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">Quốc tịch</label>
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" value="Việt Nam">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
                                     <label for="address" class="form-label">Địa chỉ</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" value="T34532123 - Liên tuyến : Brunei - Malaysia khám phá thành phố Miri">
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" value="23 Cây Keo, Tam Phú, TP Thủ Đức, Hồ Chí Minh">
                                 </div>
                             </form>
                         </div>
@@ -164,12 +177,7 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
-                <a th:href="@{add-new-booking-information}">
-                    <div class="addBtn">
-                        <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
-                        Thêm phiếu đặt chỗ mới
-                    </div>
-                </a>
+
             </div>
         </div>
     </div>

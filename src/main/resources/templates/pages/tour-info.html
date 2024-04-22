@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .accept{
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-img d-flex align-items-center">
+                    <div class="avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
+                        <img src="/compiled/jpg/travel1.jpg" style="width: 100px;height: 100px;">
+                    </div>
+                </div>
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;" th:text="${tour.tourName}"/>
+                    <p class=" mb-0 accept setting" style="width: 100px;"> Đang mở </p>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin chuyến
+                        </a>
+                        <a th:href="@{/tour-maps}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
+                            Chi tiết lịch trình
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="#" method="get">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="name" class="form-label">Mã tuyến</label>
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã tuyến" value="1234445111">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="fullname" class="form-label">Loại tuyến</label>
+                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Loại tuyến" value="Trong nước">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
+                                    <label for="address" class="form-label">Tên tuyến</label>
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Tên tuyến" value="Phan Thiết - Mũi Né - KDL Núi Tà Cú - Đồi Cát Bay - Resort tương đương 4*">
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="emailaddress" class="form-label">Nơi xuất phát</label>
+                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Nơi xuất phát" value="Hà Nội">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="birthday" class="form-label">Số ngày đêm</label>
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Thời gian" value="3 ngày 2 đêm">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">Giá dự kiến</label>
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Giá dự kiến" value="5,600,000 đ">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="telephone" class="form-label">Thời gian xuất phát</label>
+                                        <input style="border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Thời gian" value="8:00">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

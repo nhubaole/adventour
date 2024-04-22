@@ -1,11 +1,15 @@
 package com.adventour.web.controller;
 
 import com.adventour.web.dto.TourDto;
+import com.adventour.web.models.Tour;
 import com.adventour.web.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -18,49 +22,39 @@ public class TourController {
         this.tourService = tourService;
     }
 
-    @GetMapping("/tours")
-    public String listClubs(Model model){
+    @GetMapping("/all-tour")
+    public String allTour(Model model){
         List<TourDto> tourDtos = tourService.findAllTours();
         model.addAttribute("tours", tourDtos);
-        return "tour-list";
+        return "/pages/all-tour";
     }
 
-    @GetMapping("/")
-    public String home(Model model){
-        return "/pages/add-new-tour";
+    @PostMapping("/add-tour")
+    public String saveTour(@ModelAttribute("tour") Tour tour){
+        tourService.saveTour(tour);
+        return "redirect:/all-tour";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(Model model){
-        return  "/pages/dashboard";
+    @GetMapping("/all-tour/{tourId}")
+    public String tourDetail(@PathVariable("tourId") long tourId, Model model){
+        TourDto tourDto = tourService.findByTourId(tourId);
+        model.addAttribute("tour", tourDto);
+        return "/pages/tour-info";
     }
 
-    @GetMapping("/customer")
-    public String customer(Model model){
-        return  "/pages/customer";
+    @GetMapping("/tour-maps")
+    public String tourMap(Model model){return "/pages/tour-map";}
+
+    @GetMapping("/add-tour")
+    public String addNewTour(Model model){
+        Tour tour = new Tour();
+        model.addAttribute("tour", tour);
+        return "/pages/add-tour";
     }
 
-    @GetMapping("/add-new-customer")
-    public String addNewCustomer(Model model){ return "/pages/add-new-customer";}
+    @GetMapping("/tour-detail")
+    public String tourDetail(Model model){return "/pages/tour-detail";}
 
-    @GetMapping("/profile")
-    public String profile(Model model){return "/pages/profile";}
-
-    @GetMapping("/booking")
-    public String booking(Model model){return "/pages/booking-bill";}
-
-    @GetMapping("/statistic")
-    public String statistic(Model model){return "/pages/statistic";}
-
-    @GetMapping("/alltrip")
-    public String AllTrip(Model model){return "/pages/all-trip";}
-
-    @GetMapping("/information")
-    public String information(Model model){return "/pages/trip-information";}
-
-    @GetMapping("/train-info")
-    public String trainInfo(Model model){return "/pages/train-info";}
-
-    @GetMapping("/add-new-trip")
-    public String addNewTrip(Model model){return "/pages/add-new-trip";}
+    @GetMapping("/add-schedule")
+    public String addSchedule(Model model){return "/pages/add-Schedule";}
 }

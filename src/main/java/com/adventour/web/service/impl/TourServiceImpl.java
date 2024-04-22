@@ -25,6 +25,17 @@ public class TourServiceImpl implements TourService {
         return tours.stream().map((tour) -> mapToTourDto(tour)).collect(Collectors.toList());
     }
 
+    @Override
+    public TourDto findByTourId(long tourId) {
+        Tour tour = tourRepository.findById(tourId).get();
+        return mapToTourDto(tour);
+    }
+
+    @Override
+    public Tour saveTour(Tour tour) {
+        return tourRepository.save(tour);
+    }
+
     private TourDto mapToTourDto(Tour tour) {
         return TourDto.builder()
                 .id(tour.getId())
