@@ -38,7 +38,6 @@ public class Booking {
     @JoinColumn(name="id_customer", nullable=false)
     private Customer customer;
 
-
     @OneToMany(mappedBy = "booking")
     private Set<Passenger> passengers = new HashSet<>();
 

@@ -33,7 +33,7 @@ public class TourServiceImpl implements TourService {
                 .estimatedPrice(tour.getEstimatedPrice())
                 .numberOfDays(tour.getNumberOfDays())
                 .numberOfNights(tour.getNumberOfNights())
-                .tourType(tour.getTourType())
+                .typeOfTour(tour.getTypeOfTour())
                 .build();
     }
 }

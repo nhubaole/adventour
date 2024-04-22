@@ -1,6 +1,7 @@
 package com.adventour.web.dto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class CustomerDto {
     private String phoneNumber;
 
     @NotEmpty(message = "Email of customer can be empty")
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     private LocalDate dateOfBirth;

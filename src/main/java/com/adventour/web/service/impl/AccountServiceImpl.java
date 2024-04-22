@@ -6,6 +6,9 @@ import com.adventour.web.repository.AccountRepository;
 import com.adventour.web.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
@@ -17,6 +20,13 @@ public class AccountServiceImpl implements AccountService {
     private AccountDto mapToAccountDto (Account account){
         return AccountDto.builder()
                 .nameAccount(account.getNameAccount())
+                .password(account.getPassword())
                 .build();
+    }
+
+    @Override
+    public List<AccountDto> findAllAccount() {
+        List<Account> accounts = accountRepository.findAll();
+        return accounts.stream().map((account)-> mapToAccountDto(account)).collect(Collectors.toList());
     }
 }

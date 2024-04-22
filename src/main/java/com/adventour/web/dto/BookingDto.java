@@ -1,10 +1,7 @@
 package com.adventour.web.dto;
 
 import com.adventour.web.enums.StatusOfBooking;
-import com.adventour.web.models.Customer;
-import com.adventour.web.models.Passenger;
-import com.adventour.web.models.PaymentInformation;
-import com.adventour.web.models.Ticket;
+import com.adventour.web.models.*;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -40,11 +37,12 @@ public class BookingDto {
 
     private int amountPaid;
 
-    private Long trip;
-    private Customer customer;
-    private Set<Passenger> passengers;
-    private Set<PaymentInformation> paymentInformation = new HashSet<>();
-    private Set<Ticket> tickets;
+    private Long idTrip;
 
+    private Long idCustomer;
 
+//    private CustomerDto customerDto;
+//    private Set<PassengerDto> passengerDtoSet;
+//    private Set<PaymentInformationDto> paymentInformationDtoSet;
+//    private Set<TicketDto> ticketDtoSet;
 }

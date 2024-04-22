@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +22,7 @@ public class Location {
     private String address;
     private String description;
     private String[] images;
+
+//    @ManyToMany(mappedBy = "locations")
+//    private Set<Schedule> schedules;
 }

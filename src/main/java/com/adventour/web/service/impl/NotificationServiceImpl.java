@@ -6,6 +6,9 @@ import com.adventour.web.repository.NotificationRepository;
 import com.adventour.web.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class NotificationServiceImpl implements NotificationService {
     private NotificationRepository notificationRepository;
 
@@ -21,5 +24,11 @@ public class NotificationServiceImpl implements NotificationService {
                 .createdTime(notification.getCreatedTime())
                 .isRead(notification.getIsRead())
                 .build();
+    }
+
+    @Override
+    public List<NotificationDto> getAllNotification() {
+        List<Notification> notifications = notificationRepository.findAll();
+        return notifications.stream().map(notification -> mapToNotificationDto(notification)).collect(Collectors.toList());
     }
 }

@@ -22,14 +22,15 @@ import java.util.Set;
 public class Trip {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    public Long id;
-    public int slots;
+    private Long id;
+    private int slots;
     @CreationTimestamp
-    public LocalDateTime startDate;
+    private LocalDateTime startDate;
     @CreationTimestamp
-    public LocalDateTime endDate;
-    public int minPassenger;
-    public int actualPassenger;
+    private LocalDateTime endDate;
+    private int minPassenger;
+    private int actualPassenger;
+    private Long priceTicket;
 
     //các thng tin để dẽ truy xất, cập nhập
     @ManyToOne
@@ -44,15 +45,10 @@ public class Trip {
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
     private Set<Passenger> passengers = new HashSet<>();
 
-
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
-    private Set<Schedule> schedules = new HashSet<>();
+//    private Set<Schedule> schedules = tour.getSchedules();
 
     @ManyToMany(mappedBy = "trips")
-    private Set<TourGuide> tourGuides;
-
-
-
+    private Set<TourGuide> tourGuides = new HashSet<>();
 
 
 }

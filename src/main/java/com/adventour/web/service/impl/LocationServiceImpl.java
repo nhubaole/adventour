@@ -6,6 +6,9 @@ import com.adventour.web.repository.LocationRepository;
 import com.adventour.web.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LocationServiceImpl implements  LocationService{
     private LocationRepository locationRepository;
 
@@ -22,5 +25,12 @@ public class LocationServiceImpl implements  LocationService{
                 .description(location.getDescription())
                 .images(location.getImages())
                 .build();
+    }
+
+    @Override
+    public List<LocationDto> findAllLocation() {
+
+        List<Location> locations = locationRepository.findAll();
+        return  locations.stream().map(location -> mapToLocationDto(location)).collect(Collectors.toList());
     }
 }

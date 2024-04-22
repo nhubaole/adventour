@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,12 +25,12 @@ public class ScheduleDto {
     private Tour tour;
 
     private Location startLocation;
-    private Tour endLocation;
+    private Location endLocation;
     private Set<Location> locations;
-    private Set<Location> hotels;
-    private Set<Location> restaurants;
-    private Set<Location> vehicles;
-    private Set<Location> otherServices;
+    private List<String> hotels;
+    private List<String> restaurants;
+    private List<String> vehicles;
+    private List<String> otherServices;
 
 
 }

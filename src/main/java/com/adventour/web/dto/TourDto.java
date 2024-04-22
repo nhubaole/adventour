@@ -39,7 +39,7 @@ public class TourDto {
     private int numberOfNights;
 
     @NotNull
-    private TypeOfTour tourType;
+    private TypeOfTour typeOfTour;
 
     private Set<Schedule> schedules;
 
