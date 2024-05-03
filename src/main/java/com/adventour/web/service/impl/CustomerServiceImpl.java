@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,19 +38,41 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> findAllCustomer() {
+    public List<CustomerDto> getListCustomer() {
         List<Customer> customers = customerRepository.findAll();
 
         return customers.stream().map(customer -> mapToCustomerDto(customer)).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
-        return customerRepository.findById(id);
+    public CustomerDto findById(Long id) {
+        Customer cus =  customerRepository.findById(id).orElse(null);
+        if(cus != null){
+            CustomerDto cusDTO = mapToCustomerDto(cus);
+            return cusDTO;
+        }
+        return null;
     }
 
     @Override
-    public Customer saveCustomer(CustomerDto customerDto) {
+    public List<CustomerDto> searchCustomer(String search) {
+        search = search.trim();
+        List<CustomerDto> result = new ArrayList<>();
+        List<Customer> allCus = customerRepository.findAll();
+        for (Customer customer : allCus){
+            if (customer.getNameCustomer().contains(search) ||
+                    customer.getEmail().contains(search) ||
+                    customer.getCccd().contains(search) ||
+                    customer.getPhoneNumber().contains(search)){
+                       CustomerDto customerDto = mapToCustomerDto(customer);
+                       result.add(customerDto);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Customer  addNewCustomer(CustomerDto customerDto) {
         if(AllInforCustomerIsNotNull(customerDto)){
             Customer customer = mapToCustomer(customerDto);
             return customerRepository.save(customer);
@@ -74,6 +96,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Customer mapToCustomer(CustomerDto customerDto) {
         return Customer.builder()
+                .id(customerDto.getId())
                 .nameCustomer(customerDto.getNameCustomer())
                 .addressCustomer(customerDto.getAddressCustomer())
                 .phoneNumber(customerDto.getPhoneNumber())
@@ -88,16 +111,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer updateCustomer(CustomerDto customerDto) {
-        return saveCustomer(customerDto);
+        return addNewCustomer(customerDto);
     }
 
     @Override
-    public Customer deleteCustomerById(Long id) {
+    public Customer deleteCustomer(CustomerDto customerDto) {
+        //kiem tra co th xoa hay k
+
+
         return null;
     }
 
     @Override
     public List<BookingDto> getAllBookingOfCustomer(Long id) {
+
+
 
         return null;
     }

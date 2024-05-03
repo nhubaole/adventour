@@ -12,4 +12,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByBookingDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 
+    List<Booking> findByCustomerId(Long customerId);
+
+
+
 }

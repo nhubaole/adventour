@@ -10,15 +10,17 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    List<CustomerDto> findAllCustomer();
+    List<CustomerDto> getListCustomer();
 
-    Optional<Customer> findById(Long id);
+    CustomerDto findById(Long id);
 
-    Customer saveCustomer(CustomerDto customerDto);
+    List<CustomerDto> searchCustomer(String search);
+
+    Customer addNewCustomer(CustomerDto customerDto);
 
     Customer updateCustomer (CustomerDto customerDto);
 
-    Customer deleteCustomerById(Long id);
+    Customer deleteCustomer(CustomerDto customerDto);
 
     List<BookingDto> getAllBookingOfCustomer(Long id);
 
