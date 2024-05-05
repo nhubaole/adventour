@@ -4,6 +4,7 @@ import com.adventour.web.dto.TourDto;
 import com.adventour.web.models.Tour;
 import com.adventour.web.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,8 +25,14 @@ public class TourController {
     }
 
     @GetMapping("/all-tour")
-    public String allTour(Model model){
-        List<TourDto> tourDtos = tourService.findAllTours();
+    public String allTour(Model model,  @Param("keyword") String keyword){
+        List<TourDto> tourDtos = new ArrayList<>();
+        if (keyword == null) {
+            tourDtos =  tourService.findAllTours();
+        } else {
+            tourDtos = tourService.searchTour(keyword);
+            model.addAttribute("keyword", keyword);
+        }
         model.addAttribute("tours", tourDtos);
         return "/pages/all-tour";
     }

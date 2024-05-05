@@ -27,57 +27,16 @@ public class Schedule {
     @JoinColumn(name = "id_tour", nullable = false)
     private Tour tour;
 
-
     @ManyToOne
     @JoinColumn(name = "id_start_location", nullable = true)
     private Location startLocation;
-
 
     @ManyToOne
     @JoinColumn(name = "id_end_location", nullable = true)
     private Location endLocation;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "detail_location",
-//            joinColumns = @JoinColumn(name = "id_schedule"),
-//            inverseJoinColumns = @JoinColumn(name = "id_location"))
-//    private Set<Location> locations = new HashSet<>();
-
     private List<String> listHotel;
     private List<String> listRestaurant;
     private List<String> listVehicle;
     private List<String> listOtherService;
-
-
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "detail_hotel",
-//            joinColumns = @JoinColumn(name = "id_schedule"),
-//            inverseJoinColumns = @JoinColumn(name = "id_hotel"))
-//    private Set<Hotel> hotels =  new HashSet<>();
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "detail_restaurant",
-//            joinColumns = @JoinColumn(name = "id_schedule"),
-//            inverseJoinColumns = @JoinColumn(name = "id_restaurant"))
-//    private Set<Restaurant> restaurants = new HashSet<>();
-//
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "detail_vehicle",
-//            joinColumns = @JoinColumn(name = "id_schedule"),
-//            inverseJoinColumns = @JoinColumn(name = "id_vehicle"))
-//    private Set<Vehicle> vehicles = new HashSet<>();
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "detail_other_service",
-//            joinColumns = @JoinColumn(name = "id_schedule"),
-//            inverseJoinColumns = @JoinColumn(name = "id_other_service"))
-//    private Set<OtherService> otherServices = new HashSet<>();
-
 }

@@ -18,12 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class ScheduleDto {
     private Long id;
-
     private int dayOfSchedule;
-
-    @NotNull
-    private Tour tour;
-
     private Location startLocation;
     private Location endLocation;
     private Set<Location> locations;
@@ -31,6 +26,4 @@ public class ScheduleDto {
     private List<String> restaurants;
     private List<String> vehicles;
     private List<String> otherServices;
-
-
 }
