@@ -2,7 +2,9 @@ package com.adventour.web.service.impl;
 
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
+import com.adventour.web.models.Booking;
 import com.adventour.web.models.Customer;
+import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.CustomerRepository;
 import com.adventour.web.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,11 +124,10 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    @Override
-    public List<BookingDto> getAllBookingOfCustomer(Long id) {
-
-
-
-        return null;
-    }
+//    @Override
+//    public List<BookingDto> getAllBookingOfCustomer(Long id) {
+//        List<Booking> bookings = bookingRepository.findByCustomerId(id);
+//
+//        return null;
+//    }
 }
