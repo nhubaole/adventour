@@ -17,18 +17,14 @@ import java.util.List;
 @Controller
 public class LoginController {
 
-    private CustomerService customerService;
+
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
-    public LoginController( CustomerService customerService) {
-        this.customerService = customerService;
-
+    public LoginController( ) {
     }
 
     @GetMapping("/")
     public String home(Model model){
-
-
         return "/index";
     }
 }

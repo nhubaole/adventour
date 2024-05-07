@@ -89,6 +89,18 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
     }
 
+    @Override
+    public List<BookingDto> getBookingsByCustomerId(Long id) {
+        List<BookingDto> result = new ArrayList<>();
+        List<Booking> bookings = bookingRepository.findByCustomerId(id);
+        if(!bookings.isEmpty()){
+            for(Booking booking : bookings){
+                result.add(mapToBookingDto(booking));
+            }
+        }
+        return result;
+    }
+
     private Booking mapToBooking(BookingDto bookingDto) {
         Booking booking = new Booking();
         booking.setId(bookingDto.getId());
