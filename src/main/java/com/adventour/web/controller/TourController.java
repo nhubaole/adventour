@@ -1,16 +1,17 @@
 package com.adventour.web.controller;
 
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.adventour.web.dto.TourDto;
+import com.adventour.web.models.Schedule;
 import com.adventour.web.models.Tour;
 import com.adventour.web.service.TourService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class TourController {
     public TourController(TourService tourService) {
         this.tourService = tourService;
     }
+    private static Logger logger = LoggerFactory.getLogger(TourController.class);
 
     @GetMapping("/all-tour")
     public String allTour(Model model,  @Param("keyword") String keyword){
@@ -38,9 +40,19 @@ public class TourController {
     }
 
     @PostMapping("/add-tour")
-    public String saveTour(@ModelAttribute("tour") Tour tour){
-        tourService.saveTour(tour);
-        return "redirect:/all-tour";
+    public String saveTour(@ModelAttribute("tour") Tour tour, Model model){
+//        tourService.saveTour(tour);
+        List<Schedule> schedules = new ArrayList<>();
+        for(int i =0; i < tour.getNumberOfDays(); i++){
+            Schedule schedule = new Schedule();
+            schedule.setTour(tour);
+            schedule.setDayOfSchedule(i+1);
+            schedules.add(schedule);
+        }
+
+        model.addAttribute("schedules", schedules);
+        logger.info(String.valueOf(tour.getNumberOfDays()));
+        return "/pages/add-schedule";
     }
 
     @GetMapping("/all-tour/{tourId}")
@@ -80,10 +92,12 @@ public class TourController {
         return "/pages/add-tour";
     }
 
-    @GetMapping("/tour-detail")
-    public String tourDetail(Model model){return "/pages/tour-detail";}
+//    @GetMapping("/tour-detail")
+//    public String tourDetail(Model model){return "/pages/tour-detail";}
 
     @GetMapping("/add-schedule")
-    public String addSchedule(Model model){return "/pages/add-Schedule";}
-
+    public String addSchedule(@ModelAttribute("tour") Tour tour, Model model){
+        model.addAttribute("tour", tour);
+        return "/pages/add-schedule";
+    }
 }
