@@ -64,7 +64,21 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Tour editTourDetail(TourDto tourDto) {
-        return null;
+        Tour tour = maptoTour(tourDto);
+        tourRepository.save(tour);
+        return tour;
+    }
+
+    private Tour maptoTour(TourDto tourDto) {
+        return Tour.builder()
+                .id(tourDto.getId())
+                .tourName(tourDto.getTourName())
+                .departureLocation(tourDto.getDepartureLocation())
+                .estimatedPrice(tourDto.getEstimatedPrice())
+                .numberOfDays(tourDto.getNumberOfDays())
+                .numberOfNights(tourDto.getNumberOfNights())
+                .typeOfTour(tourDto.getTypeOfTour())
+                .build();
     }
 
     @Override
@@ -74,7 +88,8 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public boolean deleteTour(long tourId) {
-        return false;
+        tourRepository.deleteById(tourId);
+        return true;
     }
 
     private TourDto mapToTourDto(Tour tour) {

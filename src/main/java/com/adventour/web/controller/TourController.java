@@ -50,6 +50,26 @@ public class TourController {
         return "/pages/tour-info";
     }
 
+    @GetMapping("/all-tour/{tourId}/edit")
+    public String editTour(@PathVariable("tourId") long tourId, Model model){
+        TourDto tour = tourService.findByTourId(tourId);
+        model.addAttribute("tour", tour);
+        return "/pages/edit-tour";
+    }
+
+    @PostMapping("/all-tour/{tourId}/edit")
+    public String updateTour(@PathVariable("tourId") long tourId, @ModelAttribute("tour") TourDto tour){
+        tour.setId(tourId);
+        tourService.editTourDetail(tour);
+        return "redirect:/all-tour";
+    }
+
+    @GetMapping("/all-tour/{tourId}/delete")
+    public String deleteTour(@PathVariable("tourId") long tourId){
+        tourService.deleteTour(tourId);
+        return "redirect:/all-tour";
+    }
+
     @GetMapping("/tour-maps")
     public String tourMap(Model model){return "/pages/tour-map";}
 
@@ -65,4 +85,5 @@ public class TourController {
 
     @GetMapping("/add-schedule")
     public String addSchedule(Model model){return "/pages/add-Schedule";}
+
 }

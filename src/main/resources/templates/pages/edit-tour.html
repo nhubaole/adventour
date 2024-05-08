@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .custom-btn{
+            border: none;
+            background-color: white;
+            margin-right:20px;
+        }
+
+        .active{
+            color: #52a6f3;
+            border-bottom: 4px solid #52a6f3;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="card" style="margin: 0 25px;">
+            <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
+                <a th:href="@{add-tour}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
+                    Thông tin tuyến
+                </a>
+                <a th:href="@{add-schedule}" type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-map" style="display: flex; margin-right: 10px;"></i>
+                    Chi tiết lịch trình
+                </a>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <form role="form" method="post" class="form" th:action="@{/all-tour/{tourId}/edit(tourId=${tour.id})}" th:object="${tour}">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="row">
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input style="height: 50px;"
+                                           type="text"
+                                           id="first-name-column"
+                                           class="form-control"
+                                           placeholder="Tên tuyến du lịch"
+                                           name="fname-column"
+                                           th:field="*{tourName}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group" >
+                                    <select style="height: 50px;" class="form-select"
+                                            th:field="*{typeOfTour}">
+                                        <option th:value="'Trong nước'" th:text="'Trong nước'"></option>
+                                        <option th:value="'Nước ngoài'" th:text="'Nước ngoài'"></option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group" >
+                                    <select style="height: 50px;" class="form-select"
+                                            th:field="*{departureLocation}">
+                                        <option th:value="'Hà Nội'" th:text="'Hà Nội'"></option>
+                                        <option th:value="'TP HCM'" th:text="'TP HCM'"></option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group">
+                                    <select style="height: 50px;" class="form-select" id="basicSelect2">
+                                        <option>Số ngày đêm</option>
+                                        <option>2 ngày 1 đêm</option>
+                                        <option>3 ngày 2 đêm</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input style="height: 50px;"
+                                           type="text"
+                                           id="company-column"
+                                           class="form-control"
+                                           name="company-column"
+                                           placeholder="Giá vé dự kiến"
+                                           th:field="*{estimatedPrice}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input style="height: 50px;" type="email" id="email-id-column" class="form-control" name="email-id-column" placeholder="Thời gian khởi hành">
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <a th:href="@{all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
