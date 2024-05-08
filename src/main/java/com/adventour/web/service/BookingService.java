@@ -10,11 +10,12 @@ public interface BookingService {
     List<BookingDto> findAllBooking();
     List<BookingDto> findByBookingDateBetween(LocalDateTime start, LocalDateTime end);
 
-
     Booking saveBooking(BookingDto bookingDto);
 
     BookingDto findById(Long id);
 
     void updateBooking(BookingDto bookingDto);
+
+    List<BookingDto> getBookingsByCustomerId( Long id);
 
 }

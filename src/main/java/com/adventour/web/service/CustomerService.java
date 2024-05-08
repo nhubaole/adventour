@@ -22,7 +22,7 @@ public interface CustomerService {
 
     Customer deleteCustomer(CustomerDto customerDto);
 
-    List<BookingDto> getAllBookingOfCustomer(Long id);
+    //List<BookingDto> getAllBookingOfCustomer(Long id);
 
 
 
