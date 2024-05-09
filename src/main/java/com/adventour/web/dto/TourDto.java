@@ -1,5 +1,7 @@
 package com.adventour.web.dto;
 
+import com.adventour.web.enums.NameTypeOfTour;
+import com.adventour.web.models.Location;
 import com.adventour.web.models.Schedule;
 import com.adventour.web.models.TypeOfTour;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +29,7 @@ public class TourDto {
     @NotEmpty(message = "Name of tour can't be empty")
     private String tourName;
 
-    private String departureLocation;
+    private Long IdDepartureLocation;
 
     @Min(value = 0)
     private int estimatedPrice;
@@ -39,7 +41,7 @@ public class TourDto {
     private int numberOfNights;
 
     @NotNull
-    private TypeOfTour typeOfTour;
+    private NameTypeOfTour typeOfTour;
 
     private Set<Schedule> schedules;
 

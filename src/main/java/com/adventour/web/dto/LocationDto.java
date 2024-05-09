@@ -1,10 +1,13 @@
 package com.adventour.web.dto;
 
+import com.adventour.web.models.Image;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -19,6 +22,7 @@ public class LocationDto {
     @NotEmpty(message = "Address of location can't be empty")
     private String address;
     private String description;
-    private String[] images;
+
+    private List<Image> images;
 
 }

@@ -40,7 +40,7 @@ public class TourServiceImpl implements TourService {
         return TourDto.builder()
                 .id(tour.getId())
                 .tourName(tour.getTourName())
-                .departureLocation(tour.getDepartureLocation())
+                .IdDepartureLocation(tour.getIdDepartureLocation())
                 .estimatedPrice(tour.getEstimatedPrice())
                 .numberOfDays(tour.getNumberOfDays())
                 .numberOfNights(tour.getNumberOfNights())

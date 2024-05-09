@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,8 +22,10 @@ public class Location {
     private String nameLocation;
     private String address;
     private String description;
-    private String[] images;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "location_id")
+    private List<Image> images;
 //    @ManyToMany(mappedBy = "locations")
 //    private Set<Schedule> schedules;
 }

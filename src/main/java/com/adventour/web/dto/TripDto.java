@@ -32,7 +32,11 @@ public class TripDto {
     @Min(value = 0)
     public int actualPassenger;
 
+    private Long priceTicket;
+
+    private String typeOfTrip;
+
     private Tour tour;
-    private TypeOfTrip typeOfTrip;
-    private Set<Schedule> schedules ;
+
+    private Set<Schedule> schedules;
 }

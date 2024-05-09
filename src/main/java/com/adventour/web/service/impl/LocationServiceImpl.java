@@ -64,7 +64,9 @@ public class LocationServiceImpl implements  LocationService{
     @Override
     public Location addNewLocation(LocationDto locationDto) {
 
-        if(!locationDto.getNameLocation().trim().isEmpty() && !locationDto.getAddress().trim().isEmpty() && !locationDto.getDescription().trim().isEmpty()){
+        if(!locationDto.getNameLocation().trim().isEmpty()
+                && !locationDto.getAddress().trim().isEmpty()
+                && !locationDto.getDescription().trim().isEmpty()){
             Location location = mapToLocation(locationDto);
             return locationRepository.save(location);
         }

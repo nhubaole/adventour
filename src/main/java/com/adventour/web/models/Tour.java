@@ -1,5 +1,6 @@
 package com.adventour.web.models;
 
+import com.adventour.web.enums.NameTypeOfTour;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,6 @@ public class Tour {
     private Long id;
 
     private String tourName;
-    private String departureLocation;
     private int estimatedPrice;
     private int numberOfDays;
     private int numberOfNights;
@@ -31,10 +31,9 @@ public class Tour {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "id_type_of_tour", nullable = false)
-    private TypeOfTour typeOfTour;
+    private NameTypeOfTour typeOfTour;
 
+    private Long idDepartureLocation;
 
 //    @OneToMany(mappedBy = "tour",cascade = CascadeType.REMOVE)
 //    private Set<Schedule> schedules = new HashSet<>();

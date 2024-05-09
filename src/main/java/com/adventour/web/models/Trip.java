@@ -31,21 +31,18 @@ public class Trip {
     private int minPassenger;
     private int actualPassenger;
     private Long priceTicket;
+    private String typeOfTrip;
 
     //các thng tin để dẽ truy xất, cập nhập
     @ManyToOne
     @JoinColumn(name = "id_tour", nullable = false )
     private Tour tour;
 
-    @ManyToOne
-    @JoinColumn(name = "id_type_of_trip", nullable = false )
-    private TypeOfTrip typeOfTrip;
-
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
     private Set<Passenger> passengers = new HashSet<>();
 
-//    private Set<Schedule> schedules = tour.getSchedules();
+    //private Set<Schedule> schedules = tour.getSchedules();
 
     @ManyToMany(mappedBy = "trips")
     private Set<TourGuide> tourGuides = new HashSet<>();

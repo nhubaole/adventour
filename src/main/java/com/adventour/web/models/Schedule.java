@@ -27,7 +27,6 @@ public class Schedule {
     @JoinColumn(name = "id_tour", nullable = false)
     private Tour tour;
 
-
     @ManyToOne
     @JoinColumn(name = "id_start_location", nullable = true)
     private Location startLocation;
