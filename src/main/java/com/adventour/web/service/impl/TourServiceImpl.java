@@ -36,6 +36,12 @@ public class TourServiceImpl implements TourService {
         return tourRepository.save(tour);
     }
 
+    @Override
+    public Tour findByJustTourId(long tourId) {
+        Tour tour = tourRepository.findById(tourId).get();
+        return tour;
+    }
+
     private TourDto mapToTourDto(Tour tour) {
         return TourDto.builder()
                 .id(tour.getId())
