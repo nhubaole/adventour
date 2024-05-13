@@ -17,15 +17,24 @@ import java.time.LocalDate;
 public class Customer {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idCustomer;
     private String nameCustomer;
     private String phoneNumber;
     private String email;
     private LocalDate dateOfBirth;
-    private String cccd;
-    private boolean isMale;
+    private String idPersonal;
+    private String isMale;
     private String nationality;
     private String addressCustomer;
     private String [] imagesCustomer;
 
+    private String [] idTicket;
+
+    private String [] numberOfTicket;
+
+    private String [] dateOrder;
+
+    private String status;
+
+    private String totalBill;
 }

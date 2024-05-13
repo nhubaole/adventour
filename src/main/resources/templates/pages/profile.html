@@ -46,58 +46,60 @@
                 <div class="col-12 col-lg-9">
                     <div class="card">
                         <div class="card-body">
+                            <th:block>
                             <form action="#" method="get">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="name" class="form-label">Mã khách hàng</label>
-                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" value="John Doe">
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:value="${idCustomer}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="fullname" class="form-label">Họ và tên</label>
-                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Họ và tên" value="john.doe@example.net">
+                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Họ và tên" th:value="${nameCustomer}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="emailaddress" class="form-label">Địa chỉ Email</label>
-                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Địa chỉ Email" value="083xxxxxxxxx">
+                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Địa chỉ Email" th:value="${email}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="birthday" class="form-label">Ngày sinh</label>
-                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday" value="13/09/2020">
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday" th:value="${dateOfBirth}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="gender" class="form-label">Giới tính</label>
                                         <select style="border: none;" name="gender" id="gender" class="form-control">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
+                                            <option th:selected="${isMale == 'male'}" value="male">Male</option>
+                                            <option th:selected="${isMale == 'female'}" value="female">Female</option>
                                         </select>
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="personID" class="form-label">CMND/CCCD</label>
-                                        <input style="border: none;" type="text" name="national" id="personID" class="form-control" placeholder="CMND/CCCD" value="079202015275">
+                                        <input style="border: none;" type="text" name="national" id="personID" class="form-control" placeholder="CMND/CCCD" th:value="${idPersonal}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="national" class="form-label">Quốc tịch</label>
-                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" value="Việt Nam">
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:value="${nationality}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="telephone" class="form-label">Số điện thoại</label>
-                                        <input style="border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Số điện thoại" value="0586180354">
+                                        <input style=" border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Số điện thoại" th:value="${phoneNumber}">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
                                     <label for="address" class="form-label">Địa chỉ</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" value="23 Cây Keo, Tam Phú, TP Thủ Đức, TP HCM">
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${addressCustomer}">
                                 </div>
                                 <div class="form-group">
                                     <a th:href="@{customer}" type="submit" class="btn btn-primary">Lưu</a>
                                 </div>
                             </form>
+                            </th:block>
                         </div>
                     </div>
                 </div>
