@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -18,12 +20,12 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int dayOfSchedule;
 
     @ManyToOne
     @JoinColumn(name = "id_tour", nullable = false)
     private Tour tour;
-
 
 
     @ManyToOne
@@ -33,47 +35,49 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name = "id_end_location", nullable = true)
-    private Tour endLocation;
+    private Location endLocation;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "detail_location",
+//            joinColumns = @JoinColumn(name = "id_schedule"),
+//            inverseJoinColumns = @JoinColumn(name = "id_location"))
+//    private Set<Location> locations = new HashSet<>();
+
+    private List<String> listHotel;
+    private List<String> listRestaurant;
+    private List<String> listVehicle;
+    private List<String> listOtherService;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "detail_location",
-            joinColumns = @JoinColumn(name = "id_schedule"),
-            inverseJoinColumns = @JoinColumn(name = "id_location"))
-    Set<Location> locations;
-
-    @ManyToMany
-    @JoinTable(
-            name = "detail_hotel",
-            joinColumns = @JoinColumn(name = "id_schedule"),
-            inverseJoinColumns = @JoinColumn(name = "id_hotel"))
-    Set<Location> hotels;
-
-    @ManyToMany
-    @JoinTable(
-            name = "detail_restaurant",
-            joinColumns = @JoinColumn(name = "id_schedule"),
-            inverseJoinColumns = @JoinColumn(name = "id_restaurant"))
-    Set<Location> restaurants;
-
-
-    @ManyToMany
-    @JoinTable(
-            name = "detail_vehicle",
-            joinColumns = @JoinColumn(name = "id_schedule"),
-            inverseJoinColumns = @JoinColumn(name = "id_vehicle"))
-    Set<Location> vehicles;
-
-    @ManyToMany
-    @JoinTable(
-            name = "detail_other_service",
-            joinColumns = @JoinColumn(name = "id_schedule"),
-            inverseJoinColumns = @JoinColumn(name = "id_other_service"))
-    Set<Location> otherServices;
-
-
-
-
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "detail_hotel",
+//            joinColumns = @JoinColumn(name = "id_schedule"),
+//            inverseJoinColumns = @JoinColumn(name = "id_hotel"))
+//    private Set<Hotel> hotels =  new HashSet<>();
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "detail_restaurant",
+//            joinColumns = @JoinColumn(name = "id_schedule"),
+//            inverseJoinColumns = @JoinColumn(name = "id_restaurant"))
+//    private Set<Restaurant> restaurants = new HashSet<>();
+//
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "detail_vehicle",
+//            joinColumns = @JoinColumn(name = "id_schedule"),
+//            inverseJoinColumns = @JoinColumn(name = "id_vehicle"))
+//    private Set<Vehicle> vehicles = new HashSet<>();
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "detail_other_service",
+//            joinColumns = @JoinColumn(name = "id_schedule"),
+//            inverseJoinColumns = @JoinColumn(name = "id_other_service"))
+//    private Set<OtherService> otherServices = new HashSet<>();
 
 }

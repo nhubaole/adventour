@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TourServiceImpl implements TourService {
-    private TourRepository tourRepository;
+    private final TourRepository tourRepository;
 
     @Autowired
     public TourServiceImpl(TourRepository tourRepository) {
@@ -44,7 +44,7 @@ public class TourServiceImpl implements TourService {
                 .estimatedPrice(tour.getEstimatedPrice())
                 .numberOfDays(tour.getNumberOfDays())
                 .numberOfNights(tour.getNumberOfNights())
-                .tourType(tour.getTourType())
+                .typeOfTour(tour.getTypeOfTour())
                 .build();
     }
 }

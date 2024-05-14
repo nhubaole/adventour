@@ -1,8 +1,6 @@
 package com.adventour.web.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +14,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "hotels")
 public class Hotel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private String nameHotel;
     private String addressHotel;

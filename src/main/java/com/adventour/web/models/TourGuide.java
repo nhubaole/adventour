@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -19,20 +20,20 @@ import java.util.Set;
 public class TourGuide {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public String nameTourGuide;
-    public boolean isMale;
+    private Long id;
+    private String nameTourGuide;
+    private boolean isMale;
     @CreationTimestamp
-    public LocalDate dateOfBirth;
-    public String addressTourGuide;
-    public String phoneNumber;
+    private LocalDate dateOfBirth;
+    private String addressTourGuide;
+    private String phoneNumber;
 
     @ManyToMany
     @JoinTable(
             name = "tour_manager",
             joinColumns = @JoinColumn(name = "id_tour_guild"),
             inverseJoinColumns = @JoinColumn(name = "id_trip"))
-    Set<Trip> trips;
+    private Set<Trip> trips = new HashSet<>();
 
 
 

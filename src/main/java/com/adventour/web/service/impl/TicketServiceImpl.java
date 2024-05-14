@@ -1,4 +1,7 @@
 package com.adventour.web.service.impl;
 
-public class TicketServiceImpl {
+import com.adventour.web.service.TicketService;
+
+public class TicketServiceImpl implements TicketService {
+
 }

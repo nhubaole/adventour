@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,15 +24,22 @@ public class Passenger {
     private String namePassenger;
     private String phoneNumber;
     private String email;
+
+    @CreationTimestamp
     private LocalDate dateOfBirth;
+
     private String cccd;
     private boolean isMale;
     private String nationality;
     private String addressPassenger;
     private String [] imagesPassenger;
     private String passport;
+
+    @CreationTimestamp
     private LocalDateTime passportExpireDate;
     private String visa;
+
+    @CreationTimestamp
     private LocalDateTime visaExpireDate;
 
     @ManyToOne
