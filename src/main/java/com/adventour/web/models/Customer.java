@@ -17,12 +17,12 @@ import java.time.LocalDate;
 public class Customer {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long idCustomer;
+    private Long id;
     private String nameCustomer;
     private String phoneNumber;
     private String email;
     private LocalDate dateOfBirth;
-    private String idPersonal;
+    private String cccd;
     private String isMale;
     private String nationality;
     private String addressCustomer;

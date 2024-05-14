@@ -20,10 +20,6 @@ public class CustomerController {
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
-    @Autowired
-    public CustomerController( ) {
-
-    }
 
     @GetMapping("/customer")
     public String customer(Model model){

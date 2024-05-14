@@ -32,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .email(customer.getEmail())
                 .dateOfBirth(customer.getDateOfBirth())
                 .cccd(customer.getCccd())
-                .isMale(customer.isMale())
+//                .isMale(customer.isMale())
                 .nationality(customer.getNationality())
                 .addressCustomer(customer.getAddressCustomer())
                 .imagesCustomer(customer.getImagesCustomer())
@@ -105,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .email(customerDto.getEmail())
                 .dateOfBirth(customerDto.getDateOfBirth())
                 .cccd(customerDto.getCccd())
-                .isMale(customerDto.isMale())
+//                .isMale(customerDto.isMale())
                 .nationality(customerDto.getNationality())
                 .imagesCustomer(customerDto.getImagesCustomer())
                 .build();
