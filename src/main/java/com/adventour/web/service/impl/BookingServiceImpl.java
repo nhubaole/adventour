@@ -10,6 +10,7 @@ import com.adventour.web.repository.CustomerRepository;
 import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
     private BookingRepository bookingRepository;

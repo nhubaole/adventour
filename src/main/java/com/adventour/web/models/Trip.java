@@ -30,6 +30,19 @@ public class Trip {
     private LocalDateTime endDate;
     private int minPassenger;
     private int actualPassenger;
+
+    public String nameTrip;
+
+    public int discountPrice;
+
+    public String tripType;
+
+    public int priceTrip;
+
+    public String statusTrip;
+
+    public int priceTripFinal = (discountPrice * priceTrip) / 100;
+
     private Long priceTicket;
 
     //các thng tin để dẽ truy xất, cập nhập

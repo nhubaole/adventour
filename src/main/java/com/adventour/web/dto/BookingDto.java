@@ -42,7 +42,7 @@ public class BookingDto {
     private Long idCustomer;
 
 //    private CustomerDto customerDto;
-//    private Set<PassengerDto> passengerDtoSet;
+    private Set<PassengerDto> passengerDtoSet;
 //    private Set<PaymentInformationDto> paymentInformationDtoSet;
 //    private Set<TicketDto> ticketDtoSet;
 }
