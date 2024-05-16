@@ -36,13 +36,9 @@ public class TripServiceImpl implements TripService {
         tripDto.setStartDate(trip.getStartDate());
         tripDto.setEndDate(trip.getEndDate());
         tripDto.setPriceTicket(trip.getPriceTicket());
-        tripDto.setMinPassenger(trip.getMinPassenger());
-        tripDto.setActualPassenger(trip.getActualPassenger());
         tripDto.setDiscount(trip.getDiscount());
         tripDto.setTour(trip.getTour());
-        tripDto.setTypeOfTrip(trip.getTypeOfTrip());
         tripDto.setPassengers(trip.getPassengers());
-        tripDto.setTourGuides(trip.getTourGuides());
         return tripDto;
     }
     public Trip mapToTrip(TripDto tripDto){
@@ -52,13 +48,9 @@ public class TripServiceImpl implements TripService {
         trip.setStartDate(tripDto.getStartDate());
         trip.setEndDate(tripDto.getEndDate());
         trip.setPriceTicket(trip.getPriceTicket());
-        trip.setMinPassenger(tripDto.getMinPassenger());
-        trip.setActualPassenger(tripDto.getActualPassenger());
         trip.setDiscount(tripDto.getDiscount());
         trip.setTour(tripDto.getTour());
-        trip.setTypeOfTrip(tripDto.getTypeOfTrip());
         trip.setPassengers(tripDto.getPassengers());
-        trip.setTourGuides(tripDto.getTourGuides());
         return trip;
     }
 

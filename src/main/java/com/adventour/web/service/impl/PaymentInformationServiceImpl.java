@@ -19,7 +19,6 @@ public class PaymentInformationServiceImpl implements PaymentInformationService 
         return  PaymentInformationDto.builder()
                 .id(paymentInformation.getId())
                 .amountOfMoney(paymentInformation.getAmountOfMoney())
-                .status(paymentInformation.getStatus())
                 .paymentMethod(paymentInformation.getPaymentMethod())
                 .paymentTime(paymentInformation.getPaymentTime())
                 .build();

@@ -24,11 +24,9 @@ public class Booking {
     private Long id;
     @CreationTimestamp
     private LocalDateTime bookingDate;
-    private String [] imagesUrl;
-//    private StatusOfBooking status;
+    private StatusOfBooking status;
     private int numberOfPassengers;
     private int totalAmount;
-    private int amountPaid;
 
     @ManyToOne
     @JoinColumn(name="id_trip", nullable=false)

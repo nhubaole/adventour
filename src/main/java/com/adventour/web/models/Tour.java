@@ -28,6 +28,7 @@ public class Tour {
     private int numberOfNights;
     private String typeOfTour;
     private String departureLocation;
+    private String status;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

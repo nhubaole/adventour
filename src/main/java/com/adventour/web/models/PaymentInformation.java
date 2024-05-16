@@ -23,7 +23,6 @@ public class PaymentInformation {
     private int amountOfMoney;
     @CreationTimestamp
     private LocalDateTime paymentTime;
-    private String status;
     private PaymentMethod paymentMethod;
 
     @ManyToOne

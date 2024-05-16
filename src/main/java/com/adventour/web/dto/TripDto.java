@@ -39,7 +39,7 @@ public class TripDto {
 
     private Tour tour;
     private String typeOfTrip;
-    private Set<TourGuide> tourGuides;
+//    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;
 
     //private Set<Schedule> schedules ;
