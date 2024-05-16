@@ -41,16 +41,14 @@ public class BookingController {
         }
     @GetMapping("/all-booking")
     public String allBooking(Model model){
-        List<BookingDto> bookingDtos = bookingService.findAllBooking();
+        List<BookingDto> bookingDtos = bookingService.getListBooking();
         BookingDto booking = new BookingDto();
         booking.setId(1L);
         booking.setBookingDate(LocalDateTime.now());
-        booking.setStatus(StatusOfBooking.PAID);
+        booking.setStatus(StatusOfBooking.PENDING);
         booking.setNumberOfPassengers(2);
         booking.setTotalAmount(1500000);
         booking.setAmountPaid(1000000);
-        booking.setIdTrip(12345L);
-        booking.setIdCustomer(67890L);
         bookingDtos.add(booking);
         model.addAttribute("bookings", bookingDtos);
         return "/pages/all-booking";}
@@ -62,14 +60,11 @@ public class BookingController {
             booking = new BookingDto();
             booking.setId(id);
             booking.setBookingDate(LocalDateTime.now());
-            booking.setStatus(StatusOfBooking.PAID);
             booking.setNumberOfPassengers(2);
             booking.setTotalAmount(1500000);
             booking.setAmountPaid(1000000);
-            booking.setIdTrip(12345L);
-            booking.setIdCustomer(67890L);
         }
-        CustomerDto customer = customerService.findById(booking.getIdCustomer());
+        CustomerDto customer = customerService.findById(booking.getCustomer().getId());
         /*Trip trip = tripService.findById(booking.getIdTrip());*/
         model.addAttribute("booking", booking);
         /*model.addAttribute("trip", trip);*/
@@ -83,7 +78,7 @@ public class BookingController {
     public String bookingDetailPassenger(Model model){
         BookingDto booking = new BookingDto();
         Set<PassengerDto> passengers = new HashSet<>();
-        booking.setPassengerDtoSet(passengers);
+//        booking.setPassengers(passengers);
 
         model.addAttribute("booking", booking);
             return "/pages/booking-detail-passenger";}
