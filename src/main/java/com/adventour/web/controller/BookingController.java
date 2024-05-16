@@ -64,7 +64,7 @@ public class BookingController {
             booking.setTotalAmount(1500000);
             booking.setAmountPaid(1000000);
         }
-        CustomerDto customer = customerService.findById(booking.getCustomer().getId());
+        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
         /*Trip trip = tripService.findById(booking.getIdTrip());*/
         model.addAttribute("booking", booking);
         /*model.addAttribute("trip", trip);*/

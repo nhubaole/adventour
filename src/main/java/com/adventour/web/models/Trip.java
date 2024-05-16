@@ -38,7 +38,6 @@ public class Trip {
     @JoinColumn(name = "id_tour", nullable = false )
     private Tour tour;
 
-
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
     private Set<Passenger> passengers = new HashSet<>();
 

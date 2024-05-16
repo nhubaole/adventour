@@ -2,6 +2,7 @@ package com.adventour.web.service.impl;
 
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
+import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.Customer;
 import com.adventour.web.repository.BookingRepository;
@@ -18,39 +19,27 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-
+    private final Mapper mapper;
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository){
+    public CustomerServiceImpl(CustomerRepository customerRepository, Mapper mapper){
         this.customerRepository = customerRepository;
+        this.mapper = mapper;
     }
 
-    private CustomerDto mapToCustomerDto (Customer customer){
-        return CustomerDto.builder()
-                .id(customer.getId())
-                .nameCustomer(customer.getNameCustomer())
-                .phoneNumber(customer.getPhoneNumber())
-                .email(customer.getEmail())
-                .dateOfBirth(customer.getDateOfBirth())
-                .cccd(customer.getCccd())
-//                .isMale(customer.isMale())
-                .nationality(customer.getNationality())
-                .addressCustomer(customer.getAddressCustomer())
-                .imagesCustomer(customer.getImagesCustomer())
-                .build();
-    }
+
 
     @Override
     public List<CustomerDto> getListCustomer() {
         List<Customer> customers = customerRepository.findAll();
 
-        return customers.stream().map(customer -> mapToCustomerDto(customer)).collect(Collectors.toList());
+        return customers.stream().map(customer -> mapper.mapToCustomerDto(customer)).collect(Collectors.toList());
     }
 
     @Override
     public CustomerDto findById(Long id) {
         Customer cus =  customerRepository.findById(id).orElse(null);
         if(cus != null){
-            CustomerDto cusDTO = mapToCustomerDto(cus);
+            CustomerDto cusDTO = mapper.mapToCustomerDto(cus);
             return cusDTO;
         }
         return null;
@@ -66,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
                     customer.getEmail().contains(search) ||
                     customer.getCccd().contains(search) ||
                     customer.getPhoneNumber().contains(search)){
-                       CustomerDto customerDto = mapToCustomerDto(customer);
+                       CustomerDto customerDto = mapper.mapToCustomerDto(customer);
                        result.add(customerDto);
             }
         }
@@ -76,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer  addNewCustomer(CustomerDto customerDto) {
         if(validateCustomer(customerDto)){
-            Customer customer = mapToCustomer(customerDto);
+            Customer customer = mapper.mapToCustomer(customerDto);
             return customerRepository.save(customer);
         }
         else return null;
@@ -96,20 +85,6 @@ public class CustomerServiceImpl implements CustomerService {
         return true;
     }
 
-    private Customer mapToCustomer(CustomerDto customerDto) {
-        return Customer.builder()
-                .id(customerDto.getId())
-                .nameCustomer(customerDto.getNameCustomer())
-                .addressCustomer(customerDto.getAddressCustomer())
-                .phoneNumber(customerDto.getPhoneNumber())
-                .email(customerDto.getEmail())
-                .dateOfBirth(customerDto.getDateOfBirth())
-                .cccd(customerDto.getCccd())
-//                .isMale(customerDto.isMale())
-                .nationality(customerDto.getNationality())
-                .imagesCustomer(customerDto.getImagesCustomer())
-                .build();
-    }
 
     @Override
     public Customer updateCustomer(CustomerDto customerDto) {
@@ -119,8 +94,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer deleteCustomer(CustomerDto customerDto) {
         //kiem tra co th xoa hay k
-
-
         return null;
     }
 

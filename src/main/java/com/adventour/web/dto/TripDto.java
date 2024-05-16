@@ -19,7 +19,6 @@ import java.util.Set;
 public class TripDto {
     private Long id;
 
-
     @Min(value = 0)
     private int slots;
 
@@ -28,16 +27,13 @@ public class TripDto {
     private LocalDateTime endDate;
 
     @Min(value = 0)
-    private int minPassenger;
-
-    @Min(value = 0)
-    private int actualPassenger;
+    private int actualPassenger = 0;
 
     private int priceTicket;
 
     private double discount;
 
-    private Tour tour;
+    private TourDto tourDto;
     private String typeOfTrip;
 //    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;

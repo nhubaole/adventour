@@ -3,6 +3,7 @@ package com.adventour.web.service.impl;
 import com.adventour.web.dto.CustomerDto;
 import com.adventour.web.dto.ScheduleDto;
 import com.adventour.web.dto.TourDto;
+import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Customer;
 import com.adventour.web.models.Tour;
 import com.adventour.web.repository.TourRepository;
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 @Service
 public class TourServiceImpl implements TourService {
     private final TourRepository tourRepository;
+    private final Mapper mapper;
 
     @Autowired
-    public TourServiceImpl(TourRepository tourRepository) {
+    public TourServiceImpl(TourRepository tourRepository, Mapper mapper) {
         this.tourRepository = tourRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class TourServiceImpl implements TourService {
                     tour.getId().toString().contains(keyword) ||
                     tour.getDepartureLocation().contains(keyword) ||
                     tour.getTypeOfTour().contains(keyword) ){
-                TourDto tourDto = mapToTourDto(tour);
+                TourDto tourDto = mapper.mapToTourDto(tour);
                 result.add(tourDto);
             }
         }
@@ -43,13 +46,13 @@ public class TourServiceImpl implements TourService {
     @Override
     public List<TourDto> findAllTours() {
         List<Tour> tours = tourRepository.findAll();
-        return tours.stream().map((tour) -> mapToTourDto(tour)).collect(Collectors.toList());
+        return tours.stream().map((tour) -> mapper.mapToTourDto(tour)).collect(Collectors.toList());
     }
 
     @Override
     public TourDto findByTourId(long tourId) {
         Tour tour = tourRepository.findById(tourId).get();
-        return mapToTourDto(tour);
+        return mapper.mapToTourDto(tour);
     }
 
     @Override
@@ -70,22 +73,12 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Tour editTourDetail(TourDto tourDto) {
-        Tour tour = maptoTour(tourDto);
+        Tour tour = mapper.maptoTour(tourDto);
         tourRepository.save(tour);
         return tour;
     }
 
-    private Tour maptoTour(TourDto tourDto) {
-        return Tour.builder()
-                .id(tourDto.getId())
-                .tourName(tourDto.getTourName())
-                .departureLocation(tourDto.getDepartureLocation())
-                .estimatedPrice(tourDto.getEstimatedPrice())
-                .numberOfDays(tourDto.getNumberOfDays())
-                .numberOfNights(tourDto.getNumberOfNights())
-                .typeOfTour(tourDto.getTypeOfTour())
-                .build();
-    }
+
 
     @Override
     public Tour editTourSchedule(ScheduleDto scheduleDto) {
@@ -98,15 +91,5 @@ public class TourServiceImpl implements TourService {
         return true;
     }
 
-    private TourDto mapToTourDto(Tour tour) {
-        return TourDto.builder()
-                .id(tour.getId())
-                .tourName(tour.getTourName())
-                .departureLocation(tour.getDepartureLocation())
-                .estimatedPrice(tour.getEstimatedPrice())
-                .numberOfDays(tour.getNumberOfDays())
-                .numberOfNights(tour.getNumberOfNights())
-//                .typeOfTour(tour.getTypeOfTour())
-                .build();
-    }
+
 }
