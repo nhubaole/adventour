@@ -26,7 +26,7 @@
     </style>
 </head>
 
-<body>
+<body class="light dark">
 <script th:src="@{/static/js/initTheme.js}"></script>
 <div id="app">
     <span th:replace="fragments/sidebar :: sidebar"></span>
@@ -43,10 +43,24 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">
+    function setupSidebar() {
+        var sidebarLinks = document.querySelectorAll('.sidebar-item a');
+
+        sidebarLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                sidebarLinks.forEach(function (sidebarItem) {
+                    sidebarItem.parentElement.classList.remove('active');
+                });
+
+                this.parentElement.classList.add('active');
+            });
+        });
+    }
+     setupSidebar();
+</script>
 <script th:src="@{/static/js/components/dark.js}"></script>
 <script th:src="@{/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
-
-
 <script th:src="@{/compiled/js/app.js}"></script>
 
 

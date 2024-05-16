@@ -34,6 +34,19 @@ public class Trip {
     @Column(nullable = true)
     private double discount;
 
+    public String nameTrip;
+
+    public int discountPrice;
+
+    public String tripType;
+
+    public int priceTrip;
+
+    public String statusTrip;
+
+    public int priceTripFinal = (discountPrice * priceTrip) / 100;
+
+    //các thng tin để dẽ truy xất, cập nhập
     @ManyToOne
     @JoinColumn(name = "id_tour", nullable = false )
     private Tour tour;
