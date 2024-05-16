@@ -42,12 +42,12 @@ public class LoginController {
         tripDto.setId(14L);
         tripDto.setTour(tour);
         tripDto.setTypeOfTrip("Thong Thuong");
-        tripDto.setSlots(60);
+        tripDto.setSlots(90);
         tripDto.setMinPassenger(10);
         tripDto.setDiscount(0);
 
         LocalDateTime statDate = LocalDateTime.of(2024, 5, 15, 15, 30, 0);
-        LocalDateTime endDate = LocalDateTime.of(2024, 5, 14, 15, 30, 0);
+        LocalDateTime endDate = LocalDateTime.of(2024, 5, 17, 15, 30, 0);
 
         tripDto.setStartDate(statDate);
         tripDto.setEndDate(endDate);
@@ -60,7 +60,7 @@ public class LoginController {
 //            logger.info(trip.toString());
 //        }
 
-        logger.info(tripService.getTripDetail(14L).toString());
+        //logger.info(tripService.getTripDetail(14L).toString());
 
         return "/index";
     }

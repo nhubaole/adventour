@@ -7,15 +7,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingService {
-    List<BookingDto> findAllBooking();
+    List<BookingDto> getListBooking();
     List<BookingDto> findByBookingDateBetween(LocalDateTime start, LocalDateTime end);
 
-    Booking saveBooking(BookingDto bookingDto);
+    BookingDto searchBooking();
+
+    Booking addNewBooking(BookingDto bookingDto, long  idTrip, long idCustomer);
 
     BookingDto findById(Long id);
 
-    void updateBooking(BookingDto bookingDto);
+    Booking updateBooking(BookingDto bookingDto);
 
     List<BookingDto> getBookingsByCustomerId( Long id);
+    List<BookingDto> getBookingsByTripId( Long id);
+
+    boolean validateBooking(BookingDto bookingDto);
+
+    void genarateTickets ();
+
+
 
 }
