@@ -29,6 +29,79 @@ public class TripServiceImpl implements TripService {
         this.tourRepository = tourRepository;
     }
 
+
+    @Override
+    public Trip addNewTrip(TripDto tripDto, Long idTour){
+        try {
+            if (validateTrip(tripDto)){
+                Trip trip = mapToTrip(tripDto);
+                Tour tour = tourRepository.findById(idTour).orElse(null);
+                trip.setTour(tour);
+                int price = tour.getEstimatedPrice();
+                if(Objects.equals(tripDto.getTypeOfTrip(), "Khuyến mãi")){
+                    trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
+                }
+                else {
+                    trip.setPriceTicket(price);
+                }
+                trip = tripRepository.save(trip);
+                return trip;
+            }
+        } catch (InvalidDataException ex){
+
+        }
+        return null;
+    }
+
+    @Override
+    public Trip editTrip(TripDto tripDto) {
+        if(validateTrip(tripDto)){
+            return tripRepository.save(mapToTrip(tripDto));
+        }
+        return  null;
+    }
+
+    @Override
+    public List<TripDto> getListTrip() {
+        List<Trip> trips = tripRepository.findAll();
+        return trips.stream().map(trip -> mapToTripDto(trip)).collect(Collectors.toList());
+    }
+
+    @Override
+    public TripDto getTripDetail(Long id) {
+        Trip trip = tripRepository.findById(id).orElse(null);
+        return trip!= null ? mapToTripDto(trip) : null;
+    }
+
+    @Override
+    public List<TripDto> searchTrip() {
+        return null;
+    }
+
+    @Override
+    public Set<Passenger> getTripPassenger(TripDto tripDto) {
+        return tripDto.getPassengers();
+    }
+
+    @Override
+    public void deleteTrip(TripDto tripDto) {
+        if(tripDto.getActualPassenger() > 0  ){
+
+        }
+
+    }
+
+    public boolean validateTrip (TripDto tripDto) throws InvalidDataException {
+        if(tripDto.getTour().getId() != null
+            && !tripDto.getTypeOfTrip().isEmpty()
+            && tripDto.getStartDate() != null
+            && tripDto.getEndDate() != null
+            && !tripDto.getStartDate().isAfter(tripDto.getEndDate())) {
+            return true;
+        }
+        throw new InvalidDataException("Invalid Data");
+    }
+
     public TripDto mapToTripDto(Trip trip){
         TripDto tripDto = new TripDto();
         tripDto.setId(trip.getId());
@@ -60,75 +133,5 @@ public class TripServiceImpl implements TripService {
         trip.setPassengers(tripDto.getPassengers());
         trip.setTourGuides(tripDto.getTourGuides());
         return trip;
-    }
-
-    @Override
-    public Trip addNewTrip(TripDto tripDto){
-        try {
-            if (allInforTripIsNotNull(tripDto)){
-                Trip trip = mapToTrip(tripDto);
-                Tour tour = tourRepository.findById(tripDto.getTour().getId()).orElse(null);
-                trip.setTour(tour);
-                int price = tour.getEstimatedPrice();
-                if(Objects.equals(tripDto.getTypeOfTrip(), "Khuyến mãi")){
-                    trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
-                }
-                else {
-                    trip.setPriceTicket(price);
-                }
-                tripRepository.save(trip);
-                return trip;
-            }
-        } catch (InvalidDataException ex){
-
-        }
-        return null;
-    }
-
-    @Override
-    public Trip editTrip(TripDto tripDto) {
-        return addNewTrip(tripDto);
-    }
-
-    @Override
-    public List<TripDto> getListTrip() {
-        List<Trip> trips = tripRepository.findAll();
-        return trips.stream().map(trip -> mapToTripDto(trip)).collect(Collectors.toList());
-    }
-
-    @Override
-    public TripDto getTripDetail(Long id) {
-        Trip trip = tripRepository.findById(id).orElse(null);
-        return trip!= null ? mapToTripDto(trip) : null;
-    }
-
-    @Override
-    public List<TripDto> searchTrip() {
-
-        return null;
-    }
-
-    @Override
-    public Set<Passenger> getTripPassenger(TripDto tripDto) {
-        return tripDto.getPassengers();
-    }
-
-    @Override
-    public void deleteTrip(TripDto tripDto) {
-        if(tripDto.getActualPassenger() > 0  ){
-
-        }
-
-    }
-
-    public boolean allInforTripIsNotNull (TripDto tripDto) throws InvalidDataException {
-        if(tripDto.getTour().getId() != null
-            && !tripDto.getTypeOfTrip().isEmpty()
-            && tripDto.getStartDate() != null
-            && tripDto.getEndDate() != null
-            && !tripDto.getStartDate().isAfter(tripDto.getEndDate())) {
-            return true;
-        }
-        throw new InvalidDataException("Invalid Data");
     }
 }

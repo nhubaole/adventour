@@ -75,14 +75,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer  addNewCustomer(CustomerDto customerDto) {
-        if(AllInforCustomerIsNotNull(customerDto)){
+        if(validateCustomer(customerDto)){
             Customer customer = mapToCustomer(customerDto);
             return customerRepository.save(customer);
         }
         else return null;
     }
 
-    private boolean AllInforCustomerIsNotNull(CustomerDto customerDto) {
+    private boolean validateCustomer(CustomerDto customerDto) {
         if(StringUtils.isEmptyOrWhitespace(customerDto.getNameCustomer())
             ||StringUtils.isEmptyOrWhitespace(customerDto.getPhoneNumber())
             ||StringUtils.isEmptyOrWhitespace(customerDto.getAddressCustomer())
