@@ -103,19 +103,19 @@ public class BookingServiceImpl implements BookingService {
 
     private Booking mapToBooking(BookingDto bookingDto) {
         Booking booking = new Booking();
-        booking.setId(bookingDto.getId());
-        booking.setBookingDate(bookingDto.getBookingDate());
-        booking.setStatus(bookingDto.getStatus());
-        booking.setImagesUrl(bookingDto.getImagesUrl());
-        booking.setNumberOfPassengers(bookingDto.getNumberOfPassengers());
-        booking.setTotalAmount(bookingDto.getTotalAmount());
-        booking.setAmountPaid(bookingDto.getAmountPaid());
-
-        Trip trip = tripRepository.findById(bookingDto.getIdTrip()).orElse(null);
-        Customer customer = customerRepository.findById(bookingDto.getIdCustomer()).orElse(null);
-
-        booking.setTrip(trip);
-        booking.setCustomer(customer);
+//        booking.setId(bookingDto.getId());
+//        booking.setBookingDate(bookingDto.getBookingDate());
+//        booking.setStatus(bookingDto.getStatus());
+//        booking.setImagesUrl(bookingDto.getImagesUrl());
+//        booking.setNumberOfPassengers(bookingDto.getNumberOfPassengers());
+//        booking.setTotalAmount(bookingDto.getTotalAmount());
+//        booking.setAmountPaid(bookingDto.getAmountPaid());
+//
+//        Trip trip = tripRepository.findById(bookingDto.getIdTrip()).orElse(null);
+//        Customer customer = customerRepository.findById(bookingDto.getIdCustomer()).orElse(null);
+//
+//        booking.setTrip(trip);
+//        booking.setCustomer(customer);
 
         //con ds passenger ???
         return booking;
@@ -124,15 +124,15 @@ public class BookingServiceImpl implements BookingService {
     private BookingDto mapToBookingDto(Booking booking) {
 
         BookingDto bookingDto = new BookingDto();
-        bookingDto.setId(booking.getId());
-        bookingDto.setBookingDate(booking.getBookingDate());
-        bookingDto.setImagesUrl(booking.getImagesUrl());
-        bookingDto.setStatus(booking.getStatus());
-        bookingDto.setNumberOfPassengers(booking.getNumberOfPassengers());
-        bookingDto.setTotalAmount(booking.getTotalAmount());
-        bookingDto.setAmountPaid(booking.getAmountPaid());
-        bookingDto.setIdCustomer(booking.getCustomer().getId());
-        bookingDto.setIdTrip(booking.getTrip().getId());
+//        bookingDto.setId(booking.getId());
+//        bookingDto.setBookingDate(booking.getBookingDate());
+//        bookingDto.setImagesUrl(booking.getImagesUrl());
+//        bookingDto.setStatus(booking.getStatus());
+//        bookingDto.setNumberOfPassengers(booking.getNumberOfPassengers());
+//        bookingDto.setTotalAmount(booking.getTotalAmount());
+//        bookingDto.setAmountPaid(booking.getAmountPaid());
+//        bookingDto.setIdCustomer(booking.getCustomer().getId());
+//        bookingDto.setIdTrip(booking.getTrip().getId());
 
         return bookingDto;
     }

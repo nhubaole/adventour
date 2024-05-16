@@ -21,7 +21,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private StatusOfTicket statusTicket;
+//    private StatusOfTicket statusTicket;
 
     @CreationTimestamp
     private LocalDateTime datePaid;

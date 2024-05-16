@@ -23,9 +23,18 @@ public class Customer {
     private String email;
     private LocalDate dateOfBirth;
     private String cccd;
-    private boolean isMale;
+    private String isMale;
     private String nationality;
     private String addressCustomer;
     private String [] imagesCustomer;
 
+    private String [] idTicket;
+
+    private String [] numberOfTicket;
+
+    private String [] dateOrder;
+
+    private String status;
+
+    private String totalBill;
 }

@@ -31,9 +31,9 @@ public class Tour {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "id_type_of_tour", nullable = false)
-    private TypeOfTour typeOfTour;
+//    @ManyToOne
+//    @JoinColumn(name = "id_type_of_tour", nullable = false)
+//    private TypeOfTour typeOfTour;
 
 
 //    @OneToMany(mappedBy = "tour",cascade = CascadeType.REMOVE)
