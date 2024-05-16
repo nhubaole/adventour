@@ -22,18 +22,19 @@
     <div class="col-12">
         <div class="card" style="margin: 0 25px;">
             <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
-                <button type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <a th:href="@{add-tour}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
                     Thông tin tuyến
-                </button>
-                <button type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                </a>
+                <a th:href="@{add-schedule}" type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-map" style="display: flex; margin-right: 10px;"></i>
                     Chi tiết lịch trình
-                </button>
+                </a>
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form role="form" method="post" class="form" th:action="@{/add-tour}" th:object="${tour}">
+                    <form role="form" method="post" class="form" th:action="@{/all-tour/{tourId}/edit(tourId=${tour.id})}" th:object="${tour}">
+                        <input type="hidden" th:field="*{id}">
                         <div class="row">
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
@@ -67,10 +68,10 @@
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <fieldset class="form-group">
-                                    <select style="height: 50px;" class="form-select" id="basicSelect2" th:field="*{numberOfDays}">
-<!--                                        <option>Số ngày đêm</option>-->
-                                        <option th:value='2'>2 ngày 1 đêm</option>
-                                        <option th:value='3'>3 ngày 2 đêm</option>
+                                    <select style="height: 50px;" class="form-select" id="basicSelect2">
+                                        <option>Số ngày đêm</option>
+                                        <option>2 ngày 1 đêm</option>
+                                        <option>3 ngày 2 đêm</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -94,7 +95,6 @@
 
                             <div class="col-12 d-flex justify-content-end">
                                 <a th:href="@{all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
-<!--                                <a th:href="@{/add-schedule(tour=${tour})}" class="btn btn-light-secondary me-1 mb-1">Tiếp tục</a>-->
                                 <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
                             </div>
                         </div>
