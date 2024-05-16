@@ -1,8 +1,7 @@
 package com.adventour.web.controller;
 
-import com.adventour.web.dto.LocationDto;
-import com.adventour.web.dto.TourDto;
-import com.adventour.web.dto.TripDto;
+import com.adventour.web.dto.*;
+import com.adventour.web.models.Customer;
 import com.adventour.web.models.Location;
 import com.adventour.web.models.Tour;
 import com.adventour.web.models.Trip;
@@ -26,41 +25,14 @@ import java.util.List;
 
 @Controller
 public class LoginController {
-    private  final TripService tripService;
-    private  final TourService tourService;
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
-    public LoginController(TripService tripService, TourService tourService) {
-        this.tripService = tripService;
-        this.tourService = tourService;
+    public LoginController() {
+
     }
 
     @GetMapping("/")
     public String home(Model model){
-        TripDto tripDto = new TripDto();
-        Tour tour = tourService.findByJustTourId(1L);
-        tripDto.setId(14L);
-        tripDto.setTour(tour);
-        tripDto.setTypeOfTrip("Thong Thuong");
-        tripDto.setSlots(90);
-        tripDto.setMinPassenger(10);
-        tripDto.setDiscount(0);
-
-        LocalDateTime statDate = LocalDateTime.of(2024, 5, 15, 15, 30, 0);
-        LocalDateTime endDate = LocalDateTime.of(2024, 5, 17, 15, 30, 0);
-
-        tripDto.setStartDate(statDate);
-        tripDto.setEndDate(endDate);
-
-        Trip trip = tripService.editTrip(tripDto);
-        logger.info(trip.toString());
-
-//        List<TripDto> trips =tripService.getListTrip();
-//        for(TripDto trip : trips){
-//            logger.info(trip.toString());
-//        }
-
-        //logger.info(tripService.getTripDetail(14L).toString());
 
         return "/index";
     }

@@ -4,6 +4,7 @@ import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
 import com.adventour.web.dto.TripDto;
 import com.adventour.web.enums.StatusOfBooking;
+import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.*;
 import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.CustomerRepository;
@@ -27,13 +28,16 @@ public class BookingServiceImpl implements BookingService {
     private final TripRepository tripRepository;
     private final CustomerRepository customerRepository;
 
-    private CustomerService customerService;
+    private final Mapper mapper;
+
+    private final CustomerService customerService;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, TripRepository tripRepository, CustomerRepository customerRepository, CustomerService customerService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, TripRepository tripRepository, CustomerRepository customerRepository, Mapper mapper, CustomerService customerService) {
         this.bookingRepository = bookingRepository;
         this.customerRepository = customerRepository;
         this.tripRepository = tripRepository;
+        this.mapper = mapper;
         this.customerService = customerService;
     }
 
@@ -41,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDto> getListBooking() {
         List<Booking> bookings = bookingRepository.findAll();
-        return bookings.stream().map((booking -> mapToBookingDto(booking))).collect(Collectors.toList());
+        return bookings.stream().map((mapper::mapToBookingDto)).collect(Collectors.toList());
     }
 
     @Override
@@ -50,7 +54,7 @@ public class BookingServiceImpl implements BookingService {
         List<BookingDto> bookingDtoList = new ArrayList<>();
         if (!bookings.isEmpty()) {
             for (Booking booking : bookings) {
-                BookingDto bookingDto = mapToBookingDto(booking);
+                BookingDto bookingDto = mapper.mapToBookingDto(booking);
                 bookingDtoList.add(bookingDto);
             }
         }
@@ -63,30 +67,21 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking addNewBooking(BookingDto bookingDto, long idTrip, long idCustomer) {
+    public Booking addNewBooking(BookingDto bookingDto) {
         if(validateBooking(bookingDto)){
-            Booking booking = mapToBooking(bookingDto);
-            //tính so nguoi
-            booking.setNumberOfPassengers(booking.getNumberBaby() + booking.getNumberAdult() + booking.getNumberChildren());
+            Booking booking = mapper.mapToBooking(bookingDto);
 
-            //tinh tien
+            //tinh tong tien
             int price = booking.getTrip().getPriceTicket();
-            booking.setTotalAmount( (int)(booking.getNumberAdult() *price + booking.getNumberChildren() * price * 0.5));
+            booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
-            Trip trip = tripRepository.findById(idTrip).orElse(null);
-            booking.setTrip(trip);
-
-            Customer customer = customerRepository.findById(idCustomer).orElse(null);
-            booking.setCustomer(customer);
-
-            //set trang thai
-            //TODO: update logic
-//            if(booking.getTotalAmount() <= booking.getAmountPaid()){
-//                booking.setStatus(StatusOfBooking.COMPLETED);
-//            } else {
-//                booking.setStatus(StatusOfBooking.PENDING);
-//            }
-
+            //customer moi
+            if(bookingDto.getCustomerDto().getId() == null){
+                CustomerDto customerDto = bookingDto.getCustomerDto();
+                Customer customer = customerService.addNewCustomer(customerDto);
+                booking.setCustomer(customer);
+            }
+            //TODO: luu danh sach passener, payment;
             return bookingRepository.save(booking);
         }
         return null;
@@ -94,11 +89,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto findById(Long id) {
-
         Booking booking = bookingRepository.findById(id).orElse(null);
-
         if (booking != null) {
-            return mapToBookingDto(booking);
+            return mapper.mapToBookingDto(booking);
         }
         return null;
     }
@@ -106,7 +99,8 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking updateBooking(BookingDto bookingDto) {
         if(validateBooking(bookingDto)){
-            return bookingRepository.save(mapToBooking(bookingDto));
+            Booking booking = mapper.mapToBooking(bookingDto);
+            return bookingRepository.save(booking);
         }
         return null;
     }
@@ -117,7 +111,8 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookings = bookingRepository.findByCustomerId(id);
         if(!bookings.isEmpty()){
             for(Booking booking : bookings){
-                result.add(mapToBookingDto(booking));
+                BookingDto bookingDto = mapper.mapToBookingDto(booking);
+                result.add(bookingDto);
             }
         }
         return result;
@@ -129,7 +124,8 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookings = bookingRepository.findByTripId(id);
         if(!bookings.isEmpty()){
             for(Booking booking : bookings){
-                result.add(mapToBookingDto(booking));
+                BookingDto bookingDto = mapper.mapToBookingDto(booking);
+                result.add(bookingDto);
             }
         }
         return result;
@@ -137,8 +133,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public boolean validateBooking(BookingDto bookingDto) {
-        if(bookingDto.getTrip() != null
-        && bookingDto.getCustomer() !=null
+        if(bookingDto.getTripDto() != null
+        && bookingDto.getCustomerDto() !=null
         && bookingDto.getBookingDate() != null
         && bookingDto.getNumberChildren() >= 0
         && bookingDto.getNumberBaby() >= 0
@@ -152,34 +148,9 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void genarateTickets() {
 
+
     }
 
-    private Booking mapToBooking(BookingDto bookingDto) {
-        Booking booking = new Booking();
-        booking.setId(bookingDto.getId());
-        booking.setBookingDate(bookingDto.getBookingDate());
-        booking.setStatus(bookingDto.getStatus());
-        booking.setNumberOfPassengers(bookingDto.getNumberOfPassengers());
-        booking.setTotalAmount(bookingDto.getTotalAmount());
-        booking.setTrip(bookingDto.getTrip());
-        booking.setCustomer(bookingDto.getCustomer());
 
-        //con ds passenger ???
-        return booking;
-    }
-
-    private BookingDto mapToBookingDto(Booking booking) {
-
-        BookingDto bookingDto = new BookingDto();
-        bookingDto.setId(booking.getId());
-        bookingDto.setBookingDate(booking.getBookingDate());
-        bookingDto.setStatus(booking.getStatus());
-        bookingDto.setNumberOfPassengers(booking.getNumberOfPassengers());
-        bookingDto.setTotalAmount(booking.getTotalAmount());
-        bookingDto.setTrip(booking.getTrip());
-        bookingDto.setCustomer(booking.getCustomer());
-
-        return bookingDto;
-    }
 
 }
