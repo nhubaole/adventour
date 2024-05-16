@@ -12,7 +12,7 @@ public interface BookingService {
 
     BookingDto searchBooking();
 
-    Booking addNewBooking(BookingDto bookingDto, long  idTrip, long idCustomer);
+    Booking addNewBooking(BookingDto bookingDto);
 
     BookingDto findById(Long id);
 

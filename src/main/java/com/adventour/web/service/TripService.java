@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface TripService {
-    public Trip addNewTrip(TripDto tripDto, Long idTour);
+    public Trip addNewTrip(TripDto tripDto);
     public Trip editTrip(TripDto tripDto);
 
     public List<TripDto> getListTrip();

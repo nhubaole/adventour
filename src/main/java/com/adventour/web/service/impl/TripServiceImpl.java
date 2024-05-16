@@ -3,6 +3,7 @@ package com.adventour.web.service.impl;
 import com.adventour.web.InvalidDataException;
 import com.adventour.web.dto.PassengerDto;
 import com.adventour.web.dto.TripDto;
+import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Passenger;
 import com.adventour.web.models.Tour;
 import com.adventour.web.models.Trip;
@@ -23,27 +24,28 @@ public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
     private final TourRepository tourRepository;
 
+    private final Mapper mapper;
+
     @Autowired
-    public TripServiceImpl(TripRepository tripRepository, TourRepository tourRepository){
+    public TripServiceImpl(TripRepository tripRepository, TourRepository tourRepository, Mapper mapper){
         this.tripRepository = tripRepository;
         this.tourRepository = tourRepository;
+        this.mapper = mapper;
     }
 
 
     @Override
-    public Trip addNewTrip(TripDto tripDto, Long idTour){
+    public Trip addNewTrip(TripDto tripDto){
         try {
             if (validateTrip(tripDto)){
-                Trip trip = mapToTrip(tripDto);
+                Trip trip = mapper.mapToTrip(tripDto);
+                Long idTour = tripDto.getTourDto().getId();
                 Tour tour = tourRepository.findById(idTour).orElse(null);
+
                 trip.setTour(tour);
                 int price = tour.getEstimatedPrice();
-                if(Objects.equals(tripDto.getTypeOfTrip(), "Khuyến mãi")){
-                    trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
-                }
-                else {
-                    trip.setPriceTicket(price);
-                }
+                trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
+
                 trip = tripRepository.save(trip);
                 return trip;
             }
@@ -55,8 +57,14 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip editTrip(TripDto tripDto) {
-        if(validateTrip(tripDto)){
-            return tripRepository.save(mapToTrip(tripDto));
+        if (validateTrip(tripDto)){
+            Trip trip = mapper.mapToTrip(tripDto);
+
+            int price = tripDto.getTourDto().getEstimatedPrice();
+            trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
+
+            trip = tripRepository.save(trip);
+            return trip;
         }
         return  null;
     }
@@ -64,13 +72,13 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripDto> getListTrip() {
         List<Trip> trips = tripRepository.findAll();
-        return trips.stream().map(trip -> mapToTripDto(trip)).collect(Collectors.toList());
+        return trips.stream().map(trip -> mapper.mapToTripDto(trip)).collect(Collectors.toList());
     }
 
     @Override
     public TripDto getTripDetail(Long id) {
         Trip trip = tripRepository.findById(id).orElse(null);
-        return trip!= null ? mapToTripDto(trip) : null;
+        return trip!= null ? mapper.mapToTripDto(trip) : null;
     }
 
     @Override
@@ -85,15 +93,14 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void deleteTrip(TripDto tripDto) {
-        if(tripDto.getActualPassenger() > 0  ){
+        if(tripDto.getActualPassenger() > 0 ){
 
         }
 
     }
 
     public boolean validateTrip (TripDto tripDto) throws InvalidDataException {
-        if(tripDto.getTour().getId() != null
-            && !tripDto.getTypeOfTrip().isEmpty()
+        if(tripDto.getTourDto().getId() != null
             && tripDto.getStartDate() != null
             && tripDto.getEndDate() != null
             && !tripDto.getStartDate().isAfter(tripDto.getEndDate())) {
@@ -102,28 +109,4 @@ public class TripServiceImpl implements TripService {
         throw new InvalidDataException("Invalid Data");
     }
 
-    public TripDto mapToTripDto(Trip trip){
-        TripDto tripDto = new TripDto();
-        tripDto.setId(trip.getId());
-        tripDto.setSlots(trip.getSlots());
-        tripDto.setStartDate(trip.getStartDate());
-        tripDto.setEndDate(trip.getEndDate());
-        tripDto.setPriceTicket(trip.getPriceTicket());
-        tripDto.setDiscount(trip.getDiscount());
-        tripDto.setTour(trip.getTour());
-        tripDto.setPassengers(trip.getPassengers());
-        return tripDto;
-    }
-    public Trip mapToTrip(TripDto tripDto){
-        Trip trip = new Trip();
-        trip.setId(tripDto.getId());
-        trip.setSlots(tripDto.getSlots());
-        trip.setStartDate(tripDto.getStartDate());
-        trip.setEndDate(tripDto.getEndDate());
-        trip.setPriceTicket(trip.getPriceTicket());
-        trip.setDiscount(tripDto.getDiscount());
-        trip.setTour(tripDto.getTour());
-        trip.setPassengers(tripDto.getPassengers());
-        return trip;
-    }
 }

@@ -26,7 +26,6 @@ public class Booking {
     @CreationTimestamp
     private LocalDateTime bookingDate;
     private StatusOfBooking status;
-    private int numberOfPassengers;
     private int totalAmount;
 
     private int numberAdult;
