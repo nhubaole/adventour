@@ -97,40 +97,37 @@
                             <th class="pd"></th>
                         </tr>
                         </thead>
+                        <th:block th:each="trip, tripStat : ${trips}">
                         <tbody>
                         <tr>
                             <td class="col-1 pd border-left-choose active">
-                                <div class="d-flex align-items-center">
-                                    1
+                                <div th:text="${tripStat.count}" class="d-flex align-items-center">
                                 </div>
                             </td>
                             <td class="col-4 pd" style="">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                                    <p class="font-bold mb-0" th:text="${trip.nameTrip}"></p>
                                 </div>
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
+                                <div class="d-flex align-items-center" th:text="${trip.id}">
                                 </div>
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
+                                <div class="d-flex align-items-center" th:text="${trip.startDay}">
                                 </div>
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
+                                <div class="d-flex align-items-center" th:text="${trip.priceTrip}">
+                                    <div th:text="${trip.discountPrice}" class="discount">
+
                                     </div>
                                 </div>
 
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
+                                <div th:text="${trip.actualPassenger}" class="d-flex align-items-center">
+
                                 </div>
                             </td>
                             <td class="col-auto pd">
@@ -141,394 +138,8 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose active">
-                                <div class="d-flex align-items-center">
-                                    2
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose active">
-                                <div class="d-flex align-items-center">
-                                    3
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose active">
-                                <div class="d-flex align-items-center">
-                                    4
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose">
-                                <div class="d-flex align-items-center">
-                                    5
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose">
-                                <div class="d-flex align-items-center">
-                                    6
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose">
-                                <div class="d-flex align-items-center">
-                                    7
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose">
-                                <div class="d-flex align-items-center">
-                                    8
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose">
-                                <div class="d-flex align-items-center">
-                                    9
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1 pd border-left-choose">
-                                <div class="d-flex align-items-center">
-                                    10
-                                </div>
-                            </td>
-                            <td class="col-4 pd" style="">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    C34532123
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    4,000,000 đ
-                                    <div class="discount">
-                                        -50%
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td class="col-auto pd">
-                                <div class="d-flex align-items-center">
-                                    5/50
-                                </div>
-                            </td>
-                            <td class="col-auto pd">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
                         </tbody>
+                        </th:block>
                     </table>
                 </div>
                 <div class="dataTable-bottom" style="

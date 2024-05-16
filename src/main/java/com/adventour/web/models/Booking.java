@@ -25,7 +25,7 @@ public class Booking {
     @CreationTimestamp
     private LocalDateTime bookingDate;
     private String [] imagesUrl;
-    private StatusOfBooking status;
+//    private StatusOfBooking status;
     private int numberOfPassengers;
     private int totalAmount;
     private int amountPaid;

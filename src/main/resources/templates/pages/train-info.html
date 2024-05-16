@@ -74,24 +74,23 @@
         <div class = "card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
-                        <div class="empty">
-                            Còn chỗ
+                    <h6 th:text ="${nameTrip}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+
+                        <div class="empty" th:text="${statusTrip}">
+
                         </div>
                     </h6>
-                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                    <p th:text="${startDate}" class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
-                        0586180354
+
                     </p>
-                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                    <div th:text="${priceTripFinal}" class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
-                            68,000,000 đ
+                        <div th:text = "${priceTrip}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+
                         </div>
-                        34,000,000 đ
-                        <div class="discount">
+                        <div th:text= "${discountPrice}" class="discount">
                             -50%
                         </div>
                     </div>
@@ -127,116 +126,36 @@
                                         <th>Giới tính</th>
                                     </tr>
                                     </thead>
+                                    <th:block th:each="customer, customerStat : ${customers}">
                                     <tbody>
                                     <tr>
                                         <td class="col-1">
-                                            <div class="d-flex align-items-center">
-                                                1
+                                            <div th:text ="${customerStat.count}" class="d-flex align-items-center">
                                             </div>
                                         </td>
                                         <td class="col-4">
                                             <div class="d-flex align-items-center">
-                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
+                                                <p th:text ="${customer.nameCustomer}" class="font-bold ms-3 mb-0"></p>
                                             </div>
                                         </td>
                                         <td class="col-auto">
-                                            <div class="d-flex align-items-center">
+                                            <div th:text ="${customer.dateOfBirth}" class="d-flex align-items-center">
                                                 12/10/2003
                                             </div>
                                         </td>
                                         <td class="col-auto">
-                                            <div class="d-flex align-items-center">
+                                            <div th:text ="${customer.idPersonal}" class="d-flex align-items-center">
                                                 079202015275
                                             </div>
                                         </td>
                                         <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                Nam
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-1">
-                                            <div class="d-flex align-items-center">
-                                                2
-                                            </div>
-                                        </td>
-                                        <td class="col-4">
-                                            <div class="d-flex align-items-center">
-                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                12/10/2003
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                079202015275
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                Nam
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-1">
-                                            <div class="d-flex align-items-center">
-                                                3
-                                            </div>
-                                        </td>
-                                        <td class="col-4">
-                                            <div class="d-flex align-items-center">
-                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                12/10/2003
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                079202015275
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                Nam
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-1">
-                                            <div class="d-flex align-items-center">
-                                                4
-                                            </div>
-                                        </td>
-                                        <td class="col-4">
-                                            <div class="d-flex align-items-center">
-                                                <p class="font-bold ms-3 mb-0">Dương Thành Đạt</p>
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                12/10/2003
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                079202015275
-                                            </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <div class="d-flex align-items-center">
+                                            <div th:text ="${customer.isMale}" class="d-flex align-items-center">
                                                 Nam
                                             </div>
                                         </td>
                                     </tr>
                                     </tbody>
+                                    </th:block>
                                 </table>
                             </div>
                             <div class="dataTable-bottom" style="display: flex;align-items: center;justify-content: space-between;">
