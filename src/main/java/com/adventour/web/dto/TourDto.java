@@ -1,7 +1,6 @@
 package com.adventour.web.dto;
 
 import com.adventour.web.models.Schedule;
-import com.adventour.web.models.TypeOfTour;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

@@ -56,7 +56,7 @@
                     <div class="list-group">
                         <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
-                            Thông tin chuyến
+                            Thông tin tuyến
                         </a>
                         <a th:href="@{/tour-maps}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
@@ -71,31 +71,31 @@
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="name" class="form-label">Mã tuyến</label>
-                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã tuyến" value="1234445111">
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã tuyến" th:value="${tour.id}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="fullname" class="form-label">Loại tuyến</label>
-                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Loại tuyến" value="Trong nước">
+                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Loại tuyến" th:value="${tour.typeOfTour}">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
                                     <label for="address" class="form-label">Tên tuyến</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Tên tuyến" value="Phan Thiết - Mũi Né - KDL Núi Tà Cú - Đồi Cát Bay - Resort tương đương 4*">
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Tên tuyến" th:value="${tour.tourName}">
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="emailaddress" class="form-label">Nơi xuất phát</label>
-                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Nơi xuất phát" value="Hà Nội">
+                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Nơi xuất phát" th:value="${tour.departureLocation}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="birthday" class="form-label">Số ngày đêm</label>
-                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Thời gian" value="3 ngày 2 đêm">
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Thời gian" th:value="${tour.numberOfNights}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="national" class="form-label">Giá dự kiến</label>
-                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Giá dự kiến" value="5,600,000 đ">
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Giá dự kiến" th:value="${tour.estimatedPrice}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="telephone" class="form-label">Thời gian xuất phát</label>

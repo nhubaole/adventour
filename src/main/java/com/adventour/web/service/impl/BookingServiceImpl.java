@@ -11,6 +11,7 @@ import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.BookingService;
 import com.adventour.web.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
@@ -78,11 +80,12 @@ public class BookingServiceImpl implements BookingService {
             booking.setCustomer(customer);
 
             //set trang thai
-            if(booking.getTotalAmount() <= booking.getAmountPaid()){
-                booking.setStatus(StatusOfBooking.COMPLETED);
-            } else {
-                booking.setStatus(StatusOfBooking.PENDING);
-            }
+            //TODO: update logic
+//            if(booking.getTotalAmount() <= booking.getAmountPaid()){
+//                booking.setStatus(StatusOfBooking.COMPLETED);
+//            } else {
+//                booking.setStatus(StatusOfBooking.PENDING);
+//            }
 
             return bookingRepository.save(booking);
         }
@@ -156,10 +159,8 @@ public class BookingServiceImpl implements BookingService {
         booking.setId(bookingDto.getId());
         booking.setBookingDate(bookingDto.getBookingDate());
         booking.setStatus(bookingDto.getStatus());
-        booking.setImagesUrl(bookingDto.getImagesUrl());
         booking.setNumberOfPassengers(bookingDto.getNumberOfPassengers());
         booking.setTotalAmount(bookingDto.getTotalAmount());
-        booking.setAmountPaid(bookingDto.getAmountPaid());
         booking.setTrip(bookingDto.getTrip());
         booking.setCustomer(bookingDto.getCustomer());
 
@@ -172,11 +173,9 @@ public class BookingServiceImpl implements BookingService {
         BookingDto bookingDto = new BookingDto();
         bookingDto.setId(booking.getId());
         bookingDto.setBookingDate(booking.getBookingDate());
-        bookingDto.setImagesUrl(booking.getImagesUrl());
         bookingDto.setStatus(booking.getStatus());
         bookingDto.setNumberOfPassengers(booking.getNumberOfPassengers());
         bookingDto.setTotalAmount(booking.getTotalAmount());
-        bookingDto.setAmountPaid(booking.getAmountPaid());
         bookingDto.setTrip(booking.getTrip());
         bookingDto.setCustomer(booking.getCustomer());
 

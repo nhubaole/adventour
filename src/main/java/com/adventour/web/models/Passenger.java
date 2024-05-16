@@ -17,30 +17,16 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "passengers")
 public class Passenger {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String namePassenger;
-    private String phoneNumber;
-    private String email;
+    private String cccd;
+    private boolean isMale;
+    private String type;
 
     @CreationTimestamp
     private LocalDate dateOfBirth;
-
-    private String cccd;
-    private boolean isMale;
-    private String nationality;
-    private String addressPassenger;
-    private String [] imagesPassenger;
-    private String passport;
-
-    @CreationTimestamp
-    private LocalDateTime passportExpireDate;
-    private String visa;
-
-    @CreationTimestamp
-    private LocalDateTime visaExpireDate;
 
     @ManyToOne
     @JoinColumn(name = "id_booking", nullable = false)
@@ -49,6 +35,4 @@ public class Passenger {
     @ManyToOne
     @JoinColumn(name = "id_trip", nullable = false)
     private Trip trip;
-
-
 }

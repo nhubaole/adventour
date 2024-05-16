@@ -52,10 +52,7 @@ public class BookingDto {
 
     @NotNull
     private Customer customer;
-
     private Set<Passenger> passengers = new HashSet<>();
     private Set<PaymentInformation> paymentInformation = new HashSet<>();
     private Set<Ticket> tickets = new HashSet<>();
-
-
 }

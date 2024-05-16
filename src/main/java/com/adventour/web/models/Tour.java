@@ -26,17 +26,17 @@ public class Tour {
     private int estimatedPrice;
     private int numberOfDays;
     private int numberOfNights;
+    private String typeOfTour;
+    private String departureLocation;
+    private String status;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-
-    private String typeOfTour;
-
 //    @ManyToOne
-//    @JoinColumn(name = "id_departure_location")
-    private String departureLocation;
+//    @JoinColumn(name = "id_type_of_tour", nullable = false)
+//    private TypeOfTour typeOfTour;
 
-//    @OneToMany(mappedBy = "tour",cascade = CascadeType.REMOVE)
-//    private Set<Schedule> schedules = new HashSet<>();
+    @OneToMany(mappedBy = "tour",cascade = CascadeType.REMOVE)
+    private Set<Schedule> schedules = new HashSet<>();
 }
