@@ -64,7 +64,7 @@ public class LocationServiceImpl implements  LocationService{
     @Override
     public Location addNewLocation(LocationDto locationDto) {
 
-        if(!locationDto.getNameLocation().trim().isEmpty() && !locationDto.getAddress().trim().isEmpty() && !locationDto.getDescription().trim().isEmpty()){
+        if(validateLocation(locationDto)){
             Location location = mapToLocation(locationDto);
             return locationRepository.save(location);
         }
@@ -82,11 +82,22 @@ public class LocationServiceImpl implements  LocationService{
 
     @Override
     public Location editLocation(LocationDto locationDto) {
-        return addNewLocation(locationDto);
+        if(validateLocation(locationDto)){
+            Location location = mapToLocation(locationDto);
+            return locationRepository.save(location);
+        }
+        return null;
     }
 
     @Override
     public void deleteLocation(Long locationId) {
         locationRepository.deleteById(locationId);
+    }
+
+    public boolean validateLocation(LocationDto locationDto){
+        if(!locationDto.getNameLocation().trim().isEmpty() && !locationDto.getAddress().trim().isEmpty() && !locationDto.getDescription().trim().isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

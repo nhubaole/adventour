@@ -27,8 +27,9 @@ public class PaymentInformationDto {
     @NotNull
     private LocalDateTime paymentTime;
 
-    private String status;
+    //private String status;
 
+    private  boolean saveInDb;
     @NotNull
     private PaymentMethod paymentMethod;
 
