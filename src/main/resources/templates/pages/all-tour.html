@@ -73,11 +73,22 @@
     <div class = "col-12">
         <div class="card">
             <div class="card-header input-style">
-                <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm tuyến du lịch" style="width: 400px; height: 42px">
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                    </div>
+                <div class="my-3">
+                    <form th:action="@{/all-tour}">
+                        <div class="row">
+                            <div class="col-8 form-group position-relative has-icon-left">
+                                <input id="keyword" type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Tìm kiếm tuyến du lịch" style="">
+                                <div class="ms-3 mb-1 form-control-icon">
+                                    <i class="bi bi-search"></i>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit"
+                                        class="btn btn-block btn-xl btn-outline-primary btn-style"
+                                        style="padding-left: 17px;">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div>
                     <a th:href="@{add-tour}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
@@ -122,18 +133,16 @@
                                     <div class="d-flex align-items-center"  th:text="${tour.departureLocation}"/>
                                 </td>
                                 <td class="col-auto">
-                                    <div class="d-flex align-items-center" th:text="${tour.tourType}"/>
+                                    <div class="d-flex align-items-center" th:text="${tour.typeOfTour}"/>
                                 </td>
                                 <td class="col-auto">
                                     <p class=" mb-0 cancel setting">Đã dừng</p>
                                 </td>
                                 <td class="col-auto">
                                     <div style="color: black; cursor: pointer;">
-                                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}">
-                                            <i class="bi bi-eye" style="padding-right: 5px;"></i>\
-                                        </a>
-                                        <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                        <i class="bi bi-trash3"></i>
+                                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                        <a th:href="@{/all-tour/{tourId}/edit(tourId=${tour.id})}"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
+                                        <a th:href="@{/all-tour/{tourId}/delete(tourId=${tour.id})}"><i class="bi bi-trash3"></i></a>
                                     </div>
                                 </td>
                             </tr>
