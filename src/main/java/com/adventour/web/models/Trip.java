@@ -1,5 +1,6 @@
 package com.adventour.web.models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,12 +25,14 @@ public class Trip {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private int slots;
-    @CreationTimestamp
     private LocalDateTime startDate;
-    @CreationTimestamp
     private LocalDateTime endDate;
     private int minPassenger;
     private int actualPassenger;
+    private int priceTicket;
+
+    @Column(nullable = true)
+    private double discount;
 
     public String nameTrip;
 
@@ -62,10 +65,7 @@ public class Trip {
     @JoinColumn(name = "id_tour", nullable = false )
     private Tour tour;
 
-    @ManyToOne
-    @JoinColumn(name = "id_type_of_trip", nullable = false )
-    private TypeOfTrip typeOfTrip;
-
+    private String typeOfTrip;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
     private Set<Passenger> passengers = new HashSet<>();
@@ -74,6 +74,5 @@ public class Trip {
 
     @ManyToMany(mappedBy = "trips")
     private Set<TourGuide> tourGuides = new HashSet<>();
-
 
 }

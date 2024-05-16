@@ -23,7 +23,6 @@ public class Tour {
     private Long id;
 
     private String tourName;
-    private String departureLocation;
     private int estimatedPrice;
     private int numberOfDays;
     private int numberOfNights;

@@ -12,6 +12,8 @@ public interface TourService {
     List<TourDto> findAllTours();
     TourDto findByTourId(long tourId);
     Tour saveTour(Tour tour);
+    Tour findByJustTourId(long tourId);
+
     List<ScheduleDto> getTourSchedule(long tourId);
     Tour editTourDetail(TourDto tourDto);
     Tour editTourSchedule(ScheduleDto scheduleDto);

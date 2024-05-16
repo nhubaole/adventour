@@ -17,22 +17,31 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripDto {
-    public Long id;
+    private Long id;
+
 
     @Min(value = 0)
-    public int slots;
+    private int slots;
 
-    public LocalDateTime startDate;
+    private LocalDateTime startDate;
 
-    public LocalDateTime endDate;
-
-    @Min(value = 0)
-    public int minPassenger;
+    private LocalDateTime endDate;
 
     @Min(value = 0)
-    public int actualPassenger;
+    private int minPassenger;
+
+    @Min(value = 0)
+    private int actualPassenger;
+
+    private int priceTicket;
+
+    private double discount;
 
     private Tour tour;
-    private TypeOfTrip typeOfTrip;
-    private Set<Schedule> schedules ;
+    private String typeOfTrip;
+    private Set<TourGuide> tourGuides;
+    private Set<Passenger> passengers;
+
+    //private Set<Schedule> schedules ;
+
 }

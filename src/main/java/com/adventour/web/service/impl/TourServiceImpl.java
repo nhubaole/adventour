@@ -58,6 +58,12 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public Tour findByJustTourId(long tourId) {
+        Tour tour = tourRepository.findById(tourId).get();
+        return tour;
+    }
+
+    @Override
     public List<ScheduleDto> getTourSchedule(long tourId) {
         return null;
     }
