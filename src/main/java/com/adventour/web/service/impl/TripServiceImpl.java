@@ -1,7 +1,6 @@
 package com.adventour.web.service.impl;
 
-import com.adventour.web.InvalidDataException;
-import com.adventour.web.dto.PassengerDto;
+import com.adventour.web.utils.InvalidDataException;
 import com.adventour.web.dto.TripDto;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Passenger;
@@ -13,9 +12,7 @@ import com.adventour.web.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 

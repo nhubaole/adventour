@@ -1,4 +1,4 @@
-package com.adventour.web;
+package com.adventour.web.utils;
 
 public class InvalidDataException extends  RuntimeException{
     public InvalidDataException(String message) {
