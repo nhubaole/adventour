@@ -1,5 +1,6 @@
 package com.adventour.web.models;
 
+import com.adventour.web.dto.*;
 import com.adventour.web.enums.StatusOfBooking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,11 +25,13 @@ public class Booking {
     private Long id;
     @CreationTimestamp
     private LocalDateTime bookingDate;
-    private String [] imagesUrl;
     private StatusOfBooking status;
     private int numberOfPassengers;
     private int totalAmount;
-    private int amountPaid;
+
+    private int numberAdult;
+    private int numberChildren;
+    private int numberBaby;
 
     @ManyToOne
     @JoinColumn(name="id_trip", nullable=false)

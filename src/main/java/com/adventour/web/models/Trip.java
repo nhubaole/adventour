@@ -1,5 +1,6 @@
 package com.adventour.web.models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,22 +25,18 @@ public class Trip {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private int slots;
-    @CreationTimestamp
     private LocalDateTime startDate;
-    @CreationTimestamp
     private LocalDateTime endDate;
-    private int minPassenger;
-    private int actualPassenger;
-    private Long priceTicket;
+    private int priceTicket;
 
+    @Column(nullable = true)
+    private double discount;
+
+    public String tripType;
     //các thng tin để dẽ truy xất, cập nhập
     @ManyToOne
     @JoinColumn(name = "id_tour", nullable = false )
     private Tour tour;
-
-    @ManyToOne
-    @JoinColumn(name = "id_type_of_trip", nullable = false )
-    private TypeOfTrip typeOfTrip;
 
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
@@ -47,8 +44,7 @@ public class Trip {
 
 //    private Set<Schedule> schedules = tour.getSchedules();
 
-    @ManyToMany(mappedBy = "trips")
-    private Set<TourGuide> tourGuides = new HashSet<>();
-
+//    @ManyToMany(mappedBy = "trips")
+//    private Set<TourGuide> tourGuides = new HashSet<>();
 
 }

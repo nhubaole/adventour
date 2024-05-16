@@ -111,258 +111,50 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                            <th:block th:each="booking, stat : ${bookings}">
                             <td class="col-1">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    <span th:text="${stat.index + 1}"></span>
                                 </div>
                             </td>
                             <td class="col-4">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Lê Bảo Như</p>
+                                    <p class="font-bold ms-3 mb-0" th:text="${booking.idCustomer}"></p>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    P3453212
+                                    <span th:text="${booking.id}"></span>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    1
+                                    <span th:text="${booking.numberOfPassengers}"></span>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    05/04/2024
+                                    <span th:text="${#temporals.format(booking.bookingDate, 'dd/MM/yyyy HH:mm')}"></span>
                                 </div>
                             </td>
                             <td class="col-auto">
-                                <p class=" mb-0 waiting">Đang chờ</p>
+                                <p class="mb-0 cancel setting" th:text="${booking.status}"></p>
+                                <!--<p class=" mb-0 cancel setting">Đã dừng</p>-->
+
                             </td>
                             <td class="col-auto">
                                 <div class="d-flex align-items-center">
-                                    50,000,000đ
+                                    <span th:text="${#numbers.formatDecimal(booking.totalAmount, 0, 3)} + 'đ'"></span>
                                 </div>
                             </td>
                             <td class="col-auto">
                                 <div style="color: black; cursor: pointer;">
-                                    <a th:href="@{booking-detail-information}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                    <a th:href="@{/booking-detail-information/{id}(id=${booking.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
                                     <i class="bi bi-trash3"></i>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    2
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Huỳnh Ngọc Ý Nhi</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    P9878903
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 finish">Hoàn tất</p>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    12,540,000đ
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    3
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Phạm Quốc Danh</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    P4533671
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 waiting">Đang chờ</p>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    6,500,000đ
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    4
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Hà Mai Anh</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    P3453212
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 waiting">Đang chờ</p>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    100,000,000đ
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Lê Tiến Hoàng</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    P4536778
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 finish">Hoàn tất</p>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    50,000,000đ
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-1">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-4">
-                                <div class="d-flex align-items-center">
-                                    <p class="font-bold ms-3 mb-0">Nguyễn Tiến Dũng</p>
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    P0099187
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    1
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    05/04/2024
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <p class=" mb-0 cancel">đã hủy</p>
-                            </td>
-                            <td class="col-auto">
-                                <div class="d-flex align-items-center">
-                                    32,000,000đ
-                                </div>
-                            </td>
-                            <td class="col-auto">
-                                <div style="color: black; cursor: pointer;">
-                                    <i class="bi bi-eye" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
-                                </div>
-                            </td>
-                        </tr>
+                        </th:block>
 
                         </tbody>
                     </table>

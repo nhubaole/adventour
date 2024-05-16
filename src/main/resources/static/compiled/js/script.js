@@ -80,3 +80,5 @@ let currMonth = { value: currDate.getMonth() };
 let currYear = { value: currDate.getFullYear() };
 
 generateCalendar(currMonth.value, currYear.value);
+
+

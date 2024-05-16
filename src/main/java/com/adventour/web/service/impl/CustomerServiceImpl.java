@@ -32,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .email(customer.getEmail())
                 .dateOfBirth(customer.getDateOfBirth())
                 .cccd(customer.getCccd())
-                .isMale(customer.isMale())
+//                .isMale(customer.isMale())
                 .nationality(customer.getNationality())
                 .addressCustomer(customer.getAddressCustomer())
                 .imagesCustomer(customer.getImagesCustomer())
@@ -75,14 +75,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer  addNewCustomer(CustomerDto customerDto) {
-        if(AllInforCustomerIsNotNull(customerDto)){
+        if(validateCustomer(customerDto)){
             Customer customer = mapToCustomer(customerDto);
             return customerRepository.save(customer);
         }
         else return null;
     }
 
-    private boolean AllInforCustomerIsNotNull(CustomerDto customerDto) {
+    private boolean validateCustomer(CustomerDto customerDto) {
         if(StringUtils.isEmptyOrWhitespace(customerDto.getNameCustomer())
             ||StringUtils.isEmptyOrWhitespace(customerDto.getPhoneNumber())
             ||StringUtils.isEmptyOrWhitespace(customerDto.getAddressCustomer())
@@ -105,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .email(customerDto.getEmail())
                 .dateOfBirth(customerDto.getDateOfBirth())
                 .cccd(customerDto.getCccd())
-                .isMale(customerDto.isMale())
+//                .isMale(customerDto.isMale())
                 .nationality(customerDto.getNationality())
                 .imagesCustomer(customerDto.getImagesCustomer())
                 .build();

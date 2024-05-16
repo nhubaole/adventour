@@ -21,14 +21,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private StatusOfTicket statusTicket;
-
-    @CreationTimestamp
-    private LocalDateTime datePaid;
-
-    private int price;
-    private String typeTicket;//lớn hay con nít
-    private String mainImageOfTour;//hển th hiình ảnh của chueyesn trên vé
+    private LocalDateTime usedAt;
 
     @ManyToOne
     @JoinColumn(name = "id_booking", nullable = false)
@@ -37,9 +30,4 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "id_passenger", nullable = false)
     private Passenger passenger;
-
-
-
-
-
 }

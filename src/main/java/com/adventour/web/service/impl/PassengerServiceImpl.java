@@ -18,17 +18,9 @@ public class PassengerServiceImpl implements PassengerService {
         return PassengerDto.builder()
                 .id(passenger.getId())
                 .namePassenger(passenger.getNamePassenger())
-                .phoneNumber(passenger.getPhoneNumber())
-                .email(passenger.getEmail())
                 .dateOfBirth(passenger.getDateOfBirth())
                 .cccd(passenger.getCccd())
                 .isMale(passenger.isMale())
-                .nationality(passenger.getNationality())
-                .imagesPassenger(passenger.getImagesPassenger())
-                .passport(passenger.getPassport())
-                .passportExpireDate(passenger.getPassportExpireDate())
-                .visa(passenger.getVisa())
-                .visaExpireDate(passenger.getVisaExpireDate())
                 .build();
     }
 }

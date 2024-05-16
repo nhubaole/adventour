@@ -27,5 +27,4 @@ public class Customer {
     private String nationality;
     private String addressCustomer;
     private String [] imagesCustomer;
-
 }

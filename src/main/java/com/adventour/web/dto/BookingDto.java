@@ -23,6 +23,7 @@ public class BookingDto {
     private Long id;
 
     private LocalDateTime bookingDate;
+
     private String [] imagesUrl;
 
     @NotNull
@@ -37,12 +38,21 @@ public class BookingDto {
 
     private int amountPaid;
 
-    private Long idTrip;
+    @Min(value = 0)
+    private int numberAdult;
 
-    private Long idCustomer;
+    @Min(value = 0)
+    private int numberChildren;
 
-//    private CustomerDto customerDto;
-//    private Set<PassengerDto> passengerDtoSet;
-//    private Set<PaymentInformationDto> paymentInformationDtoSet;
-//    private Set<TicketDto> ticketDtoSet;
+    @Min(value = 0)
+    private int numberBaby;
+
+    @NotNull
+    private Trip trip;
+
+    @NotNull
+    private Customer customer;
+    private Set<Passenger> passengers = new HashSet<>();
+    private Set<PaymentInformation> paymentInformation = new HashSet<>();
+    private Set<Ticket> tickets = new HashSet<>();
 }
