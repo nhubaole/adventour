@@ -5,7 +5,9 @@ import com.adventour.web.models.Trip;
 import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TripServiceImpl implements TripService {
     private TripRepository tripRepository;
 
