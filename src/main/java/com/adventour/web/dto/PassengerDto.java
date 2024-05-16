@@ -40,6 +40,7 @@ public class PassengerDto {
     private Booking booking;
     private Trip trip;
 
+
     public PassengerDto(long l, String name, String number, String mail, LocalDate of, String number1, boolean b, String việtNam, String s, Object o, Object o1, Object o2, Object o3, Object o4, Object o5, BookingDto booking, Object o6) {
     }
 }

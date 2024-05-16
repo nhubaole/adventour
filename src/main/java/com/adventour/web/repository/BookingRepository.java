@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    Optional<Booking> findById(Long id);
+     Optional<Booking> findById(Long id);
 
     List<Booking> findByBookingDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 

@@ -42,29 +42,13 @@ public class BookingController {
     @GetMapping("/all-booking")
     public String allBooking(Model model){
         List<BookingDto> bookingDtos = bookingService.getListBooking();
-        BookingDto booking = new BookingDto();
-        booking.setId(1L);
-        booking.setBookingDate(LocalDateTime.now());
-        booking.setStatus(StatusOfBooking.PENDING);
-        booking.setNumberOfPassengers(2);
-        booking.setTotalAmount(1500000);
-        booking.setAmountPaid(1000000);
-        bookingDtos.add(booking);
         model.addAttribute("bookings", bookingDtos);
         return "/pages/all-booking";}
 
     @GetMapping("/booking-detail-information/{id}")
     public String bookingInfo(@PathVariable Long id, Model model){
         BookingDto booking = bookingService.findById(id);
-        if (booking == null) {
-            booking = new BookingDto();
-            booking.setId(id);
-            booking.setBookingDate(LocalDateTime.now());
-            booking.setNumberOfPassengers(2);
-            booking.setTotalAmount(1500000);
-            booking.setAmountPaid(1000000);
-        }
-        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
+        CustomerDto customer = customerService.findById(booking.getIdCustomer());
         /*Trip trip = tripService.findById(booking.getIdTrip());*/
         model.addAttribute("booking", booking);
         /*model.addAttribute("trip", trip);*/
@@ -78,7 +62,7 @@ public class BookingController {
     public String bookingDetailPassenger(Model model){
         BookingDto booking = new BookingDto();
         Set<PassengerDto> passengers = new HashSet<>();
-//        booking.setPassengers(passengers);
+        booking.setPassengerDtoSet(passengers);
 
         model.addAttribute("booking", booking);
             return "/pages/booking-detail-passenger";}
