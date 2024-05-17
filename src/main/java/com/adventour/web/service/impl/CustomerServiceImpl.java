@@ -26,8 +26,6 @@ public class CustomerServiceImpl implements CustomerService {
         this.mapper = mapper;
     }
 
-
-
     @Override
     public List<CustomerDto> getListCustomer() {
         List<Customer> customers = customerRepository.findAll();
@@ -61,6 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return result;
     }
+
 
     @Override
     public Customer  addNewCustomer(CustomerDto customerDto) {

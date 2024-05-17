@@ -26,13 +26,45 @@ import java.util.List;
 @Controller
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-    @Autowired
-    public LoginController() {
+    private final TripService tripService;
+    private  final  TourService tourService;
 
+    private  final CustomerService customerService;
+    @Autowired
+    public LoginController(TripService tripService, TourService tourService, CustomerService customerService) {
+        this.tripService = tripService;
+        this.tourService = tourService;
+        this.customerService = customerService;
     }
+
+
 
     @GetMapping("/")
     public String home(Model model){
+
+//        TourDto tourDto = tourService.findByTourId(1L);
+//
+//        TripDto tripDto = new TripDto();
+//
+//        //Tour tour = tourService.findByJustTourId(1L);
+//
+//        tripDto.setTourDto(tourDto);
+//        tripDto.setSlots(15);
+//        tripDto.setDiscount(20);
+//
+//        LocalDateTime statDate = LocalDateTime.of(2024, 5, 15, 15, 30, 0);
+//        LocalDateTime endDate = LocalDateTime.of(2024, 5, 16, 15, 30, 0);
+//        tripDto.setStartDate(statDate);
+//        tripDto.setEndDate(endDate);
+
+        //LocalDateTime endDate = LocalDateTime.of(2024, 5, 19, 15, 30, 0);
+//        TripDto tripDto = tripService.getTripDetail(1L);
+//        logger.info(tripDto.toString());
+
+//        tripDto.setEndDate(endDate);
+
+        //Trip trip = tripService.addNewTrip(tripDto);
+        logger.info(tripService.getTripByIdTour(1L).toString());
 
         return "/index";
     }

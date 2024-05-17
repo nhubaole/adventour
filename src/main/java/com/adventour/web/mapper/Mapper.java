@@ -1,9 +1,6 @@
 package com.adventour.web.mapper;
 
-import com.adventour.web.dto.BookingDto;
-import com.adventour.web.dto.CustomerDto;
-import com.adventour.web.dto.TourDto;
-import com.adventour.web.dto.TripDto;
+import com.adventour.web.dto.*;
 import com.adventour.web.models.*;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +40,11 @@ public class Mapper {
         TourDto tourDto = mapToTourDto(trip.getTour());
         tripDto.setTourDto(tourDto);
 
+        tripDto.setName(tourDto.getTourName());
+
         tripDto.setPassengers(trip.getPassengers());
+
+
         return tripDto;
     }
     public Trip mapToTrip(TripDto tripDto){
@@ -130,9 +131,51 @@ public class Mapper {
         CustomerDto customerDto = mapToCustomerDto(booking.getCustomer());
         bookingDto.setCustomerDto(customerDto);
 
-
-
         return bookingDto;
     }
 
+    public Passenger mapToPassenger (PassengerDto passengerDto){
+        Passenger passenger = new Passenger();
+        passenger.setId(passengerDto.getId());
+        passenger.setNamePassenger(passengerDto.getNamePassenger());
+        passenger.setMale(passengerDto.isMale());
+        passenger.setDateOfBirth(passengerDto.getDateOfBirth());
+        passenger.setCccd(passenger.getCccd());
+        passenger.setType(passengerDto.getType());
+
+        Booking booking = mapToBooking(passengerDto.getBookingDto());
+        passenger.setBooking(booking);
+
+        Trip trip = mapToTrip(passengerDto.getTripDto());
+        passenger.setTrip(trip);
+
+        return passenger;
+    };
+
+    public PassengerDto mapToPassengerDto (Passenger passenger){
+        PassengerDto passengerDto = new PassengerDto();
+        passengerDto.setId(passenger.getId());
+        passengerDto.setNamePassenger(passenger.getNamePassenger());
+        passengerDto.setMale(passenger.isMale());
+        passengerDto.setDateOfBirth(passenger.getDateOfBirth());
+        passengerDto.setCccd(passenger.getCccd());
+        passengerDto.setType(passenger.getType());
+
+        BookingDto booking = mapToBookingDto(passenger.getBooking());
+        passengerDto.setBookingDto(booking);
+
+        TripDto trip = mapToTripDto(passenger.getTrip());
+        passengerDto.setTripDto(trip);
+
+        return passengerDto;
+    };
+
+    public PaymentInformationDto mapToPaymentInformationDto(PaymentInformation paymentInformation){
+        return  PaymentInformationDto.builder()
+                .id(paymentInformation.getId())
+                .amountOfMoney(paymentInformation.getAmountOfMoney())
+                .paymentMethod(paymentInformation.getPaymentMethod())
+                .paymentTime(paymentInformation.getPaymentTime())
+                .build();
+    }
 }
