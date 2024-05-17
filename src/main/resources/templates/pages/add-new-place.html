@@ -37,11 +37,15 @@
     <div class="row match-height">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <label for="file" class="custom-file-upload">
-                    </label>
-                    <input type="file" id="file" name="file" accept="image/*" required>
-                </div>
+                <form id="uploadForm" method="post" th:action="@{/add-new-place}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file" class="custom-file-upload">
+                        </label>
+                        <input type="file" id="file" name="file" accept="image/*" required>
+                    </div>
+                    <button class="btn btn-success" type="submit">Upload</button>
+                    <p th:text="${message}"></p>
+                </form>
                 <div class="card-content">
                     <div class="card-body" style="min-height: 550px;">
                         <form class="form">

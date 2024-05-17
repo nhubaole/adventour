@@ -7,11 +7,17 @@ import com.amazonaws.services.s3.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,6 +27,13 @@ public class BucketServiceImpl implements BucketService {
 
     @Autowired
     AmazonS3 s3Client;
+
+    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
+
+    private String bucketName = "testBucket";
+
+    @Value("${aws.s3.endpoint-url}")
+    private String endpointUrl;
 
 
     @Override
@@ -64,4 +77,32 @@ public class BucketServiceImpl implements BucketService {
             System.exit(1);
         }
     }
+
+    @Override
+    public String uploadFile(MultipartFile multipartFile) throws IOException {
+        File file = convertMultiPartToFile(multipartFile);
+        String fileName = generateFileName(multipartFile);
+        String fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
+        uploadFileToS3Bucket(fileName, file);
+        file.delete();
+        return fileUrl;
+    }
+
+    private void uploadFileToS3Bucket(String fileName, File file) {
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, file)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
+    }
+
+    private File convertMultiPartToFile(MultipartFile file) throws IOException {
+        File tempFile = Files.createTempFile("upload_", file.getOriginalFilename()).toFile();
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(file.getBytes());
+        }
+        return tempFile;
+    }
+
+    private String generateFileName(MultipartFile multiPart) {
+        return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+    }
+
 }

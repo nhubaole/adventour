@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.model.PresignedUrlDownloadRequest;
 import com.amazonaws.services.s3.model.PresignedUrlUploadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -26,4 +28,5 @@ public interface BucketService {
 
     // create Bucket with provided name (throws exception if bucket already present)
     void createBucket(String bucket);
+    String uploadFile(MultipartFile multipartFile) throws IOException;
 }
