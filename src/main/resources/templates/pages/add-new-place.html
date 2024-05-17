@@ -30,6 +30,17 @@
             display: none;
         }
 
+        .image-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .image-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -37,39 +48,77 @@
     <div class="row match-height">
         <div class="col-12">
             <div class="card">
-                <form id="uploadForm" method="post" th:action="@{/add-new-place}" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="file" class="custom-file-upload">
-                        </label>
-                        <input type="file" id="file" name="file" accept="image/*" required>
-                    </div>
-                    <button class="btn btn-success" type="submit">Upload</button>
-                    <p th:text="${message}"></p>
-                </form>
                 <div class="card-content">
                     <div class="card-body" style="min-height: 550px;">
-                        <form class="form">
+                        <form id="uploadForm" method="post" th:action="@{/add-new-place}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="file" class="custom-file-upload">
+                                    Chọn ảnh
+                                </label>
+                                <input type="file" id="file" name="file" accept="image/*" multiple onchange="previewImages()" required>
+                            </div>
+                            <div class="image-preview" id="imagePreview"></div>
+                            <button class="btn btn-success" type="submit">Upload</button>
+                            <p th:text="${message}"></p>
+                        </form>
+
+                        <script>
+                            function previewImages() {
+                                const imagePreview = document.getElementById('imagePreview');
+                                imagePreview.innerHTML = '';
+                                const files = document.getElementById('file').files;
+                                if (files) {
+                                    Array.from(files).forEach(file => {
+                                        const reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            const img = document.createElement('img');
+                                            img.src = e.target.result;
+                                            imagePreview.appendChild(img);
+                                        }
+                                        reader.readAsDataURL(file);
+                                    });
+                                }
+                            }
+                        </script>
+                        <form class="form" role="form" method="post" th:action="@{/add-new-place}" th:object="${place}">
                             <div class="col-12">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input type="text" id="first-name-column" class="form-control" placeholder="Tên địa điểm" name="fname-column" style="height: 45px;">
+                                        <input type="text"
+                                               id="first-name-column"
+                                               class="form-control"
+                                               placeholder="Tên địa điểm"
+                                               th:field="*{nameLocation}"
+                                               name="fname-column"
+                                               style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input type="text" id="last-name-column" class="form-control" placeholder="Địa chỉ" name="lname-column" style="height: 45px;">
+                                        <input type="text"
+                                               id="last-name-column"
+                                               class="form-control"
+                                               placeholder="Địa chỉ"
+                                               name="lname-column"
+                                               th:field="*{address}"
+                                               style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea  id="city-column" placeholder="Mô tả" class="form-control" name="city-column" style="height: 230px;"></textarea>
+                                        <textarea  id="city-column"
+                                                   placeholder="Mô tả"
+                                                   class="form-control"
+                                                   name="city-column"
+                                                   th:field="*{description}"
+                                                   style="height: 230px;"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-12" style="margin-top: 25px;">
                                 </div>
                                 <div class="col-12 d-flex justify-content-end" style="margin-top: 35px;">
                                     <a th:href="@{all-place}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
-                                    <a th:href="@{all-place}" type="submit" class="btn btn-primary me-1 mb-1">Lưu</a>
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
                                 </div>
                             </div>
                         </form>
