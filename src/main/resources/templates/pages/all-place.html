@@ -124,8 +124,8 @@
                                 </td>
                                 <td class="col-auto pd">
                                     <div style="color: black; cursor: pointer;">
-                                        <a th:href="@{place-detail}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
-                                        <i class="bi bi-pencil" style="padding-right: 5px;"></i>
+                                        <a th:href="@{/all-place/{placeId}(placeId=${place.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                        <a th:href="@{/all-place/{placeId}/edit(placeId=${place.id})}"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
                                         <a th:href="@{/all-place/{placeId}/delete(placeId=${place.id})}"><i class="bi bi-trash3"></i></a>
                                     </div>
                                 </td>

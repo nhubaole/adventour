@@ -39,14 +39,32 @@ public class PlaceController {
         return "/pages/all-place";
     }
 
+    @GetMapping("/all-place/{placeId}/edit")
+    public String editPlace(@PathVariable("placeId") long placeId, Model model){
+        LocationDto place = placeService.getLocationById(placeId);
+        model.addAttribute("place", place);
+        return "/pages/edit-place";
+    }
+
+    @PostMapping("/all-place/{placeId}/edit")
+    public String updateTour(@PathVariable("placeId") long placeId, @ModelAttribute("place") LocationDto place){
+        place.setId(placeId);
+        placeService.editLocation(place);
+        return "redirect:/all-place";
+    }
+
     @GetMapping("/all-place/{placeId}/delete")
     public String deleteTour(@PathVariable("placeId") long placeId){
         placeService.deleteLocation(placeId);
         return "redirect:/all-place";
     }
 
-    @GetMapping("/place-detail")
-    public String placeDetail(Model model){return "/pages/place-detail";}
+    @GetMapping("/all-place/{placeId}")
+    public String placeDetail(@PathVariable("placeId") long placeId, Model model){
+        LocationDto locationDto = placeService.getLocationById(placeId);
+        model.addAttribute("place", locationDto);
+        return "/pages/place-detail";
+    }
 
     @GetMapping("/add-new-place")
     public String addPlace(Model model){
