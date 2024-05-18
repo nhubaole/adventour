@@ -1,22 +1,19 @@
 package com.adventour.web.service.impl;
 
 import com.adventour.web.service.BucketService;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
@@ -26,27 +23,23 @@ public class BucketServiceImpl implements BucketService {
     Logger LOG = LogManager.getLogger(BucketServiceImpl.class);
 
     @Autowired
-    AmazonS3 s3Client;
+    S3Client s3Client;
+
+//    @Value("${aws.access.key}")
+//    String awsAccessKey;
+//
+//    @Value("${aws.secret.key}")
+//    String awsSecretKey;
+
 
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 
     private String bucketName = "testBucket";
 
-    @Value("${aws.s3.endpoint-url}")
-    private String endpointUrl;
-
-
     @Override
-    public List<Bucket> getBucketList() {
+    public ListBucketsResponse getBucketList() {
         LOG.info("getting bucket list... ");
         return s3Client.listBuckets();
-    }
-
-    @Override
-    public boolean validateBucket(String bucketName) {
-        List<Bucket> bucketList = getBucketList();
-        LOG.info("Bucket list:"+bucketList);
-        return bucketList.stream().anyMatch(m -> bucketName.equals(m.getName()));
     }
 
     @Override
