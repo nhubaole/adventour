@@ -13,6 +13,8 @@ public interface PassengerService {
 
     public Set<PassengerDto> getPassengersByIdBooking (Long idBooking);
 
+    public  void deletePassenger (PassengerDto passengerDto);
+
 
 
 }

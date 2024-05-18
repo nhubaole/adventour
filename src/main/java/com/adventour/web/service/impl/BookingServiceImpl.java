@@ -1,9 +1,6 @@
 package com.adventour.web.service.impl;
 
-import com.adventour.web.dto.BookingDto;
-import com.adventour.web.dto.CustomerDto;
-import com.adventour.web.dto.PassengerDto;
-import com.adventour.web.dto.TripDto;
+import com.adventour.web.dto.*;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.*;
@@ -13,6 +10,8 @@ import com.adventour.web.repository.PassengerRepository;
 import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.BookingService;
 import com.adventour.web.service.CustomerService;
+import com.adventour.web.service.PassengerService;
+import com.adventour.web.service.PaymentInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -36,15 +35,19 @@ public class BookingServiceImpl implements BookingService {
     private final Mapper mapper;
 
     private final CustomerService customerService;
+    private final PassengerService passengerService;
+    private final PaymentInformationService paymentInformationService;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, TripRepository tripRepository, CustomerRepository customerRepository, PassengerRepository passengerRepository, Mapper mapper, CustomerService customerService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, TripRepository tripRepository, CustomerRepository customerRepository, PassengerRepository passengerRepository, Mapper mapper, CustomerService customerService, PassengerService passengerService, PaymentInformationService paymentInformationService) {
         this.bookingRepository = bookingRepository;
         this.customerRepository = customerRepository;
         this.tripRepository = tripRepository;
         this.passengerRepository = passengerRepository;
         this.mapper = mapper;
         this.customerService = customerService;
+        this.passengerService = passengerService;
+        this.paymentInformationService = paymentInformationService;
     }
 
 
@@ -55,11 +58,21 @@ public class BookingServiceImpl implements BookingService {
         for(Booking booking : bookings){
             BookingDto bookingDto = mapper.mapToBookingDto(booking);
 
-            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking);
+            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
             bookingDto.setPassengerDtos(passengerDtos);
+
+            Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
+
+            int amountPaid = 0;
+            for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                amountPaid += paymentInformation.getAmountOfMoney();
+            }
+            bookingDto.setAmountPaid(amountPaid);
 
             //TODO: Set<Ticket>
 
+            bookingDtoList.add(bookingDto);
         }
         return  bookingDtoList;
     }
@@ -72,7 +85,7 @@ public class BookingServiceImpl implements BookingService {
             for (Booking booking : bookings) {
                 BookingDto bookingDto = mapper.mapToBookingDto(booking);
 
-                Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking);
+                Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
                 bookingDto.setPassengerDtos(passengerDtos);
 
                 //TODO: Set<Ticket>;
@@ -90,21 +103,33 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking addNewBooking(BookingDto bookingDto) {
+        Set<PassengerDto> passengerDtos = bookingDto.getPassengerDtos();
+        Set<PaymentInformationDto> paymentInformationDtos = bookingDto.getPaymentInformationDtos();
         if(validateBooking(bookingDto)){
             Booking booking = mapper.mapToBooking(bookingDto);
 
             //tinh tong tien
-            int price = booking.getTrip().getPriceTicket();
-            booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
             //customer moi
-            if(bookingDto.getCustomerDto().getId() == null){
+            if(bookingDto.getCustomerDto().getId() == null) {
                 CustomerDto customerDto = bookingDto.getCustomerDto();
                 Customer customer = customerService.addNewCustomer(customerDto);
                 booking.setCustomer(customer);
             }
+
+            booking =  bookingRepository.save(booking);
+
+            if(booking != null){
+                bookingDto = mapper.mapToBookingDto(booking);
+                if(addNewPassenger(bookingDto, passengerDtos)){
+                    if(addNewPaymentInformation(bookingDto, paymentInformationDtos)){
+
+                        return booking;
+                    }
+                }
+            }
+            return null;
             //TODO: luu danh sach passener, payment;
-            return bookingRepository.save(booking);
         }
         return null;
     }
@@ -116,7 +141,7 @@ public class BookingServiceImpl implements BookingService {
         if (booking != null) {
             bookingDto =  mapper.mapToBookingDto(booking);
 
-            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking);
+            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
             bookingDto.setPassengerDtos(passengerDtos);
 
             //TODO: Set<Ticket>;
@@ -134,6 +159,8 @@ public class BookingServiceImpl implements BookingService {
             booking.setTotalAmount((int) (booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
             //TODO: luu danh sach passener, payment;
+
+
             return bookingRepository.save(booking);
         }
         return  null;
@@ -146,7 +173,7 @@ public class BookingServiceImpl implements BookingService {
         if(!bookings.isEmpty()){
             for(Booking booking : bookings){
                 BookingDto bookingDto = mapper.mapToBookingDto(booking);
-                Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking);
+                Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
                 bookingDto.setPassengerDtos(passengerDtos);
                 //set<Ticket>
 
@@ -170,16 +197,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Set<PassengerDto> getPassengerOfBooking(Booking booking) {
-        Set<PassengerDto> passengerDtos = new HashSet<PassengerDto>();
+    public Set<PassengerDto> getPassengerOfBooking(Long idBooking) {
+        return passengerService.getPassengersByIdBooking(idBooking);
+    }
 
-//        Set<Passenger> passengers = passengerRepository.findByBooking(booking);
-//
-//        for(Passenger passenger : passengers){
-//            PassengerDto passengerDto = mapper.mapToPassengerDto(passenger);
-//            passengerDtos.add(passengerDto);
-//        }
-        return passengerDtos;
+    @Override
+    public Set<PaymentInformationDto> getPaymentOfBooking(Long idBooking) {
+        return paymentInformationService.getPaymentInforByIdBooking(idBooking);
     }
 
     @Override
@@ -202,6 +226,41 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
+    public boolean addNewPassenger(BookingDto bookingDto, Set<PassengerDto> passengerDtos){
+
+        if(!passengerDtos.isEmpty()){
+            for(PassengerDto passengerDto : passengerDtos){
+                passengerDto.setBookingDto(bookingDto);
+                Passenger passenger = passengerService.addNewPassenger(passengerDto);
+                if(passenger == null){
+
+                    return false;
+                }
+                bookingDto.getPassengerDtos().add(mapper.mapToPassengerDto(passenger));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addNewPaymentInformation(BookingDto bookingDto, Set<PaymentInformationDto> paymentInformationDtos) {
+        if(!paymentInformationDtos.isEmpty()){
+            int amountPaid = 0;
+            for(PaymentInformationDto paymentInformationDto : paymentInformationDtos){
+                paymentInformationDto.setBookingDto(bookingDto);
+                PaymentInformation payment = paymentInformationService.addNewPaymentInformation(paymentInformationDto);
+                if(payment == null){
+                    return false;
+                }
+                bookingDto.getPaymentInformationDtos().add(mapper.mapToPaymentInformationDto(payment));
+                 amountPaid +=  payment.getAmountOfMoney();
+            }
+            bookingDto.setAmountPaid((int) amountPaid);
+
+            return true;
+        }
+        return false;
+    }
 
 
 }

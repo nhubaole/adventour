@@ -2,6 +2,7 @@ package com.adventour.web.service;
 
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.PassengerDto;
+import com.adventour.web.dto.PaymentInformationDto;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.Passenger;
 
@@ -24,7 +25,9 @@ public interface BookingService {
     List<BookingDto> getBookingsByCustomerId( Long id);
     List<BookingDto> getBookingsByTripId(Long id);
 
-    Set<PassengerDto> getPassengerOfBooking (Booking booking);
+    Set<PassengerDto> getPassengerOfBooking (Long  idBooking);
+
+    Set<PaymentInformationDto> getPaymentOfBooking( Long idBooking);
 
     boolean validateBooking(BookingDto bookingDto);
 

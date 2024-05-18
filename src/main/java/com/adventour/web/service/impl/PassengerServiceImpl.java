@@ -8,11 +8,13 @@ import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.PassengerRepository;
 import com.adventour.web.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class PassengerServiceImpl implements PassengerService {
     private final PassengerRepository passengerRepository;
     private final BookingRepository bookingRepository;
@@ -49,5 +51,10 @@ public class PassengerServiceImpl implements PassengerService {
             return passengerDtos;
         }
         return null;
+    }
+
+    @Override
+    public void deletePassenger(PassengerDto passengerDto) {
+
     }
 }
