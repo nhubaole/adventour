@@ -56,8 +56,9 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour saveTour(Tour tour) {
-        return tourRepository.save(tour);
+    public Tour saveTour(TourDto tour) {
+
+        return tourRepository.save(mapper.maptoTour(tour));
     }
 
     @Override

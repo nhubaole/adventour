@@ -26,4 +26,5 @@ public class ScheduleDto {
     private List<String> restaurants;
     private List<String> vehicles;
     private List<String> otherServices;
+    private TourDto tour;
 }

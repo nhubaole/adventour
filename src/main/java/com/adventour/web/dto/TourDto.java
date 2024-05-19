@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,7 +24,6 @@ import java.util.Set;
 public class TourDto {
     private Long id;
 
-    @NotEmpty(message = "Name of tour can't be empty")
     private String tourName;
 
     private String departureLocation;
@@ -37,9 +37,7 @@ public class TourDto {
     @Min(value = 0)
     private int numberOfNights;
 
-    @NotNull
     private String typeOfTour;
 
-    private Set<Schedule> schedules;
-
+    public List<ScheduleDto> schedules;
 }
