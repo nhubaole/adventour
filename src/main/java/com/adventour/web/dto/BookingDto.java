@@ -23,10 +23,9 @@ public class BookingDto {
     private Long id;
 
     private LocalDateTime bookingDate;
-    private String [] imagesUrl;
 
     @NotNull
-    private StatusOfBooking status;
+    private StatusOfBooking status = StatusOfBooking.PENDING;
 
     @NotNull
     @Min(value = 0)
@@ -37,12 +36,21 @@ public class BookingDto {
 
     private int amountPaid;
 
-    private Long idTrip;
+    @Min(value = 0)
+    private int numberAdult;
 
-    private Long idCustomer;
+    @Min(value = 0)
+    private int numberChildren;
 
+    @Min(value = 0)
+    private int numberBaby;
+
+    @NotNull
+    private TripDto tripDto;
+
+    @NotNull
     private CustomerDto customerDto;
-    private Set<PassengerDto> passengerDtoSet;
-    private Set<PaymentInformationDto> paymentInformationDtoSet;
-    private Set<TicketDto> ticketDtoSet;
+    private Set<PassengerDto> passengerDtos = new HashSet<>();
+    private Set<PaymentInformationDto> paymentInformationDtos = new HashSet<>();
+    private Set<TicketDto> ticketDtos = new HashSet<>();
 }
