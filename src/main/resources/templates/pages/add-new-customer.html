@@ -44,30 +44,30 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body" style="min-height: 550px;">
-                        <form class="form">
+                        <form class="form" role="form" method="post" th:action="@{/add-new-customer}" th:object="${customer}">
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="first-name-column">Họ và tên</label>
-                                        <input type="text" id="first-name-column" class="form-control" placeholder="Họ và tên" name="fname-column" style="height: 45px;">
+                                        <input th:field="*{nameCustomer}" type="text" id="first-name-column" class="form-control" placeholder="Họ và tên" name="fname-column" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="last-name-column">Địa chỉ Email</label>
-                                        <input type="text" id="last-name-column" class="form-control" placeholder="Email" name="lname-column" style="height: 45px;">
+                                        <input th:field="*{email}" type="email" id="last-name-column" class="form-control" placeholder="Email" name="lname-column" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="city-column">Ngày sinh</label>
-                                        <input type="text" id="city-column" class="form-control" placeholder="Ngày sinh" name="city-column" style="height: 45px;">
+                                        <input th:field="*{dateOfBirth}" type="text" id="city-column" class="form-control" placeholder="Ngày sinh" name="city-column" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="country-floating">CMND/CCCD</label>
-                                        <input type="text" id="country-floating" class="form-control" name="country-floating" placeholder="Căn cước công dân" style="height: 45px;">
+                                        <input th:field="*{cccd}" type="text" id="country-floating" class="form-control" name="country-floating" placeholder="Căn cước công dân" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -79,19 +79,19 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="email-id-column">Quốc tịch</label>
-                                        <input type="email" id="email-id-column" class="form-control" name="email-id-column" placeholder="Quốc tịch" style="height: 45px;">
+                                        <input th:field="*{nationality}" type="text" id="email-id-column" class="form-control" name="email-id-column" placeholder="Quốc tịch" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="email-id-column">Địa chỉ</label>
-                                        <input type="email" id="address-id-column" class="form-control" name="address-id-column" placeholder="Địa chỉ" style="height: 45px;">
+                                        <input th:field = "*{addressCustomer}" type="text" id="address-id-column" class="form-control" name="address-id-column" placeholder="Địa chỉ" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="email-id-column">Số điện thoại</label>
-                                        <input type="email" id="phone-id-column" class="form-control" name="address-id-column" placeholder="Số điện thoại" style="height: 45px;">
+                                        <input th:field="*{phoneNumber}" type="number" id="phone-id-column" class="form-control" name="address-id-column" placeholder="Số điện thoại" style="height: 45px;">
                                     </div>
                                 </div>
                                 <div class="form-group col-12" style="margin-top: 25px;">
