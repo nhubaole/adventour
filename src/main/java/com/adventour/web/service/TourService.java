@@ -11,7 +11,7 @@ public interface TourService {
     List<TourDto> searchTour(String keyword);
     List<TourDto> findAllTours();
     TourDto findByTourId(long tourId);
-    Tour saveTour(Tour tour);
+    Tour saveTour(TourDto tour);
     Tour findByJustTourId(long tourId);
 
     List<ScheduleDto> getTourSchedule(long tourId);

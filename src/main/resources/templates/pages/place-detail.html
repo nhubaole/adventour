@@ -44,20 +44,20 @@
                                 <div class="row">
                                     <div class="col-12" style="color: #a3a2a7;">
                                         <div class="form-group">
-                                            <label for="first-name-vertical">Tên địa điểm</label>
-                                            <input style="color:black;border: none;padding-left: 0px;height: 50px;border-bottom: 1px solid #e1e1e1;border-radius: 0px;" type="text" id="first-name-vertical" class="form-control" name="fname" value="Disneyland HongKong">
+                                            <label>Tên địa điểm</label>
+                                            <p class="fw-light" style="color: black;" th:text="${place.nameLocation}"></p>
                                         </div>
                                     </div>
                                     <div class="col-12" style="color: #a3a2a7;">
                                         <div class="form-group">
-                                            <label for="email-id-vertical">Địa chỉ</label>
-                                            <input style="color:black;border: none;padding-left: 0px;height: 50px;border-bottom: 1px solid #e1e1e1;border-radius: 0px;" type="email" id="email-id-vertical" class="form-control" name="email-id" value="Lantau Island, Hong Kong">
+                                            <label>Địa chỉ</label>
+                                            <p class="fw-light" style="color: black;" th:text="${place.address}"></p>
                                         </div>
                                     </div>
                                     <div class="col-12" style="color: #a3a2a7;">
                                         <div class="form-group">
-                                            <label for="password-vertical">Mô tả</label>
-                                            <textarea style="height:105px; border: none;padding-left: 0px;border-bottom: 1px solid #e1e1e1;border-radius: 0px;" id="password-vertical" class="form-control" placeholder="Hong Kong Disneyland là một công viên chủ đề nằm trong khu Hong Kong Disneyland Resort thuộc sở hữu và quản lý của Hong Kong International Theme Parks. Hong Kong Disneyland là công viên giải trí chủ đề theo phong cách Xứ sở thần tiên thứ năm, tọa lạc trên một khu đất lấn biển trên vịnh Penny, đảo Lantau."></textarea>
+                                            <label>Mô tả</label>
+                                            <p class="fw-light" style="color: black;" th:text="${place.description}"></p>
                                         </div>
                                     </div>
                                 </div>

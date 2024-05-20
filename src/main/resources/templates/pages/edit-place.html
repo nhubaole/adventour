@@ -80,7 +80,7 @@
                                 }
                             }
                         </script>
-                        <form class="form" role="form" method="post" th:action="@{/add-new-place}" th:object="${place}">
+                        <form class="form" role="form" method="post" th:action="@{/all-place/{placeId}/edit(placeId=${place.id})}" th:object="${place}">
                             <div class="col-12">
                                 <div class="col-12">
                                     <div class="form-group">
