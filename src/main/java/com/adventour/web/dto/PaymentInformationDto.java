@@ -34,4 +34,10 @@ public class PaymentInformationDto {
     private PaymentMethod paymentMethod;
 
     private Booking booking;
+    @NotNull
+    private CustomerDto customerDto;
+
+    @NotNull
+    private BookingDto bookingDto;
+
 }

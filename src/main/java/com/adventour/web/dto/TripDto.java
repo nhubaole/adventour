@@ -25,6 +25,7 @@ public class TripDto {
     @Min(value = 0)
     private int slots;
 
+    private String tripID;
     private LocalDateTime startDate;
 
     private LocalDateTime endDate;

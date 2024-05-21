@@ -15,29 +15,29 @@
             <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-img d-flex align-items-center">
                     <div class="avatar avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
-                        <img src="/compiled/jpg/1.jpg" style="width: 100px;height: 100px;">
+                        <img th:src="${customer.imagesCustomer}" style="width: 100px;height: 100px;">
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
-                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Đỗ Thị Thùy</h6>
+                    <h6 th:text="${customer.nameCustomer}" class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Đỗ Thị Thùy</h6>
                     <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-phone" style="display: flex; margin-right: 5px;"></i>
-                        0586180354
+                        <span th:text="${customer.phoneNumber}"></span>
                     </p>
                     <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-envelope" style="display: flex; margin-right: 5px;"></i>
-                        20521165@gm.uit.edu.vn
+                        <span th:text="${customer.email}"></span>
                     </p>
                 </div>
             </div>
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-2" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{profile}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/profile/{id}(id=${customer.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-person" style="display: flex; margin-right: 20px;"></i>
                             Hồ Sơ
                         </a>
-                        <a th:href="@{booking}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking/{id}(id=${customer.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pass" style="display: flex; margin-right: 20px;"></i>
                             Phiếu đặt chỗ
                         </a>
@@ -46,60 +46,55 @@
                 <div class="col-12 col-lg-9">
                     <div class="card">
                         <div class="card-body">
-                            <th:block>
                             <form action="#" method="get">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="name" class="form-label">Mã khách hàng</label>
-                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:value="${idCustomer}">
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:value="${customer.customerID}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="fullname" class="form-label">Họ và tên</label>
-                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Họ và tên" th:value="${nameCustomer}">
+                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Họ và tên" th:value="${customer.nameCustomer}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="emailaddress" class="form-label">Địa chỉ Email</label>
-                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Địa chỉ Email" th:value="${email}">
+                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Địa chỉ Email" th:value="${customer.email}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="birthday" class="form-label">Ngày sinh</label>
-                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday" th:value="${dateOfBirth}">
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday" th:value="${customer.dateOfBirth}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="gender" class="form-label">Giới tính</label>
-                                        <select style="border: none;" name="gender" id="gender" class="form-control">
-                                            <option th:selected="${isMale == 'male'}" value="male">Male</option>
-                                            <option th:selected="${isMale == 'female'}" value="female">Female</option>
-                                        </select>
+                                        <input style="border: none;" type="text" name="gender" id="gender" class="form-control" placeholder="Your Birthday" th:value="${customer.isMale} ? Nam : Nữ">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="personID" class="form-label">CMND/CCCD</label>
-                                        <input style="border: none;" type="text" name="national" id="personID" class="form-control" placeholder="CMND/CCCD" th:value="${idPersonal}">
+                                        <input style="border: none;" type="text" name="national" id="personID" class="form-control" placeholder="CMND/CCCD" th:value="${customer.cccd}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="national" class="form-label">Quốc tịch</label>
-                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:value="${nationality}">
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:value="${customer.nationality}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="telephone" class="form-label">Số điện thoại</label>
-                                        <input style=" border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Số điện thoại" th:value="${phoneNumber}">
+                                        <input style=" border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Số điện thoại" th:value="${customer.phoneNumber}">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
                                     <label for="address" class="form-label">Địa chỉ</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${addressCustomer}">
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${customer.addressCustomer}">
                                 </div>
                                 <div class="form-group">
                                     <a th:href="@{customer}" type="submit" class="btn btn-primary">Lưu</a>
                                 </div>
                             </form>
-                            </th:block>
                         </div>
                     </div>
                 </div>

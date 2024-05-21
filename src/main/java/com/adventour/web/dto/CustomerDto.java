@@ -39,4 +39,14 @@ public class CustomerDto {
     private String addressCustomer;
     private String [] imagesCustomer;
 
+    private String customerID;
+
+    @NotNull
+    private PaymentInformationDto paymentInformationDto;
+
+    @NotNull
+    private TicketDto ticketDto;
+
+    @NotNull
+    private BookingDto bookingDto;
 }
