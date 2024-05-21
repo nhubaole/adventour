@@ -1,14 +1,16 @@
 package com.adventour.web.mapper;
 
-import com.adventour.web.dto.BookingDto;
-import com.adventour.web.dto.CustomerDto;
-import com.adventour.web.dto.TourDto;
-import com.adventour.web.dto.TripDto;
+import com.adventour.web.controller.TourController;
+import com.adventour.web.dto.*;
 import com.adventour.web.models.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Mapper {
+    private static Logger logger = LoggerFactory.getLogger(TourController.class);
+
     public TourDto mapToTourDto(Tour tour) {
         return TourDto.builder()
                 .id(tour.getId())
@@ -20,16 +22,29 @@ public class Mapper {
 //                .typeOfTour(tour.getTypeOfTour())
                 .build();
     }
-    public Tour maptoTour(TourDto tourDto) {
-        return Tour.builder()
-                .id(tourDto.getId())
-                .tourName(tourDto.getTourName())
-                .departureLocation(tourDto.getDepartureLocation())
-                .estimatedPrice(tourDto.getEstimatedPrice())
-                .numberOfDays(tourDto.getNumberOfDays())
-                .numberOfNights(tourDto.getNumberOfNights())
-                .typeOfTour(tourDto.getTypeOfTour())
-                .build();
+    public Tour mapToTour(TourDto tourDto) {
+        Tour tour = new Tour();
+
+        tour.setId(tourDto.getId());
+        tour.setTourName(tourDto.getTourName());
+        tour.setEstimatedPrice(tourDto.getEstimatedPrice());
+        tour.setNumberOfDays(tourDto.getNumberOfDays());
+        tour.setNumberOfNights(tourDto.getNumberOfNights());
+        tour.setTypeOfTour(tourDto.getTypeOfTour());
+        tour.setDepartureLocation(tourDto.getDepartureLocation());
+
+        if (tourDto.getSchedules() != null) {
+            for (ScheduleDto scheduleDto : tourDto.getSchedules()) {
+                logger.info(String.valueOf("====================scheduleDto " + scheduleDto.toString()));
+
+                Schedule schedule = mapToSchedule(scheduleDto);
+                schedule.setTour(tour);
+                tour.getSchedules().add(schedule);
+                logger.info(String.valueOf("====================size " + tour.getSchedules().size()));
+            }
+        }
+
+        return tour;
     }
     public TripDto mapToTripDto(Trip trip){
         TripDto tripDto = new TripDto();
@@ -55,7 +70,7 @@ public class Mapper {
         trip.setPriceTicket(trip.getPriceTicket());
         trip.setDiscount(tripDto.getDiscount());
 
-        Tour tour = maptoTour(tripDto.getTourDto());
+        Tour tour = mapToTour(tripDto.getTourDto());
         trip.setTour(tour);
 
         trip.setPassengers(tripDto.getPassengers());
@@ -134,5 +149,36 @@ public class Mapper {
 
         return bookingDto;
     }
+    public LocationDto mapToLocationDto(Location location) {
+        return LocationDto.builder()
+                .id(location.getId())
+                .nameLocation(location.getNameLocation())
+                .address(location.getAddress())
+                .description(location.getDescription())
+                .images(location.getImages())
+                .build();
+    }
 
+    public Location mapToLocation(LocationDto location) {
+        return Location.builder()
+                .id(location.getId())
+                .nameLocation(location.getNameLocation())
+                .address(location.getAddress())
+                .description(location.getDescription())
+                .images(location.getImages())
+                .build();
+    }
+
+    public Schedule mapToSchedule(ScheduleDto scheduleDto) {
+        return Schedule.builder()
+                .id(scheduleDto.getId())
+                .dayOfSchedule(scheduleDto.getDayOfSchedule())
+                .startLocation(mapToLocation(scheduleDto.getStartLocation()))
+                .endLocation((mapToLocation(scheduleDto.getEndLocation())))
+                .listHotel(scheduleDto.getHotels())
+                .listRestaurant(scheduleDto.getRestaurants())
+                .listVehicle(scheduleDto.getVehicles())
+                .listOtherService(scheduleDto.getOtherServices())
+                .build();
+    }
 }

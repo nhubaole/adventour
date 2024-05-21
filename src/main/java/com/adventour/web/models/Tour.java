@@ -1,10 +1,7 @@
 package com.adventour.web.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -17,9 +14,11 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "tours")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String tourName;
@@ -33,10 +32,6 @@ public class Tour {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_type_of_tour", nullable = false)
-//    private TypeOfTour typeOfTour;
-
-    @OneToMany(mappedBy = "tour",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Schedule> schedules = new HashSet<>();
 }

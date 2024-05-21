@@ -19,12 +19,23 @@ import java.util.Set;
 public class ScheduleDto {
     private Long id;
     private int dayOfSchedule;
-    private Location startLocation;
-    private Location endLocation;
+    private LocationDto startLocation;
+    private LocationDto endLocation;
     private Set<Location> locations;
     private List<String> hotels;
     private List<String> restaurants;
     private List<String> vehicles;
     private List<String> otherServices;
     private TourDto tour;
+
+    @Override
+    public String toString() {
+        return "ScheduleDto{" +
+                "id=" + id +
+                ", startLocation='" + startLocation + '\'' +
+                ", endLocation='" + endLocation + '\'' +
+                ", dayOfSchedule=" + dayOfSchedule +
+                ", tour=" + (tour != null ? tour.getId() : null) +
+                '}';
+    }
 }
