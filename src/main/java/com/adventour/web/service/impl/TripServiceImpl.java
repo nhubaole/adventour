@@ -1,7 +1,6 @@
 package com.adventour.web.service.impl;
 
 import com.adventour.web.InvalidDataException;
-import com.adventour.web.dto.PassengerDto;
 import com.adventour.web.dto.TripDto;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Passenger;
@@ -13,10 +12,7 @@ import com.adventour.web.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +40,12 @@ public class TripServiceImpl implements TripService {
 
                 trip.setTour(tour);
                 int price = tour.getEstimatedPrice();
+                if(trip.getDiscount() > 0){
+                    trip.setTripType("Khuyến mãi");
+                }
+                else {
+                    trip.setTripType("Thông thường");
+                }
                 trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
 
                 trip = tripRepository.save(trip);
@@ -99,6 +101,17 @@ public class TripServiceImpl implements TripService {
 
     }
 
+    @Override
+    public Set<TripDto> getTripByIdTour(Long idTour) {
+        Tour tou = tourRepository.findById(idTour).get();
+        Set<Trip> trips = tripRepository.findByTour(tou);
+        Set<TripDto> tripDtos = new HashSet<>();
+        for(Trip trip : trips){
+            tripDtos.add(mapper.mapToTripDto(trip));
+        }
+        return tripDtos;
+    }
+
     public boolean validateTrip (TripDto tripDto) throws InvalidDataException {
         if(tripDto.getTourDto().getId() != null
             && tripDto.getStartDate() != null
@@ -108,5 +121,4 @@ public class TripServiceImpl implements TripService {
         }
         throw new InvalidDataException("Invalid Data");
     }
-
 }

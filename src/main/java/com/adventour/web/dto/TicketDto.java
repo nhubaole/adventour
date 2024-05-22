@@ -21,17 +21,15 @@ public class TicketDto {
 
     private StatusOfTicket statusTicket;
 
-    @NotNull
-    private LocalDateTime datePaid;
+    private LocalDateTime usedAt;
 
-    @Min(value = 0)
-    private int price;
-
+    private String namePassenger;
     private String typeTicket;//lớn hay con nít
     private String mainImageOfTour;//hển th hiình ảnh của chueyesn trên vé
+    private String code;
 
-    private Booking booking;
-    private Passenger passenger;
+    private BookingDto bookingDto;
+    private PassengerDto passengerDto;
 
 
 }
