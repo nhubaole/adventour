@@ -8,46 +8,36 @@ import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.CustomerRepository;
 import com.adventour.web.repository.PassengerRepository;
 import com.adventour.web.repository.TripRepository;
-import com.adventour.web.service.BookingService;
-import com.adventour.web.service.CustomerService;
-import com.adventour.web.service.PassengerService;
-import com.adventour.web.service.PaymentInformationService;
+import com.adventour.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-    private final TripRepository tripRepository;
-    private final CustomerRepository customerRepository;
-
-    private final PassengerRepository passengerRepository;
-
     private final Mapper mapper;
 
     private final CustomerService customerService;
     private final PassengerService passengerService;
     private final PaymentInformationService paymentInformationService;
 
+    private final TicketService ticketService;
+
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, TripRepository tripRepository, CustomerRepository customerRepository, PassengerRepository passengerRepository, Mapper mapper, CustomerService customerService, PassengerService passengerService, PaymentInformationService paymentInformationService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, Mapper mapper, CustomerService customerService, PassengerService passengerService, PaymentInformationService paymentInformationService, TicketService ticketService) {
         this.bookingRepository = bookingRepository;
-        this.customerRepository = customerRepository;
-        this.tripRepository = tripRepository;
-        this.passengerRepository = passengerRepository;
         this.mapper = mapper;
         this.customerService = customerService;
         this.passengerService = passengerService;
         this.paymentInformationService = paymentInformationService;
+        this.ticketService = ticketService;
     }
 
 
@@ -70,8 +60,10 @@ public class BookingServiceImpl implements BookingService {
             }
             bookingDto.setAmountPaid(amountPaid);
 
-            //TODO: Set<Ticket>
+            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
 
+            }
+            //TODO: Set<Ticket>
             bookingDtoList.add(bookingDto);
         }
         return  bookingDtoList;
@@ -144,6 +136,7 @@ public class BookingServiceImpl implements BookingService {
             Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
             bookingDto.setPassengerDtos(passengerDtos);
 
+            //TODO: lấy set<Payment> tính lại amountPaid()
             //TODO: Set<Ticket>;
         }
         return null;
@@ -207,6 +200,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public Set<TicketDto> getTicketOfBooking(Long idBooking) {
+        //TODO: get ticket off Bokking
+        return null;
+    }
+
+    @Override
     public boolean validateBooking(BookingDto bookingDto) {
         if(bookingDto.getTripDto() != null
         && bookingDto.getCustomerDto() !=null
@@ -221,10 +220,25 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void genarateTickets() {
+    public Set<TicketDto> genarateTickets(BookingDto bookingDto) {
+        Set<TicketDto> result  = new HashSet<>();
+        Set<PassengerDto> passengerDtos = getPassengerOfBooking(bookingDto.getId());
 
+        for(PassengerDto passengerDto : passengerDtos){
+            TicketDto ticketDto = new TicketDto();
+            ticketDto.setPassengerDto(passengerDto);
+            ticketDto.setBookingDto(bookingDto);
 
+            Ticket ticket = ticketService.addNewTicket(ticketDto);
+
+            ticketDto = mapper.mapToTicketDto(ticket);
+            result.add(ticketDto);
+
+        }
+
+        return result;
     }
+
 
     public boolean addNewPassenger(BookingDto bookingDto, Set<PassengerDto> passengerDtos){
 

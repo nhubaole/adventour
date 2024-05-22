@@ -100,14 +100,18 @@ public class LoginController {
 //
 //        paymentInformationDto.setPaymentMethod(PaymentMethod.BANKTRANSFER);
 //        paymentInformationDto.setPaymentTime(LocalDateTime.now());
-//        paymentInformationDto.setAmountOfMoney(2000000);
+//        paymentInformationDto.setAmountOfMoney(200000);
 //        paymentInformationDtoSet.add(paymentInformationDto);
 //
 //        bookingDto.setPaymentInformationDtos(paymentInformationDtoSet);
-//
-//        logger.info(bookingService.addNewBooking(bookingDto).toString());
+//       logger.info(bookingService.addNewBooking(bookingDto).toString());
 
-        logger.info(bookingService.getListBooking().toString());
+        BookingDto  bookingDto = bookingService.findById(16L);
+
+        logger.info(String.valueOf(bookingDto.getAmountPaid()));
+
+        logger.info(bookingDto.getPassengerDtos().toArray().toString());
+
 
         return "/index";
     }

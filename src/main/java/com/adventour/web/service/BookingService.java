@@ -3,6 +3,7 @@ package com.adventour.web.service;
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.PassengerDto;
 import com.adventour.web.dto.PaymentInformationDto;
+import com.adventour.web.dto.TicketDto;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.Passenger;
 
@@ -29,8 +30,10 @@ public interface BookingService {
 
     Set<PaymentInformationDto> getPaymentOfBooking( Long idBooking);
 
+    Set<TicketDto> getTicketOfBooking(Long idBooking);
+
     boolean validateBooking(BookingDto bookingDto);
 
-    void genarateTickets ();
+    Set<TicketDto> genarateTickets (BookingDto bookingDto);
 
 }

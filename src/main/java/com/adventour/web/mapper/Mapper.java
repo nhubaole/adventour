@@ -1,6 +1,7 @@
 package com.adventour.web.mapper;
 
 import com.adventour.web.dto.*;
+import com.adventour.web.enums.StatusOfTicket;
 import com.adventour.web.models.*;
 import org.springframework.stereotype.Component;
 
@@ -152,7 +153,7 @@ public class Mapper {
         passenger.setNamePassenger(passengerDto.getNamePassenger());
         passenger.setMale(passengerDto.isMale());
         passenger.setDateOfBirth(passengerDto.getDateOfBirth());
-        passenger.setCccd(passenger.getCccd());
+        passenger.setCccd(passengerDto.getCccd());
         passenger.setType(passengerDto.getType());
 
         Booking booking = mapToBooking(passengerDto.getBookingDto());
@@ -203,5 +204,34 @@ public class Mapper {
         Booking booking = mapToBooking(paymentInformationDto.getBookingDto());
         paymentInformation.setBooking(booking);
         return paymentInformation;
+    }
+
+    public TicketDto mapToTicketDto(Ticket ticket){
+        TicketDto ticketDto = new TicketDto();
+        ticketDto.setId(ticket.getId());
+        ticketDto.setUsedAt(ticket.getUsedAt());
+        ticketDto.setPassengerDto(mapToPassengerDto(ticket.getPassenger()));
+        ticketDto.setBookingDto(mapToBookingDto(ticket.getBooking()));
+
+        ticketDto.setNamePassenger(ticket.getPassenger().getNamePassenger());
+        if(ticket.getUsedAt() == null){
+            ticketDto.setStatusTicket(StatusOfTicket.UNUSED);
+        }
+        else {
+            ticketDto.setStatusTicket(StatusOfTicket.USED);
+        }
+
+        ticketDto.setTypeTicket(ticket.getPassenger().getType());
+
+        return ticketDto;
+    }
+
+    public Ticket mapToTicket (TicketDto ticketDto){
+        Ticket ticket = new Ticket();
+        ticket.setId(ticket.getId());
+        ticket.setUsedAt(ticketDto.getUsedAt());
+        ticket.setBooking(mapToBooking(ticketDto.getBookingDto()));
+        ticket.setPassenger(mapToPassenger(ticketDto.getPassengerDto()));
+        return ticket;
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,12 +44,10 @@ public class PassengerServiceImpl implements PassengerService {
     public Set<PassengerDto> getPassengersByIdBooking(Long idBooking) {
         Booking booking = bookingRepository.findById( idBooking).orElse(null);
         if(booking != null){
-            Set<Passenger> passengers = passengerRepository.findByBooking(booking);
-            Set<PassengerDto> passengerDtos = passengers.stream()
+            List<Passenger> passengers = passengerRepository.findByBooking(booking);
+            return passengers.stream()
                     .map(mapper::mapToPassengerDto)
                     .collect(Collectors.toSet());
-
-            return passengerDtos;
         }
         return null;
     }
