@@ -4,16 +4,18 @@ import com.adventour.web.service.BucketService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
@@ -25,12 +27,8 @@ public class BucketServiceImpl implements BucketService {
     @Autowired
     S3Client s3Client;
 
-//    @Value("${aws.access.key}")
-//    String awsAccessKey;
-//
-//    @Value("${aws.secret.key}")
-//    String awsSecretKey;
-
+    @Value("${aws.s3.endpoint}")
+    String endpoint;
 
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 
@@ -44,46 +42,67 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void getObjectFromBucket(String bucketName, String objectName) throws IOException {
-        S3Object s3Object = s3Client.getObject(bucketName, objectName);
-        S3ObjectInputStream inputStream = s3Object.getObjectContent();
-        FileOutputStream fos = new FileOutputStream(new File("opt/test/v1/"+objectName));
-        byte[] read_buf = new byte[1024];
-        int read_len = 0;
-        while ((read_len = inputStream.read(read_buf)) > 0) {
-            fos.write(read_buf, 0, read_len);
-        }
-        inputStream.close();
-        fos.close();
-    }
+        LOG.info("Getting object from bucket: {} with key: {}", bucketName, objectName);
 
-    @Override
-    public void createBucket(String bucketName) {
-        s3Client.createBucket(bucketName);
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(objectName)
+                .build();
+
+        File localFile = new File(UPLOAD_DIRECTORY + File.separator + objectName);
+        try (ResponseInputStream<GetObjectResponse> s3Object = s3Client.getObject(getObjectRequest);
+             FileOutputStream fos = new FileOutputStream(localFile)) {
+
+            byte[] readBuffer = new byte[4096];
+            int readLength;
+            while ((readLength = s3Object.read(readBuffer)) > 0) {
+                fos.write(readBuffer, 0, readLength);
+            }
+        } catch (IOException e) {
+            LOG.error("IOException occurred while reading object from S3", e);
+            throw e;
+        } catch (Exception e) {
+            LOG.error("Exception occurred while getting object from S3", e);
+            throw new IOException("Error occurred while getting object from S3", e);
+        }
+
+        LOG.info("Object successfully downloaded to: {}", localFile.getAbsolutePath());
     }
 
     @Override
     public void putObjectIntoBucket(String bucketName, String objectName, String filePathToUpload) {
-        try {
-            s3Client.putObject(bucketName, objectName, new File(filePathToUpload));
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-            System.exit(1);
-        }
+
+    }
+
+    @Override
+    public void createBucket(String bucketName) {
+
     }
 
     @Override
     public String uploadFile(MultipartFile multipartFile) throws IOException {
         File file = convertMultiPartToFile(multipartFile);
         String fileName = generateFileName(multipartFile);
-        String fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
+        String fileUrl = endpoint + "/" + bucketName + "/" + fileName;
         uploadFileToS3Bucket(fileName, file);
         file.delete();
         return fileUrl;
     }
 
     private void uploadFileToS3Bucket(String fileName, File file) {
-        s3Client.putObject(new PutObjectRequest(bucketName, fileName, file)
-                .withCannedAcl(CannedAccessControlList.PublicRead));
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(fileName)
+                .acl(ObjectCannedACL.PUBLIC_READ)
+                .build();
+
+        try {
+            PutObjectResponse putObjectResponse = s3Client.putObject(putObjectRequest, Path.of(file.getAbsolutePath()));
+            LOG.info("File uploaded successfully. ETag: {}", putObjectResponse.eTag());
+        } catch (Exception e) {
+            LOG.error("Exception occurred while uploading file to S3", e);
+            throw new RuntimeException("Error occurred while uploading file to S3", e);
+        }
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {

@@ -32,14 +32,12 @@ public class PlaceController {
     private BucketService bucketService;
 
         @Autowired
-    public PlaceController(LocationService placeService) {
+    public PlaceController(LocationService placeService, BucketService bucketService) {
         this.placeService = placeService;
+        this.bucketService = bucketService;
     }
     @GetMapping("/all-place")
     public String allPlace(Model model,  @Param("keyword") String keyword) throws URISyntaxException {
-
-        keyword = bucketService.getBucketList().toString();
-
         List<LocationDto> locationDtos = new ArrayList<>();
         if (keyword == null) {
             locationDtos =  placeService.findAllLocation();
@@ -74,19 +72,19 @@ public class PlaceController {
 //        return "redirect:/all-place";
 //    }
 
-//    @PostMapping("/add-new-place")
-//    public String uploadFile1(Model model, @RequestParam("file") MultipartFile file) {
-//        String message = "";
-//        try {
-//            String fileUrl = bucketService.uploadFile(file);
-//            message = "Uploaded the file successfully: " + file.getOriginalFilename();
-//            model.addAttribute("message", message);
-//            model.addAttribute("fileUrl", fileUrl);
-//        } catch (Exception e) {
-//            message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
-//            model.addAttribute("message", message);
-//        }
-//
-//        return "/pages/add-new-place";
-//    }
+    @PostMapping("/add-new-place")
+    public String uploadFile1(Model model, @RequestParam("file") MultipartFile file) {
+        String message = "";
+        try {
+            String fileUrl = bucketService.uploadFile(file);
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            model.addAttribute("message", message);
+            model.addAttribute("fileUrl", fileUrl);
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+            model.addAttribute("message", message);
+        }
+
+        return "/pages/add-new-place";
+    }
 }
