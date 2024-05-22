@@ -4,9 +4,10 @@ import com.adventour.web.dto.TicketDto;
 import com.adventour.web.models.Ticket;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TicketService {
     public Ticket addNewTicket(TicketDto ticketDto);
 
-    public List<TicketDto> getTicketsByIdBooking(Long idBooking);
+    public Set<TicketDto> getTicketsByIdBooking(Long idBooking);
 }

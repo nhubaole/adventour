@@ -11,7 +11,9 @@ import com.adventour.web.service.TicketService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,9 +37,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDto> getTicketsByIdBooking(Long idBooking) {
+    public Set<TicketDto> getTicketsByIdBooking(Long idBooking) {
         Booking booking = bookingRepository.findById(idBooking).orElse(null);
-        List<TicketDto> ticketDtos = new ArrayList<>();
+        Set<TicketDto> ticketDtos = new HashSet<>();
         if(booking != null){
             List<Ticket> tickets = ticketRepository.findByBooking(booking);
             for(Ticket ticket : tickets){

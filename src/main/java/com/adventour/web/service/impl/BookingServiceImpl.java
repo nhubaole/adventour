@@ -61,9 +61,11 @@ public class BookingServiceImpl implements BookingService {
             bookingDto.setAmountPaid(amountPaid);
 
             if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
-
+                //TODO: Set<Ticket>;
+                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
+                bookingDto.setTicketDtos(ticketDtos);
             }
-            //TODO: Set<Ticket>
+
             bookingDtoList.add(bookingDto);
         }
         return  bookingDtoList;
@@ -81,6 +83,9 @@ public class BookingServiceImpl implements BookingService {
                 bookingDto.setPassengerDtos(passengerDtos);
 
                 //TODO: Set<Ticket>;
+
+                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
+                bookingDto.setTicketDtos(ticketDtos);
 
                 bookingDtoList.add(bookingDto);
             }
@@ -100,8 +105,6 @@ public class BookingServiceImpl implements BookingService {
         if(validateBooking(bookingDto)){
             Booking booking = mapper.mapToBooking(bookingDto);
 
-            //tinh tong tien
-
             //customer moi
             if(bookingDto.getCustomerDto().getId() == null) {
                 CustomerDto customerDto = bookingDto.getCustomerDto();
@@ -113,15 +116,13 @@ public class BookingServiceImpl implements BookingService {
 
             if(booking != null){
                 bookingDto = mapper.mapToBookingDto(booking);
-                if(addNewPassenger(bookingDto, passengerDtos)){
-                    if(addNewPaymentInformation(bookingDto, paymentInformationDtos)){
-
+                if(addSetPassengers(bookingDto, passengerDtos)){
+                    if(addSetPayments(bookingDto, paymentInformationDtos)){
                         return booking;
                     }
                 }
             }
             return null;
-            //TODO: luu danh sach passener, payment;
         }
         return null;
     }
@@ -133,13 +134,17 @@ public class BookingServiceImpl implements BookingService {
         if (booking != null) {
             bookingDto =  mapper.mapToBookingDto(booking);
 
-            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
-            bookingDto.setPassengerDtos(passengerDtos);
-
             //TODO: lấy set<Payment> tính lại amountPaid()
-            //TODO: Set<Ticket>;
+            Set<PaymentInformationDto> payments = getPaymentOfBooking(booking.getId());
+            int amountPaid  = 0;
+
+            for(PaymentInformationDto payment : payments){
+                amountPaid += payment.getAmountOfMoney();
+            }
+
+            bookingDto.setAmountPaid(amountPaid);
         }
-        return null;
+        return bookingDto;
     }
 
     @Override
@@ -166,9 +171,14 @@ public class BookingServiceImpl implements BookingService {
         if(!bookings.isEmpty()){
             for(Booking booking : bookings){
                 BookingDto bookingDto = mapper.mapToBookingDto(booking);
-                Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
-                bookingDto.setPassengerDtos(passengerDtos);
-                //set<Ticket>
+
+                Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+
+                int amountPaid = 0;
+                for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                    amountPaid += paymentInformation.getAmountOfMoney();
+                }
+                bookingDto.setAmountPaid(amountPaid);
 
                 result.add(bookingDto);
             }
@@ -183,6 +193,15 @@ public class BookingServiceImpl implements BookingService {
         if(!bookings.isEmpty()){
             for(Booking booking : bookings){
                 BookingDto bookingDto = mapper.mapToBookingDto(booking);
+
+                Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+
+                int amountPaid = 0;
+                for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                    amountPaid += paymentInformation.getAmountOfMoney();
+                }
+                bookingDto.setAmountPaid(amountPaid);
+
                 result.add(bookingDto);
             }
         }
@@ -202,7 +221,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Set<TicketDto> getTicketOfBooking(Long idBooking) {
         //TODO: get ticket off Bokking
-        return null;
+        return ticketService.getTicketsByIdBooking(idBooking);
     }
 
     @Override
@@ -240,7 +259,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
 
-    public boolean addNewPassenger(BookingDto bookingDto, Set<PassengerDto> passengerDtos){
+    public boolean addSetPassengers(BookingDto bookingDto, Set<PassengerDto> passengerDtos){
 
         if(!passengerDtos.isEmpty()){
             for(PassengerDto passengerDto : passengerDtos){
@@ -257,7 +276,7 @@ public class BookingServiceImpl implements BookingService {
         return false;
     }
 
-    private boolean addNewPaymentInformation(BookingDto bookingDto, Set<PaymentInformationDto> paymentInformationDtos) {
+    private boolean addSetPayments(BookingDto bookingDto, Set<PaymentInformationDto> paymentInformationDtos) {
         if(!paymentInformationDtos.isEmpty()){
             int amountPaid = 0;
             for(PaymentInformationDto paymentInformationDto : paymentInformationDtos){
@@ -275,6 +294,7 @@ public class BookingServiceImpl implements BookingService {
         }
         return false;
     }
+
 
 
 }
