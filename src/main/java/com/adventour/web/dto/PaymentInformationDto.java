@@ -29,15 +29,8 @@ public class PaymentInformationDto {
 
     //private String status;
 
-    private  boolean saveInDb;
     @NotNull
     private PaymentMethod paymentMethod;
 
-    private Booking booking;
-    @NotNull
-    private CustomerDto customerDto;
-
-    @NotNull
     private BookingDto bookingDto;
-
 }

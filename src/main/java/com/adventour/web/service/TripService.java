@@ -1,11 +1,11 @@
 package com.adventour.web.service;
 
-import com.adventour.web.dto.PassengerDto;
 import com.adventour.web.dto.TripDto;
 import com.adventour.web.models.Passenger;
 import com.adventour.web.models.Trip;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface TripService {
@@ -21,5 +21,7 @@ public interface TripService {
     public Set<Passenger> getTripPassenger(TripDto tripDto);
 
     public void deleteTrip(TripDto tripDto);
+
+    public Set<TripDto> getTripByIdTour(Long idTour);
 
 }

@@ -2,6 +2,6 @@ package com.adventour.web.enums;
 
 public enum StatusOfTicket {
     UNUSED,
-    USE,
+    USED,
     CANCELLED,
 }
