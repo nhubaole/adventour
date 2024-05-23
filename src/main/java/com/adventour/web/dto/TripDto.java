@@ -2,6 +2,7 @@ package com.adventour.web.dto;
 
 import com.adventour.web.models.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,11 +40,16 @@ public class TripDto {
 
     private double discount;
 
-    private TourDto tourDto;
+
     private String tripType;
 //    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;
 
     //private Set<Schedule> schedules ;
+    @NotNull
+    private TicketDto ticketDto;
+
+    @NotNull
+    private TourDto tourDto;
 
 }

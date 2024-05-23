@@ -27,11 +27,19 @@ public class TripController {
         return "/pages/all-trip";
     }
 
-    @GetMapping("/information")
-    public String information(Model model){return "/pages/trip-information";}
+    @GetMapping("/information/{id}")
+    public String informationTrain(@PathVariable("id") long id, Model model){
+        TripDto tripDto = tripService.getTripDetail(id);
+        model.addAttribute("trip", tripDto);
+        return "/pages/trip-information";
+        }
 
-    @GetMapping("/train-info")
-    public String trainInfo(Model model){return "/pages/train-info";}
+    @GetMapping("/train-info/{id}")
+    public String trainInfo(@PathVariable("id") long id, Model model){
+        TripDto tripDto = tripService.getTripDetail(id);
+        model.addAttribute("trip", tripDto);
+            return "/pages/train-info";
+        }
 
     @GetMapping("/add-new-trip")
     public String addNewTrip(Model model){return "/pages/add-new-trip";}

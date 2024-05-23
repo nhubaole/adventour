@@ -74,23 +74,22 @@
         <div class = "card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6 th:text ="${nameTrip}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-
-                        <div class="empty" th:text="${statusTrip}">
+                    <h6 th:text ="${trip.name}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        <div class="empty" th:text="${trip.ticketDto.statusTicket}">
 
                         </div>
                     </h6>
-                    <p th:text="${startDate}" class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                    <p th:text="${trip.startDate}" class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
 
                     </p>
                     <div th:text="${priceTripFinal}" class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div th:text = "${priceTrip}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                        <div th:text = "${trip.priceTicket}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
 
                         </div>
-                        <div th:text= "${discountPrice}" class="discount">
+                        <div th:text= "${trip.discount}" class="discount">
                             -50%
                         </div>
                     </div>
