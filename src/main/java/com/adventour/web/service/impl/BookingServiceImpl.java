@@ -23,18 +23,21 @@ public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
     private final Mapper mapper;
-
+    private final TripRepository tripRepository;
     private final CustomerService customerService;
+    private final CustomerRepository customerRepository;
     private final PassengerService passengerService;
     private final PaymentInformationService paymentInformationService;
 
     private final TicketService ticketService;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, Mapper mapper, CustomerService customerService, PassengerService passengerService, PaymentInformationService paymentInformationService, TicketService ticketService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, Mapper mapper, TripRepository tripRepository, CustomerService customerService, CustomerRepository customerRepository, PassengerService passengerService, PaymentInformationService paymentInformationService, TicketService ticketService) {
         this.bookingRepository = bookingRepository;
         this.mapper = mapper;
+        this.tripRepository = tripRepository;
         this.customerService = customerService;
+        this.customerRepository = customerRepository;
         this.passengerService = passengerService;
         this.paymentInformationService = paymentInformationService;
         this.ticketService = ticketService;
@@ -94,8 +97,21 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto searchBooking() {
-        return null;
+    public List<BookingDto> searchBooking(String search) {
+        //search theo ID hoawcj name customer
+        List<BookingDto> result = new ArrayList<>();
+        List<BookingDto> allBookingDto = getListBooking();
+        for (BookingDto bookingDto : allBookingDto){
+            if(bookingDto.getId().toString().contains(search))
+            {
+                result.add(bookingDto);
+            } else {
+                if(bookingDto.getCustomerDto().getNameCustomer().toLowerCase().contains(search.toLowerCase())){
+                    result.add(bookingDto);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -151,36 +167,33 @@ public class BookingServiceImpl implements BookingService {
     public Booking updateBooking(BookingDto bookingDto) {
         if(validateBooking(bookingDto)) {
             Booking booking = mapper.mapToBooking(bookingDto);
-
-            //tinh tong tien
-            int price = booking.getTrip().getPriceTicket();
-            booking.setTotalAmount((int) (booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
-
             //TODO: luu danh sach passener, payment;
-
-
             return bookingRepository.save(booking);
         }
         return  null;
     }
 
+
     @Override
     public List<BookingDto> getBookingsByCustomerId(Long id) {
         List<BookingDto> result = new ArrayList<>();
-        List<Booking> bookings = bookingRepository.findByCustomerId(id);
-        if(!bookings.isEmpty()){
-            for(Booking booking : bookings){
-                BookingDto bookingDto = mapper.mapToBookingDto(booking);
+        Customer customer = customerRepository.findById(id).orElse(null);
+        if(customer != null){
+            List<Booking> bookings = bookingRepository.findByCustomer(customer);
+            if(!bookings.isEmpty()){
+                for(Booking booking : bookings){
+                    BookingDto bookingDto = mapper.mapToBookingDto(booking);
 
-                Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+                    Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
 
-                int amountPaid = 0;
-                for (PaymentInformationDto paymentInformation : paymentInformationDtos){
-                    amountPaid += paymentInformation.getAmountOfMoney();
+                    int amountPaid = 0;
+                    for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                        amountPaid += paymentInformation.getAmountOfMoney();
+                    }
+                    bookingDto.setAmountPaid(amountPaid);
+
+                    result.add(bookingDto);
                 }
-                bookingDto.setAmountPaid(amountPaid);
-
-                result.add(bookingDto);
             }
         }
         return result;
@@ -189,20 +202,22 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDto> getBookingsByTripId(Long id) {
         List<BookingDto> result = new ArrayList<>();
-        List<Booking> bookings = bookingRepository.findByTripId(id);
-        if(!bookings.isEmpty()){
-            for(Booking booking : bookings){
-                BookingDto bookingDto = mapper.mapToBookingDto(booking);
+        Trip trip = tripRepository.findById(id).orElse(null);
+        if(trip != null){
+            List<Booking> bookings = bookingRepository.findByTrip(trip);
+            if(!bookings.isEmpty()){
+                for(Booking booking : bookings){
+                    BookingDto bookingDto = mapper.mapToBookingDto(booking);
+                    Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
 
-                Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+                    int amountPaid = 0;
+                    for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                        amountPaid += paymentInformation.getAmountOfMoney();
+                    }
+                    bookingDto.setAmountPaid(amountPaid);
 
-                int amountPaid = 0;
-                for (PaymentInformationDto paymentInformation : paymentInformationDtos){
-                    amountPaid += paymentInformation.getAmountOfMoney();
+                    result.add(bookingDto);
                 }
-                bookingDto.setAmountPaid(amountPaid);
-
-                result.add(bookingDto);
             }
         }
         return result;
@@ -220,8 +235,22 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Set<TicketDto> getTicketOfBooking(Long idBooking) {
-        //TODO: get ticket off Bokking
         return ticketService.getTicketsByIdBooking(idBooking);
+    }
+    @Override
+    public PaymentInformation addBookingPayment(PaymentInformationDto paymentInformationDto, BookingDto bookingDto) {
+        paymentInformationDto.setBookingDto(bookingDto);
+        PaymentInformation payment = paymentInformationService.addNewPaymentInformation(paymentInformationDto);
+        int totalPaid = bookingDto.getAmountPaid() + paymentInformationDto.getAmountOfMoney();
+        bookingDto.setAmountPaid(totalPaid);
+        if(totalPaid == bookingDto.getTotalAmount()){
+            bookingDto.setStatus(StatusOfBooking.COMPLETED);
+            TripDto tripDto = bookingDto.getTripDto();
+            tripDto.setActualPassenger(bookingDto.getNumberOfPassengers());
+            updateBooking(bookingDto);
+            genarateTickets(bookingDto);
+        }
+        return  payment;
     }
 
     @Override
@@ -258,15 +287,19 @@ public class BookingServiceImpl implements BookingService {
         return result;
     }
 
+    @Override
+    public Booking deleteBooking(BookingDto bookingDto) {
+        bookingDto.setStatus(StatusOfBooking.CANCELLED);
+        return updateBooking(bookingDto);
+    }
+
 
     public boolean addSetPassengers(BookingDto bookingDto, Set<PassengerDto> passengerDtos){
-
         if(!passengerDtos.isEmpty()){
             for(PassengerDto passengerDto : passengerDtos){
                 passengerDto.setBookingDto(bookingDto);
                 Passenger passenger = passengerService.addNewPassenger(passengerDto);
                 if(passenger == null){
-
                     return false;
                 }
                 bookingDto.getPassengerDtos().add(mapper.mapToPassengerDto(passenger));
