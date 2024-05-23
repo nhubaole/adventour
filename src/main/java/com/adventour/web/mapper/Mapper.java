@@ -2,6 +2,8 @@ package com.adventour.web.mapper;
 
 import com.adventour.web.controller.TourController;
 import com.adventour.web.dto.*;
+import com.adventour.web.dto.*;
+import com.adventour.web.enums.StatusOfTicket;
 import com.adventour.web.models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,11 +56,16 @@ public class Mapper {
         tripDto.setEndDate(trip.getEndDate());
         tripDto.setPriceTicket(trip.getPriceTicket());
         tripDto.setDiscount(trip.getDiscount());
+        tripDto.setTripType(trip.getTripType());
 
         TourDto tourDto = mapToTourDto(trip.getTour());
         tripDto.setTourDto(tourDto);
 
+        tripDto.setName(tourDto.getTourName());
+
         tripDto.setPassengers(trip.getPassengers());
+
+
         return tripDto;
     }
     public Trip mapToTrip(TripDto tripDto){
@@ -67,8 +74,15 @@ public class Mapper {
         trip.setSlots(tripDto.getSlots());
         trip.setStartDate(tripDto.getStartDate());
         trip.setEndDate(tripDto.getEndDate());
-        trip.setPriceTicket(trip.getPriceTicket());
+        trip.setPriceTicket(tripDto.getPriceTicket());
         trip.setDiscount(tripDto.getDiscount());
+        if(tripDto.getDiscount() > 0){
+            tripDto.setTripType("Khuyến mãi");
+        }
+        else
+        {
+            tripDto.setTripType("Thông thường");
+        }
 
         Tour tour = mapToTour(tripDto.getTourDto());
         trip.setTour(tour);
@@ -111,10 +125,15 @@ public class Mapper {
         booking.setId(bookingDto.getId());
         booking.setBookingDate(bookingDto.getBookingDate());
         booking.setStatus(bookingDto.getStatus());
-        booking.setTotalAmount(bookingDto.getTotalAmount());
+        booking.setNumberAdult(bookingDto.getNumberAdult());
+        booking.setNumberBaby(bookingDto.getNumberBaby());
+        booking.setNumberChildren(bookingDto.getNumberChildren());
 
         Trip trip = mapToTrip(bookingDto.getTripDto());
         booking.setTrip(trip);
+
+        int price = booking.getTrip().getPriceTicket();
+        booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
         Customer customer = mapToCustomer(bookingDto.getCustomerDto());
         booking.setCustomer(customer);
@@ -129,23 +148,20 @@ public class Mapper {
         bookingDto.setId(booking.getId());
         bookingDto.setBookingDate(booking.getBookingDate());
         bookingDto.setStatus(booking.getStatus());
+        bookingDto.setNumberChildren(booking.getNumberChildren());
+        bookingDto.setNumberAdult(booking.getNumberAdult());
+        bookingDto.setNumberBaby(booking.getNumberBaby());
+
         int numberOfPassenger = booking.getNumberAdult() + booking.getNumberBaby() + booking.getNumberChildren();
         bookingDto.setNumberOfPassengers(numberOfPassenger);
-        bookingDto.setTotalAmount(booking.getTotalAmount());
 
-        int amountPaid = 0;
-        for (PaymentInformation paymentInformation : booking.getPaymentInformation()){
-            amountPaid += paymentInformation.getAmountOfMoney();
-        }
-        bookingDto.setAmountPaid(amountPaid);
+        bookingDto.setTotalAmount(booking.getTotalAmount());
 
         TripDto tripDto = mapToTripDto(booking.getTrip());
         bookingDto.setTripDto(tripDto);
 
         CustomerDto customerDto = mapToCustomerDto(booking.getCustomer());
         bookingDto.setCustomerDto(customerDto);
-
-
 
         return bookingDto;
     }
@@ -159,6 +175,93 @@ public class Mapper {
                 .build();
     }
 
+    public Passenger mapToPassenger (PassengerDto passengerDto){
+        Passenger passenger = new Passenger();
+        passenger.setId(passengerDto.getId());
+        passenger.setNamePassenger(passengerDto.getNamePassenger());
+        passenger.setMale(passengerDto.isMale());
+        passenger.setDateOfBirth(passengerDto.getDateOfBirth());
+        passenger.setCccd(passengerDto.getCccd());
+        passenger.setType(passengerDto.getType());
+
+        Booking booking = mapToBooking(passengerDto.getBookingDto());
+        passenger.setBooking(booking);
+
+        passenger.setTrip(booking.getTrip());
+
+        return passenger;
+    };
+
+    public PassengerDto mapToPassengerDto (Passenger passenger){
+        PassengerDto passengerDto = new PassengerDto();
+        passengerDto.setId(passenger.getId());
+        passengerDto.setNamePassenger(passenger.getNamePassenger());
+        passengerDto.setMale(passenger.isMale());
+        passengerDto.setDateOfBirth(passenger.getDateOfBirth());
+        passengerDto.setCccd(passenger.getCccd());
+        passengerDto.setType(passenger.getType());
+
+        BookingDto booking = mapToBookingDto(passenger.getBooking());
+        passengerDto.setBookingDto(booking);
+
+        passengerDto.setTripDto(booking.getTripDto());
+
+        return passengerDto;
+    };
+
+    public PaymentInformationDto mapToPaymentInformationDto(PaymentInformation paymentInformation){
+        BookingDto bookingDto = mapToBookingDto(paymentInformation.getBooking());
+        return  PaymentInformationDto.builder()
+                .id(paymentInformation.getId())
+                .amountOfMoney(paymentInformation.getAmountOfMoney())
+                .paymentMethod(paymentInformation.getPaymentMethod())
+                .paymentTime(paymentInformation.getPaymentTime())
+                .bookingDto(bookingDto)
+                .build();
+    }
+
+    public PaymentInformation mapToPaymentInformation( PaymentInformationDto paymentInformationDto) {
+
+        PaymentInformation paymentInformation = new PaymentInformation();
+
+        paymentInformation.setId(paymentInformationDto.getId());
+        paymentInformation.setPaymentMethod(paymentInformationDto.getPaymentMethod());
+        paymentInformation.setAmountOfMoney(paymentInformationDto.getAmountOfMoney());
+        paymentInformation.setPaymentTime(paymentInformationDto.getPaymentTime());
+
+        Booking booking = mapToBooking(paymentInformationDto.getBookingDto());
+        paymentInformation.setBooking(booking);
+        return paymentInformation;
+    }
+
+    public TicketDto mapToTicketDto(Ticket ticket){
+        TicketDto ticketDto = new TicketDto();
+        ticketDto.setId(ticket.getId());
+        ticketDto.setUsedAt(ticket.getUsedAt());
+        ticketDto.setPassengerDto(mapToPassengerDto(ticket.getPassenger()));
+        ticketDto.setBookingDto(mapToBookingDto(ticket.getBooking()));
+
+        ticketDto.setNamePassenger(ticket.getPassenger().getNamePassenger());
+        if(ticket.getUsedAt() == null){
+            ticketDto.setStatusTicket(StatusOfTicket.UNUSED);
+        }
+        else {
+            ticketDto.setStatusTicket(StatusOfTicket.USED);
+        }
+
+        ticketDto.setTypeTicket(ticket.getPassenger().getType());
+
+        return ticketDto;
+    }
+
+    public Ticket mapToTicket (TicketDto ticketDto){
+        Ticket ticket = new Ticket();
+        ticket.setId(ticket.getId());
+        ticket.setUsedAt(ticketDto.getUsedAt());
+        ticket.setBooking(mapToBooking(ticketDto.getBookingDto()));
+        ticket.setPassenger(mapToPassenger(ticketDto.getPassengerDto()));
+        return ticket;
+    }
     public Location mapToLocation(LocationDto location) {
         return Location.builder()
                 .id(location.getId())

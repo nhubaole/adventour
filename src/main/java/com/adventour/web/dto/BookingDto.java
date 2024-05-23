@@ -34,7 +34,7 @@ public class BookingDto {
     @Min(value = 0)
     private int totalAmount;
 
-    private int amountPaid;
+    private int amountPaid = 0;
 
     @Min(value = 0)
     private int numberAdult;

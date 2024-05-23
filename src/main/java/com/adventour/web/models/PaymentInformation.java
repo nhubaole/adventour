@@ -29,6 +29,4 @@ public class PaymentInformation {
     @JoinColumn(name = "id_booking", nullable = false)
     private Booking booking;
 
-
-
 }
