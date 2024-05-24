@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -20,5 +21,6 @@ public class LocationDto {
     private String address;
     private String description;
     private String[] images;
+    private MultipartFile[] files;
 
 }

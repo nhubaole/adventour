@@ -6,6 +6,8 @@ import com.adventour.web.models.Schedule;
 import com.adventour.web.models.Tour;
 import com.adventour.web.service.BucketService;
 import com.adventour.web.service.LocationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import java.util.List;
 public class PlaceController {
     private LocationService placeService;
     private BucketService bucketService;
+    private static Logger logger = LoggerFactory.getLogger(TourController.class);
 
         @Autowired
     public PlaceController(LocationService placeService, BucketService bucketService) {
@@ -69,13 +72,28 @@ public class PlaceController {
     @GetMapping("/add-new-place")
     public String addPlace(Model model){
         LocationDto place = new LocationDto();
-        place.setImages(new String[]{});
+//        place.setImages(new String[]{});
         model.addAttribute("place", place);
         return "/pages/add-new-place";
         }
 
     @PostMapping("/add-new-place")
-    public String savePlace(@ModelAttribute("place") LocationDto place){
+    public String savePlace(@ModelAttribute("place") LocationDto place,
+                            @RequestParam("files") MultipartFile[] files) {
+        logger.info("Number of images: " + files.length);
+        List<String> placeImages = new ArrayList<>();
+
+        for (MultipartFile image : files) {
+            try {
+                String fileUrl = bucketService.uploadFile(image);
+                placeImages.add(fileUrl);
+            } catch (Exception e) {
+                logger.error("Error uploading image: " + e.getMessage());
+                // Handle exception appropriately, e.g., log it or inform the user
+            }
+        }
+
+        place.setImages(placeImages.toArray(new String[0]));
         placeService.addNewLocation(place);
         return "redirect:/all-place";
     }
