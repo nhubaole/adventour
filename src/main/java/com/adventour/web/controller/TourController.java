@@ -76,7 +76,6 @@ public class TourController {
     public String addNewTour(Model model){
         TourDto tour = new TourDto();
         currentAddingTour = tour;
-
         model.addAttribute("tour", tour);
         return "/pages/add-tour";
     }

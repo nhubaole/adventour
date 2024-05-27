@@ -70,7 +70,7 @@ public class LoginController {
         customerDto.setNameCustomer("Huỳnh Ngoc Y");
         customerDto.setAddressCustomer("Dh CNTT");
         customerDto.setCccd("06666784345");
-        customerDto.setMale(true);
+        //customerDto.setMale(true);
         customerDto.setEmail("nhih0406@gmail.com");
         customerDto.setNationality("England");
 

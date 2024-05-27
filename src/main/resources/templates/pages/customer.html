@@ -43,7 +43,7 @@
         <div class="card">
             <div class="card-header input-style">
                 <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px">
+                    <input type="search" name="keyword" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px" th:value="${keyword}">
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>
@@ -104,14 +104,14 @@
                                     </td>
                                     <td class="col-auto">
                                         <div class="d-flex align-items-center">
-                                            <span th:text="${customer.isMale} ? Nam : Nữ"></span>
+                                            <span th:text="${customer.isMale} ? 'Nam' : 'Nữ'"></span>
                                         </div>
                                     </td>
                                     <td class="col-auto">
                                         <div style="color: black; cursor: pointer;">
-                                            <a th:href="@{profile}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
-                                            <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                            <i class="bi bi-trash3"></i>
+                                            <a th:href="@{/customer/{id}(id=${customer.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                            <a class="bi bi-pencil" style="padding-right: 5px;"></a>
+                                            <a th:href="@{/customer/{id}/delete(customerDto=${customerDto}}" class="bi bi-trash3"></a>
                                         </div>
                                     </td>
                                 </tr>

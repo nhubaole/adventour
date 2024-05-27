@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 public class TripController {
     private TripService tripService;
-
+    static TripDto addNewTrip;
         @Autowired
         public TripController(TripService tripService) {
             this.tripService = tripService;
@@ -42,6 +42,16 @@ public class TripController {
         }
 
     @GetMapping("/add-new-trip")
-    public String addNewTrip(Model model){return "/pages/add-new-trip";}
+    public String addNewTrip(Model model){
+            TripDto tripDto = new TripDto();
+            model.addAttribute("trip", tripDto);
+            return "/pages/add-new-trip";
+        }
 
+    @PostMapping("/add-new-trip")
+    public String saveTrip(@ModelAttribute("trip") TripDto tripDto){
+            tripService.addNewTrip(tripDto);
+            return "redirect:/alltrip";
+    }
 }
+
