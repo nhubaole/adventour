@@ -237,7 +237,7 @@ public class BookingController {
         paymentInformationDto.setPaymentMethod(PaymentMethod.valueOf(paymentMethod));
         paymentInformationDto.setPaymentTime(LocalDateTime.now());
         paymentInformationDto.setBookingDto(bookingDto);
-        //paymentInformationService.addNewPaymentInformation(paymentInformationDto);
+        paymentInformationService.addNewPaymentInformation(paymentInformationDto);
         if (bookingDto.getPaymentInformationDtos() == null) {
             bookingDto.setPaymentInformationDtos(new HashSet<>());
         }
