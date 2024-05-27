@@ -42,6 +42,7 @@ public class TourController {
             tourDtos = tourService.searchTour(keyword);
             model.addAttribute("keyword", keyword);
         }
+        logger.info(tourDtos.get(0).getTypeOfTour());
         model.addAttribute("tours", tourDtos);
         return "/pages/all-tour";
     }
@@ -108,6 +109,7 @@ public class TourController {
 
         data.schedule = new ScheduleDto();
         tour.schedules = new ArrayList<>();
+        tour.setNumberOfNights(tour.getNumberOfDays() - 1);
         data.tour = tour;
         session.setAttribute("currentAddingTour", tour);
 

@@ -21,7 +21,7 @@ public class Mapper {
                 .estimatedPrice(tour.getEstimatedPrice())
                 .numberOfDays(tour.getNumberOfDays())
                 .numberOfNights(tour.getNumberOfNights())
-//                .typeOfTour(tour.getTypeOfTour())
+                .typeOfTour(tour.getTypeOfTour())
                 .build();
     }
     public Tour mapToTour(TourDto tourDto) {

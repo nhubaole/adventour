@@ -107,7 +107,8 @@
                                 <td class="col-3 pd" style="">
                                     <div class="d-flex align-items-center">
                                         <div class="avatar avatar-md">
-                                            <img src="/compiled/jpg/5.jpg">
+                                            <img th:if="${place.images != null and place.images.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${place.images[0]}" />
+                                            <img th:unless="${place.images != null and place.images.length > 0}" src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg" />
                                         </div>
                                         <p class="font-bold ms-3 mb-0" th:text="${place.nameLocation}"></p>
                                     </div>
