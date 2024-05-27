@@ -131,17 +131,6 @@ public class BookingController {
         }
         this.bookingForm.setCustomerDto(new CustomerDto());
         this.bookingForm.setCustomerDto(bookingDto.getCustomerDto());
-        if(StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getNameCustomer())
-                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getPhoneNumber())
-                /*||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getAddressCustomer())*/
-                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getEmail())
-                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getCccd())
-                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getNationality())
-                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getDateOfBirth().toString())
-        ) {
-            return "redirect:/add-new-booking-information/" + id;
-        }
-
         return "redirect:/add-new-booking-passenger/" + id;
     }
 
@@ -280,10 +269,17 @@ public class BookingController {
         PaymentInformationDto paymentInformationDto = new PaymentInformationDto();
         paymentInformationDto.setAmountOfMoney(Integer.parseInt(amountPaid));
         paymentInformationDto.setPaymentMethod(PaymentMethod.valueOf(paymentMethod));
+        paymentInformationDto.setPaymentTime(LocalDateTime.now());
+        paymentInformationDto.setBookingDto(bookingForm);
         this.bookingForm.getPaymentInformationDtos().add(paymentInformationDto);
         this.bookingForm.setTripDto(tripService.getTripDetail(id));
         this.bookingForm.setBookingDate(LocalDateTime.now());
         bookingService.addNewBooking(this.bookingForm);
+        for ( PassengerDto passengerdto: this.bookingForm.getPassengerDtos()
+             ) {
+            passengerService.addNewPassenger(passengerdto);
+        }
+        //paymentInformationService.addNewPaymentInformation(paymentInformationDto);
 
         return "redirect:/all-booking";
     }
