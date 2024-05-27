@@ -10,4 +10,6 @@ public interface TicketService {
     public Ticket addNewTicket(TicketDto ticketDto);
 
     public Set<TicketDto> getTicketsByIdBooking(Long idBooking);
+
+    public TicketDto getTicketDetail (Long idTicket);
 }

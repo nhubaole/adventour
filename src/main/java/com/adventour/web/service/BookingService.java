@@ -6,6 +6,7 @@ import com.adventour.web.dto.PaymentInformationDto;
 import com.adventour.web.dto.TicketDto;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.Passenger;
+import com.adventour.web.models.PaymentInformation;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +16,7 @@ public interface BookingService {
     List<BookingDto> getListBooking();
     List<BookingDto> findByBookingDateBetween(LocalDateTime start, LocalDateTime end);
 
-    BookingDto searchBooking();
+    List<BookingDto> searchBooking(String search);
 
     Booking addNewBooking(BookingDto bookingDto);
 
@@ -32,8 +33,11 @@ public interface BookingService {
 
     Set<TicketDto> getTicketOfBooking(Long idBooking);
 
+    PaymentInformation addBookingPayment (PaymentInformationDto paymentInformationDto, BookingDto bookingDto);
+
     boolean validateBooking(BookingDto bookingDto);
 
     Set<TicketDto> genarateTickets (BookingDto bookingDto);
 
+    Booking deleteBooking(BookingDto bookingDto);
 }
