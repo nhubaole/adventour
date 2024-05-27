@@ -2,24 +2,25 @@ package com.adventour.web.controller;
 
 import com.adventour.web.dto.*;
 import com.adventour.web.controller.CustomerController;
+import com.adventour.web.enums.PaymentMethod;
 import com.adventour.web.enums.StatusOfBooking;
+import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.Customer;
 import com.adventour.web.models.Trip;
-import com.adventour.web.service.BookingService;
-import com.adventour.web.service.CustomerService;
-import com.adventour.web.service.TourService;
-import com.adventour.web.service.TripService;
+import com.adventour.web.service.*;
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,14 +34,31 @@ public class BookingController {
     private CustomerService customerService;
     private TourService tourService;
     private TripService tripService;
+    private PaymentInformationService paymentInformationService;
+    private PassengerService passengerService;
+    private TicketService ticketService;
+    private Mapper mapper;
+    private BookingDto bookingForm;
+
 
         @Autowired
-        public BookingController(BookingService bookingService, CustomerService customerService, TripService tripService, TourService tourService) {
+        public BookingController(BookingService bookingService, CustomerService customerService,
+                                 TripService tripService, TourService tourService,
+                                 PaymentInformationService paymentInformationService,
+                                 PassengerService passengerService,TicketService ticketService,
+                                 Mapper mapper) {
+
             this.bookingService = bookingService;
             this.customerService = customerService;
             this.tripService = tripService;
             this.tourService = tourService;
+            this.paymentInformationService = paymentInformationService;
+            this.passengerService = passengerService;
+            this.ticketService = ticketService;
+            this.mapper = mapper;
+            this.bookingForm = new BookingDto();
         }
+    private static Logger logger = LoggerFactory.getLogger(BookingController.class);
     @GetMapping("/all-booking")
     public String allBooking(Model model){
         List<BookingDto> bookingDtos = bookingService.getListBooking();
@@ -90,28 +108,184 @@ public class BookingController {
 
 
 
-    @GetMapping("/add-new-booking-information")
-    public String addNewBookingInfo(Model model){return "/pages/add-new-booking-information";}
+    @GetMapping("/add-new-booking-information/{id}")
+    public String addNewBookingInfo(@PathVariable("id") Long id,Model model){
+        TripDto trip = tripService.getTripDetail(id);
+        List<BookingDto> bookingDtos = bookingService.getListBooking();
+        List<CustomerDto> customerDtos = customerService.getListCustomer();
+        BookingDto bookingDto = new BookingDto();
+        if (bookingDto.getCustomerDto() == null) {
+            bookingDto.setCustomerDto(new CustomerDto());
+        }
+        model.addAttribute("bookingDtos", bookingDtos);
+        model.addAttribute("customerDtos", customerDtos);
+        model.addAttribute("trip",trip);
+        model.addAttribute("bookingDto", bookingDto);
+            return "/pages/add-new-booking-information";}
 
-    @GetMapping("/booking-detail-passenger")
-    public String bookingDetailPassenger(Model model){
-        BookingDto booking = new BookingDto();
+    @PostMapping("/add-new-booking-information/{id}")
+    public String handleBookingInfo(@PathVariable("id") Long id,
+                                    @ModelAttribute BookingDto bookingDto) {
+        if(bookingDto.getCustomerDto()==null){
+            return "redirect:/add-new-booking-information/" + id;
+        }
+        this.bookingForm.setCustomerDto(new CustomerDto());
+        this.bookingForm.setCustomerDto(bookingDto.getCustomerDto());
+        if(StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getNameCustomer())
+                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getPhoneNumber())
+                /*||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getAddressCustomer())*/
+                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getEmail())
+                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getCccd())
+                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getNationality())
+                ||StringUtils.isEmptyOrWhitespace(this.bookingForm.getCustomerDto().getDateOfBirth().toString())
+        ) {
+            return "redirect:/add-new-booking-information/" + id;
+        }
+
+        return "redirect:/add-new-booking-passenger/" + id;
+    }
+
+    @GetMapping("/booking-detail-passenger/{id}")
+    public String bookingDetailPassenger(@PathVariable Long id,Model model){
+        BookingDto booking = bookingService.findById(id);
+        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
+        TripDto trip = booking.getTripDto();
+        TourDto tour = booking.getTripDto().getTourDto();
+        model.addAttribute("booking", booking);
+        model.addAttribute("trip", trip);
+        model.addAttribute("tour",tour);
+        model.addAttribute("customer", customer);
         Set<PassengerDto> passengers = new HashSet<>();
         booking.setPassengerDtos(passengers);
-
         model.addAttribute("booking", booking);
             return "/pages/booking-detail-passenger";}
 
-    @GetMapping("/add-new-booking-passenger")
-    public String addNewBookingPassenger(Model model){return "/pages/add-new-booking-passenger";}
+    @GetMapping("/add-new-booking-passenger/{id}")
+    public String addNewBookingPassenger(@PathVariable Long id,Model model){
+        TripDto trip = tripService.getTripDetail(id);
+        model.addAttribute("trip",trip);
+        BookingDto bookingDto = new BookingDto();
+        if (bookingDto.getPassengerDtos() == null) {
+            bookingDto.setPassengerDtos(new HashSet<>());
+        }
+        model.addAttribute("bookingDto", bookingDto);
+            return "/pages/add-new-booking-passenger";
+        }
 
-    @GetMapping("/booking-detail-payment")
-    public String bookingDetailPayment(Model model){return "/pages/booking-detail-payment";}
-    @GetMapping("/booking-detail-ticket")
-    public String viewBookingDetailTicket(Model model){
+    @PostMapping("/add-new-booking-passenger/{id}")
+    public String processNewBookingPassenger(@PathVariable Long id, @ModelAttribute BookingDto bookingDto, HttpServletRequest request) {
+        //this.bookingForm = bookingDto;
+        Set<PassengerDto> passengers = new HashSet<>();
+        this.bookingForm.setPassengerDtos(passengers);
+        TripDto trip = tripService.getTripDetail(id);
+
+        int numOfAdults = Integer.parseInt(request.getParameter("num_of_adults"));
+        for (int i = 1; i <= numOfAdults; i++) {
+            PassengerDto adult = new PassengerDto();
+            adult.setNamePassenger(request.getParameter("adult_fname_" + i));
+            adult.setMale(Boolean.parseBoolean(request.getParameter("adult_gender_" + i)));
+            adult.setDateOfBirth(LocalDate.parse(request.getParameter("adult_birthday_" + i)));
+            adult.setCccd(request.getParameter("adult_id_" + i));
+            passengers.add(adult);
+        }
+
+        this.bookingForm.setNumberAdult(numOfAdults);
+
+        int numOfChildren = Integer.parseInt(request.getParameter("num_of_children"));
+        for (int i = 1; i <= numOfChildren; i++) {
+            PassengerDto child = new PassengerDto();
+            child.setNamePassenger(request.getParameter("children_fname_" + i));
+            child.setMale(Boolean.parseBoolean(request.getParameter("children_gender_" + i)));
+            child.setDateOfBirth(LocalDate.parse(request.getParameter("children_birthday_" + i)));
+            child.setCccd(request.getParameter("children_id_" + i));
+            passengers.add(child);
+        }
+        this.bookingForm.setNumberChildren(numOfChildren);
+
+        int numOfBaby = Integer.parseInt(request.getParameter("num_of_baby"));
+        for (int i = 1; i <= numOfBaby; i++) {
+            PassengerDto baby = new PassengerDto();
+            baby.setNamePassenger(request.getParameter("baby_fname_" + i));
+            baby.setMale(Boolean.parseBoolean(request.getParameter("baby_gender_" + i)));
+            baby.setDateOfBirth(LocalDate.parse(request.getParameter("baby_birthday_" + i)));
+            baby.setCccd(request.getParameter("baby_id_" + i));
+            passengers.add(baby);
+        }
+        this.bookingForm.setNumberBaby(numOfBaby);
+        this.bookingForm.setNumberOfPassengers(numOfBaby+numOfChildren+numOfAdults);
+        this.bookingForm.setAmountPaid((int) (numOfAdults*trip.getPriceTicket()*(1-trip.getDiscount()/100) +numOfChildren*trip.getPriceTicket()*(1-trip.getDiscount()/100)/2));
+        bookingDto.setPassengerDtos(passengers);
+        return "redirect:/add-new-booking-payment/" + id;
+    }
+
+
+    @GetMapping("/booking-detail-payment/{id}")
+    public String bookingDetailPayment(@PathVariable Long id,Model model){
+        BookingDto booking = bookingService.findById(id);
+        TourDto tour = booking.getTripDto().getTourDto();
+        TripDto trip = booking.getTripDto();
+        PaymentInformationDto paymentInformationDto = new PaymentInformationDto();
+        /*PaymentInformationDto = booking.getPaymentInformationDtos()*/
+        model.addAttribute("booking", booking);
+        model.addAttribute("tour",tour);
+        model.addAttribute("trip",trip);
+        model.addAttribute("paymentInformationDto", paymentInformationDto);
+        return "/pages/booking-detail-payment";}
+
+    @PostMapping("/booking-detail-payment/{id}/add-payment")
+    public String addPayment(@PathVariable Long id, @ModelAttribute PaymentInformationDto paymentInformationDto, Model model) {
+        BookingDto bookingDto = bookingService.findById(id);
+        paymentInformationDto.setBookingDto(bookingDto);
+        if (bookingDto.getPaymentInformationDtos() == null) {
+            bookingDto.setPaymentInformationDtos(new HashSet<>());
+        }
+        bookingDto.getPaymentInformationDtos().add(paymentInformationDto);
+        bookingService.updateBooking(bookingDto);
+        Set<PaymentInformationDto> paymentInformationDtos = bookingDto.getPaymentInformationDtos();
+        model.addAttribute("paymentInformationDtos", paymentInformationDtos);
+        return "redirect:/booking-detail-payment/" + bookingDto.getId();
+    }
+    @GetMapping("/booking-detail-ticket/{id}")
+    public String viewBookingDetailTicket(@PathVariable Long id,Model model){
+        BookingDto booking = bookingService.findById(id);
+        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
+        TripDto trip = booking.getTripDto();
+        TourDto tour = booking.getTripDto().getTourDto();
+        Set<PassengerDto> passengerDtos = booking.getPassengerDtos();
+        Set<TicketDto> ticketDtos = booking.getTicketDtos();
+        model.addAttribute("passengers",passengerDtos);
+        model.addAttribute("booking",booking);
+        model.addAttribute("tour",tour);
+        model.addAttribute("trip",trip);
+        model.addAttribute("tickets", ticketDtos);
         return "/pages/booking-detail-ticket";
     }
 
-    @GetMapping("/add-new-booking-payment")
-    public String addNewBookingPayment(Model model){return "/pages/add-new-booking-payment";}
+    @GetMapping("/add-new-booking-payment/{id}")
+    public String addNewBookingPayment(@PathVariable Long id,Model model){
+        TripDto trip = tripService.getTripDetail(id);
+        BookingDto booking = new BookingDto();
+        TourDto tour = trip.getTourDto();
+
+        Set<PaymentInformationDto> paymentInformationDtos = new HashSet<>();
+        model.addAttribute("paymentInformationDtos", paymentInformationDtos);
+        model.addAttribute("tour",tour);
+        model.addAttribute("trip",trip);
+        model.addAttribute("bookingform", this.bookingForm);
+            return "/pages/add-new-booking-payment";
+        }
+
+    @PostMapping("/add-new-booking-payment/{id}")
+    public String addPayment(@PathVariable Long id, @RequestParam String amountPaid, @RequestParam String paymentMethod) {
+        PaymentInformationDto paymentInformationDto = new PaymentInformationDto();
+        paymentInformationDto.setAmountOfMoney(Integer.parseInt(amountPaid));
+        paymentInformationDto.setPaymentMethod(PaymentMethod.valueOf(paymentMethod));
+        this.bookingForm.getPaymentInformationDtos().add(paymentInformationDto);
+        this.bookingForm.setTripDto(tripService.getTripDetail(id));
+        this.bookingForm.setBookingDate(LocalDateTime.now());
+        bookingService.addNewBooking(this.bookingForm);
+
+        return "redirect:/all-booking";
+    }
+
 }

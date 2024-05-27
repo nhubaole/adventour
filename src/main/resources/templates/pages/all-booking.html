@@ -112,6 +112,8 @@
                         </thead>
                         <tbody>
                             <th:block th:each="booking, stat : ${bookings}">
+                                <tr>
+
                             <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     <span th:text="${stat.index + 1}"></span>
@@ -156,6 +158,7 @@
                                     </a>
                                 </div>
                             </td>
+                                </tr>
                         </th:block>
 
                         </tbody>

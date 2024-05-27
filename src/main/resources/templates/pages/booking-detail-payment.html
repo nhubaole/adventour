@@ -125,7 +125,16 @@
             document.getElementById('money-pay').addEventListener('input', validateInput);
         });
 
-
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const urlParts = const urlParts = window.location.pathname.split('/');
+    const id = urlParts[urlParts.length - 1];
+    form.action = '/booking-detail-payment/' + id + '/add-payment';
+    const paymentMethod = form.querySelector('input[name="paymentMethod"]:checked').value;
+    console.log('Selected payment method:', paymentMethod);
+    form.submit();
+});
 
     </script>
 </head>
@@ -135,29 +144,37 @@
         <div class="card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+                    <h6 th:text="${tour.tourName}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        <!--Liên tuyến : Brunei - Malaysia khám phá thành phố Miri-->
 
                     </h6>
 
-                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                    <p  class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
-                        04/05/2024
+                        <span th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}">
+                           <!--04/05/2024 -->
+                        </span>
+
+
                     </p>
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
-                            68,000,000 đ
+                        <div th:text="${trip.priceTicket} + ' đ'" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            <!--68,000,000 đ-->
                         </div>
-                        34,000,000 đ
+                        <!--
+                                                <span th:text="${trip.priceTripFinal} + ' đ'">&lt;!&ndash;34,000,000 đ&ndash;&gt;</span>
+                        -->
+                        <span th:text="${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!--34,000,000 đ--></span>
+
                         <div class="discount">
-                            -50%
+                            <span th:text="'-' + ${trip.discount} + '%'"><!-- -50%--></span>
                         </div>
                     </div>
                     <div>
                         <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
-                            Đặt lúc 10:23 09/03/2024
+                            Đặt lúc <span th:text="${#temporals.format(booking.bookingDate, 'HH:mm dd/MM/yyyy')}"><!--10:23 09/03/2024--></span>
                         </p>
 
                     </div>
@@ -166,19 +183,19 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-information/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin liên hệ
                         </a>
-                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-passenger/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
                             Hành khách
                         </a>
-                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-payment/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
                             Thông tin thanh toán
                         </a>
-                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
                             Danh sách vé
                         </a>
@@ -187,12 +204,12 @@
                 <div class="col-12 col-lg-8" style="display:flex;">
                     <div class="card"><div style="margin-left: 30px; margin-bottom: 10px;"> Lịch sử giao dịch</div>
 
-                        <div th:each="payment, stat : ${booking.paymentInformationDtoSet}" class="col-12 col-lg-4" style="margin-left: 30px; margin-bottom: 30px">
+                        <div th:each="payment, stat : ${booking.paymentInformationDtos}" class="col-12 col-lg-4" style="margin-left: 30px; margin-bottom: 30px">
                             <div style="display: flex;">
                                 <div class="form-container">
                                     <div class="left-text">
-                                        <div th:text="${#dates.format(payment.paymentTime, 'HH:mm')}" style="font-weight:bold"><!--9:30--></div>
-                                        <div th:text="${#dates.format(payment.paymentTime, 'dd/MM/yyyy')}" style="font-size: 14px"><!--10/02/2024--></div>
+                                        <div th:text="${#temporals.format(payment.paymentTime, 'HH:mm')}" style="font-weight:bold"><!--9:30--></div>
+                                        <div th:text="${#temporals.format(payment.paymentTime, 'dd/MM/yyyy')}" style="font-size: 14px"><!--10/02/2024--></div>
                                     </div>
                                 </div>
                                 <div class="border-style" style="margin-left: 10px"></div>
@@ -228,22 +245,26 @@
                         <div style="padding-bottom: 20px; border-bottom: 1px solid #d5d5d5;">
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Người lớn</div>
-                                <div style="font-size: 14px;" th:text="${totalAdults} + ' x ' + ${priceTripFinal} + ' đ'"><!-- 2 x 34,000,000 đ --></div>
+                                <div style="font-size: 14px;" th:text="${booking.numberAdult} + ' x ' + ${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!-- 2 x 34,000,000 đ --></div>
                             </div>
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Trẻ em</div>
-                                <div style="font-size: 14px;" th:text="${totalChildren} + ' x ' + ${priceTripFinal / 2} + ' đ'"><!-- 1 x 5,000,000 đ --></div>
+                                <div style="font-size: 14px;" th:text="${booking.numberChildren} + ' x ' + ${trip.priceTicket * (1 - trip.discount / 100) / 2} + ' đ'"><!-- 1 x 5,000,000 đ --></div>
                             </div>
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Em bé</div>
-                                <div style="font-size: 14px;" th:text="${totalInfants} + ' x 0 đ'"><!-- 1 x 0 đ --></div>
+                                <div style="font-size: 14px;" th:text="${booking.numberBaby} + ' x 0 đ'"><!-- 1 x 0 đ --></div>
                             </div>
                         </div>
 
                         <div style="margin-top: 20px;">
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Tổng tiền</div>
-                                <div style="font-size: 14px;" th:text="${totalAmount} + ' đ'"><!-- 72,000,000 đ --></div>
+                                <div style="font-size: 14px;" th:text="${tour.estimatedPrice} + ' đ'"><!-- 72,000,000 đ --></div>
+                            </div>
+                            <div th:with="paidAmount=0">
+                                <div th:each="payment, stat : ${booking.paymentInformationDtos}" th:with="paidAmount=${paidAmount} + ${payment.amountOfMoney}">
+                                </div>
                             </div>
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Đã thanh toán</div>
@@ -251,7 +272,10 @@
                             </div>
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Còn lại</div>
-                                <div style="font-size: 14px;" th:text="${remainingAmount} + ' đ'"><!-- 60,000,000 đ --></div>
+                                <div style="font-size: 14px;" th:text="${tour.estimatedPrice} + ' đ'"><div style="font-size: 14px;" th:text="${tour.estimatedPrice - paidAmount} + ' đ'"><!-- 60,000,000 đ --></div>
+<!--
+                                    <div style="font-size: 14px;" th:text="${tour.estimatedPrice - paidAmount} + ' đ'"><div style="font-size: 14px;" th:text="${tour.estimatedPrice - paidAmount} + ' đ'">&lt;!&ndash; 60,000,000 đ &ndash;&gt;</div>
+-->
                             </div>
                         </div>
 
@@ -262,17 +286,18 @@
                             <button class=" btn btn-primary me-1 mb-1" type="save" data-bs-toggle="modal" data-bs-target="#default">Thanh toán</button>
                             <div class="modal fade text-left" id="default" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                    <div class="modal-content" style="min-width: 590px">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="myModalLabel1">Thanh Toán</h5>
-                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="col-12" style="">
-                                                <fieldset class="form-group" style="border-bottom: 1px solid #d5d5d5; padding-bottom: 20px;">
-                                                    <label for="money-pay"></label><input
+                                    <form th:action="@{'/booking-detail-payment/' + ${booking.id} + '/add-payment'}" th:object="${paymentInformationDto}" method="post" id="paymentForm">
+                                        <div class="modal-content" style="min-width: 590px">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel1">Thanh Toán</h5>
+                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-12" style="">
+                                                    <fieldset class="form-group" style="border-bottom: 1px solid #d5d5d5; padding-bottom: 20px;">
+                                                        <label for="money-pay"></label><input
                                                             style="height: 50px;"
                                                             type="text"
                                                             id="money-pay"
@@ -281,41 +306,45 @@
                                                             name="fname-column"
                                                             onkeypress="return isNumber(event)"
                                                             inputmode="numeric"
+                                                            th:field="*{amountOfMoney}"
                                                             pattern="[0-9]*">
-                                                </fieldset>
-                                                <fieldset class="form-group">
+                                                    </fieldset>
+                                                    <fieldset class="form-group">
+                                                        <div class="input-wrapper" style="position: relative;">
+                                                            <i class="bi bi-cash" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                            <input style="height: 50px; padding-left: 35px;" type="money" id="money" class="form-control" placeholder="Tiền mặt" name="fname-column" readonly>
+                                                            <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="payment-method" th:field="*{paymentMethod}" value="CASH">
+                                                        </div>
+                                                    </fieldset>
+                                                    <fieldset class="form-group">
+                                                        <div class="input-wrapper" style="position: relative;">
+                                                            <i class="bi bi-credit-card" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                            <input style="height: 50px; padding-left: 35px;" type="tradebyaccount" id="tradebyaccount" class="form-control" placeholder="Chuyển khoản" name="fname-column" readonly>
+                                                            <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="payment-method" th:field="*{paymentMethod}" value="BANKTRANSFER">
+                                                        </div>
+                                                    </fieldset>
+                                                    <fieldset class="form-group">
                                                     <div class="input-wrapper" style="position: relative;">
-                                                        <i class="bi bi-cash" style="position: absolute; left: 10px; top: 20px;"></i>
-                                                        <input style="height: 50px; padding-left: 35px;" type="money" id="money" class="form-control" placeholder="Tiền mặt" name="fname-column">
-                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="payment-method" value="cash">
+                                                        <i class="bi bi-wallet2" style="position: absolute; left: 10px; top: 20px;"></i>
+                                                        <input style="height: 50px; padding-left: 35px;" type="tradebymomo" id="tradebymomo" class="form-control" placeholder="Ví điện từ momo" name="fname-column" readonly>
+                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px; " name="payment-method" th:field="*{paymentMethod}" value="MOMOWALLET">
                                                     </div>
                                                 </fieldset>
-                                                <fieldset class="form-group">
-                                                    <div class="input-wrapper" style="position: relative;">
-                                                        <i class="bi bi-credit-card" style="position: absolute; left: 10px; top: 20px;"></i>
-                                                        <input style="height: 50px; padding-left: 35px;" type="tradebyaccount" id="tradebyaccount" class="form-control" placeholder="Chuyển khoản" name="fname-column">
-                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="payment-method" value="transfer">
-                                                    </div>
-                                                </fieldset><fieldset class="form-group">
-                                                <div class="input-wrapper" style="position: relative;">
-                                                    <i class="bi bi-wallet2" style="position: absolute; left: 10px; top: 20px;"></i>
-                                                    <input style="height: 50px; padding-left: 35px;" type="tradebymomo" id="tradebymomo" class="form-control" placeholder="Ví điện từ momo" name="fname-column">
-                                                    <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px; " name="payment-method" value="momo">
                                                 </div>
-                                            </fieldset>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn" data-bs-dismiss="modal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Hủy</span>
+                                                </button>
+                                                <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Lưu</span>
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn" data-bs-dismiss="modal">
-                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Hủy</span>
-                                            </button>
-                                            <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
-                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Lưu</span>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -328,6 +357,7 @@
             </div>
 
         </div>
+    </div>
     </div>
 </section>
 <script src="/compiled/js/script.js"></script>
