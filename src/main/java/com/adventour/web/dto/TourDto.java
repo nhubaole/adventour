@@ -41,4 +41,18 @@ public class TourDto {
     private String typeOfTour;
 
     public List<ScheduleDto> schedules;
+
+    @Override
+    public String toString() {
+        return "TourDto{" +
+                "id=" + id +
+                ", tourName='" + tourName + '\'' +
+                ", estimatedPrice=" + estimatedPrice +
+                ", numberOfDays=" + numberOfDays +
+                ", numberOfNights=" + numberOfNights +
+                ", typeOfTour='" + typeOfTour + '\'' +
+                ", departureLocation='" + departureLocation + '\'' +
+                ", schedules=" + schedules.size() +
+                '}';
+    }
 }

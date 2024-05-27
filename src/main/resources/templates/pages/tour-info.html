@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
-                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;" th:text="${tour.tourName}"/>
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px; text-align: left;" th:text="${tour.tourName}"/>
                     <p class=" mb-0 accept setting" style="width: 100px;"> Đang mở </p>
                 </div>
             </div>
@@ -70,41 +70,33 @@
                             <form action="#" method="get">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="name" class="form-label">Mã tuyến</label>
-                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã tuyến" th:value="${tour.id}">
+                                        <label class="form-label">Mã tuyến</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.id}"></p>
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="fullname" class="form-label">Loại tuyến</label>
-                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Loại tuyến" th:value="${tour.typeOfTour}">
+                                        <label class="form-label">Loại tuyến</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.typeOfTour}"></p>
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
-                                    <label for="address" class="form-label">Tên tuyến</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Tên tuyến" th:value="${tour.tourName}">
+                                    <label class="form-label">Tên tuyến</label>
+                                    <p class="fw-light" style="color: black;" th:text="${tour.tourName}"></p>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="emailaddress" class="form-label">Nơi xuất phát</label>
-                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Nơi xuất phát" th:value="${tour.departureLocation}">
+                                        <label class="form-label">Nơi xuất phát</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.departureLocation}"></p>
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="birthday" class="form-label">Số ngày đêm</label>
-                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Thời gian" th:value="${tour.numberOfNights}">
+                                        <label class="form-label">Số ngày đêm</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.numberOfDays} + ' ngày ' + ${tour.numberOfNights} + ' đêm'"></p>
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="national" class="form-label">Giá dự kiến</label>
-                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Giá dự kiến" th:value="${tour.estimatedPrice}">
+                                        <label class="form-label">Giá dự kiến</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.estimatedPrice}"></p>
                                     </div>
-                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="telephone" class="form-label">Thời gian xuất phát</label>
-                                        <input style="border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Thời gian" value="8:00">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </form>
                         </div>

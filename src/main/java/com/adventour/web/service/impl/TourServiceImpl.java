@@ -1,5 +1,6 @@
 package com.adventour.web.service.impl;
 
+import com.adventour.web.controller.TourController;
 import com.adventour.web.dto.CustomerDto;
 import com.adventour.web.dto.ScheduleDto;
 import com.adventour.web.dto.TourDto;
@@ -8,6 +9,8 @@ import com.adventour.web.models.Customer;
 import com.adventour.web.models.Tour;
 import com.adventour.web.repository.TourRepository;
 import com.adventour.web.service.TourService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class TourServiceImpl implements TourService {
     private final TourRepository tourRepository;
     private final Mapper mapper;
+    private static Logger logger = LoggerFactory.getLogger(TourController.class);
 
     @Autowired
     public TourServiceImpl(TourRepository tourRepository, Mapper mapper) {
@@ -56,9 +60,10 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour saveTour(TourDto tour) {
+    public Tour saveTour(TourDto tourDto) {
 
-        return tourRepository.save(mapper.maptoTour(tour));
+        Tour tour = mapper.mapToTour(tourDto);
+        return tourRepository.save(tour);
     }
 
     @Override
@@ -74,7 +79,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Tour editTourDetail(TourDto tourDto) {
-        Tour tour = mapper.maptoTour(tourDto);
+        Tour tour = mapper.mapToTour(tourDto);
         tourRepository.save(tour);
         return tour;
     }

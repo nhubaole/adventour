@@ -50,37 +50,9 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body" style="min-height: 550px;">
-                        <form id="uploadForm" method="post" th:action="@{/add-new-place}" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="file" class="custom-file-upload">
-                                    Chọn ảnh
-                                </label>
-                                <input type="file" id="file" name="file" accept="image/*" multiple onchange="previewImages()" required>
-                            </div>
-                            <div class="image-preview" id="imagePreview"></div>
-                            <button class="btn btn-success" type="submit">Upload</button>
-                            <p th:text="${message}"></p>
-                        </form>
-
-                        <script>
-                            function previewImages() {
-                                const imagePreview = document.getElementById('imagePreview');
-                                imagePreview.innerHTML = '';
-                                const files = document.getElementById('file').files;
-                                if (files) {
-                                    Array.from(files).forEach(file => {
-                                        const reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            const img = document.createElement('img');
-                                            img.src = e.target.result;
-                                            imagePreview.appendChild(img);
-                                        }
-                                        reader.readAsDataURL(file);
-                                    });
-                                }
-                            }
-                        </script>
-                        <form class="form" role="form" method="post" th:action="@{/add-new-place}" th:object="${place}">
+                        <p class="mb-2">Hình ảnh địa điểm</p>
+                        <form class="form" role="form" method="post" th:action="@{/add-new-place}" th:object="${place}" enctype="multipart/form-data">
+                            <input type="file" class="multiple-files-filepond" name="files" multiple>
                             <div class="col-12">
                                 <div class="col-12">
                                     <div class="form-group">
