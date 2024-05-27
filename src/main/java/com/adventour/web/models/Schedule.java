@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -39,4 +40,21 @@ public class Schedule {
     private List<String> listRestaurant;
     private List<String> listVehicle;
     private List<String> listOtherService;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+        return Objects.equals(id, schedule.id) &&
+                dayOfSchedule == schedule.dayOfSchedule &&
+                Objects.equals(tour, schedule.tour) &&
+                Objects.equals(startLocation, schedule.startLocation) &&
+                Objects.equals(endLocation, schedule.endLocation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dayOfSchedule, tour, startLocation, endLocation);
+    }
 }

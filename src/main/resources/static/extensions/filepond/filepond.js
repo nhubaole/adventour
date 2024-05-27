@@ -3807,7 +3807,7 @@
         labelThousandsSeparator: [getThousandsSeparator(), Type.STRING], // Default is locale separator
 
         labelIdle: [
-            'Drag & Drop your files or <span class="filepond--label-action">Browse</span>',
+            'Kéo thả hình ảnh vào đây hoặc <span class="filepond--label-action">Tải lên</span>',
             Type.STRING,
         ],
 

@@ -1,10 +1,15 @@
 package com.adventour.web.controller;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import com.adventour.web.dto.AddScheduleFormData;
+import com.adventour.web.dto.LocationDto;
+import com.adventour.web.dto.ScheduleDto;
 import com.adventour.web.dto.TourDto;
 import com.adventour.web.models.Schedule;
 import com.adventour.web.models.Tour;
+import com.adventour.web.service.LocationService;
 import com.adventour.web.service.TourService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +24,12 @@ import java.util.List;
 @Controller
 public class TourController {
     private TourService tourService;
+    private LocationService locationService;
 
     @Autowired
-    public TourController(TourService tourService) {
+    public TourController(TourService tourService, LocationService locationService) {
         this.tourService = tourService;
+        this.locationService = locationService;
     }
     private static Logger logger = LoggerFactory.getLogger(TourController.class);
 
@@ -35,24 +42,9 @@ public class TourController {
             tourDtos = tourService.searchTour(keyword);
             model.addAttribute("keyword", keyword);
         }
+        logger.info(tourDtos.get(0).getTypeOfTour());
         model.addAttribute("tours", tourDtos);
         return "/pages/all-tour";
-    }
-
-    @PostMapping("/add-tour")
-    public String saveTour(@ModelAttribute("tour") Tour tour, Model model){
-//        tourService.saveTour(tour);
-        List<Schedule> schedules = new ArrayList<>();
-        for(int i =0; i < tour.getNumberOfDays(); i++){
-            Schedule schedule = new Schedule();
-            schedule.setTour(tour);
-            schedule.setDayOfSchedule(i+1);
-            schedules.add(schedule);
-        }
-
-        model.addAttribute("schedules", schedules);
-        logger.info(String.valueOf(tour.getNumberOfDays()));
-        return "/pages/add-schedule";
     }
 
     @GetMapping("/all-tour/{tourId}")
@@ -86,18 +78,87 @@ public class TourController {
     public String tourMap(Model model){return "/pages/tour-map";}
 
     @GetMapping("/add-tour")
-    public String addNewTour(Model model){
-        Tour tour = new Tour();
+    public String addNewTour(Model model, HttpSession session){
+        TourDto tour = new TourDto();
+        session.setAttribute("currentAddingTour", tour);
+
         model.addAttribute("tour", tour);
         return "/pages/add-tour";
     }
 
-//    @GetMapping("/tour-detail")
-//    public String tourDetail(Model model){return "/pages/tour-detail";}
+    @PostMapping("/save-tour")
+    public String saveTour(HttpSession session){
+        TourDto currentAddingTour = (TourDto) session.getAttribute("currentAddingTour");
+        if (currentAddingTour == null) {
+            return "redirect:/add-tour";
+        }
 
-    @GetMapping("/add-schedule")
-    public String addSchedule(@ModelAttribute("tour") Tour tour, Model model){
-        model.addAttribute("tour", tour);
+        logger.info(String.valueOf("currentAddingTour " + currentAddingTour.toString()));
+        tourService.saveTour(currentAddingTour);
+        session.removeAttribute("currentAddingTour");
+        return "redirect:/all-tour";
+    }
+
+    @PostMapping("/add-tour")
+    public String performingTour(@ModelAttribute("tour") TourDto tour, Model model, HttpSession session){
+        List<Integer> days = new ArrayList<>();
+        AddScheduleFormData data = new AddScheduleFormData();
+        for(int i = 0; i < tour.getNumberOfDays(); i++){
+            days.add(i + 1);
+        }
+
+        data.schedule = new ScheduleDto();
+        tour.schedules = new ArrayList<>();
+        tour.setNumberOfNights(tour.getNumberOfDays() - 1);
+        data.tour = tour;
+        session.setAttribute("currentAddingTour", tour);
+
+        model.addAttribute("days", days);
+        model.addAttribute("data", data);
+
+        List<LocationDto> locations = locationService.findAllLocation();
+        model.addAttribute("locations", locations);
+
+        logger.info(String.valueOf(tour.getNumberOfDays()));
+        return "/pages/add-schedule";
+    }
+
+    @PostMapping("/add-schedule/{day}")
+    public String addSchedule(@ModelAttribute("data") AddScheduleFormData data,
+                              @PathVariable("day") int day,
+                              Model model, HttpSession session){
+        TourDto currentAddingTour = (TourDto) session.getAttribute("currentAddingTour");
+        if (currentAddingTour == null) {
+            // Handle error: session expired or invalid flow
+            return "redirect:/add-tour";
+        }
+
+        List<Integer> days = new ArrayList<>();
+        data.setTour(currentAddingTour);
+        logger.info(String.valueOf("getNumberOfDays " + data.tour.getNumberOfDays()));
+        logger.info(String.valueOf("getTourName " + data.tour.getTourName()));
+        logger.info(String.valueOf("schedule start " + data.schedule.getStartLocation().getId()));
+
+        for (int i = 0; i < data.tour.getNumberOfDays(); i++){
+            days.add(i + 1);
+            if (i + 1 == day) {
+                ScheduleDto scheduleDto = new ScheduleDto();
+                scheduleDto.setStartLocation(locationService.getLocationById(data.schedule.getStartLocation().getId()));
+                scheduleDto.setEndLocation(locationService.getLocationById(data.schedule.getEndLocation().getId()));
+                scheduleDto.setDayOfSchedule(day);
+                scheduleDto.setTour(currentAddingTour);
+                currentAddingTour.schedules.add(scheduleDto);
+            }
+        }
+        data.setTour(currentAddingTour);
+        session.setAttribute("currentAddingTour", currentAddingTour);
+
+        model.addAttribute("days", days);
+        model.addAttribute("data", data);
+
+        List<LocationDto> locations = locationService.findAllLocation();
+        model.addAttribute("locations", locations);
+
         return "/pages/add-schedule";
     }
 }
