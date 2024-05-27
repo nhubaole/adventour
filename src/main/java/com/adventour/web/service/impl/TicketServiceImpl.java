@@ -53,6 +53,15 @@ public class TicketServiceImpl implements TicketService {
         return null;
     }
 
+    @Override
+    public TicketDto getTicketDetail(Long idTicket) {
+        Ticket ticket = ticketRepository.findById(idTicket).orElse(null);
+        if(ticket!= null){
+            return  mapper.mapToTicketDto(ticket);
+        }
+        return null;
+    }
+
     public  String generateTickeCode (Long idTicket){
         String formattedId = String.format("%06d", idTicket);
         return "VE-" + formattedId.substring(0, 3) + "-" + formattedId.substring(3);
