@@ -86,30 +86,30 @@
                                         <th>Tổng tiền</th>
                                     </tr>
                                     </thead>
-<!--                                    <th:block th:each="customer, customerStat : ${customer}">-->
-<!--                                    <tbody>-->
-<!--                                    <tr>-->
-<!--                                        <td class="col-auto">-->
-<!--                                            <p class=" mb-0" th:text="${customerStat.count}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="col-auto">-->
-<!--                                            <p class=" mb-0" th:text="${customer.idTicket}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="col-auto">-->
-<!--                                            <p class=" mb-0" th:text="${customer.numberOfTicket}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="col-auto">-->
-<!--                                            <p class=" mb-0" th:text="${customer.dateOrder}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="col-auto">-->
-<!--                                            <p class=" mb-0 waiting setting" th:text="${customer.status}"></p>-->
-<!--                                        </td>-->
-<!--                                        <td class="col-auto">-->
-<!--                                            <p class=" mb-0" th:text="${totalBill}"></p>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    </tbody>-->
-<!--                                    </th:block>-->
+                                    <th:block th:each="booking, customerStat : ${bookings}">
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${customerStat.count}"></p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${booking.id}"></p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${booking.amountPaid}"></p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${booking.bookingDate}"></p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0 waiting setting" th:text="${booking.status}"></p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${booking.totalAmount}"></p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    </th:block>
                                 </table>
                             </div>
                         </div>

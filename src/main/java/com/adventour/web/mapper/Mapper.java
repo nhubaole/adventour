@@ -1,5 +1,4 @@
 package com.adventour.web.mapper;
-
 import com.adventour.web.dto.*;
 import com.adventour.web.enums.StatusOfTicket;
 import com.adventour.web.models.*;
@@ -96,7 +95,7 @@ public class Mapper {
                 .email(customerDto.getEmail())
                 .dateOfBirth(customerDto.getDateOfBirth())
                 .cccd(customerDto.getCccd())
-//                .isMale(customerDto.isMale())
+                .isMale(customerDto.getIsMale())
                 .nationality(customerDto.getNationality())
                 .imagesCustomer(customerDto.getImagesCustomer())
                 .build();

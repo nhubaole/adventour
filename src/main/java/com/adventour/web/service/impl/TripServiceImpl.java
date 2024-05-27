@@ -3,6 +3,7 @@ package com.adventour.web.service.impl;
 import com.adventour.web.InvalidDataException;
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.PassengerDto;
+import com.adventour.web.dto.TourDto;
 import com.adventour.web.dto.TripDto;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.mapper.Mapper;

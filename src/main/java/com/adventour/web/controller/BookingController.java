@@ -114,4 +114,6 @@ public class BookingController {
 
     @GetMapping("/add-new-booking-payment")
     public String addNewBookingPayment(Model model){return "/pages/add-new-booking-payment";}
+
+
 }

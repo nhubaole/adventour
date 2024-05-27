@@ -1,8 +1,12 @@
 package com.adventour.web.controller;
 
+import ch.qos.logback.classic.Logger;
+import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
 import com.adventour.web.dto.PaymentInformationDto;
 import com.adventour.web.models.Customer;
+import com.adventour.web.service.BookingService;
+import com.adventour.web.service.BucketService;
 import com.adventour.web.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -10,10 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,18 @@ import java.util.List;
 @Controller
 public class CustomerController {
     private CustomerService customerService;
+    private BookingService bookingService;
+    private BucketService bucketService;
 
-    static CustomerDto currentAddingCustomer;
+
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService,
+                              BookingService bookingService,
+                              BucketService bucketService) {
+
         this.customerService = customerService;
+        this.bookingService = bookingService;
+        this.bucketService = bucketService;
     }
 
     @GetMapping("/customer")
@@ -63,15 +72,27 @@ public class CustomerController {
     }
 
     @PostMapping("/add-new-customer")
-    public String saveCustomer(@ModelAttribute("customer") CustomerDto customer){
+    public String saveCustomer(@ModelAttribute("customer") CustomerDto customer,
+                               @RequestParam("files") MultipartFile[] files){
+        logger.info("Number of images: " + files.length);
+        List<String> placeImages = new ArrayList<>();
+        for (MultipartFile image : files){
+            try{
+                String fileUrl = bucketService.uploadFile(image);
+                placeImages.add(fileUrl);
+            } catch (Exception e){
+                logger.error("Error uploading image: " + e.getMessage());
+            }
+        }
         customerService.addNewCustomer(customer);
         return "redirect:/customer";
     }
 
-    @GetMapping ("/booking/{customerId}")
-    public String bookingCustomer(@PathVariable("customerId") long customerId, Model model){
+    @GetMapping ("/booking/{id}")
+    public String bookingCustomer(@PathVariable("id") long customerId, Model model){
         CustomerDto customerDto = customerService.findById(customerId);
         model.addAttribute("customer", customerDto);
         return "/pages/booking-bill";
     }
+
 }

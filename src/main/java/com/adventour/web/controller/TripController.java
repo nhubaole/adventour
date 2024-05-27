@@ -27,6 +27,8 @@ public class TripController {
         return "/pages/all-trip";
     }
 
+
+
     @GetMapping("/information/{id}")
     public String informationTrain(@PathVariable("id") long id, Model model){
         TripDto tripDto = tripService.getTripDetail(id);
@@ -46,12 +48,12 @@ public class TripController {
             TripDto tripDto = new TripDto();
             model.addAttribute("trip", tripDto);
             return "/pages/add-new-trip";
-        }
+    }
 
     @PostMapping("/add-new-trip")
     public String saveTrip(@ModelAttribute("trip") TripDto tripDto){
-            tripService.addNewTrip(tripDto);
-            return "redirect:/alltrip";
+        tripService.addNewTrip(tripDto);
+        return "redirect:/alltrip";
     }
 }
 

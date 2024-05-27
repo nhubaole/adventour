@@ -77,12 +77,12 @@
                     <form role="form" method="post" th:action="@{/add-new-trip}" class="form" th:object="${trip}">
                         <div class="row">
                             <div class="col-12" style="margin-bottom: 15px;">
-<!--                                <div class="form-group">-->
-<!--                                    <select th:field="*{name}" class="form-select" aria-label="Default select example" style="height: 55px;">-->
-<!--                                        <option value="" selected>Chọn tuyến</option>-->
-<!--                                        <option th:each="trip : ${trips}" th:value="${trip.id}" th:text="${trip.name}"></option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
+                                <div class="form-group">
+                                    <select th:field="*{id}" class="form-select" aria-label="Default select example" style="height: 55px;">
+                                        <option value="" selected>Chọn tuyến</option>
+                                        <option th:value="1" ></option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">

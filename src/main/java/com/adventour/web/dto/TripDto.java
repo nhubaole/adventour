@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.net.ssl.SSLSession;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,11 +46,12 @@ public class TripDto {
 //    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;
 
-    //private Set<Schedule> schedules ;
-    @NotNull
-    private TicketDto ticketDto;
 
-    @NotNull
+//    //private Set<Schedule> schedules ;
+//    @NotNull
+//    private TicketDto ticketDto;
+//
+   // @NotNull
     private TourDto tourDto;
 
 }

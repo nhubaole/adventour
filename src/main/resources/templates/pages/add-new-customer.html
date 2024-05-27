@@ -37,14 +37,15 @@
     <div class="row match-height">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <label for="file" class="custom-file-upload">
-                    </label>
-                    <input type="file" id="file" name="file" accept="image/*" required>
-                </div>
+
                 <div class="card-content">
                     <div class="card-body" style="min-height: 550px;">
-                        <form class="form" role="form" method="post" th:action="@{/add-new-customer}" th:object="${customer}">
+                        <form class="form" role="form" method="post" th:action="@{/add-new-customer}" th:object="${customer}" enctype="multipart/form-data">
+                            <div class="card-header">
+                                <label for="file" class="custom-file-upload">
+                                </label>
+                                <input th:field="*{imagesCustomer}" type="file" id="file" name="file" multiple>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
