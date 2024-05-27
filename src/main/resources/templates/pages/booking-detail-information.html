@@ -168,7 +168,7 @@
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="ismale" class="form-label">Giới tính</label>
-                                        <input style="border: none;" type="text" name="ismale" id="ismale" class="form-control" placeholder="Giới tính" th:value="${customer.isMale ? 'Nam' : 'Nữ'}" readonly>
+                                        <input style="border: none;" type="text" name="ismale" id="ismale" class="form-control" placeholder="Giới tính" th:value="${customer.isMale != null ? (customer.isMale ? 'Nam' : 'Nữ') : 'Chưa xác định'}" readonly>
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="national" class="form-label">Quốc tịch</label>

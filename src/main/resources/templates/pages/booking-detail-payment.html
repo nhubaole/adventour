@@ -113,9 +113,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('input[name="payment-method"]').forEach(function(radio) {
+            document.querySelectorAll('input[name="paymentMethod"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
-                    document.querySelectorAll('input[name="payment-method"]').forEach(function(r) {
+                    document.querySelectorAll('input[name="paymentMethod"]').forEach(function(r) {
                         if (r !== radio) {
                             r.checked = false;
                         }
@@ -204,7 +204,7 @@
                 <div class="col-12 col-lg-8" style="display:flex;">
                     <div class="card"><div style="margin-left: 30px; margin-bottom: 10px;"> Lịch sử giao dịch</div>
 
-                        <div th:each="payment, stat : ${booking.paymentInformationDtos}" class="col-12 col-lg-4" style="margin-left: 30px; margin-bottom: 30px">
+                        <div th:each="payment, stat : ${paymentInformationDtos}" class="col-12 col-lg-4" style="margin-left: 30px; margin-bottom: 30px">
                             <div style="display: flex;">
                                 <div class="form-container">
                                     <div class="left-text">
@@ -221,24 +221,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="col-12 col-lg-4" style="margin-left: 30px; margin-top: 10px">
-                            <div style="display: flex;">
-                                <div class="form-container">
-
-                                    <div class="left-text">
-                                        <div style="font-weight:bold">22:12</div>
-                                        <div style="font-size: 14px">12/02/2024</div>
-                                    </div>
-
-
-                                </div>
-                                <div class=" border-style" style="margin-left: 10px"></div>
-                                <div class="left-text">
-                                    <div style="font-size:14px">Chuyển khoản</div>
-                                    <div style="color: #52A6F3;">2,000,000đ</div>
-                                </div>
-                            </div>
-                        </div>-->
                     </div>
 
                     <div class="col-6">
@@ -260,19 +242,15 @@
                         <div style="margin-top: 20px;">
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Tổng tiền</div>
-                                <div style="font-size: 14px;" th:text="${tour.estimatedPrice} + ' đ'"><!-- 72,000,000 đ --></div>
-                            </div>
-                            <div th:with="paidAmount=0">
-                                <div th:each="payment, stat : ${booking.paymentInformationDtos}" th:with="paidAmount=${paidAmount} + ${payment.amountOfMoney}">
-                                </div>
+                                <div style="font-size: 14px;" th:text="${booking.totalAmount} + ' đ'"><!-- 72,000,000 đ --></div>
                             </div>
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Đã thanh toán</div>
-                                <div style="font-size: 14px;" th:text="${paidAmount} + ' đ'"><!-- 12,000,000 đ --></div>
+                                <div style="font-size: 14px;" th:text="${booking.amountPaid} + ' đ'"><!-- 12,000,000 đ --></div>
                             </div>
                             <div class="form-container" style="display: flex;">
                                 <div style="font-weight: bold;">Còn lại</div>
-                                <div style="font-size: 14px;" th:text="${tour.estimatedPrice} + ' đ'"><div style="font-size: 14px;" th:text="${tour.estimatedPrice - paidAmount} + ' đ'"><!-- 60,000,000 đ --></div>
+                                <div style="font-size: 14px;" th:text="${booking.totalAmount - booking.amountPaid} + ' đ'"><!-- 60,000,000 đ --></div>
 <!--
                                     <div style="font-size: 14px;" th:text="${tour.estimatedPrice - paidAmount} + ' đ'"><div style="font-size: 14px;" th:text="${tour.estimatedPrice - paidAmount} + ' đ'">&lt;!&ndash; 60,000,000 đ &ndash;&gt;</div>
 -->
@@ -303,44 +281,49 @@
                                                             id="money-pay"
                                                             class="form-control"
                                                             placeholder="Số tiền thanh toán"
-                                                            name="fname-column"
+                                                            name="amountPaid"
                                                             onkeypress="return isNumber(event)"
                                                             inputmode="numeric"
-                                                            th:field="*{amountOfMoney}"
+
                                                             pattern="[0-9]*">
+                                                        <!--th:field="*{amountOfMoney}"-->
                                                     </fieldset>
                                                     <fieldset class="form-group">
                                                         <div class="input-wrapper" style="position: relative;">
                                                             <i class="bi bi-cash" style="position: absolute; left: 10px; top: 20px;"></i>
                                                             <input style="height: 50px; padding-left: 35px;" type="money" id="money" class="form-control" placeholder="Tiền mặt" name="fname-column" readonly>
-                                                            <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="payment-method" th:field="*{paymentMethod}" value="CASH">
+                                                            <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="paymentMethod" th:field="*{paymentMethod}" value="CASH">
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="form-group">
                                                         <div class="input-wrapper" style="position: relative;">
                                                             <i class="bi bi-credit-card" style="position: absolute; left: 10px; top: 20px;"></i>
                                                             <input style="height: 50px; padding-left: 35px;" type="tradebyaccount" id="tradebyaccount" class="form-control" placeholder="Chuyển khoản" name="fname-column" readonly>
-                                                            <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="payment-method" th:field="*{paymentMethod}" value="BANKTRANSFER">
+                                                            <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px;" name="paymentMethod" th:field="*{paymentMethod}" value="BANKTRANSFER">
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="form-group">
                                                     <div class="input-wrapper" style="position: relative;">
                                                         <i class="bi bi-wallet2" style="position: absolute; left: 10px; top: 20px;"></i>
                                                         <input style="height: 50px; padding-left: 35px;" type="tradebymomo" id="tradebymomo" class="form-control" placeholder="Ví điện từ momo" name="fname-column" readonly>
-                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px; " name="payment-method" th:field="*{paymentMethod}" value="MOMOWALLET">
+                                                        <input type="radio" style="position: absolute; right: 10px; top: 15px; width:20px; top:20px; " name="paymentMethod" th:field="*{paymentMethod}" value="MOMOWALLET">
                                                     </div>
                                                 </fieldset>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn" data-bs-dismiss="modal">
+                                                <!--<button type="button" class="btn" data-bs-dismiss="modal">
                                                     <i class="bx bx-x d-block d-sm-none"></i>
                                                     <span class="d-none d-sm-block">Hủy</span>
                                                 </button>
                                                 <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
                                                     <i class="bx bx-check d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Lưu</span>
-                                                </button>
+                                                    <button type="submit" class="d-none d-sm-block">Lưu</button>
+                                                </button>-->
+                                                <div class="col-12 d-flex justify-content-end" style="margin-top:10px">
+                                                    <a type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                                    <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button><!--th:href="@{/information/{id}(id=${trip.id})}"-->
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

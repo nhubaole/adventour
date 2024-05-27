@@ -138,15 +138,14 @@ public class BookingController {
     public String bookingDetailPassenger(@PathVariable Long id,Model model){
         BookingDto booking = bookingService.findById(id);
         CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
+        Set<PassengerDto> passengerDtos = passengerService.getPassengersByIdBooking(id);
         TripDto trip = booking.getTripDto();
         TourDto tour = booking.getTripDto().getTourDto();
         model.addAttribute("booking", booking);
         model.addAttribute("trip", trip);
         model.addAttribute("tour",tour);
         model.addAttribute("customer", customer);
-        Set<PassengerDto> passengers = new HashSet<>();
-        booking.setPassengerDtos(passengers);
-        model.addAttribute("booking", booking);
+        model.addAttribute("passengerDtos",passengerDtos);
             return "/pages/booking-detail-passenger";}
 
     @GetMapping("/add-new-booking-passenger/{id}")
@@ -214,24 +213,36 @@ public class BookingController {
         TourDto tour = booking.getTripDto().getTourDto();
         TripDto trip = booking.getTripDto();
         PaymentInformationDto paymentInformationDto = new PaymentInformationDto();
-        /*PaymentInformationDto = booking.getPaymentInformationDtos()*/
+        Set<PaymentInformationDto> paymentInformationDtos = paymentInformationService.getPaymentInforByIdBooking(id);
+        int paidAmount = 0;
+
+        for (PaymentInformationDto informationDto : paymentInformationDtos) {
+                 paidAmount+=informationDto.getAmountOfMoney();
+             }
+         {
+
+        }
         model.addAttribute("booking", booking);
         model.addAttribute("tour",tour);
         model.addAttribute("trip",trip);
         model.addAttribute("paymentInformationDto", paymentInformationDto);
+        model.addAttribute("paymentInformationDtos",paymentInformationDtos);
+        model.addAttribute("paidAmount",paidAmount);
         return "/pages/booking-detail-payment";}
 
     @PostMapping("/booking-detail-payment/{id}/add-payment")
-    public String addPayment(@PathVariable Long id, @ModelAttribute PaymentInformationDto paymentInformationDto, Model model) {
+    public String addPayment(@PathVariable Long id, @ModelAttribute PaymentInformationDto paymentInformationDto, @RequestParam String amountPaid, @RequestParam String paymentMethod) {
         BookingDto bookingDto = bookingService.findById(id);
+        paymentInformationDto.setAmountOfMoney(Integer.parseInt(amountPaid));
+        paymentInformationDto.setPaymentMethod(PaymentMethod.valueOf(paymentMethod));
+        paymentInformationDto.setPaymentTime(LocalDateTime.now());
         paymentInformationDto.setBookingDto(bookingDto);
+        //paymentInformationService.addNewPaymentInformation(paymentInformationDto);
         if (bookingDto.getPaymentInformationDtos() == null) {
             bookingDto.setPaymentInformationDtos(new HashSet<>());
         }
         bookingDto.getPaymentInformationDtos().add(paymentInformationDto);
         bookingService.updateBooking(bookingDto);
-        Set<PaymentInformationDto> paymentInformationDtos = bookingDto.getPaymentInformationDtos();
-        model.addAttribute("paymentInformationDtos", paymentInformationDtos);
         return "redirect:/booking-detail-payment/" + bookingDto.getId();
     }
     @GetMapping("/booking-detail-ticket/{id}")

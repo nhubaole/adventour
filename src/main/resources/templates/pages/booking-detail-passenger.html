@@ -146,107 +146,9 @@
 
                                 </tr>
                                 </thead>
-                                <!--<tbody>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">
-                                            1
-                                        </div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Lê Bảo Như</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">12/10/2003</div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">3467897654321</div>
-                                    </td>
 
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">Nữ</div>
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">2</div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Lê Tiến Hoàng</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">12/10/2003</div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">9876545678544</div>
-                                    </td>
-
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">Nam</div>
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">3</div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Nguyễn Thảo Vân</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">
-                                            12/10/2003
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">
-                                            2469876543256
-                                        </div>
-                                    </td>
-
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">
-                                            Nam
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">4</div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Trần Đình Hà</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">12/10/2003</div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">8765423546544</div>
-                                    </td>
-
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">Nữ</div>
-                                    </td>
-
-
-                                </tr>
-
-
-
-                                </tbody>-->
                                 <tbody>
-                                <tr th:each="passenger, stat : ${booking.passengerDtos}">
+                                <tr th:each="passenger, stat : ${passengerDtos}">
                                     <td class="col-1">
                                         <div class="d-flex align-items-center" th:text="${stat.count}"></div>
                                     </td>
@@ -256,7 +158,7 @@
                                         </div>
                                     </td>
                                     <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${#dates.format(passenger.dateOfBirth, 'dd/MM/yyyy')}"></div>
+                                        <div class="d-flex align-items-center" th:text="${#temporals.format(passenger.dateOfBirth, 'dd/MM/yyyy')}"></div>
                                     </td>
                                     <td class="col-auto">
                                         <div class="d-flex align-items-center" th:text="${passenger.cccd}"></div>
