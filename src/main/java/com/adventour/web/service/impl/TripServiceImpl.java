@@ -1,33 +1,38 @@
 package com.adventour.web.service.impl;
 
-import com.adventour.web.utils.InvalidDataException;
+import com.adventour.web.dto.BookingDto;
+import com.adventour.web.dto.PassengerDto;
 import com.adventour.web.dto.TripDto;
+import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Passenger;
 import com.adventour.web.models.Tour;
 import com.adventour.web.models.Trip;
 import com.adventour.web.repository.TourRepository;
 import com.adventour.web.repository.TripRepository;
+import com.adventour.web.service.BookingService;
 import com.adventour.web.service.TripService;
+import com.adventour.web.utils.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
     private final TourRepository tourRepository;
+    private final BookingService bookingService;
 
     private final Mapper mapper;
 
     @Autowired
-    public TripServiceImpl(TripRepository tripRepository, TourRepository tourRepository, Mapper mapper){
+    public TripServiceImpl(TripRepository tripRepository, TourRepository tourRepository, BookingService bookingService, Mapper mapper){
         this.tripRepository = tripRepository;
         this.tourRepository = tourRepository;
+        this.bookingService = bookingService;
         this.mapper = mapper;
     }
 
@@ -60,7 +65,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip editTrip(TripDto tripDto) {
+    public Trip updateTrip(TripDto tripDto) {
         if (validateTrip(tripDto)){
             Trip trip = mapper.mapToTrip(tripDto);
 
@@ -76,30 +81,69 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripDto> getListTrip() {
         List<Trip> trips = tripRepository.findAll();
-        return trips.stream().map(trip -> mapper.mapToTripDto(trip)).collect(Collectors.toList());
+        List<TripDto> tripDtos = new ArrayList<>();
+        for(Trip trip: trips){
+            TripDto tripDto = mapper.mapToTripDto(trip);
+            tripDto.setActualPassenger(updateTripActualPas(tripDto.getId()));
+            tripDtos.add(tripDto);
+        }
+        return tripDtos;
+
     }
 
     @Override
     public TripDto getTripDetail(Long id) {
         Trip trip = tripRepository.findById(id).orElse(null);
-        return trip!= null ? mapper.mapToTripDto(trip) : null;
-    }
-
-    @Override
-    public List<TripDto> searchTrip() {
+        if(trip!=null){
+            TripDto tripDto = mapper.mapToTripDto(trip);
+            tripDto.setActualPassenger(updateTripActualPas(tripDto.getId()));
+            return tripDto;
+        }
         return null;
     }
 
     @Override
-    public Set<Passenger> getTripPassenger(TripDto tripDto) {
-        return tripDto.getPassengers();
+    public List<TripDto> searchTrip(String search) {
+        List<TripDto> allTrip = getListTrip();
+        List<TripDto> result = new ArrayList<>();
+        for(TripDto tripDto: allTrip){
+            if(tripDto.getName().toLowerCase().contains(search.toLowerCase())
+                || String.valueOf(tripDto.getId()).contains(search.toLowerCase())) {
+
+                result.add(tripDto);
+
+            }
+        }
+
+        return result;
     }
 
     @Override
-    public void deleteTrip(TripDto tripDto) {
-        if(tripDto.getActualPassenger() > 0 ){
-
+    public Set<PassengerDto> getTripPassenger(TripDto tripDto) {
+        Set<PassengerDto> passengers = new HashSet<>();
+        List<BookingDto> bookingDtos = bookingService.getListBooking();
+        for(BookingDto bookingDto : bookingDtos){
+            passengers.addAll(bookingDto.getPassengerDtos());
         }
+        return passengers;
+    }
+
+    @Override
+    public boolean deleteTrip(TripDto tripDto) {
+        tripDto.setActualPassenger(updateTripActualPas(tripDto.getId()));
+        if(tripDto.getActualPassenger() <= 0 ||
+        (tripDto.getStartDate().isBefore(LocalDateTime.now()) && tripDto.getEndDate().isBefore(LocalDateTime.now())))
+        {
+            //TODO: check lai
+            //delete ticket,
+            //delete booking
+            Trip trip = tripRepository.findById(tripDto.getId()).orElse(null);
+            tripRepository.delete(trip);
+            return true;
+        }
+
+        return  false;
+
 
     }
 
@@ -118,9 +162,20 @@ public class TripServiceImpl implements TripService {
         if(tripDto.getTourDto().getId() != null
             && tripDto.getStartDate() != null
             && tripDto.getEndDate() != null
-            && !tripDto.getStartDate().isAfter(tripDto.getEndDate())) {
+            && tripDto.getStartDate().isBefore(tripDto.getEndDate())) {
             return true;
         }
         throw new InvalidDataException("Invalid Data");
+    }
+
+    public int updateTripActualPas (Long idTrip){
+        int actual = 0;
+        List<BookingDto> bookingDtoList = bookingService.getBookingsByTripId(idTrip);
+        for(BookingDto bookingDto : bookingDtoList){
+            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
+                actual += bookingDto.getNumberOfPassengers();
+            }
+        }
+        return actual;
     }
 }

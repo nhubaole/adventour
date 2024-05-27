@@ -138,7 +138,6 @@ public class Mapper {
         Customer customer = mapToCustomer(bookingDto.getCustomerDto());
         booking.setCustomer(customer);
 
-        //con ds passenger ???
         return booking;
     }
 
