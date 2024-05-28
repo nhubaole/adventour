@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LocationDto {
     private Long id;
+    private String code;
 
     @NotEmpty(message = "Name of location can't be empty")
     private String nameLocation;

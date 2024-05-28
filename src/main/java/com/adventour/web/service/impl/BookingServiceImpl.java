@@ -51,11 +51,11 @@ public class BookingServiceImpl implements BookingService {
         for(Booking booking : bookings){
             BookingDto bookingDto = mapper.mapToBookingDto(booking);
 
-            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
-            bookingDto.setPassengerDtos(passengerDtos);
+//            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
+//            bookingDto.setPassengerDtos(passengerDtos);
 
             Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
-            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
+//            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
 
             int amountPaid = 0;
             for (PaymentInformationDto paymentInformation : paymentInformationDtos){
@@ -63,11 +63,11 @@ public class BookingServiceImpl implements BookingService {
             }
             bookingDto.setAmountPaid(amountPaid);
 
-            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
-                //TODO: Set<Ticket>;
-                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
-                bookingDto.setTicketDtos(ticketDtos);
-            }
+//            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
+//                //TODO: Set<Ticket>;
+//                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
+//                bookingDto.setTicketDtos(ticketDtos);
+//            }
 
             bookingDtoList.add(bookingDto);
         }

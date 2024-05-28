@@ -23,14 +23,20 @@ import java.util.Set;
 @Controller
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private  final  TripService tripService;
+    private final CustomerService customerService;
+    private final BookingService bookingService;
 
     @Autowired
-    public LoginController() {
+    public LoginController(TripService tripService, CustomerService customerService, BookingService bookingService) {
+        this.tripService = tripService;
+        this.customerService = customerService;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/")
     public String home(Model model){
-
+        logger.info(bookingService.findById(17L).toString());
         return "/index";
     }
 }

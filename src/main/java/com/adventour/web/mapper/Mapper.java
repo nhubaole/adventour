@@ -32,6 +32,7 @@ public class Mapper {
     public TripDto mapToTripDto(Trip trip){
         TripDto tripDto = new TripDto();
         tripDto.setId(trip.getId());
+        tripDto.setCode(String.format("C%08d", trip.getId()));
         tripDto.setSlots(trip.getSlots());
         tripDto.setStartDate(trip.getStartDate());
         tripDto.setEndDate(trip.getEndDate());
@@ -75,12 +76,13 @@ public class Mapper {
     public CustomerDto mapToCustomerDto (Customer customer){
         return CustomerDto.builder()
                 .id(customer.getId())
+                .code(String.format("KH%07d",customer.getId()))
                 .nameCustomer(customer.getNameCustomer())
                 .phoneNumber(customer.getPhoneNumber())
                 .email(customer.getEmail())
                 .dateOfBirth(customer.getDateOfBirth())
                 .cccd(customer.getCccd())
-//                .isMale(customer.isMale())
+               .isMale(customer.isMale())
                 .nationality(customer.getNationality())
                 .addressCustomer(customer.getAddressCustomer())
                 .imagesCustomer(customer.getImagesCustomer())
@@ -126,6 +128,7 @@ public class Mapper {
 
         BookingDto bookingDto = new BookingDto();
         bookingDto.setId(booking.getId());
+        bookingDto.setCode(String.format("P%08d", booking.getId()));
         bookingDto.setBookingDate(booking.getBookingDate());
         bookingDto.setStatus(booking.getStatus());
         bookingDto.setNumberChildren(booking.getNumberChildren());
