@@ -94,7 +94,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public TripDto getTripDetail(Long id) {
         Trip trip = tripRepository.findById(id).orElse(null);
-        if(trip!=null){
+        if(trip !=null){
             TripDto tripDto = mapper.mapToTripDto(trip);
             tripDto.setActualPassenger(updateTripActualPas(tripDto.getId()));
             return tripDto;

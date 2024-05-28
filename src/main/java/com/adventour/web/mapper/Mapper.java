@@ -57,6 +57,8 @@ public class Mapper {
         tripDto.setEndDate(trip.getEndDate());
         tripDto.setPriceTicket(trip.getPriceTicket());
         tripDto.setDiscount(trip.getDiscount());
+        int actualPrice = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
+        tripDto.setActualPrice(actualPrice);
         tripDto.setTripType(trip.getTripType());
 
         TourDto tourDto = mapToTourDto(trip.getTour());
@@ -65,7 +67,6 @@ public class Mapper {
         tripDto.setName(tourDto.getTourName());
 
         tripDto.setPassengers(trip.getPassengers());
-
 
         return tripDto;
     }
@@ -134,7 +135,7 @@ public class Mapper {
         Trip trip = mapToTrip(bookingDto.getTripDto());
         booking.setTrip(trip);
 
-        int price = booking.getTrip().getPriceTicket();
+        int price = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
         booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
         Customer customer = mapToCustomer(bookingDto.getCustomerDto());

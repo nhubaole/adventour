@@ -37,6 +37,8 @@ public class TripDto {
 
     private double discount;
 
+    private int actualPrice;
+
     private TourDto tourDto;
     private String tripType;
 //    private Set<TourGuide> tourGuides;
