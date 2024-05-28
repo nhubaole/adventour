@@ -81,10 +81,6 @@
 
     sidebarItems.forEach(function(item) {
         item.querySelector('.sidebar-link').addEventListener('click', function(e) {
-            sidebarItems.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            item.classList.add('active');
             localStorage.setItem('activeSidebarItem', item.getAttribute('id'));
         });
     });
