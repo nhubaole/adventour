@@ -4,16 +4,258 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <style>
-
-  </style>
 </head>
 <body>
 <section class="section" layout:fragment="content">
-  <div class="col-12">
-
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>Doanh thu theo tháng</h4>
+        </div>
+        <div class="card-body">
+          <div id="line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>Doanh thu theo loại tuyến trong tuần qua</h4>
+        </div>
+        <div class="card-body">
+          <div id="bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header">
+          <h4>Số lượng đặt chỗ và hủy chỗ</h4>
+        </div>
+        <div class="card-body">
+          <div id="area"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <h4>Tỷ lệ chuyến đi thành công trong tháng</h4>
+        </div>
+        <div class="card-body">
+          <div id="radialGradient"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<script src="/compiled/js/script.js"></script>
+
+<script th:inline="javascript">
+  var lineData = [[${revenuePerMonth}]];
+  var lineOptions = {
+chart: {
+  type: "line",
+},
+series: [
+  {
+    name: "Doanh thu",
+    data: lineData,
+  },
+],
+xaxis: {
+  categories: ['10/2023', '11/2023', '12/2023', '01/2024', '02/2024', '03/2024', '04/2024', '05/2024', '06/2024'],
+},
+yaxis: {
+  title: {
+    text: "(triệu) vnđ",
+  },
+},
+}
+
+var barOptions = {
+series: [
+  {
+    name: "Trong nước",
+    data: [44, 55, 57, 56, 61, 58, 63],
+  },
+  {
+    name: "Nước ngoài",
+    data: [76, 85, 101, 98, 87, 105, 91],
+  },
+],
+chart: {
+  type: "bar",
+  height: 350,
+},
+plotOptions: {
+  bar: {
+    horizontal: false,
+    columnWidth: "55%",
+    endingShape: "rounded",
+  },
+},
+dataLabels: {
+  enabled: false,
+},
+stroke: {
+  show: true,
+  width: 2,
+  colors: ["transparent"],
+},
+xaxis: {
+  categories: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+},
+yaxis: {
+  title: {
+    text: "(triệu) vnđ",
+  },
+},
+fill: {
+  opacity: 1,
+},
+tooltip: {
+  y: {
+    formatter: function (val) {
+      return val + " triệu vnđ"
+    },
+  },
+},
+}
+
+var radialGradientOptions = {
+series: [75],
+chart: {
+  height: 350,
+  type: "radialBar",
+  toolbar: {
+    show: true,
+  },
+},
+plotOptions: {
+  radialBar: {
+    startAngle: -135,
+    endAngle: 225,
+    hollow: {
+      margin: 0,
+      size: "70%",
+      background: "#fff",
+      image: undefined,
+      imageOffsetX: 0,
+      imageOffsetY: 0,
+      position: "front",
+      dropShadow: {
+        enabled: true,
+        top: 3,
+        left: 0,
+        blur: 4,
+        opacity: 0.24,
+      },
+    },
+    track: {
+      background: "#fff",
+      strokeWidth: "67%",
+      margin: 0, // margin is in pixels
+      dropShadow: {
+        enabled: true,
+        top: -3,
+        left: 0,
+        blur: 4,
+        opacity: 0.35,
+      },
+    },
+
+    dataLabels: {
+      show: true,
+      name: {
+        offsetY: -10,
+        show: true,
+        color: "#888",
+        fontSize: "17px",
+      },
+      value: {
+        formatter: function (val) {
+          return parseInt(val)
+        },
+        color: "#111",
+        fontSize: "36px",
+        show: true,
+      },
+    },
+  },
+},
+fill: {
+  type: "gradient",
+  gradient: {
+    shade: "dark",
+    type: "horizontal",
+    shadeIntensity: 0.5,
+    gradientToColors: ["#ABE5A1"],
+    inverseColors: true,
+    opacityFrom: 1,
+    opacityTo: 1,
+    stops: [0, 100],
+  },
+},
+stroke: {
+  lineCap: "round",
+},
+labels: ["Phần trăm"],
+}
+
+var areaOptions = {
+series: [
+  {
+    name: "Đặt chỗ",
+    data: [31, 40, 28, 51, 42, 109, 100],
+  },
+  {
+    name: "Hủy chỗ",
+    data: [11, 32, 45, 32, 34, 52, 41],
+  },
+],
+chart: {
+  height: 350,
+  type: "area",
+},
+dataLabels: {
+  enabled: false,
+},
+stroke: {
+  curve: "smooth",
+},
+xaxis: {
+  type: "datetime",
+  categories: [
+    "2018-09-19T00:00:00.000Z",
+    "2018-09-19T01:30:00.000Z",
+    "2018-09-19T02:30:00.000Z",
+    "2018-09-19T03:30:00.000Z",
+    "2018-09-19T04:30:00.000Z",
+    "2018-09-19T05:30:00.000Z",
+    "2018-09-19T06:30:00.000Z",
+  ],
+},
+tooltip: {
+  x: {
+    format: "dd/MM/yy HH:mm",
+  },
+},
+}
+var bar = new ApexCharts(document.querySelector("#bar"), barOptions)
+var line = new ApexCharts(document.querySelector("#line"), lineOptions)
+var radialGradient = new ApexCharts(
+document.querySelector("#radialGradient"),
+radialGradientOptions
+)
+var area = new ApexCharts(document.querySelector("#area"), areaOptions)
+
+area.render()
+radialGradient.render()
+bar.render()
+line.render()
+</script>
 </body>
 </html>
