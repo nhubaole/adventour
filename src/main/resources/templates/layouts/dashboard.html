@@ -53,22 +53,6 @@
         </div>
     </div>
 </div>
-<script th:inline="javascript">
-    function setupSidebar() {
-        var sidebarLinks = document.querySelectorAll('.sidebar-item a');
-
-        sidebarLinks.forEach(function (link) {
-            link.addEventListener('click', function () {
-                sidebarLinks.forEach(function (sidebarItem) {
-                    sidebarItem.parentElement.classList.remove('active');
-                });
-
-                this.parentElement.classList.add('active');
-            });
-        });
-    }
-     setupSidebar();
-</script>
 <script th:src="@{/static/js/components/dark.js}"></script>
 <script th:src="@{/extensions/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
 <script th:src="@{/compiled/js/app.js}"></script>
@@ -85,6 +69,7 @@
 <script th:src="@{/static/js/pages/filepond.js}"></script>
 <script th:src="@{/extensions/dayjs/dayjs.min.js}"></script>
 <script th:src="@{/extensions/apexcharts/apexcharts.min.js}"></script>
+<div th:replace="fragments/sidebar :: script"></div>
 <div th:replace="pages/statistic :: script"></div>
 </body>
 
