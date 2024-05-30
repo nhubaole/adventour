@@ -43,7 +43,20 @@
             <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-img d-flex align-items-center">
                     <div class="avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
-                        <img src="/compiled/jpg/travel1.jpg" style="width: 100px;height: 100px;">
+                        <div th:if="${tour.schedules != null and !tour.schedules.isEmpty()}">
+                            <div th:if="${tour.schedules[0].startLocation.images != null}">
+                                <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                     th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${tour.schedules[0].startLocation.images[0]}">
+                            </div>
+                            <div th:if="${tour.schedules[0].startLocation.images == null}">
+                                <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                     src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg">
+                            </div>
+                        </div>
+                        <div th:if="${tour.schedules == null}">
+                            <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                 src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg">
+                        </div>
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
@@ -58,7 +71,7 @@
                             <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
                             Thông tin tuyến
                         </a>
-                        <a th:href="@{/tour-maps}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/tour-itinerary/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
                             Chi tiết lịch trình
                         </a>
