@@ -274,7 +274,6 @@ public class Mapper {
                 .images(location.getImages())
                 .build();
     }
-
     public Schedule mapToSchedule(ScheduleDto scheduleDto) {
         return Schedule.builder()
                 .id(scheduleDto.getId())

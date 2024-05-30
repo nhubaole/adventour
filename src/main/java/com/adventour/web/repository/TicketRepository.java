@@ -12,4 +12,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     Optional<Ticket> findById(Long id);
 
     List<Ticket> findByBooking(Booking booking);
+
+    @Override
+    long count();
 }
