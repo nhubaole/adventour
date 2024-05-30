@@ -202,7 +202,8 @@ public class BookingController {
         this.bookingForm.setNumberBaby(numOfBaby);
         this.bookingForm.setNumberOfPassengers(numOfBaby+numOfChildren+numOfAdults);
         this.bookingForm.setAmountPaid((int) (numOfAdults*trip.getPriceTicket()*(1-trip.getDiscount()/100) +numOfChildren*trip.getPriceTicket()*(1-trip.getDiscount()/100)/2));
-        bookingDto.setPassengerDtos(passengers);
+        /*bookingDto.setPassengerDtos(passengers);*/
+        this.bookingForm.setPassengerDtos(passengers);
         return "redirect:/add-new-booking-payment/" + id;
     }
 
@@ -237,12 +238,7 @@ public class BookingController {
         paymentInformationDto.setPaymentMethod(PaymentMethod.valueOf(paymentMethod));
         paymentInformationDto.setPaymentTime(LocalDateTime.now());
         paymentInformationDto.setBookingDto(bookingDto);
-        paymentInformationService.addNewPaymentInformation(paymentInformationDto);
-        if (bookingDto.getPaymentInformationDtos() == null) {
-            bookingDto.setPaymentInformationDtos(new HashSet<>());
-        }
-        bookingDto.getPaymentInformationDtos().add(paymentInformationDto);
-        bookingService.updateBooking(bookingDto);
+        bookingService.addBookingPayment(paymentInformationDto,bookingDto);
         return "redirect:/booking-detail-payment/" + bookingDto.getId();
     }
     @GetMapping("/booking-detail-ticket/{id}")
@@ -285,12 +281,9 @@ public class BookingController {
         this.bookingForm.getPaymentInformationDtos().add(paymentInformationDto);
         this.bookingForm.setTripDto(tripService.getTripDetail(id));
         this.bookingForm.setBookingDate(LocalDateTime.now());
+
         bookingService.addNewBooking(this.bookingForm);
-        for ( PassengerDto passengerdto: this.bookingForm.getPassengerDtos()
-             ) {
-            passengerService.addNewPassenger(passengerdto);
-        }
-        //paymentInformationService.addNewPaymentInformation(paymentInformationDto);
+        //bookingService.addBookingPayment(paymentInformationDto,this.bookingForm);
 
         return "redirect:/all-booking";
     }

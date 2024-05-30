@@ -195,10 +195,17 @@
                             <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
                             Thông tin thanh toán
                         </a>
-                        <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <div th:if="${booking.totalAmount <= booking.amountPaid}">
+                            <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                                <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                                Danh sách vé
+                            </a>
+                        </div>
+                        <div th:if="${booking.totalAmount > booking.amountPaid}" class="list-group-item" style="height: 50px;display: flex;align-items: center; color: grey;">
                             <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
-                            Danh sách vé
-                        </a>
+                            Thanh toán chưa hoàn tất
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-12 col-lg-8" style="display:flex;">
@@ -327,18 +334,14 @@
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
-
             </div>
-
         </div>
     </div>
     </div>

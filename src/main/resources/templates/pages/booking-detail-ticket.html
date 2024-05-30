@@ -208,7 +208,7 @@
                                                 <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;">12:30 15/03/2024</h6>
                                             </div>
                                             <div class="col-9 p-3">
-                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span th:text="${ticket.id}"></span></h6>
+                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span ></span></h6><!--th:text="${ticket.id}"-->
                                                 <h6 class="text-start" th:text="${ticket.passenger.namePassenger}"></h6>
                                                 <div class="row">
                                                     <div class="col-6">
@@ -276,21 +276,22 @@
                                                         <div class="row py-3">
                                                             <div class="col-6">
                                                                 <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.typeTicket}"></p>
+                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${T(java.time.LocalDate).now().until(ticket.passenger.dateOfBirth, T(java.time.temporal.ChronoUnit).YEARS) > 16 ? 'Người lớn' : 'Trẻ em'}"-->
+                                                                <!--ticket.typeTicket-->
                                                             </div>
                                                             <div class="col-6">
                                                                 <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Thời gian</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" th:text="${#temporals.format(ticket.datePaid, 'dd/MM/yyyy HH:mm')}"></p>
+                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${#temporals.format(ticket.datePaid, 'dd/MM/yyyy HH:mm')}"-->
                                                             </div>
                                                         </div>
                                                         <div class="row py-3">
                                                             <div class="col-6">
                                                                 <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Hành khách</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.passenger.name}"></p>
+                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${ticket.passenger.name}"-->
                                                             </div>
                                                             <div class="col-6">
                                                                 <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Số CMND/CCCD</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.passenger.cccd}"></p>
+                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${ticket.passenger.cccd}"-->
                                                             </div>
                                                         </div>
                                                     </div>
