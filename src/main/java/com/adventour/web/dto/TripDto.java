@@ -22,6 +22,8 @@ public class TripDto {
 
     private Long id;
 
+    private String code;
+
     private String name;
 
     @Min(value = 0)

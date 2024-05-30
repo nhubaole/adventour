@@ -18,6 +18,8 @@ import java.time.LocalDate;
 public class CustomerDto {
     private Long id;
 
+    private String code;
+
     @NotEmpty(message = "Name of customer can be empty")
     private String nameCustomer;
 
