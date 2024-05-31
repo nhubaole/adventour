@@ -57,13 +57,15 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto getTicketDetail(Long idTicket) {
         Ticket ticket = ticketRepository.findById(idTicket).orElse(null);
         if(ticket!= null){
-            return  mapper.mapToTicketDto(ticket);
+            TicketDto ticketDto = mapper.mapToTicketDto(ticket);
+            ticketDto.setCode(generateTickeCode(ticketDto.getId()));
+            return  ticketDto;
         }
         return null;
     }
 
     public  String generateTickeCode (Long idTicket){
         String formattedId = String.format("%06d", idTicket);
-        return "VE-" + formattedId.substring(0, 3) + "-" + formattedId.substring(3);
+        return "TSK-" + formattedId.substring(0, 3) + "-" + formattedId.substring(3);
     }
 }

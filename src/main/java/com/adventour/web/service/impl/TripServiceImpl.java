@@ -94,7 +94,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public TripDto getTripDetail(Long id) {
         Trip trip = tripRepository.findById(id).orElse(null);
-        if(trip!=null){
+        if(trip !=null){
             TripDto tripDto = mapper.mapToTripDto(trip);
             tripDto.setActualPassenger(updateTripActualPas(tripDto.getId()));
             return tripDto;
@@ -129,23 +129,16 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean deleteTrip(TripDto tripDto) {
-        tripDto.setActualPassenger(updateTripActualPas(tripDto.getId()));
-        if(tripDto.getActualPassenger() <= 0 ||
-        (tripDto.getStartDate().isBefore(LocalDateTime.now()) && tripDto.getEndDate().isBefore(LocalDateTime.now())))
-        {
-            //TODO: check lai
-            //delete ticket,
-            //delete booking
-            Trip trip = tripRepository.findById(tripDto.getId()).orElse(null);
-            tripRepository.delete(trip);
-            return true;
+    public void cancelTrip(TripDto tripDto) {
+        tripDto.setStatus("CANCELLED");
+        updateTrip(tripDto);
+        List<BookingDto> bookingDtos = bookingService.getBookingsByTripId(tripDto.getId());
+        for(BookingDto bookingDto : bookingDtos){
+            bookingDto.setStatus(StatusOfBooking.CANCELLED);
+            bookingService.updateBooking(bookingDto);
         }
-
-        return  false;
-
-
     }
+
 
     @Override
     public Set<TripDto> getTripByIdTour(Long idTour) {

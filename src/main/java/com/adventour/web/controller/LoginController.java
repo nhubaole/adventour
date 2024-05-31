@@ -2,6 +2,7 @@ package com.adventour.web.controller;
 
 import com.adventour.web.dto.*;
 import com.adventour.web.enums.PaymentMethod;
+import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.models.*;
 import com.adventour.web.service.*;
 import org.slf4j.Logger;
@@ -23,7 +24,6 @@ import java.util.Set;
 @Controller
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
     @Autowired
     public LoginController() {
     }
