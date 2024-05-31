@@ -83,6 +83,16 @@ public class BookingController {
         model.addAttribute("customer", customer);
         return "/pages/booking-detail-information";}
 
+    @PostMapping("/booking-detail-information/{id}")
+    public String cancelBooking(@PathVariable("id") Long id) {
+        BookingDto booking = bookingService.findById(id);
+        if (booking != null) {
+            booking.setStatus(StatusOfBooking.CANCELLED);
+            bookingService.updateBooking(booking); // Update booking state in the database
+        }
+        return "redirect:/all-booking"; // Redirect to the desired page after cancellation
+    }
+
     @GetMapping("/booking-detail-information-edit/{id}")
     public String bookingEdit(@PathVariable Long id, Model model){
         BookingDto booking = bookingService.findById(id);
