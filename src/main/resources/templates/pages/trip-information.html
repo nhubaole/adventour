@@ -167,7 +167,12 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
-                <a th:href="@{add-new-booking-information}">
+                <a th:href="@{add-new-booking-information}" style="width: 18%;">
+                    <div class="addBtn" style=" border: 1px solid red;background-color: white!important;color: red!important;/* width: 90%; */display: flex;justify-content: center;">
+                        Hủy chuyến
+                    </div>
+                </a>
+                <a th:href="@{/add-new-booking-information}">
                     <div class="addBtn">
                         <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
                         Thêm phiếu đặt chỗ mới

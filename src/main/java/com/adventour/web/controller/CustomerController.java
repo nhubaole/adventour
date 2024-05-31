@@ -1,6 +1,6 @@
 package com.adventour.web.controller;
 
-import ch.qos.logback.classic.Logger;
+
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
 import com.adventour.web.dto.PaymentInformationDto;
@@ -8,6 +8,7 @@ import com.adventour.web.models.Customer;
 import com.adventour.web.service.BookingService;
 import com.adventour.web.service.BucketService;
 import com.adventour.web.service.CustomerService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CustomerController {
     private BookingService bookingService;
     private BucketService bucketService;
 
-
+    private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
     @Autowired
     public CustomerController(CustomerService customerService,
                               BookingService bookingService,
@@ -58,7 +59,23 @@ public class CustomerController {
         return "/pages/profile";
     }
 
-//    @GetMapping("/customer/{customerId}/edit")
+    @GetMapping("/customer/{customerId}/edit")
+    public String editCustomer(@PathVariable("customerId") long customerId, Model model){
+        CustomerDto customerDto = customerService.findById(customerId);
+        model.addAttribute("customer", customerDto);
+        return "/pages/edit-customer";
+    }
+
+    @PostMapping("/customer/{customerId}/edit")
+    public String saveEditCustomer(@PathVariable("customerId") long id, @ModelAttribute("customer") CustomerDto customer){
+        customer.setId(id);
+        customerService.updateCustomer(customer);
+        return "redirect:/customer";
+    }
+
+
+
+
     @GetMapping ("/customer/{customerId}/delete")
     public String deleteCustomer(@PathVariable("customerDto") CustomerDto customerDto){
         customerService.deleteCustomer(customerDto);
@@ -84,6 +101,7 @@ public class CustomerController {
                 logger.error("Error uploading image: " + e.getMessage());
             }
         }
+        customer.setImagesCustomer(placeImages.toArray(new String[0]));
         customerService.addNewCustomer(customer);
         return "redirect:/customer";
     }
@@ -91,7 +109,10 @@ public class CustomerController {
     @GetMapping ("/booking/{id}")
     public String bookingCustomer(@PathVariable("id") long customerId, Model model){
         CustomerDto customerDto = customerService.findById(customerId);
+        List<BookingDto> bookingDtos = bookingService.getListBooking();
         model.addAttribute("customer", customerDto);
+
+        model.addAttribute("bookings", bookingDtos);
         return "/pages/booking-bill";
     }
 

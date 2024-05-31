@@ -117,11 +117,12 @@
                                 <div class="d-flex align-items-center" th:text="${trip.startDate}">
                                 </div>
                             </td>
-                            <td class="col-auto pd d-flex">
-                                <div class="d-flex align-items-center" th:text="${trip.priceTicket}">
-
-                                </div>
-                                <div th:text="${trip.discount} + '%' " class="discount">
+                            <td class="col-auto pd">
+                                <div style="" class="d-flex">
+                                    <div class="d-flex align-items-center" th:text="${trip.priceTicket}">
+                                    </div>
+                                    <div th:text="${trip.discount} + '%' " class="discount">
+                                    </div>
                                 </div>
                             </td>
                             <td class="col-auto pd">
@@ -131,7 +132,7 @@
                             </td>
                             <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
-                                    <a th:href="@{information}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                    <a th:href="@{/information/{id}(id=${trip.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <i class="bi bi-pencil" style="padding-right: 5px;"></i>
                                     <i class="bi bi-trash3"></i>
                                 </div>

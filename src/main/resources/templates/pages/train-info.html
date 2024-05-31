@@ -98,11 +98,11 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{information}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/information/{id}(id=${trip.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin chuyến
                         </a>
-                        <a th:href="@{train-info}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/train-info/{id}(id=${trip.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
                             Danh sách hành khách
                         </a>
@@ -125,36 +125,27 @@
                                         <th>Giới tính</th>
                                     </tr>
                                     </thead>
-                                    <th:block th:each="customer, customerStat : ${customers}">
                                     <tbody>
-                                    <tr>
+                                    <tr th:each="customer, stat : ${customers}">
                                         <td class="col-1">
-                                            <div th:text ="${customerStat.count}" class="d-flex align-items-center">
-                                            </div>
+                                            <div class="d-flex align-items-center" th:text="${stat.count}"></div>
                                         </td>
                                         <td class="col-4">
                                             <div class="d-flex align-items-center">
-                                                <p th:text ="${customer.nameCustomer}" class="font-bold ms-3 mb-0"></p>
+                                                <p class="font-bold ms-3 mb-0" th:text="${customer.nameCustomer}"></p>
                                             </div>
                                         </td>
                                         <td class="col-auto">
-                                            <div th:text ="${customer.dateOfBirth}" class="d-flex align-items-center">
-                                                12/10/2003
-                                            </div>
+                                            <div class="d-flex align-items-center" th:text="${customer.dateOfBirth}"></div>
                                         </td>
                                         <td class="col-auto">
-                                            <div th:text ="${customer.idPersonal}" class="d-flex align-items-center">
-                                                079202015275
-                                            </div>
+                                            <div class="d-flex align-items-center" th:text="${customer.cccd}"></div>
                                         </td>
                                         <td class="col-auto">
-                                            <div th:text ="${customer.isMale}" class="d-flex align-items-center">
-                                                Nam
-                                            </div>
+                                            <div class="d-flex align-items-center" th:text="${customer.isMale} ? 'Nam' : 'Nữ'"></div>
                                         </td>
                                     </tr>
                                     </tbody>
-                                    </th:block>
                                 </table>
                             </div>
                             <div class="dataTable-bottom" style="display: flex;align-items: center;justify-content: space-between;">
@@ -188,6 +179,7 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
+
                 <a th:href="@{add-new-booking-information}">
                     <div class="addBtn">
                         <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>

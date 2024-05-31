@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
-                    <h6 th:text="${customer.nameCustomer}" class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Đỗ Thị Thùy</h6>
+                    <h6 th:text="${customer.nameCustomer}" class="d-flex" style="font-size: 20px; margin-bottom: 5px;"></h6>
                     <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-phone" style="display: flex; margin-right: 5px;"></i>
                         <span th:text="${customer.phoneNumber}"></span>
@@ -86,11 +86,11 @@
                                         <th>Tổng tiền</th>
                                     </tr>
                                     </thead>
-                                    <th:block th:each="booking, customerStat : ${bookings}">
+                                    <th:block th:each="booking, stat : ${bookings}">
                                     <tbody>
                                     <tr>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${customerStat.count}"></p>
+                                            <p class=" mb-0" th:text="${stat.count}"></p>
                                         </td>
                                         <td class="col-auto">
                                             <p class=" mb-0" th:text="${booking.id}"></p>

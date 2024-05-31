@@ -98,7 +98,6 @@ public class BookingController {
         BookingDto booking = new BookingDto();
         Set<PassengerDto> passengers = new HashSet<>();
         booking.setPassengerDtos(passengers);
-
         model.addAttribute("booking", booking);
             return "/pages/booking-detail-passenger";}
 

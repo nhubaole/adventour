@@ -79,8 +79,9 @@
                                     </td>
                                     <td class="col-4">
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img th:src="${customer.imagesCustomer}" alt="Hình ảnh của khách hàng" />
+                                            <div class="avatar avatar-md" style="border-radius: 0%;">
+                                                <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}">
+                                                <!--                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">-->
                                             </div>
                                             <p class="font-bold ms-3 mb-0" >
                                                 <span th:text="${customer.nameCustomer}"></span>
@@ -110,7 +111,7 @@
                                     <td class="col-auto">
                                         <div style="color: black; cursor: pointer;">
                                             <a th:href="@{/customer/{id}(id=${customer.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
-                                            <a class="bi bi-pencil" style="padding-right: 5px;"></a>
+                                            <a th:href="@{/customer/{id}/edit(id=${customer.id})}" class="bi bi-pencil" style="padding-right: 5px;"></a>
                                             <a th:href="@{/customer/{id}/delete(customerDto=${customerDto}}" class="bi bi-trash3"></a>
                                         </div>
                                     </td>
