@@ -2,27 +2,33 @@ package com.adventour.web.service.impl;
 
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
+import com.adventour.web.dto.PaymentInformationDto;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.Customer;
 import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.CustomerRepository;
+import com.adventour.web.service.BookingService;
 import com.adventour.web.service.CustomerService;
+import com.adventour.web.utils.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final BookingRepository bookingRepository;
     private final Mapper mapper;
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository, Mapper mapper){
+    public CustomerServiceImpl(CustomerRepository customerRepository, BookingRepository bookingRepository, Mapper mapper){
         this.customerRepository = customerRepository;
+        this.bookingRepository = bookingRepository;
         this.mapper = mapper;
     }
 
@@ -91,15 +97,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer deleteCustomer(CustomerDto customerDto) {
-        //kiem tra co th xoa hay k
+    public boolean deleteCustomer(CustomerDto customerDto)  {
+        if(getBookingsOfCustomer(customerDto.getId()).isEmpty()){
+            customerRepository.deleteById(customerDto.getId());
+            return  true;
+        }
+        return false;
+    }
+
+    public List<Booking> getBookingsOfCustomer (Long idCus){
+        Customer customer = customerRepository.findById(idCus).orElse(null);
+        if(customer != null){
+            return bookingRepository.findByCustomer(customer);
+        }
         return null;
     }
 
-//    @Override
-//    public List<BookingDto> getAllBookingOfCustomer(Long id) {
-//        List<Booking> bookings = bookingRepository.findByCustomerId(id);
-//
-//        return null;
-//    }
 }

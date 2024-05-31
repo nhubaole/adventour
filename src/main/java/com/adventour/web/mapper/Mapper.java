@@ -60,6 +60,7 @@ public class Mapper {
         int actualPrice = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
         tripDto.setActualPrice(actualPrice);
         tripDto.setTripType(trip.getTripType());
+        tripDto.setStatus(trip.getStatus());
 
         TourDto tourDto = mapToTourDto(trip.getTour());
         tripDto.setTourDto(tourDto);
@@ -79,13 +80,13 @@ public class Mapper {
         trip.setPriceTicket(tripDto.getPriceTicket());
         trip.setDiscount(tripDto.getDiscount());
         if(tripDto.getDiscount() > 0){
-            tripDto.setTripType("Khuyến mãi");
+            trip.setTripType("Khuyến mãi");
         }
         else
         {
-            tripDto.setTripType("Thông thường");
+            trip.setTripType("Thông thường");
         }
-
+        trip.setStatus(tripDto.getStatus());
         Tour tour = mapToTour(tripDto.getTourDto());
         trip.setTour(tour);
 

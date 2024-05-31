@@ -102,8 +102,7 @@ public class BookingServiceImpl implements BookingService {
         List<BookingDto> result = new ArrayList<>();
         List<BookingDto> allBookingDto = getListBooking();
         for (BookingDto bookingDto : allBookingDto){
-            if(bookingDto.getId().toString().contains(search))
-            {
+            if(bookingDto.getId().toString().contains(search)) {
                 result.add(bookingDto);
             } else {
                 if(bookingDto.getCustomerDto().getNameCustomer().toLowerCase().contains(search.toLowerCase())){

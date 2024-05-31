@@ -16,7 +16,7 @@ public interface LocationService {
 
     Location editLocation(LocationDto locationDto);
 
-    void deleteLocation(Long locationId);
+    boolean deleteLocation(Long locationId);
 
 
 

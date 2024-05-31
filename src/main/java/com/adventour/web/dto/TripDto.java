@@ -41,6 +41,7 @@ public class TripDto {
 
     private TourDto tourDto;
     private String tripType;
+    private String status;
 //    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;
 
