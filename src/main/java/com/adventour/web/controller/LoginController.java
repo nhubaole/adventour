@@ -2,6 +2,7 @@ package com.adventour.web.controller;
 
 import com.adventour.web.dto.*;
 import com.adventour.web.enums.PaymentMethod;
+import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.models.*;
 import com.adventour.web.service.*;
 import org.slf4j.Logger;
@@ -50,15 +51,22 @@ public class LoginController {
 //        for(TripDto tripDto : list){
 //            logger.info(tripDto.getCode());
 //        }
-        List<Object[]> rs = dashboardService.getRecentPayment();
-        for (Object[] row : rs){
-            PaymentInformation paymentInformation = (PaymentInformation) row[0];
-            String nameCus = (String) row[1];
-            logger.info("Payment ID: {}, Amount: {}, Payment Time: {}, Customer Name: {}",
-                    paymentInformation.getId(), paymentInformation.getAmountOfMoney(),
-                    paymentInformation.getPaymentTime(), nameCus);
-        }
 
+//        List<Object[]> rs = dashboardService.getBookingAndTourNameIn7Days();
+//        logger.info(String.valueOf(rs.size()));
+//        for (Object[] row : rs){
+//            long id = (long) row[0];
+//            String nameTour  = (String) row[1];
+//            int numberTickets = (int) row[2];
+//            String typeTour = (String) row[3];
+//            StatusOfBooking statusBooking=  (StatusOfBooking) row[4];
+//            String status = statusBooking.name();
+//            logger.info("id: {}, tourName: {}, numberPassenger: {}, typeTour: {}, statusBooking: {}",
+//                    id, nameTour, numberTickets, typeTour, status);
+//        }
+
+        long revenue = dashboardService.getRevenueIn30Days();
+        logger.info(String.valueOf(revenue));
         return "/index";
     }
 }

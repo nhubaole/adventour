@@ -5,10 +5,7 @@ import com.adventour.web.dto.TripDto;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.PaymentInformation;
 import com.adventour.web.models.Trip;
-import com.adventour.web.repository.CustomerRepository;
-import com.adventour.web.repository.PaymentInformationRepository;
-import com.adventour.web.repository.TicketRepository;
-import com.adventour.web.repository.TripRepository;
+import com.adventour.web.repository.*;
 import com.adventour.web.service.DashboardService;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Service;
@@ -27,13 +24,16 @@ public class DashboardServiceImpl implements DashboardService {
 
     private final TicketRepository ticketRepository;
     private final PaymentInformationRepository paymentInformationRepository;
+
+    private final BookingRepository bookingRepository;
     private final Mapper mapper;
 
-    public DashboardServiceImpl(CustomerRepository customerRepository, TripRepository tripRepository, TicketRepository ticketRepository, PaymentInformationRepository paymentInformationRepository, Mapper mapper) {
+    public DashboardServiceImpl(CustomerRepository customerRepository, TripRepository tripRepository, TicketRepository ticketRepository, PaymentInformationRepository paymentInformationRepository, BookingRepository bookingRepository, Mapper mapper) {
         this.customerRepository = customerRepository;
         this.tripRepository = tripRepository;
         this.ticketRepository = ticketRepository;
         this.paymentInformationRepository = paymentInformationRepository;
+        this.bookingRepository = bookingRepository;
         this.mapper = mapper;
     }
 
@@ -49,15 +49,6 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public long getTodayTripCount() {
-//        List<Trip> trips = tripRepository.findAll();
-//
-//        LocalDate today = LocalDate.now();
-//        LocalDateTime startOfDay = today.atStartOfDay();
-//        LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
-//
-//        return trips.stream()
-//                .filter(trip -> !trip.getStartDate().isBefore(startOfDay) && !trip.getStartDate().isAfter(endOfDay))
-//                .count();
         return  tripRepository.countTripsStartingToday();
     }
 
@@ -85,5 +76,19 @@ public class DashboardServiceImpl implements DashboardService {
         LocalDateTime startDay = endDay.minusDays(7);
         return paymentInformationRepository.getRecentPaymentWithCustomerName(startDay, endDay);
 
+    }
+
+    @Override
+    public long getRevenueIn30Days() {
+        LocalDateTime endDay = LocalDateTime.now();
+        LocalDateTime startDay = endDay.minusDays(30);
+        return paymentInformationRepository.getRevenueInSomeDays(startDay, endDay);
+    }
+
+    @Override
+    public List<Object[]> getBookingAndTourNameIn7Days() {
+        LocalDateTime startDay = LocalDateTime.now();
+        LocalDateTime endDay = startDay.minusDays(7);
+        return bookingRepository.findRecentBookingsWithTripInfoAndTicketCount(endDay, startDay);
     }
 }

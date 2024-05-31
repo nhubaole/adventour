@@ -22,5 +22,11 @@ public interface PaymentInformationRepository extends JpaRepository<PaymentInfor
             "WHERE p.paymentTime >= :startDay AND p.paymentTime <= :endDay")
     List<Object[]> getRecentPaymentWithCustomerName(@Param("startDay") LocalDateTime startDay, @Param("endDay") LocalDateTime endDay);
 
+    @Query("SELECT SUM(p.amountOfMoney) " +
+            "FROM PaymentInformation p " +
+            "WHERE p.paymentTime >= :startDay AND p.paymentTime <= :endDay")
+    long getRevenueInSomeDays(@Param("startDay") LocalDateTime startDay, @Param("endDay") LocalDateTime endDay);
+
+
 
 }
