@@ -184,6 +184,7 @@ public class BookingController {
             adult.setMale(Boolean.parseBoolean(request.getParameter("adult_gender_" + i)));
             adult.setDateOfBirth(LocalDate.parse(request.getParameter("adult_birthday_" + i)));
             adult.setCccd(request.getParameter("adult_id_" + i));
+            adult.setType("Adult");
             passengers.add(adult);
         }
 
@@ -196,6 +197,7 @@ public class BookingController {
             child.setMale(Boolean.parseBoolean(request.getParameter("children_gender_" + i)));
             child.setDateOfBirth(LocalDate.parse(request.getParameter("children_birthday_" + i)));
             child.setCccd(request.getParameter("children_id_" + i));
+            child.setType("Child");
             passengers.add(child);
         }
         this.bookingForm.setNumberChildren(numOfChildren);
@@ -207,10 +209,12 @@ public class BookingController {
             baby.setMale(Boolean.parseBoolean(request.getParameter("baby_gender_" + i)));
             baby.setDateOfBirth(LocalDate.parse(request.getParameter("baby_birthday_" + i)));
             baby.setCccd(request.getParameter("baby_id_" + i));
+            baby.setType("Baby");
             passengers.add(baby);
         }
         this.bookingForm.setNumberBaby(numOfBaby);
-        this.bookingForm.setNumberOfPassengers(numOfBaby+numOfChildren+numOfAdults);
+        int numOfPassengers = numOfBaby+numOfChildren+numOfAdults;
+        this.bookingForm.setNumberOfPassengers(numOfPassengers);
         this.bookingForm.setAmountPaid((int) (numOfAdults*trip.getPriceTicket()*(1-trip.getDiscount()/100) +numOfChildren*trip.getPriceTicket()*(1-trip.getDiscount()/100)/2));
         /*bookingDto.setPassengerDtos(passengers);*/
         this.bookingForm.setPassengerDtos(passengers);
@@ -219,20 +223,19 @@ public class BookingController {
 
 
     @GetMapping("/booking-detail-payment/{id}")
-    public String bookingDetailPayment(@PathVariable Long id,Model model){
+    public String bookingDetailPayment(@PathVariable Long id, Model model){
         BookingDto booking = bookingService.findById(id);
         TourDto tour = booking.getTripDto().getTourDto();
         TripDto trip = booking.getTripDto();
+        Set<TicketDto> tickets = ticketService.getTicketsByIdBooking(id);
+
         PaymentInformationDto paymentInformationDto = new PaymentInformationDto();
         Set<PaymentInformationDto> paymentInformationDtos = paymentInformationService.getPaymentInforByIdBooking(id);
         int paidAmount = 0;
-
         for (PaymentInformationDto informationDto : paymentInformationDtos) {
                  paidAmount+=informationDto.getAmountOfMoney();
              }
-         {
-
-        }
+        model.addAttribute("tickets",tickets);
         model.addAttribute("booking", booking);
         model.addAttribute("tour",tour);
         model.addAttribute("trip",trip);
@@ -257,8 +260,8 @@ public class BookingController {
         CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
         TripDto trip = booking.getTripDto();
         TourDto tour = booking.getTripDto().getTourDto();
-        Set<PassengerDto> passengerDtos = booking.getPassengerDtos();
-        Set<TicketDto> ticketDtos = booking.getTicketDtos();
+        Set<PassengerDto> passengerDtos = passengerService.getPassengersByIdBooking(id);
+        Set<TicketDto> ticketDtos = ticketService.getTicketsByIdBooking(id);
         model.addAttribute("passengers",passengerDtos);
         model.addAttribute("booking",booking);
         model.addAttribute("tour",tour);
@@ -291,11 +294,18 @@ public class BookingController {
         this.bookingForm.getPaymentInformationDtos().add(paymentInformationDto);
         this.bookingForm.setTripDto(tripService.getTripDetail(id));
         this.bookingForm.setBookingDate(LocalDateTime.now());
-
-        bookingService.addNewBooking(this.bookingForm);
+        Booking booking = bookingService.addNewBooking(this.bookingForm);
+        BookingDto bookingDto = mapper.mapToBookingDto(booking);
         //bookingService.addBookingPayment(paymentInformationDto,this.bookingForm);
-
+        int totalPaid = paymentInformationDto.getAmountOfMoney();
+        bookingDto.setAmountPaid(totalPaid);
+        if(totalPaid >=bookingDto.getTotalAmount()){
+            bookingDto.setStatus(StatusOfBooking.COMPLETED);
+            bookingService.updateBooking(bookingDto);
+            TripDto tripDto = bookingDto.getTripDto();
+            tripDto.setActualPassenger(bookingDto.getNumberOfPassengers());
+            bookingService.genarateTickets(bookingDto);
+        }
         return "redirect:/all-booking";
     }
-
 }

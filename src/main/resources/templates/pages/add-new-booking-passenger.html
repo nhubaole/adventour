@@ -198,6 +198,7 @@
                             <input style="height: 50px;" type="text" class="form-control" placeholder="CMND/CCCD" name="adult_id_${numAdults}" required>
                         </fieldset>
                     </div>
+                    <input type="hidden" name="adult_type_${numAdults}" value="Adult">
                 </div>
             `;
             container.appendChild(div);
@@ -245,6 +246,8 @@ function addChildrenInfoField(numChildren) {
                             <input style="height: 50px;" type="text" class="form-control" placeholder="CMND/CCCD" name="children_id_${numChildren}" required>
                         </fieldset>
                     </div>
+                    <input type="hidden" name="children_type_${numChildren}" value="Child">
+
                 </div>
             `;
             container.appendChild(div);
@@ -292,6 +295,8 @@ function addChildrenInfoField(numChildren) {
                             <input style="height: 50px;" type="text" class="form-control" placeholder="CMND/CCCD" name="baby_id_${numBaby}" required>
                         </fieldset>
                     </div>
+                    <input type="hidden" name="baby_type_${numBaby}" value="Baby">
+
                 </div>
             `;
             container.appendChild(div);

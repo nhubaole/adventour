@@ -19,7 +19,7 @@
         }
 
         .ticket-frame {
-            height: 700px;
+            height: 870px;
             display: block;
             width: 70%;
             padding: 20px;
@@ -124,6 +124,13 @@
                     flex: 0 1 auto;
                     margin-right: 10px;
                 }
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+        }
+
 
     </style>
 </head>
@@ -193,130 +200,118 @@
                 <div class="col-12 col-lg-8">
                     <div class="card">
                         <div class="card-body p-0">
-                            <!--                            empty layout-->
-                            <!--                            <div class="d-flex justify-content-center align-items-center" style="height: 400px;">-->
-                            <!--                                <h6 class="fw-normal" style="font-size: 0.8rem;">Bạn cần hoàn tất thanh toán để có thể xuất vé.</h6>-->
-                            <!--                            </div>-->
 
-                            <!--                            items layout-->
-                            <div class="d-flex flex-wrap">
-                                <div th:each="ticket : ${tickets}" class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                    <div class="ticket-frame-small">
-                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
-                                            <div class="col-3 ">
-                                                <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
-                                                <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;">12:30 15/03/2024</h6>
+                            <div th:if="${booking.amountPaid < booking.totalAmount}" class="d-flex justify-content-center align-items-center" style="height: 400px;">
+                                <h6 class="fw-normal" style="font-size: 0.8rem;">Bạn cần hoàn tất thanh toán để có thể xuất vé.</h6>
+                            </div >
+
+                            <div th:if="${booking.amountPaid  >= booking.totalAmount}" class="d-flex flex-wrap">
+                                <div class="col-6 pe-3 pb-3" th:each="ticket : ${tickets}">
+                                    <div   data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                                        <div class="ticket-frame-small">
+                                            <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                                <div class="col-3 ">
+                                                    <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
+                                                    <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;" th:text="${ticket.usedAt != null} ? ${ticket.usedAt} : ''"></h6>
+                                                </div>
+                                                <div class="col-9 p-3">
+                                                    <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span th:text="${ticket.id}"></span></h6>
+                                                    <h6 class="text-start" th:text="${ticket.namePassenger}"></h6>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                            <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">
+                                                                <span th:if="${ticket.passengerDto.type == 'Adult'}">Người lớn</span>
+                                                                <span th:if="${ticket.passengerDto.type == 'Child'}">Trẻ em</span>
+                                                                <span th:if="${ticket.passengerDto.type == 'Baby'}">Em bé</span>
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                            <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;" th:text="${ticket.statusTicket}"></h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-9 p-3">
-                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span ></span></h6><!--th:text="${ticket.id}"-->
-                                                <h6 class="text-start" th:text="${ticket.passenger.namePassenger}"></h6>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
-                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;" th:text="${ticket.typeTicket}"></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade modal-borderless" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                                             role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin vé
+                                                    </h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card ticket-frame">
+                                                        <div class="card-header p-1 h-25">
+                                                            <!--<img alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3" th:src="@{${ticket.mainImageOfTour}}" >-->
+                                                            <img src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/7006989_Mesa_de_trabajo_1_Mesa_de_trabajo_1.png"  alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3"  >
+                                                        </div>
+                                                        <div class="card-body p-2">
+                                                            <h6 th:text="${tour.tourName}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+
+
+                                                            </h6>
+                                                            <div class="row py-3">
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black">
+                                                                        <span th:if="${ticket.passengerDto.type == 'Adult'}">Người lớn</span>
+                                                                        <span th:if="${ticket.passengerDto.type == 'Child'}">Trẻ em</span>
+                                                                        <span th:if="${ticket.passengerDto.type == 'Baby'}">Em bé</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Thời gian</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black"th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy HH:mm')}"  ></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row py-3">
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Hành khách</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.namePassenger}"></p>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Số CMND/CCCD</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.passengerDto.cccd}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class = "img-container">
+                                                            <img class="mt-5" id="barcode" src="https://api.qrserver.com/v1/create-qr-code/?data=' + ${ticket.id} + 'size=100x100" alt="" title="HELLO" width="100" height="100">
+                                                        </div>
+
+                                                        <h6 class="fw-bold mb-1 mt-4 text-black" style="font-size: 0.8rem;">MÃ CODE:
+                                                            <span style="color: #52a6f3 !important;" th:text="${ticket.id}"></span></h6>
+                                                        <h6 class="fw-medium mb-1 mt-3 text-black" style="font-size: 0.7rem;">Vé chỉ sử dụng được
+                                                            <span class="fw-bold" style="color: #52a6f3 !important;"> một lần</span> duy nhất.</h6>
+                                                        <h6 class="fw-medium mb-1 text-black" style="font-size: 0.7rem;">Vui lòng không chia sẻ thông tin vé cho bất kỳ ai.</h6>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
-                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;" th:text="${ticket.statusTicket}"></h6>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light-secondary"
+                                                            data-bs-dismiss="mvodal">
+                                                        <i type="close" class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Hủy</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">In</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--<div class="col-6 pe-3 pb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                                    <div class="ticket-frame-small">
-                                        <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
-                                            <div class="col-3 ">
-                                                <img src="/compiled/png/ic_ticket_used.png" style="width: 40px; height: 40px;">
-                                                <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;">12:30 15/03/2024</h6>
-                                            </div>
-                                            <div class="col-9 p-3">
-                                                <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: TSK-XXX-XX</h6>
-                                                <h6 class="text-start">Le Bao Nhu</h6>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
-                                                        <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">Người lớn</h6>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <h6 class="fw-semibold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
-                                                        <h6 class="fw-normal mb-1 text-start" style="color: #F45B69 !important; font-size: 0.8rem;">Đã sử dụng</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
 
-                                <div class="modal fade modal-borderless" id="exampleModalCenter" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-                                         role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin vé
-                                                </h5>
-                                                <button type="button" class="close" data-bs-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <i data-feather="x"></i>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="card ticket-frame">
-                                                    <div class="card-header p-1 h-25">
-                                                        <!--<img alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3" th:src="@{${ticket.mainImageOfTour}}" >-->
-                                                        <img alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3"  >
-                                                    </div>
-                                                    <div class="card-body p-2">
-                                                        <h6 th:text="${tour.tourName}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-                                                            <!--Liên tuyến : Brunei - Malaysia khám phá thành phố Miri-->
-
-                                                        </h6>
-                                                        <div class="row py-3">
-                                                            <div class="col-6">
-                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${T(java.time.LocalDate).now().until(ticket.passenger.dateOfBirth, T(java.time.temporal.ChronoUnit).YEARS) > 16 ? 'Người lớn' : 'Trẻ em'}"-->
-                                                                <!--ticket.typeTicket-->
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Thời gian</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${#temporals.format(ticket.datePaid, 'dd/MM/yyyy HH:mm')}"-->
-                                                            </div>
-                                                        </div>
-                                                        <div class="row py-3">
-                                                            <div class="col-6">
-                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Hành khách</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${ticket.passenger.name}"-->
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Số CMND/CCCD</h6>
-                                                                <p class="fw-medium text-start mb-0 text-black" ></p><!--th:text="${ticket.passenger.cccd}"-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <img class="mt-5" id="barcode" src="https://api.qrserver.com/v1/create-qr-code/?data=' + ${ticket.id} + 'size=100x100" alt="" title="HELLO" width="100" height="100">
-                                                    <h6 class="fw-bold mb-1 mt-4 text-black" style="font-size: 0.8rem;">MÃ CODE:
-                                                        <span style="color: #52a6f3 !important;" th:text="${ticket.id}"></span></h6>
-                                                    <h6 class="fw-medium mb-1 mt-3 text-black" style="font-size: 0.7rem;">Vé chỉ sử dụng được
-                                                        <span class="fw-bold" style="color: #52a6f3 !important;"> một lần</span> duy nhất.</h6>
-                                                    <h6 class="fw-medium mb-1 text-black" style="font-size: 0.7rem;">Vui lòng không chia sẻ thông tin vé cho bất kỳ ai.</h6>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light-secondary"
-                                                        data-bs-dismiss="mvodal">
-                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Hủy</span>
-                                                </button>
-                                                <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
-                                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">In</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
