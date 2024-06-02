@@ -3,6 +3,7 @@ package com.adventour.web.controller;
 import com.adventour.web.dto.*;
 import com.adventour.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,13 +41,33 @@ public class TripController {
             this.customerService = customerService;
         }
     @GetMapping("/alltrip")
-    public String AllTrip(Model model){
-        List<TripDto> tripDtos = tripService.getListTrip();
+    public String AllTrip(Model model, @Param("keyword") String keyword){
+        List<TripDto> tripDtos = new ArrayList<>();
+        if (keyword == null){
+            tripDtos = tripService.getListTrip();
+        }else {
+            tripDtos = tripService.searchTrip(keyword);
+            model.addAttribute("keyword", keyword);
+        }
         model.addAttribute("trips", tripDtos);
         return "/pages/all-trip";
     }
 
+    @GetMapping("/information/{tripId}/edit")
+    public String editTrip(@PathVariable("tripId") long tripId, Model model){
+            TripDto tripDto = tripService.getTripDetail(tripId);
+            List<TourDto> tourDtos = tourService.findAllTours();
+            model.addAttribute("trip", tripDto);
+            model.addAttribute("tours", tourDtos);
+            return "pages/edit-trip";
+    }
 
+    @PostMapping("/information/{tripId}/edit")
+    public String saveEditTrip(@PathVariable("tripId") long tripId, @ModelAttribute("trip") TripDto tripDto, Model model){
+            tripDto.setId(tripId);
+            tripService.updateTrip(tripDto);
+            return "redirect:/alltrip";
+    }
 
     @GetMapping("/information/{id}")
     public String informationTrain(@PathVariable("id") long id, Model model){

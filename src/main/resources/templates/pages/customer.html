@@ -41,20 +41,22 @@
 <section class="section" layout:fragment="content">
     <div class = "col-12">
         <div class="card">
-            <div class="card-header input-style">
-                <div class="form-group position-relative has-icon-left">
-                    <input type="search" name="keyword" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px" th:value="${keyword}">
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
+            <form th:action="@{/customer}">
+                <div class="card-header input-style">
+                    <div class="form-group position-relative has-icon-left">
+                        <input type="search" name="keyword" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px" th:value="${keyword}">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <a th:href="@{add-new-customer}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                            <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
+                            Thêm khách hàng mới
+                        </a>
                     </div>
                 </div>
-                <div>
-                    <a th:href="@{add-new-customer}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
-                        <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm khách hàng mới
-                    </a>
-                </div>
-            </div>
+            </form>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-lg">
@@ -112,7 +114,7 @@
                                         <div style="color: black; cursor: pointer;">
                                             <a th:href="@{/customer/{id}(id=${customer.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                             <a th:href="@{/customer/{id}/edit(id=${customer.id})}" class="bi bi-pencil" style="padding-right: 5px;"></a>
-                                            <a th:href="@{/customer/{id}/delete(customerDto=${customerDto}}" class="bi bi-trash3"></a>
+                                            <a th:href="@{/customer/{customerId}/delete(customerId=${customer.id})}" class="bi bi-trash3"></a>
                                         </div>
                                     </td>
                                 </tr>

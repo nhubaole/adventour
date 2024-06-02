@@ -99,7 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean deleteCustomer(CustomerDto customerDto)  {
         if(getBookingsOfCustomer(customerDto.getId()).isEmpty()){
             customerRepository.deleteById(customerDto.getId());
-            return  true;
+            return true;
         }
         return false;
     }
