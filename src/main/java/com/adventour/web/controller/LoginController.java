@@ -4,6 +4,8 @@ import com.adventour.web.dto.*;
 import com.adventour.web.enums.PaymentMethod;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.models.*;
+import com.adventour.web.repository.TourRepository;
+import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +27,12 @@ import java.util.Set;
 @Controller
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+
+
     @Autowired
     public LoginController() {
+
     }
 
     @GetMapping("/")

@@ -19,8 +19,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByCustomer(Customer customer);
     List<Booking> findByTrip(Trip trip);
 
-    @Query("SELECT b.id, t.tour.tourName, (b.numberAdult + b.numberChildren + b.numberBaby), t.tour.typeOfTour, b.status " +
-            "FROM Booking b JOIN b.trip t " +
+    @Query("SELECT t.id, t.tour.tourName, (b.numberAdult + b.numberChildren + b.numberBaby), t.tour.typeOfTour, b.status " +
+            "FROM Booking b " +
+            "JOIN b.trip t " +
             "WHERE b.bookingDate >= :startDay AND b.bookingDate <= :endDay"
             )
     List<Object[]> findRecentBookingsWithTripInfoAndTicketCount(@Param("startDay")LocalDateTime startDay,@Param("endDay") LocalDateTime endDay);
