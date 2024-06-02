@@ -19,7 +19,7 @@
         }
 
         .ticket-frame {
-            height: 870px;
+            height: 100%;
             display: block;
             width: 70%;
             padding: 20px;
@@ -228,7 +228,11 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
-                                                            <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;" th:text="${ticket.statusTicket}"></h6>
+                                                            <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;"  >
+                                                                <span th:if="${ticket.statusTicket == T(com.adventour.web.enums.StatusOfTicket).USED}">Đã sử dụng</span>
+                                                                <span th:if="${ticket.statusTicket == T(com.adventour.web.enums.StatusOfTicket).UNUSED}">Chưa sử dụng</span>
+                                                                <span th:if="${ticket.statusTicket == T(com.adventour.web.enums.StatusOfTicket).CANCELLED}">Đã hủy</span>
+                                                            </h6>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -298,11 +302,11 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-light-secondary"
-                                                            data-bs-dismiss="mvodal">
-                                                        <i type="close" class="bx bx-x d-block d-sm-none"></i>
+                                                            data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
                                                         <span class="d-none d-sm-block">Hủy</span>
                                                     </button>
-                                                    <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                    <button style="width: 60px;" type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
                                                         <i class="bx bx-check d-block d-sm-none"></i>
                                                         <span class="d-none d-sm-block">In</span>
                                                     </button>

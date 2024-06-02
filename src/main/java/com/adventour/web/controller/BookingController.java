@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,10 +61,17 @@ public class BookingController {
         }
     private static Logger logger = LoggerFactory.getLogger(BookingController.class);
     @GetMapping("/all-booking")
-    public String allBooking(Model model){
-        List<BookingDto> bookingDtos = bookingService.getListBooking();
+    public String allBooking(Model model,@Param("keyword") String keyword){
+        List<BookingDto> bookingDtos = new ArrayList<>();
+        if (keyword == null) {
+            bookingDtos =  bookingService.getListBooking();
+        } else {
+            bookingDtos = bookingService.searchBooking(keyword);
+            model.addAttribute("keyword", keyword);
+        }
         model.addAttribute("bookings", bookingDtos);
         return "/pages/all-booking";}
+
 
     @GetMapping("/all-booking/{id}/delete")
     public String deleteTour(@PathVariable("id") Long id){

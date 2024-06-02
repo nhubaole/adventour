@@ -268,7 +268,7 @@
 
 
                         <div class="col-12 d-flex justify-content-end" style="margin-top:20px">
-                            <button class=" btn btn-primary me-1 mb-1" type="save" data-bs-toggle="modal" data-bs-target="#default">Thanh toán</button>
+                            <button th:if="${booking.totalAmount > booking.amountPaid}" class=" btn btn-primary me-1 mb-1" type="save" data-bs-toggle="modal" data-bs-target="#default">Thanh toán</button>
                             <div class="modal fade text-left" id="default" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                                     <form th:action="@{'/booking-detail-payment/' + ${booking.id} + '/add-payment'}" th:object="${paymentInformationDto}" method="post" id="paymentForm">
