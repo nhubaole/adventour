@@ -223,7 +223,7 @@ public class BookingController {
         this.bookingForm.setNumberBaby(numOfBaby);
         int numOfPassengers = numOfBaby+numOfChildren+numOfAdults;
         this.bookingForm.setNumberOfPassengers(numOfPassengers);
-        this.bookingForm.setAmountPaid((int) (numOfAdults*trip.getPriceTicket()*(1-trip.getDiscount()/100) +numOfChildren*trip.getPriceTicket()*(1-trip.getDiscount()/100)/2));
+        this.bookingForm.setTotalAmount((int) (numOfAdults*trip.getPriceTicket()*(1-trip.getDiscount()/100) +numOfChildren*trip.getPriceTicket()*(1-trip.getDiscount()/100)/2));
         /*bookingDto.setPassengerDtos(passengers);*/
         this.bookingForm.setPassengerDtos(passengers);
         return "redirect:/add-new-booking-payment/" + id;
@@ -302,7 +302,9 @@ public class BookingController {
         this.bookingForm.getPaymentInformationDtos().add(paymentInformationDto);
         this.bookingForm.setTripDto(tripService.getTripDetail(id));
         this.bookingForm.setBookingDate(LocalDateTime.now());
+        logger.info("Total amount1: {}", bookingForm.getTotalAmount());
         Booking booking = bookingService.addNewBooking(this.bookingForm);
+        logger.info("Total amount2: {}", booking.getTotalAmount());
         BookingDto bookingDto = mapper.mapToBookingDto(booking);
         //bookingService.addBookingPayment(paymentInformationDto,this.bookingForm);
         int totalPaid = paymentInformationDto.getAmountOfMoney();
@@ -310,6 +312,7 @@ public class BookingController {
         if(totalPaid >=bookingDto.getTotalAmount()){
             bookingDto.setStatus(StatusOfBooking.COMPLETED);
             bookingService.updateBooking(bookingDto);
+            logger.info("Total amount3: {}", bookingDto.getTotalAmount());
             TripDto tripDto = bookingDto.getTripDto();
             tripDto.setActualPassenger(bookingDto.getNumberOfPassengers());
             bookingService.genarateTickets(bookingDto);

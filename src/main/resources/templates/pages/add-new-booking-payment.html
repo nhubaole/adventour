@@ -114,28 +114,43 @@
         }
 
         document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('input[name="paymentMethod"]').forEach(function(radio) {
-                radio.addEventListener('change', function() {
-                    document.querySelectorAll('input[name="paymentMethod"]').forEach(function(r) {
-                        if (r !== radio) {
-                            r.checked = false;
-                        }
+            const paymentForm = document.getElementById('paymentForm');
+            const moneyPayInput = document.getElementById('money-pay');
+            const paymentMethodRadios = document.querySelectorAll('input[name="paymentMethod"]');
+
+            if (paymentForm && moneyPayInput && paymentMethodRadios.length > 0) {
+                paymentMethodRadios.forEach(function(radio) {
+                    radio.addEventListener('change', function() {
+                        paymentMethodRadios.forEach(function(r) {
+                            if (r !== radio) {
+                                r.checked = false;
+                            }
+                        });
                     });
                 });
-            });
-            document.getElementById('money-pay').addEventListener('input', validateInput);
-        });
 
-        document.getElementById('paymentForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const form = event.target;
-    const urlParts = const urlParts = window.location.pathname.split('/');
-    const id = urlParts[urlParts.length - 1];
-    form.action = '/booking-detail-payment/' + id + '/add-payment';
-    const paymentMethod = form.querySelector('input[name="paymentMethod"]:checked').value;
-    console.log('Selected payment method:', paymentMethod);
-    form.submit();
-});
+                moneyPayInput.addEventListener('input', validateInput);
+
+                paymentForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const form = event.target;
+                    const urlParts = window.location.pathname.split('/');
+                    const id = urlParts[urlParts.length - 1];
+                    paymentForm.action = '/add-new-booking-payment/' + id ;
+
+                    const paymentMethod = paymentForm.querySelector('input[name="paymentMethod"]:checked');
+                    if (!paymentMethod) {
+                        alert('Please select a payment method.'); // Hiển thị hộp thoại cảnh báo nếu không có radio nào được chọn
+                        return;
+                    }
+
+                    console.log('Selected payment method:', paymentMethod.value);
+                    paymentForm.submit();
+                });
+            } else {
+                console.error('One or more elements not found.');
+            }
+        });
 
     </script>
 </head>
@@ -172,7 +187,8 @@
                                         name="amountPaid"
                                         onkeypress="return isNumber(event)"
                                         inputmode="numeric"
-                                        pattern="[0-9]*">
+                                        pattern="[0-9]*"
+                                        required>
                                     <!--name="fname-column"-->
                                     <!--th:field="*{amountOfMoney}"-->
 
@@ -251,14 +267,14 @@
                                     <div style="margin-top: 20px;">
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Tổng tiền</div>
-                                            <div style="font-size: 14px;" th:text="${bookingform.amountPaid} + ' đ'"><!-- 72,000,000 đ --></div>
+                                            <div style="font-size: 14px;" th:text="${bookingform.totalAmount} + ' đ'"><!-- 72,000,000 đ --></div>
                                         </div>
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Đã thanh toán</div>
                                             <div style="font-size: 14px;" class="">0đ</div>
                                         </div><div class="form-container" style="display: flex;">
                                         <div style="font-weight: bold;">Còn lại</div>
-                                        <div style="font-size: 14px;" th:text="${bookingform.amountPaid} + ' đ'" class=""></div>
+                                        <div style="font-size: 14px;" th:text="${bookingform.totalAmount} + ' đ'" class=""></div>
                                     </div>
                                     </div>
 
