@@ -520,101 +520,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture1.jpg">
+                                <th:block th:each="dashboardBooking, stat : ${dashboardBookings}">
+                                    <tr>
+                                        <td class="col-6">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-md">
+                                                    <img th:src="${dashboardBooking.imageUrl}">
+                                                </div>
+                                                <p class="font-bold ms-3 mb-0" th:text="${dashboardBooking.tourName}"></p>
                                             </div>
-                                            <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 cancel setting">Đã hủy</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture2.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Hà Nội - Bái Đính - Khu Du Lịch Tràng An - Bái Đính - Hạ Long - Yên Tử</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 waiting setting">Đang chờ</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture3.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Phan Thiết - Mũi Né - KDL Núi Tà Cú - Đồi Cát Bay - Resort tương đương 4*</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 accept setting">Hoàn tất</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture1.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 cancel setting">Đã hủy</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture1.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 cancel setting">Đã hủy</p>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${dashboardBooking.numberPass}"></p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0" th:text="${dashboardBooking.typeOfTour}"></p>
+                                        </td>
+                                        <td class="col-auto ">
+                                            <p class=" mb-0 cancel setting" th:text="${dashboardBooking.statusOfBooking}"></p>
+                                        </td>
+                                    </tr>
+                                </th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -755,90 +681,25 @@
                         <h4>Giao dịch gần đây</h4>
                     </div>
                     <div class="card-content">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
+                        <th:block th:each="recentPaying, state: ${recentPayings}">
+                            <div class="recent-message d-flex px-4 py-3">
+                                <div class="avatar avatar-lg setting border-style">
+                                    <h4 th:text="${#temporals.format(recentPaying.datePaid, 'HH:mm')}"></h4>
+                                </div>
+                                <div class="name ms-4 setting" style="
                                     flex-direction: column;
                                     justify-content: center;
                                     align-items: flex-start;
                                     flex-wrap: wrap;
                             ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
+                                    <div class="mb-1" style="color: black;" th:text="${recentPaying.nameCustomer}"></div>
+                                    <div class="d-flex">
+                                        <h6 class="text-muted mb-0" style="color: #52a6f3 !important;" th:text="${recentPaying.paidAmount}"></h6>
+                                        <h6 class="text-muted mb-0"  style="color: #52a6f3 !important;" >đ</h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
             </div>
