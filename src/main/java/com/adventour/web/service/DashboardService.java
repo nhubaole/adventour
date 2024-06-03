@@ -1,5 +1,7 @@
 package com.adventour.web.service;
 
+import com.adventour.web.dto.BookingDashboardDto;
+import com.adventour.web.dto.PaymentDashboardDto;
 import com.adventour.web.dto.PaymentInformationDto;
 import com.adventour.web.dto.TripDto;
 
@@ -12,11 +14,11 @@ public interface DashboardService {
     long getTodayTripCount();
     List<TripDto> getListTripInMonth();
 
-    List<Object[]> getRecentPayment();
+    List<PaymentDashboardDto> getRecentPayment();
 
     long getRevenueIn30Days();
 
-    List<Object[]> getBookingAndTourNameIn7Days();
+    List<BookingDashboardDto> getBookingAndTourNameIn7Days();
 
 
 }
