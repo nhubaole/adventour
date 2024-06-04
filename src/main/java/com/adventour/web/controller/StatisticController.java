@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,8 @@ public class StatisticController {
         List<Integer> revenuePerMonth = statisticService.getRevenuePerMonth();
         RevenueByTourTypeData revenueByTourTypeData = statisticService.getRevenueThisWeek();
         BookingStatisticData bookingStatisticData = statisticService.getBookingStatistic();
-        double successfulTripRate = statisticService.getSuccessfulTripRate();
+        List<Double> successfulTripRate = new ArrayList<>(){};
+        successfulTripRate.add(statisticService.getSuccessfulTripRate());
         logger.info(String.valueOf(successfulTripRate));
 
         model.addAttribute("revenuePerMonth", revenuePerMonth);
