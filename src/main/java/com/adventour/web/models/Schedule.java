@@ -24,7 +24,7 @@ public class Schedule {
 
     private int dayOfSchedule;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_tour", nullable = false)
     private Tour tour;
 

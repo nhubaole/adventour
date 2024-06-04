@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,5 +25,10 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
     @Query("SELECT t FROM Trip t WHERE t.startDate >= :startOfMonth AND t.startDate <= :endOfMonth")
     List<Trip> findTripsForCurrentMonth(@Param("startOfMonth") LocalDateTime startOfMonth, @Param("endOfMonth") LocalDateTime endOfMonth);
 
+    @Query("SELECT COUNT(t) FROM Trip t WHERE t.startDate < :today")
+    long countTotalTripsBeforeToday(@Param("today") LocalDateTime today);
+
+    @Query("SELECT COUNT(t) FROM Trip t WHERE t.startDate < :today AND (t.status <> 'CANCELLED' OR t.status is NULL)")
+    long countSuccessfulTripsBeforeToday(@Param("today") LocalDateTime today);
 
 }
