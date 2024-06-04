@@ -2,6 +2,8 @@ package com.adventour.web.controller;
 
 import com.adventour.web.dto.*;
 import com.adventour.web.service.*;
+import com.adventour.web.dto.TripDto;
+import com.adventour.web.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Controller
 public class TripController {

@@ -40,6 +40,8 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            width:100px;
+            height: 80px;
         }
 
         .accept{
@@ -81,23 +83,162 @@
         .column-width-200 {
             width: 200px;
         }
+        .nowrap {
+        white-space: nowrap;
+    }
+
+        .widthStt {
+        width: 50px;
+        }
+
+    .nowrap span:first-child {
+        white-space: nowrap;
+        display: block;
+    }
+
+    .nowrap span:last-child {
+        display: block;
+    }
     </style>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const bookings = /*[[${bookings}]]*/ [];
+        /*]]>*/
+    </script>
+
+    <script>
+
+        const rowsPerPage = 30;
+        let currentPage = 1;
+
+
+        function sortBookingsByDate(bookings) {
+            return bookings.sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate));
+        }
+
+        function renderTablePage(page) {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            const sortedBookings = sortBookingsByDate(bookings);
+
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageBookings = sortedBookings.slice(start, end);
+
+            pageBookings.forEach((booking, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="widthStt" style="width: 50px">${start + index + 1}</td>
+                    <td class="col-4 ">${booking.customerDto.nameCustomer}</td>
+                    <td class="col-auto ">${booking.id}</td>
+                    <td class="col-auto ">${booking.numberOfPassengers}</td>
+                    <td class="col-auto nowrap">
+    <span>${formatDate(booking.bookingDate).date}</span><br>
+    <span>${formatDate(booking.bookingDate).time}</span>
+</td>
+
+                    <td class="col-auto">
+    <p class="mb-0 setting">
+        <span class="${getStatusText(booking.status).cssClass}">${getStatusText(booking.status).text}</span>
+    </p>
+</td>
+                    <td class="col-auto">${booking.totalAmount} đ</td>
+                    <td class="col-auto">
+                        <div style="color: black; cursor: pointer;">
+                            <a href="/booking-detail-information/${booking.id}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                            <!--<a href="#"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
+                            <a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa mục này?');"><i class="bi bi-trash3"></i></a>-->
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function setupPagination() {
+            const paginationLinks = document.querySelectorAll('.page-link');
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const page = event.target.getAttribute('data-page');
+                    if (page === 'prev' && currentPage > 1) {
+                        currentPage--;
+                    } else if (page === 'next' && currentPage * rowsPerPage < bookings.length) {
+                        currentPage++;
+                    } else if (!isNaN(page)) {
+                        currentPage = Number(page);
+                    }
+                    renderTablePage(currentPage);
+                    updatePagination();
+
+                     window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+                });
+            });
+        }
+         function getStatusText(status) {
+    switch (status) {
+        case 'CANCELLED': return { text: 'Đã hủy', cssClass: 'cancel' };
+        case 'PENDING': return { text: 'Đang chờ', cssClass: 'waiting' };
+        case 'COMPLETED': return { text: 'Hoàn tất', cssClass: 'finish' };
+        default: return { text: status, cssClass: '' };
+    }
+}
+
+
+        function formatDate(dateString) {
+    const optionsDate = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit' };
+    const date = new Date(dateString);
+
+    const formattedDate = date.toLocaleDateString('en-GB', optionsDate);
+    const formattedTime = date.toLocaleTimeString('en-GB', optionsTime);
+
+    return {
+        date: formattedDate,
+        time: formattedTime
+    };
+}
+
+
+        function updatePagination() {
+            const paginationLinks = document.querySelectorAll('.page-item');
+            paginationLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.page-item a[data-page="${currentPage}"]`).parentElement.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTablePage(currentPage);
+            setupPagination();
+            updatePagination();
+        });
+
+
+    </script>
 </head>
 <body>
 <section class="section" layout:fragment="content">
+
     <div class = "col-12">
         <div class="card">
-            <div class="card-header input-style">
-                <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm phiếu đặt chỗ" style="width: 400px; height: 42px">
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
+            <form th:action="@{/all-booking}">
+                <div class="card-header input-style">
+                    <div class="form-group position-relative has-icon-left">
+                        <input type="search" id="search" name="keyword" class="form-control" placeholder="Tìm kiếm phiếu đặt chỗ" style="width: 400px; height: 42px" th:value="${keyword}">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover table-lg">
+                    <table  id="bookingTable" class="table table-hover table-lg">
                         <thead>
                         <tr>
                             <th>STT</th>
@@ -110,8 +251,10 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
-                            <th:block th:each="booking, stat : ${bookings}">
+                        <tbody id="tableBody">
+                            <!--<th:block th:each="booking, stat : ${bookings}">
+                                <tr>
+
                             <td class="col-1">
                                 <div class="d-flex align-items-center">
                                     <span th:text="${stat.index + 1}"></span>
@@ -138,8 +281,12 @@
                                 </div>
                             </td>
                             <td class="col-auto">
-                                <p class="mb-0 cancel setting" th:text="${booking.status}"></p>
-                                <!--<p class=" mb-0 cancel setting">Đã dừng</p>-->
+                                <p class="mb-0 setting">
+                                    <span class = "cancel" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).CANCELLED}">Đã hủy</span>
+                                    <span class = "waiting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).PENDING}">Đang chờ</span>
+                                    <span class = "finish" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).COMPLETED}">Hoàn tất</span>
+                                </p>
+                                &lt;!&ndash;<p class=" mb-0 cancel setting">Đã dừng</p>&ndash;&gt;
 
                             </td>
                             <td class="col-auto">
@@ -156,7 +303,8 @@
                                     </a>
                                 </div>
                             </td>
-                        </th:block>
+                                </tr>
+                        </th:block>-->
 
                         </tbody>
                     </table>
@@ -171,7 +319,7 @@
                     <nav class="dataTable-pagination">
                         <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
                             <li class="pager page-item">
-                                <a href="#" data-page="2" class="page-link"><</a>
+                                <a href="#" data-page="prev" class="page-link"><</a>
                             </li>
                             <li class="active page-item">
                                 <a href="#" data-page="1" class="page-link">1</a>
@@ -186,7 +334,7 @@
                                 <a href="#" data-page="4" class="page-link">4</a>
                             </li>
                             <li class="pager page-item">
-                                <a href="#" data-page="2" class="page-link">></a>
+                                <a href="#" data-page="next" class="page-link">></a>
                             </li>
                         </ul>
                     </nav>

@@ -113,19 +113,19 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-information/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin liên hệ
                         </a>
-                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-passenger/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
                             Hành khách
                         </a>
-                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-payment/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
                             Thông tin thanh toán
                         </a>
-                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
                             Danh sách vé
                         </a>
@@ -134,7 +134,7 @@
                 <div class="col-12 col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <form action="#" method="get">
+                            <form class="form" action="#" method="get">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="trainID" class="form-label">Mã khách hàng</label>
@@ -168,7 +168,7 @@
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="ismale" class="form-label">Giới tính</label>
-                                        <input style="border: none;" type="text" name="ismale" id="ismale" class="form-control" placeholder="Giới tính" th:value="${customer.isMale ? 'Nam' : 'Nữ'}" readonly>
+                                        <input style="border: none;" type="text" name="ismale" id="ismale" class="form-control" placeholder="Giới tính" th:value="${customer.isMale != null ? (customer.isMale ? 'Nam' : 'Nữ') : 'Chưa xác định'}" readonly>
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="national" class="form-label">Quốc tịch</label>
@@ -179,7 +179,11 @@
                                     <label for="address" class="form-label">Địa chỉ</label>
                                     <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${customer.addressCustomer}"readonly>
                                 </div>
-
+                            </form>
+                            <form th:action="@{/booking-detail-information/{id}(id=${booking.id})}" th:method="post">
+                                <div class="col-12 d-flex justify-content-end" style="margin-top:10px">
+                                    <button type="submit" class="addBtn" style=" border: 1px solid red;background-color: white!important;color: red!important;/* width: 100%; */display: flex;justify-content: center; border-radius: 10px; width:300px;">Hủy chuyến</button><!--th:href="@{/information/{id}(id=${trip.id})}"-->
+                                </div>
                             </form>
                         </div>
                     </div>
