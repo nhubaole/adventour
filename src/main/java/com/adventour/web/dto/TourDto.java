@@ -15,12 +15,13 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class TourDto {
     private Long id;
 

@@ -16,7 +16,7 @@
                 <div class="user-img d-flex align-items-center">
                     <div class="avatar avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
                         <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}" style="width: 100px;height: 100px;">
-<!--                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">-->
+                        <!--                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">-->
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
@@ -47,50 +47,57 @@
                 <div class="col-12 col-lg-9">
                     <div class="card">
                         <div class="card-body">
-                            <form action="#" method="get">
+                            <form class="form" role="form" th:action="@{/customer/{customerId}/edit(customerId=${customer.id})}" method="post" th:object="${customer}">
+                                <input type="hidden" th:field="*{id}">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="name" class="form-label">Mã khách hàng</label>
-                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:value="${customer.customerID}">
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:field="*{customerID}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="fullname" class="form-label">Họ và tên</label>
-                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Họ và tên" th:value="${customer.nameCustomer}">
+                                        <input style="border: none;" type="text" name="email" id="fullname" class="form-control" placeholder="Họ và tên" th:field="*{nameCustomer}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="emailaddress" class="form-label">Địa chỉ Email</label>
-                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Địa chỉ Email" th:value="${customer.email}">
+                                        <input style="border: none;" type="text" name="phone" id="emailaddress" class="form-control" placeholder="Địa chỉ Email" th:field="*{email}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="birthday" class="form-label">Ngày sinh</label>
-                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday" th:value="${customer.dateOfBirth}">
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Your Birthday" th:field="*{dateOfBirth}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="gender" class="form-label">Giới tính</label>
-                                        <input style="border: none;" type="text" name="gender" id="gender" class="form-control" placeholder="Your Birthday" th:value="${customer.isMale} ? Nam : Nữ">
+                                        <label for="company-column">Giới tính</label>
+                                        <select style="height: 50px;" class="form-select" id="company-column" th:field="*{isMale}">
+                                            <option th:value="TRUE">Nam</option>
+                                            <option th:value="FALSE">Nữ</option>
+                                        </select>
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="personID" class="form-label">CMND/CCCD</label>
-                                        <input style="border: none;" type="text" name="national" id="personID" class="form-control" placeholder="CMND/CCCD" th:value="${customer.cccd}">
+                                        <input style="border: none;" type="text" name="national" id="personID" class="form-control" placeholder="CMND/CCCD" th:field="*{cccd}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="national" class="form-label">Quốc tịch</label>
-                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:value="${customer.nationality}">
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:field="*{nationality}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="telephone" class="form-label">Số điện thoại</label>
-                                        <input style=" border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Số điện thoại" th:value="${customer.phoneNumber}">
+                                        <input style=" border: none;" type="text" name="national" id="telephone" class="form-control" placeholder="Số điện thoại" th:field="*{phoneNumber}">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
                                     <label for="address" class="form-label">Địa chỉ</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${customer.addressCustomer}">
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:field="*{addressCustomer}">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </form>
                         </div>
