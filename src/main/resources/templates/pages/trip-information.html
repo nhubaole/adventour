@@ -74,24 +74,28 @@
         <div class = "card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6 th:text ="${nameTrip}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-
-                        <div class="empty" th:text="${statusTrip}">
+                    <h6 th:text ="${trip.name}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        <div class="empty" th:text="${trip.ticketDto.statusTicket}">
 
                         </div>
                     </h6>
-                    <p th:text="${startDate}" class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                    <div style="display: flex; align-items: center;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        <p th:text="${trip.startDate}" class="text-subtitle fw-light text-muted small" style="margin-top: 6px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
 
-                    </p>
-                    <div th:text="${priceTripFinal}" class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        </p>
+                    </div>
+
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div th:text = "${priceTrip}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                        <div th:text = "${trip.priceTicket}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
 
                         </div>
-                        <div th:text= "${discountPrice}" class="discount">
-                            -50%
+                        <div th:text = "${trip.priceTicket}" >
+
+                        </div>
+                        <div th:text= "${trip.discount}" class="discount">
                         </div>
                     </div>
                 </div>
@@ -99,7 +103,7 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/information/{id}(id=${trip.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin chuyến
                         </a>
@@ -116,46 +120,46 @@
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="trainID" class="form-label">Mã chuyến</label>
-                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã chuyến" th:value="${id}">
+                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã chuyến" th:value="${trip.id}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="traintype" class="form-label">Loại chuyến</label>
-                                        <input style="border: none;" type="text" name="email" id="traintype" class="form-control" placeholder="Loại chuyến" th:value="${tripType}">
+                                        <input style="border: none;" type="text" name="email" id="traintype" class="form-control" placeholder="Loại chuyến" th:value="${trip.tourDto.typeOfTour}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="estimateNum" class="form-label">Số lượng dự kiến</label>
-                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" th:value="${slots}">
+                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" th:value="${trip.slots}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="realNum" class="form-label">Số lượng thực tế</label>
-                                        <input style="border: none;" type="text" name="birthday" id="realNum" class="form-control" placeholder="Số lượng thực tế" th:value="${actualPassenger}">
+                                        <input style="border: none;" type="text" name="birthday" id="realNum" class="form-control" placeholder="Số lượng thực tế" th:value="${trip.actualPassenger}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="estimateTicket" class="form-label">Giá vé dự kiến</label>
-                                        <input style="border: none;" type="text" name="birthday" id="estimateTicket" class="form-control" placeholder="Giá vé dự kiến" th:value="${priceTrip}">
+                                        <input style="border: none;" type="text" name="birthday" id="estimateTicket" class="form-control" placeholder="Giá vé dự kiến" th:value="${trip.priceTicket}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="discount" class="form-label">CMND/CCCD</label>
-                                        <input style="border: none;" type="text" name="national" id="discount" class="form-control" placeholder="Giảm giá" th:value="${discountPrice}">
+                                        <label for="discount" class="form-label">Khuyến mãi </label>
+                                        <input style="border: none;" type="text" name="national" id="discount" class="form-control" placeholder="Giảm giá" th:value="${trip.discount}">
                                     </div>
                                 </div>
                                 <div style= "display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="startDay" class="form-label">Quốc tịch</label>
-                                        <input style="border: none;" type="text" name="national" id="startDay" class="form-control" placeholder="Ngày bắt đầu" th:value="${startDate}">
+                                        <label for="startDay" class="form-label">Ngày bắt dầu</label>
+                                        <input style="border: none;" type="text" name="national" id="startDay" class="form-control" placeholder="Ngày bắt đầu" th:value="${trip.startDate}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="endDay" class="form-label">Số điện thoại</label>
-                                        <input style="border: none;" type="text" name="national" id="endDay" class="form-control" placeholder="Ngày kết thúc" th:value="${endDate}">
+                                        <label for="endDay" class="form-label">Ngày kết thúc</label>
+                                        <input style="border: none;" type="text" name="national" id="endDay" class="form-control" placeholder="Ngày kết thúc" th:value="${trip.endDate}">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
-                                    <label for="address" class="form-label">Địa chỉ</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${nameTrip}">
+                                    <label for="address" class="form-label">Tuyến</label>
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${trip.name}">
                                 </div>
                             </form>
                         </div>
@@ -163,7 +167,12 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
-                <a th:href="@{add-new-booking-information}">
+                <a th:href="@{add-new-booking-information}" style="width: 18%;">
+                    <div class="addBtn" style=" border: 1px solid red;background-color: white!important;color: red!important;/* width: 90%; */display: flex;justify-content: center;">
+                        Hủy chuyến
+                    </div>
+                </a>
+                <a th:href="@{/add-new-booking-information}">
                     <div class="addBtn">
                         <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
                         Thêm phiếu đặt chỗ mới

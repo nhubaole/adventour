@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 
 @Data
@@ -17,6 +19,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CustomerDto {
     private Long id;
+
+    private String code;
 
     @NotEmpty(message = "Name of customer can be empty")
     private String nameCustomer;
@@ -34,9 +38,21 @@ public class CustomerDto {
     @Size(min = 12, max = 12, message = "CCCD must have exactly 12 characters")
     private String cccd;
 
-    private boolean isMale;
+    private Boolean isMale;
     private String nationality;
     private String addressCustomer;
-    private String [] imagesCustomer;
+    private String[] imagesCustomer;
 
+    private MultipartFile[] files;
+
+    private String customerID;
+
+//    @NotNull
+//    private PaymentInformationDto paymentInformationDto;
+//
+//    @NotNull
+//    private TicketDto ticketDto;
+//
+//    @NotNull
+//    private BookingDto bookingDto;
 }

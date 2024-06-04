@@ -19,6 +19,8 @@ import java.util.Set;
 public class TripDto {
     private Long id;
 
+    private String code;
+
     private String name;
 
     @Min(value = 0)
@@ -35,8 +37,11 @@ public class TripDto {
 
     private double discount;
 
+    private int actualPrice;
+
     private TourDto tourDto;
     private String tripType;
+    private String status;
 //    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;
 

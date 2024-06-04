@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class LocationDto {
     private Long id;
+    private String code;
 
     @NotEmpty(message = "Name of location can't be empty")
     private String nameLocation;

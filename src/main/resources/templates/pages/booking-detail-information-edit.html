@@ -113,19 +113,19 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{/booking-detail-information/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin liên hệ
                         </a>
-                        <a th:href="@{/booking-detail-passenger/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
                             Hành khách
                         </a>
-                        <a th:href="@{/booking-detail-payment/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
                             Thông tin thanh toán
                         </a>
-                        <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
                             Danh sách vé
                         </a>
@@ -134,41 +134,58 @@
                 <div class="col-12 col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th class=" column column-width-200">tên hành khách</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Số CMND/CCCD</th>
-                                    <th>Giới tính</th>
+                            <form action="#" method="get">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="trainID" class="form-label">Mã khách hàng</label>
+                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã hành khách" th:value="${customer.id}" >
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="name" class="form-label">Họ và tên</label>
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Họ và tên" th:value="${customer.nameCustomer}">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="estimateNum" class="form-label">Số điện thoại</label>
+                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số điện thoại" th:value="${customer.phoneNumber}">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="mail" class="form-label">Địa chỉ email</label>
+                                        <input style="border: none;" type="text" name="mail" id="mail" class="form-control" placeholder="Địa chỉ email" th:value="${customer.email}">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="birthday" class="form-label">Ngày sinh</label>
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Ngày sinh" th:value="${customer.dateOfBirth}">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">CMND/CCCD</label>
+                                        <input style="border: none;" type="text" name="ID" id="ID" class="form-control" placeholder="CMND/CCCD" th:value="${customer.cccd}">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="ismale" class="form-label">Giới tính</label>
+                                        <input style="border: none;" type="text" name="ismale" id="ismale" class="form-control" placeholder="Giới tính" th:value="${customer.isMale ? 'Nam' : 'Nữ'}">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">Quốc tịch</label>
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:value="${customer.nationality}">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
+                                    <label for="address" class="form-label">Địa chỉ</label>
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${customer.addressCustomer}">
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <form action="/booking-detail-information-edit/{id}/edit" method="post">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
+                                    </form>
+                                </div>
 
-
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                <tr th:each="passenger, stat : ${passengerDtos}">
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center" th:text="${stat.count}"></div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0" th:text="${passenger.namePassenger}"></p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${#temporals.format(passenger.dateOfBirth, 'dd/MM/yyyy')}"></div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${passenger.cccd}"></div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${passenger.isMale ? 'Nam' : 'Nữ'}"></div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            </form>
                         </div>
                     </div>
                 </div>

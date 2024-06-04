@@ -22,6 +22,8 @@ public class BookingDto {
     @NotNull
     private Long id;
 
+    private String code;
+
     private LocalDateTime bookingDate;
 
     @NotNull
@@ -50,6 +52,7 @@ public class BookingDto {
 
     @NotNull
     private CustomerDto customerDto;
+
     private Set<PassengerDto> passengerDtos = new HashSet<>();
     private Set<PaymentInformationDto> paymentInformationDtos = new HashSet<>();
     private Set<TicketDto> ticketDtos = new HashSet<>();

@@ -51,11 +51,11 @@ public class BookingServiceImpl implements BookingService {
         for(Booking booking : bookings){
             BookingDto bookingDto = mapper.mapToBookingDto(booking);
 
-            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
-            bookingDto.setPassengerDtos(passengerDtos);
+//            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
+//            bookingDto.setPassengerDtos(passengerDtos);
 
             Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
-            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
+//            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
 
             int amountPaid = 0;
             for (PaymentInformationDto paymentInformation : paymentInformationDtos){
@@ -63,11 +63,11 @@ public class BookingServiceImpl implements BookingService {
             }
             bookingDto.setAmountPaid(amountPaid);
 
-            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
-                //TODO: Set<Ticket>;
-                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
-                bookingDto.setTicketDtos(ticketDtos);
-            }
+//            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
+//                //TODO: Set<Ticket>;
+//                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
+//                bookingDto.setTicketDtos(ticketDtos);
+//            }
 
             bookingDtoList.add(bookingDto);
         }
@@ -102,8 +102,7 @@ public class BookingServiceImpl implements BookingService {
         List<BookingDto> result = new ArrayList<>();
         List<BookingDto> allBookingDto = getListBooking();
         for (BookingDto bookingDto : allBookingDto){
-            if(bookingDto.getId().toString().contains(search))
-            {
+            if(bookingDto.getId().toString().contains(search)) {
                 result.add(bookingDto);
             } else {
                 if(bookingDto.getCustomerDto().getNameCustomer().toLowerCase().contains(search.toLowerCase())){
@@ -243,7 +242,7 @@ public class BookingServiceImpl implements BookingService {
         PaymentInformation payment = paymentInformationService.addNewPaymentInformation(paymentInformationDto);
         int totalPaid = bookingDto.getAmountPaid() + paymentInformationDto.getAmountOfMoney();
         bookingDto.setAmountPaid(totalPaid);
-        if(totalPaid == bookingDto.getTotalAmount()){
+        if(totalPaid >= bookingDto.getTotalAmount()){
             bookingDto.setStatus(StatusOfBooking.COMPLETED);
             TripDto tripDto = bookingDto.getTripDto();
             tripDto.setActualPassenger(bookingDto.getNumberOfPassengers());

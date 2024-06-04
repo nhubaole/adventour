@@ -66,12 +66,16 @@ public class Mapper {
     public TripDto mapToTripDto(Trip trip){
         TripDto tripDto = new TripDto();
         tripDto.setId(trip.getId());
+        tripDto.setCode(String.format("C%08d", trip.getId()));
         tripDto.setSlots(trip.getSlots());
         tripDto.setStartDate(trip.getStartDate());
         tripDto.setEndDate(trip.getEndDate());
         tripDto.setPriceTicket(trip.getPriceTicket());
         tripDto.setDiscount(trip.getDiscount());
+        int actualPrice = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
+        tripDto.setActualPrice(actualPrice);
         tripDto.setTripType(trip.getTripType());
+        tripDto.setStatus(trip.getStatus());
 
         TourDto tourDto = mapToTourDto(trip.getTour());
         tripDto.setTourDto(tourDto);
@@ -79,7 +83,6 @@ public class Mapper {
         tripDto.setName(tourDto.getTourName());
 
         tripDto.setPassengers(trip.getPassengers());
-
 
         return tripDto;
     }
@@ -92,13 +95,13 @@ public class Mapper {
         trip.setPriceTicket(tripDto.getPriceTicket());
         trip.setDiscount(tripDto.getDiscount());
         if(tripDto.getDiscount() > 0){
-            tripDto.setTripType("Khuyến mãi");
+            trip.setTripType("Khuyến mãi");
         }
         else
         {
-            tripDto.setTripType("Thông thường");
+            trip.setTripType("Thông thường");
         }
-
+        trip.setStatus(tripDto.getStatus());
         Tour tour = mapToTour(tripDto.getTourDto());
         trip.setTour(tour);
 
@@ -109,12 +112,13 @@ public class Mapper {
     public CustomerDto mapToCustomerDto (Customer customer){
         return CustomerDto.builder()
                 .id(customer.getId())
+                .code(String.format("KH%07d",customer.getId()))
                 .nameCustomer(customer.getNameCustomer())
                 .phoneNumber(customer.getPhoneNumber())
                 .email(customer.getEmail())
                 .dateOfBirth(customer.getDateOfBirth())
                 .cccd(customer.getCccd())
-//                .isMale(customer.isMale())
+               .isMale(customer.isMale())
                 .nationality(customer.getNationality())
                 .addressCustomer(customer.getAddressCustomer())
                 .imagesCustomer(customer.getImagesCustomer())
@@ -147,7 +151,7 @@ public class Mapper {
         Trip trip = mapToTrip(bookingDto.getTripDto());
         booking.setTrip(trip);
 
-        int price = booking.getTrip().getPriceTicket();
+        int price = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
         booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
         Customer customer = mapToCustomer(bookingDto.getCustomerDto());
@@ -160,6 +164,7 @@ public class Mapper {
 
         BookingDto bookingDto = new BookingDto();
         bookingDto.setId(booking.getId());
+        bookingDto.setCode(String.format("P%08d", booking.getId()));
         bookingDto.setBookingDate(booking.getBookingDate());
         bookingDto.setStatus(booking.getStatus());
         bookingDto.setNumberChildren(booking.getNumberChildren());
@@ -285,7 +290,6 @@ public class Mapper {
                 .images(location.getImages())
                 .build();
     }
-
     public Schedule mapToSchedule(ScheduleDto scheduleDto) {
         return Schedule.builder()
                 .id(scheduleDto.getId())

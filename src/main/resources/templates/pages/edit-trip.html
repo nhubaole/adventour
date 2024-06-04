@@ -74,7 +74,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-body">
-                    <form role="form" method="post" th:action="@{/add-new-trip}" class="form" th:object="${trip}">
+                    <form role="form" method="post" th:action="@{/information/{tripId}/edit(tripId = ${trip.id})}" class="form" th:object="${trip}">
                         <div class="row">
                             <div class="col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
