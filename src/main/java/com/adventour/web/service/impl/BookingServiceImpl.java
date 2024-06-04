@@ -1,51 +1,77 @@
 package com.adventour.web.service.impl;
 
-import com.adventour.web.dto.BookingDto;
-import com.adventour.web.dto.CustomerDto;
-import com.adventour.web.dto.TripDto;
+import com.adventour.web.dto.*;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.*;
 import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.CustomerRepository;
+import com.adventour.web.repository.PassengerRepository;
 import com.adventour.web.repository.TripRepository;
-import com.adventour.web.service.BookingService;
-import com.adventour.web.service.CustomerService;
+import com.adventour.web.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-    private final TripRepository tripRepository;
-    private final CustomerRepository customerRepository;
-
     private final Mapper mapper;
-
+    private final TripRepository tripRepository;
     private final CustomerService customerService;
+    private final CustomerRepository customerRepository;
+    private final PassengerService passengerService;
+    private final PaymentInformationService paymentInformationService;
+
+    private final TicketService ticketService;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, TripRepository tripRepository, CustomerRepository customerRepository, Mapper mapper, CustomerService customerService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, Mapper mapper, TripRepository tripRepository, CustomerService customerService, CustomerRepository customerRepository, PassengerService passengerService, PaymentInformationService paymentInformationService, TicketService ticketService) {
         this.bookingRepository = bookingRepository;
-        this.customerRepository = customerRepository;
-        this.tripRepository = tripRepository;
         this.mapper = mapper;
+        this.tripRepository = tripRepository;
         this.customerService = customerService;
+        this.customerRepository = customerRepository;
+        this.passengerService = passengerService;
+        this.paymentInformationService = paymentInformationService;
+        this.ticketService = ticketService;
     }
 
 
     @Override
     public List<BookingDto> getListBooking() {
+        List<BookingDto> bookingDtoList = new ArrayList<>();
         List<Booking> bookings = bookingRepository.findAll();
-        return bookings.stream().map((mapper::mapToBookingDto)).collect(Collectors.toList());
+        for(Booking booking : bookings){
+            BookingDto bookingDto = mapper.mapToBookingDto(booking);
+
+//            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
+//            bookingDto.setPassengerDtos(passengerDtos);
+
+            Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+//            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
+
+            int amountPaid = 0;
+            for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                amountPaid += paymentInformation.getAmountOfMoney();
+            }
+            bookingDto.setAmountPaid(amountPaid);
+
+//            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
+//                //TODO: Set<Ticket>;
+//                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
+//                bookingDto.setTicketDtos(ticketDtos);
+//            }
+
+            bookingDtoList.add(bookingDto);
+        }
+        return  bookingDtoList;
     }
 
     @Override
@@ -55,6 +81,15 @@ public class BookingServiceImpl implements BookingService {
         if (!bookings.isEmpty()) {
             for (Booking booking : bookings) {
                 BookingDto bookingDto = mapper.mapToBookingDto(booking);
+
+                Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
+                bookingDto.setPassengerDtos(passengerDtos);
+
+                //TODO: Set<Ticket>;
+
+                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
+                bookingDto.setTicketDtos(ticketDtos);
+
                 bookingDtoList.add(bookingDto);
             }
         }
@@ -62,57 +97,102 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDto searchBooking() {
-        return null;
+    public List<BookingDto> searchBooking(String search) {
+        //search theo ID hoawcj name customer
+        List<BookingDto> result = new ArrayList<>();
+        List<BookingDto> allBookingDto = getListBooking();
+        for (BookingDto bookingDto : allBookingDto){
+            if(bookingDto.getId().toString().contains(search)) {
+                result.add(bookingDto);
+            } else {
+                if(bookingDto.getCustomerDto().getNameCustomer().toLowerCase().contains(search.toLowerCase())){
+                    result.add(bookingDto);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
     public Booking addNewBooking(BookingDto bookingDto) {
+        Set<PassengerDto> passengerDtos = bookingDto.getPassengerDtos();
+        Set<PaymentInformationDto> paymentInformationDtos = bookingDto.getPaymentInformationDtos();
         if(validateBooking(bookingDto)){
             Booking booking = mapper.mapToBooking(bookingDto);
 
-            //tinh tong tien
-            int price = booking.getTrip().getPriceTicket();
-            booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
-
             //customer moi
-            if(bookingDto.getCustomerDto().getId() == null){
+            if(bookingDto.getCustomerDto().getId() == null) {
                 CustomerDto customerDto = bookingDto.getCustomerDto();
                 Customer customer = customerService.addNewCustomer(customerDto);
                 booking.setCustomer(customer);
             }
-            //TODO: luu danh sach passener, payment;
-            return bookingRepository.save(booking);
+
+            booking =  bookingRepository.save(booking);
+
+            if(booking != null){
+                bookingDto = mapper.mapToBookingDto(booking);
+                if(addSetPassengers(bookingDto, passengerDtos)){
+                    if(addSetPayments(bookingDto, paymentInformationDtos)){
+                        return booking;
+                    }
+                }
+            }
+            return null;
         }
         return null;
     }
 
     @Override
     public BookingDto findById(Long id) {
+        BookingDto bookingDto = new BookingDto();
         Booking booking = bookingRepository.findById(id).orElse(null);
         if (booking != null) {
-            return mapper.mapToBookingDto(booking);
+            bookingDto =  mapper.mapToBookingDto(booking);
+
+            //TODO: lấy set<Payment> tính lại amountPaid()
+            Set<PaymentInformationDto> payments = getPaymentOfBooking(booking.getId());
+            int amountPaid  = 0;
+
+            for(PaymentInformationDto payment : payments){
+                amountPaid += payment.getAmountOfMoney();
+            }
+
+            bookingDto.setAmountPaid(amountPaid);
         }
-        return null;
+        return bookingDto;
     }
 
     @Override
     public Booking updateBooking(BookingDto bookingDto) {
-        if(validateBooking(bookingDto)){
+        if(validateBooking(bookingDto)) {
             Booking booking = mapper.mapToBooking(bookingDto);
+            //TODO: luu danh sach passener, payment;
             return bookingRepository.save(booking);
         }
-        return null;
+        return  null;
     }
+
 
     @Override
     public List<BookingDto> getBookingsByCustomerId(Long id) {
         List<BookingDto> result = new ArrayList<>();
-        List<Booking> bookings = bookingRepository.findByCustomerId(id);
-        if(!bookings.isEmpty()){
-            for(Booking booking : bookings){
-                BookingDto bookingDto = mapper.mapToBookingDto(booking);
-                result.add(bookingDto);
+        Customer customer = customerRepository.findById(id).orElse(null);
+        if(customer != null){
+            List<Booking> bookings = bookingRepository.findByCustomer(customer);
+            if(!bookings.isEmpty()){
+                for(Booking booking : bookings){
+                    BookingDto bookingDto = mapper.mapToBookingDto(booking);
+
+                    Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+
+                    int amountPaid = 0;
+                    for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                        amountPaid += paymentInformation.getAmountOfMoney();
+                    }
+                    bookingDto.setAmountPaid(amountPaid);
+
+                    result.add(bookingDto);
+                }
             }
         }
         return result;
@@ -121,14 +201,55 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDto> getBookingsByTripId(Long id) {
         List<BookingDto> result = new ArrayList<>();
-        List<Booking> bookings = bookingRepository.findByTripId(id);
-        if(!bookings.isEmpty()){
-            for(Booking booking : bookings){
-                BookingDto bookingDto = mapper.mapToBookingDto(booking);
-                result.add(bookingDto);
+        Trip trip = tripRepository.findById(id).orElse(null);
+        if(trip != null){
+            List<Booking> bookings = bookingRepository.findByTrip(trip);
+            if(!bookings.isEmpty()){
+                for(Booking booking : bookings){
+                    BookingDto bookingDto = mapper.mapToBookingDto(booking);
+                    Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
+
+                    int amountPaid = 0;
+                    for (PaymentInformationDto paymentInformation : paymentInformationDtos){
+                        amountPaid += paymentInformation.getAmountOfMoney();
+                    }
+                    bookingDto.setAmountPaid(amountPaid);
+
+                    result.add(bookingDto);
+                }
             }
         }
         return result;
+    }
+
+    @Override
+    public Set<PassengerDto> getPassengerOfBooking(Long idBooking) {
+        return passengerService.getPassengersByIdBooking(idBooking);
+    }
+
+    @Override
+    public Set<PaymentInformationDto> getPaymentOfBooking(Long idBooking) {
+        return paymentInformationService.getPaymentInforByIdBooking(idBooking);
+    }
+
+    @Override
+    public Set<TicketDto> getTicketOfBooking(Long idBooking) {
+        return ticketService.getTicketsByIdBooking(idBooking);
+    }
+    @Override
+    public PaymentInformation addBookingPayment(PaymentInformationDto paymentInformationDto, BookingDto bookingDto) {
+        paymentInformationDto.setBookingDto(bookingDto);
+        PaymentInformation payment = paymentInformationService.addNewPaymentInformation(paymentInformationDto);
+        int totalPaid = bookingDto.getAmountPaid() + paymentInformationDto.getAmountOfMoney();
+        bookingDto.setAmountPaid(totalPaid);
+        if(totalPaid == bookingDto.getTotalAmount()){
+            bookingDto.setStatus(StatusOfBooking.COMPLETED);
+            TripDto tripDto = bookingDto.getTripDto();
+            tripDto.setActualPassenger(bookingDto.getNumberOfPassengers());
+            updateBooking(bookingDto);
+            genarateTickets(bookingDto);
+        }
+        return  payment;
     }
 
     @Override
@@ -146,9 +267,64 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void genarateTickets() {
+    public Set<TicketDto> genarateTickets(BookingDto bookingDto) {
+        Set<TicketDto> result  = new HashSet<>();
+        Set<PassengerDto> passengerDtos = getPassengerOfBooking(bookingDto.getId());
+
+        for(PassengerDto passengerDto : passengerDtos){
+            TicketDto ticketDto = new TicketDto();
+            ticketDto.setPassengerDto(passengerDto);
+            ticketDto.setBookingDto(bookingDto);
+
+            Ticket ticket = ticketService.addNewTicket(ticketDto);
+
+            ticketDto = mapper.mapToTicketDto(ticket);
+            result.add(ticketDto);
+
+        }
+
+        return result;
+    }
+
+    @Override
+    public Booking deleteBooking(BookingDto bookingDto) {
+        bookingDto.setStatus(StatusOfBooking.CANCELLED);
+        return updateBooking(bookingDto);
+    }
 
 
+    public boolean addSetPassengers(BookingDto bookingDto, Set<PassengerDto> passengerDtos){
+        if(!passengerDtos.isEmpty()){
+            for(PassengerDto passengerDto : passengerDtos){
+                passengerDto.setBookingDto(bookingDto);
+                Passenger passenger = passengerService.addNewPassenger(passengerDto);
+                if(passenger == null){
+                    return false;
+                }
+                bookingDto.getPassengerDtos().add(mapper.mapToPassengerDto(passenger));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addSetPayments(BookingDto bookingDto, Set<PaymentInformationDto> paymentInformationDtos) {
+        if(!paymentInformationDtos.isEmpty()){
+            int amountPaid = 0;
+            for(PaymentInformationDto paymentInformationDto : paymentInformationDtos){
+                paymentInformationDto.setBookingDto(bookingDto);
+                PaymentInformation payment = paymentInformationService.addNewPaymentInformation(paymentInformationDto);
+                if(payment == null){
+                    return false;
+                }
+                bookingDto.getPaymentInformationDtos().add(mapper.mapToPaymentInformationDto(payment));
+                 amountPaid +=  payment.getAmountOfMoney();
+            }
+            bookingDto.setAmountPaid((int) amountPaid);
+
+            return true;
+        }
+        return false;
     }
 
 

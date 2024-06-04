@@ -20,10 +20,7 @@ public interface CustomerService {
 
     Customer updateCustomer (CustomerDto customerDto);
 
-    Customer deleteCustomer(CustomerDto customerDto);
+    boolean deleteCustomer(CustomerDto customerDto);
 
     //List<BookingDto> getAllBookingOfCustomer(Long id);
-
-
-
 }

@@ -1,6 +1,5 @@
 package com.adventour.web.repository;
 
-import com.adventour.web.models.Booking;
 import com.adventour.web.models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +10,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findByNameCustomer(String name);
     Optional<Customer> findByPhoneNumber(String phone);
     Optional<Customer> findByEmail(String email);
+    long count();
 
 }
