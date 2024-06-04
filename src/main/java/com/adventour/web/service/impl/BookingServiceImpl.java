@@ -242,7 +242,7 @@ public class BookingServiceImpl implements BookingService {
         PaymentInformation payment = paymentInformationService.addNewPaymentInformation(paymentInformationDto);
         int totalPaid = bookingDto.getAmountPaid() + paymentInformationDto.getAmountOfMoney();
         bookingDto.setAmountPaid(totalPaid);
-        if(totalPaid == bookingDto.getTotalAmount()){
+        if(totalPaid >= bookingDto.getTotalAmount()){
             bookingDto.setStatus(StatusOfBooking.COMPLETED);
             TripDto tripDto = bookingDto.getTripDto();
             tripDto.setActualPassenger(bookingDto.getNumberOfPassengers());

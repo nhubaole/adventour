@@ -36,7 +36,7 @@ public class CustomerDto {
     @Size(min = 12, max = 12, message = "CCCD must have exactly 12 characters")
     private String cccd;
 
-    private boolean isMale;
+    private Boolean isMale;
     private String nationality;
     private String addressCustomer;
     private String [] imagesCustomer;
