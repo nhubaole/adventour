@@ -26,5 +26,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             )
     List<Object[]> findRecentBookingsWithTripInfoAndTicketCount(@Param("startDay")LocalDateTime startDay,@Param("endDay") LocalDateTime endDay);
 
+    @Query("SELECT DATE(b.bookingDate) as date, COUNT(b.id) as count " +
+            "FROM Booking b " +
+            "GROUP BY DATE(b.bookingDate) " +
+            "ORDER BY DATE(b.bookingDate)")
+    List<Object[]> findBookingStatistics();
 
 }

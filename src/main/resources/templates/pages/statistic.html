@@ -77,15 +77,15 @@ yaxis: {
 
 var barOptions = {
 series: [
-  {
-    name: "Trong nước",
-    data: [44, 55, 57, 56, 61, 58, 63],
-  },
-  {
-    name: "Nước ngoài",
-    data: [76, 85, 101, 98, 87, 105, 91],
-  },
-],
+    {
+      name: "Trong nước",
+      data: [[${revenueByTourTypeData} == null ? [] : ${revenueByTourTypeData.domesticRevenueList}]],
+    },
+    {
+      name: "Nước ngoài",
+      data: [[${revenueByTourTypeData} == null ? [] : ${revenueByTourTypeData.foreignRevenueList}]],
+    },
+  ],
 chart: {
   type: "bar",
   height: 350,
@@ -106,7 +106,7 @@ stroke: {
   colors: ["transparent"],
 },
 xaxis: {
-  categories: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+  categories: [[${revenueByTourTypeData} == null ? [] : ${revenueByTourTypeData.timeList}]],
 },
 yaxis: {
   title: {
@@ -126,7 +126,7 @@ tooltip: {
 }
 
 var radialGradientOptions = {
-series: [75],
+series: ["75"],
 chart: {
   height: 350,
   type: "radialBar",
@@ -177,7 +177,7 @@ plotOptions: {
       },
       value: {
         formatter: function (val) {
-          return parseInt(val)
+          return val
         },
         color: "#111",
         fontSize: "36px",
@@ -209,11 +209,11 @@ var areaOptions = {
 series: [
   {
     name: "Đặt chỗ",
-    data: [31, 40, 28, 51, 42, 109, 100],
+    data: [[${bookingStatisticData} == null ? [] : ${bookingStatisticData.bookingList}]],
   },
   {
     name: "Hủy chỗ",
-    data: [11, 32, 45, 32, 34, 52, 41],
+    data: [[${bookingStatisticData} == null ? [] : ${bookingStatisticData.cancelList}]],
   },
 ],
 chart: {
@@ -228,19 +228,11 @@ stroke: {
 },
 xaxis: {
   type: "datetime",
-  categories: [
-    "2018-09-19T00:00:00.000Z",
-    "2018-09-19T01:30:00.000Z",
-    "2018-09-19T02:30:00.000Z",
-    "2018-09-19T03:30:00.000Z",
-    "2018-09-19T04:30:00.000Z",
-    "2018-09-19T05:30:00.000Z",
-    "2018-09-19T06:30:00.000Z",
-  ],
+  categories: [[${bookingStatisticData} == null ? [] : ${bookingStatisticData.timeList}]],
 },
 tooltip: {
   x: {
-    format: "dd/MM/yy HH:mm",
+    format: "dd/MM/yy",
   },
 },
 }

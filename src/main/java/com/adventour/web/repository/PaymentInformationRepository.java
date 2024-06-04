@@ -27,6 +27,10 @@ public interface PaymentInformationRepository extends JpaRepository<PaymentInfor
             "WHERE p.paymentTime >= :startDay AND p.paymentTime <= :endDay")
     long getRevenueInSomeDays(@Param("startDay") LocalDateTime startDay, @Param("endDay") LocalDateTime endDay);
 
-
+    @Query("SELECT SUM(p.amountOfMoney) " +
+            "FROM PaymentInformation p " +
+            "WHERE p.paymentTime >= :startDay AND p.paymentTime <= :endDay " +
+            "AND p.booking.trip.tour.typeOfTour = CASE WHEN :domestic = true THEN 'Trong nước' ELSE 'Nước ngoài' END")
+    Long getRevenueInSomeDaysByTourType(@Param("startDay") LocalDateTime startDay, @Param("endDay") LocalDateTime endDay, @Param("domestic") boolean domestic);
 
 }
