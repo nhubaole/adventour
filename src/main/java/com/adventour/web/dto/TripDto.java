@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -18,8 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripDto {
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-
     private Long id;
 
     private String code;
@@ -40,8 +37,11 @@ public class TripDto {
 
     private double discount;
 
+    private int actualPrice;
+
     private TourDto tourDto;
     private String tripType;
+    private String status;
 //    private Set<TourGuide> tourGuides;
     private Set<Passenger> passengers;
 

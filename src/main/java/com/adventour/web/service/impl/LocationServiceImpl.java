@@ -2,26 +2,27 @@ package com.adventour.web.service.impl;
 
 import com.adventour.web.dto.LocationDto;
 import com.adventour.web.mapper.Mapper;
-import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Location;
 import com.adventour.web.repository.LocationRepository;
+import com.adventour.web.repository.ScheduleRepository;
 import com.adventour.web.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class LocationServiceImpl implements  LocationService{
     private final LocationRepository locationRepository;
+    private final ScheduleRepository scheduleRepository;
     private final Mapper mapper;
 
     @Autowired
-    public LocationServiceImpl (LocationRepository locationRepository, Mapper mapper){
+    public LocationServiceImpl (LocationRepository locationRepository, ScheduleRepository scheduleRepository, Mapper mapper){
         this.locationRepository = locationRepository;
+        this.scheduleRepository = scheduleRepository;
         this.mapper = mapper;
     }
 
@@ -74,8 +75,16 @@ public class LocationServiceImpl implements  LocationService{
     }
 
     @Override
-    public void deleteLocation(Long locationId) {
-        locationRepository.deleteById(locationId);
+    public boolean deleteLocation(Long locationId) {
+        Location location = locationRepository.findById(locationId).orElse(null);
+        if(location != null){
+            if(scheduleRepository.findByStartLocation(location).isEmpty()
+                    && scheduleRepository.findByEndLocation(location).isEmpty()){
+                locationRepository.deleteById(locationId);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean validateLocation(LocationDto locationDto){

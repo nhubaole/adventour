@@ -9,12 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class Mapper {
     private static Logger logger = LoggerFactory.getLogger(TourController.class);
 
     public TourDto mapToTourDto(Tour tour) {
-        return TourDto.builder()
+        TourDto tourDto = TourDto.builder()
                 .id(tour.getId())
                 .tourName(tour.getTourName())
                 .departureLocation(tour.getDepartureLocation())
@@ -23,6 +26,18 @@ public class Mapper {
                 .numberOfNights(tour.getNumberOfNights())
                 .typeOfTour(tour.getTypeOfTour())
                 .build();
+        if (tour.getSchedules() != null) {
+            List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+            for (Schedule schedule : tour.getSchedules()) {
+                ScheduleDto scheduleDto = mapToScheduleDto(schedule);
+                scheduleDtoList.add(scheduleDto);
+                logger.info("====================scheduleDto " + scheduleDto.toString());
+            }
+            tourDto.setSchedules(scheduleDtoList);
+            logger.info("====================size " + tourDto.getSchedules().size());
+        }
+
+        return tourDto;
     }
     public Tour mapToTour(TourDto tourDto) {
         Tour tour = new Tour();
@@ -57,7 +72,10 @@ public class Mapper {
         tripDto.setEndDate(trip.getEndDate());
         tripDto.setPriceTicket(trip.getPriceTicket());
         tripDto.setDiscount(trip.getDiscount());
+        int actualPrice = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
+        tripDto.setActualPrice(actualPrice);
         tripDto.setTripType(trip.getTripType());
+        tripDto.setStatus(trip.getStatus());
 
         TourDto tourDto = mapToTourDto(trip.getTour());
         tripDto.setTourDto(tourDto);
@@ -65,7 +83,6 @@ public class Mapper {
         tripDto.setName(tourDto.getTourName());
 
         tripDto.setPassengers(trip.getPassengers());
-
 
         return tripDto;
     }
@@ -78,13 +95,13 @@ public class Mapper {
         trip.setPriceTicket(tripDto.getPriceTicket());
         trip.setDiscount(tripDto.getDiscount());
         if(tripDto.getDiscount() > 0){
-            tripDto.setTripType("Khuyến mãi");
+            trip.setTripType("Khuyến mãi");
         }
         else
         {
-            tripDto.setTripType("Thông thường");
+            trip.setTripType("Thông thường");
         }
-
+        trip.setStatus(tripDto.getStatus());
         Tour tour = mapToTour(tripDto.getTourDto());
         trip.setTour(tour);
 
@@ -134,7 +151,7 @@ public class Mapper {
         Trip trip = mapToTrip(bookingDto.getTripDto());
         booking.setTrip(trip);
 
-        int price = booking.getTrip().getPriceTicket();
+        int price = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
         booking.setTotalAmount( (int)(booking.getNumberAdult() * price + booking.getNumberChildren() * price * 0.5));
 
         Customer customer = mapToCustomer(bookingDto.getCustomerDto());
@@ -273,7 +290,6 @@ public class Mapper {
                 .images(location.getImages())
                 .build();
     }
-
     public Schedule mapToSchedule(ScheduleDto scheduleDto) {
         return Schedule.builder()
                 .id(scheduleDto.getId())
@@ -284,6 +300,18 @@ public class Mapper {
                 .listRestaurant(scheduleDto.getRestaurants())
                 .listVehicle(scheduleDto.getVehicles())
                 .listOtherService(scheduleDto.getOtherServices())
+                .build();
+    }
+    public ScheduleDto mapToScheduleDto(Schedule schedule) {
+        return ScheduleDto.builder()
+                .id(schedule.getId())
+                .dayOfSchedule(schedule.getDayOfSchedule())
+                .startLocation(mapToLocationDto(schedule.getStartLocation()))
+                .endLocation(mapToLocationDto(schedule.getEndLocation()))
+                .hotels(schedule.getListHotel())
+                .restaurants(schedule.getListRestaurant())
+                .vehicles(schedule.getListVehicle())
+                .otherServices(schedule.getListOtherService())
                 .build();
     }
 }

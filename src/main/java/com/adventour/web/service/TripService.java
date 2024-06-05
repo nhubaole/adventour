@@ -21,7 +21,7 @@ public interface TripService {
 
     public Set<PassengerDto> getTripPassenger(TripDto tripDto);
 
-    public boolean deleteTrip(TripDto tripDto);
+    public void cancelTrip(TripDto tripDto);
 
     public Set<TripDto> getTripByIdTour(Long idTour);
 

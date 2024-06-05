@@ -32,7 +32,10 @@ public class Trip {
     @Column(nullable = true)
     private double discount;
 
-    public String tripType;
+    private String tripType;
+
+    private String status;
+
     //các thng tin để dẽ truy xất, cập nhập
     @ManyToOne
     @JoinColumn(name = "id_tour", nullable = false )
