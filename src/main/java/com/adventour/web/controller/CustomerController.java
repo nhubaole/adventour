@@ -110,7 +110,7 @@ public class CustomerController {
     @GetMapping ("/booking/{id}")
     public String bookingCustomer(@PathVariable("id") long customerId, Model model){
         CustomerDto customerDto = customerService.findById(customerId);
-        List<BookingDto> bookingDtos = bookingService.getListBooking();
+        List<BookingDto> bookingDtos = bookingService.getBookingsByCustomerId(customerId);
         model.addAttribute("customer", customerDto);
 
         model.addAttribute("bookings", bookingDtos);

@@ -15,8 +15,10 @@
             <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-img d-flex align-items-center">
                     <div class="avatar avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
-                        <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}" style="width: 100px;height: 100px;">
-<!--                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">-->
+                        <div class="avatar avatar-md" style="border-radius: 0%;">
+                            <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}">
+                            <!--                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">-->
+                        </div>
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
@@ -51,7 +53,7 @@
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="name" class="form-label">Mã khách hàng</label>
-                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:value="${customer.customerID}">
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Mã khách hàng" th:value="${customer.code}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="fullname" class="form-label">Họ và tên</label>

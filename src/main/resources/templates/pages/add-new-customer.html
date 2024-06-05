@@ -42,9 +42,8 @@
                     <div class="card-body" style="min-height: 550px;">
                         <form class="form" role="form" method="post" th:action="@{/add-new-customer}" th:object="${customer}" enctype="multipart/form-data">
                             <div class="card-header">
-                                <label for="file" class="custom-file-upload">
-                                </label>
-                                <input type="file" id="file" name="files" multiple>
+                                <p class="mb-2">Hình ảnh khách hàng</p>
+                                <input type="file" class="multiple-files-filepond" name="files" multiple>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-12">

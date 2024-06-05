@@ -116,14 +116,14 @@
                                 </div>
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center" th:text="${trip.startDate}">
+                                <div class="d-flex align-items-center" th:text="${#temporals.format(trip.startDate, 'HH:mm:yy')}">
                                 </div>
                             </td>
                             <td class="col-auto pd">
                                 <div style="" class="d-flex">
                                     <div class="d-flex align-items-center" th:text="${trip.priceTicket}">
                                     </div>
-                                    <div th:text="${trip.discount} + '%' " class="discount">
+                                    <div th:if="${trip.discount != 0}" th:text="${trip.discount} + '%'" class="discount">
                                     </div>
                                 </div>
                             </td>
@@ -136,7 +136,6 @@
                                 <div style="color: black; cursor: pointer;">
                                     <a th:href="@{/information/{id}(id=${trip.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                                     <a th:href="@{/information/{tripId}/edit(tripId=${trip.id})}"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
-                                    <i class="bi bi-trash3"></i>
                                 </div>
                             </td>
                         </tr>
@@ -149,30 +148,6 @@
                             align-items: center;
                             justify-content: space-between;
                     ">
-                    <div class="dataTable-info">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="d-inline-block me-2 mb-1">
-                                        <div class="form-check">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="checkbox1" class="form-check-input" checked="" style="font-size: 14px;">
-                                                <label for="checkbox1" style="font-size: 14px; color: black;">Đang diễn ra</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="d-inline-block mb-1">
-                                        <div class="form-check">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="checkbox4" class="form-check-input" style="font-size: 14px;">
-                                                <label for="checkbox4" style="font-size: 14px; color: black;">Đã kết thúc</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                     <nav class="dataTable-pagination">
                         <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
                             <li class="pager page-item">
