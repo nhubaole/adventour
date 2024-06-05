@@ -85,6 +85,7 @@
                 document.getElementById('ID').value = '';
                 document.getElementById('basicSelect1').value = '';
                 document.getElementById('basicSelect2').value = '';
+                document.getElementById('file').value = '';
             }
 
             function updateForm(customerId) {
@@ -98,6 +99,10 @@
                 var nationality = document.getElementById('customer-' + customerId + '-nationality').value;
                 document.getElementById('basicSelect2').value = nationality === 'Viet Nam' ? 'Viet Nam' : 'England';
                 document.getElementById('address').value = document.getElementById('customer-' + customerId + '-address').value;
+                var imageUrl = document.getElementById('customer-' + customerId + '-image').value;
+                document.getElementById('customerImage').src = imageUrl;
+
+
             }
 
     </script>
@@ -158,12 +163,10 @@
                                 <input type="hidden" th:id="'customer-' + ${customer.id} + '-gender'" th:value="${customer.isMale}">
                                 <input type="hidden" th:id="'customer-' + ${customer.id} + '-nationality'" th:value="${customer.nationality}">
                                 <input type="hidden" th:id="'customer-' + ${customer.id} + '-address'" th:value="${customer.addressCustomer}">
-                                <!--<input type="hidden" th:id="'customer-' + ${customer.id} + '-image'" th:value="${customer.imagesCustomer}">-->
+                                <input type="hidden" th:id="'customer-' + ${customer.id} + '-image'" th:value="${customer.imagesCustomer}">
                             </div>
                             <div class="card-header">
-                                <label for="file" class="image-preview-filepond" style = "width:50px;">
-                                </label>
-                                <input type="file" id="file" name="files" multiple>
+                                <input type="file" class="multiple-files-filepond" name="files" multiple>
                             </div>
                             <div class="col-12" style="margin-bottom: 15px;">
                                 <input style="height: 50px;" type="text" id="name" class="form-control" placeholder="Họ và tên" name="fname-column" th:field="*{customerDto.nameCustomer}" required>

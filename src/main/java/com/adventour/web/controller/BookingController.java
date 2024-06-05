@@ -150,6 +150,10 @@ public class BookingController {
                                     @ModelAttribute BookingDto bookingDto, @RequestParam("files") MultipartFile[] files) {
         List<String> customerImage = new ArrayList<>();
         for (MultipartFile image : files){
+            if (image.isEmpty()) {
+                logger.warn("Uploaded image is empty: " + image.getOriginalFilename());
+                break;
+            }
             try{
                 String fileUrl = bucketService.uploadFile(image);
                 customerImage.add(fileUrl);

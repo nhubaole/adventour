@@ -99,6 +99,14 @@
     .nowrap span:last-child {
         display: block;
     }
+         .avatar-img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+
     </style>
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -127,9 +135,22 @@
 
             pageBookings.forEach((booking, index) => {
                 const row = document.createElement('tr');
+                const placeImages = booking.customerDto && booking.customerDto.imagesCustomer;
+                const imageUrl = (placeImages && placeImages.length > 0)
+                    ? `https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/${placeImages[0]}`
+                    : 'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/avt.jpg';
                 row.innerHTML = `
+
                     <td class="widthStt" style="width: 50px">${start + index + 1}</td>
-                    <td class="col-4 ">${booking.customerDto.nameCustomer}</td>
+                    <td class="col-4">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-md">
+                                <img src="${imageUrl}" alt="Customer Image" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 1em;" />
+                            </div>
+                            <span>${booking.customerDto.nameCustomer}</span>
+                        </div>
+                    </td>
+
                     <td class="col-auto ">${booking.id}</td>
                     <td class="col-auto ">${booking.numberOfPassengers}</td>
                     <td class="col-auto nowrap">
@@ -242,6 +263,7 @@
                         <thead>
                         <tr>
                             <th>STT</th>
+
                             <th class=" column column-width-200">Tên khách hàng</th>
                             <th>Mã phiếu</th>
                             <th>Số lượng</th>
