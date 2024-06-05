@@ -172,7 +172,7 @@
                         Hủy chuyến
                     </div>
                 </a>
-                <a th:href="@{/add-new-booking-information}">
+                <a th:href="@{/add-new-booking-information/{id}(id=${trip.id})}">
                     <div class="addBtn">
                         <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
                         Thêm phiếu đặt chỗ mới

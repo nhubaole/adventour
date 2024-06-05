@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}"
+        >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -122,7 +123,7 @@
             </div>
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form" method="post" th:action="@{/add-new-booking-information/{id}(id=${trip.id})}" th:object="${bookingDto}">
+                    <form class="form" method="post" th:action="@{/add-new-booking-information/{id}(id=${trip.id})}" th:object="${bookingDto}" enctype="multipart/form-data">
 
                         <div class="row">
                             <div class="col-12" style="margin-bottom: 15px;">
@@ -157,6 +158,12 @@
                                 <input type="hidden" th:id="'customer-' + ${customer.id} + '-gender'" th:value="${customer.isMale}">
                                 <input type="hidden" th:id="'customer-' + ${customer.id} + '-nationality'" th:value="${customer.nationality}">
                                 <input type="hidden" th:id="'customer-' + ${customer.id} + '-address'" th:value="${customer.addressCustomer}">
+                                <!--<input type="hidden" th:id="'customer-' + ${customer.id} + '-image'" th:value="${customer.imagesCustomer}">-->
+                            </div>
+                            <div class="card-header">
+                                <label for="file" class="image-preview-filepond" style = "width:50px;">
+                                </label>
+                                <input type="file" id="file" name="files" multiple>
                             </div>
                             <div class="col-12" style="margin-bottom: 15px;">
                                 <input style="height: 50px;" type="text" id="name" class="form-control" placeholder="Họ và tên" name="fname-column" th:field="*{customerDto.nameCustomer}" required>
