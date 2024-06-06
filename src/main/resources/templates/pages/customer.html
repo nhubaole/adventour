@@ -82,8 +82,11 @@
                                     <td class="col-4">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-md" style="border-radius: 0%;">
-                                                <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}">
-                                                <!--                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">-->
+<!--                                                <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}">-->
+<!--                                                &lt;!&ndash;                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <div th:if="${trip.imageCustomer[0] == null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <img src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__1_.jpg">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
                                             </div>
                                             <p class="font-bold ms-3 mb-0" >
                                                 <span th:text="${customer.nameCustomer}"></span>
@@ -92,7 +95,7 @@
                                     </td>
                                     <td class="col-auto">
                                         <div class="d-flex align-items-center" >
-                                            <span th:text="${customer.customerID}"></span>
+                                            <span th:text="${customer.code}"></span>
                                         </div>
                                     </td>
                                     <td class="col-auto">

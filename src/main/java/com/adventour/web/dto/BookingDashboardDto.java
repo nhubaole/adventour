@@ -18,4 +18,5 @@ public class BookingDashboardDto {
     String statusOfBooking;
 
     public PaymentDashboardDto paymentDashboardDto;
+    public TripDto tripDto;
 }

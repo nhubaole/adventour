@@ -90,6 +90,12 @@ public class TripController {
             return "/pages/train-info";
         }
 
+    @GetMapping("/information/{id}/delete")
+    public String cancelTrip(@PathVariable("id") Long id){
+            TripDto tripDto = tripService.getTripDetail(id);
+            tripService.cancelTrip(tripDto);
+            return "redirect:/alltrip";
+    }
     @GetMapping("/add-new-trip")
     public String addTrip(Model model){
             List <TourDto> tourDtos = tourService.findAllTours();

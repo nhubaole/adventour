@@ -99,10 +99,14 @@
                                             <p class=" mb-0" th:text="${booking.amountPaid}"></p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${booking.bookingDate}"></p>
+                                            <p class=" mb-0" th:text="${#temporals.format(booking.bookingDate, 'dd/MM/yyyy')}"></p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0 waiting setting" th:text="${booking.status}"></p>
+                                            <p class="mb-0 setting">
+                                                <span style="width: 100px;" class = "cancel setting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).CANCELLED}">Đã hủy</span>
+                                                <span style="width: 100px;" class = "waiting setting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).PENDING}">Đang chờ</span>
+                                                <span style="width: 100px;" class = "accept setting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).COMPLETED}">Hoàn tất</span>
+                                            </p>
                                         </td>
                                         <td class="col-auto">
                                             <p class=" mb-0" th:text="${booking.totalAmount}"></p>
