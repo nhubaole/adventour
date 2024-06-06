@@ -79,14 +79,11 @@
                                             <span th:text="${customerStat.count}"></span>
                                         </div>
                                     </td>
-                                    <td class="col-4">
+                                    <td class="col-3">
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md" style="border-radius: 0%;">
-<!--                                                <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}">-->
-<!--                                                &lt;!&ndash;                        <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0" th:src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/image__2_.jpg" style="width: 100px;height: 100px;">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <div th:if="${trip.imageCustomer[0] == null}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    <img src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__1_.jpg">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+                                            <div class="avatar avatar-md">
+                                                <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}" />
+                                                <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/avt.jpg" />
                                             </div>
                                             <p class="font-bold ms-3 mb-0" >
                                                 <span th:text="${customer.nameCustomer}"></span>
