@@ -17,8 +17,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class BookingController {
     private TicketService ticketService;
     private Mapper mapper;
     private BookingDto bookingForm;
+    private BucketService bucketService;
 
 
         @Autowired
@@ -47,7 +50,7 @@ public class BookingController {
                                  TripService tripService, TourService tourService,
                                  PaymentInformationService paymentInformationService,
                                  PassengerService passengerService,TicketService ticketService,
-                                 Mapper mapper) {
+                                 Mapper mapper, BucketService bucketService) {
 
             this.bookingService = bookingService;
             this.customerService = customerService;
@@ -57,6 +60,7 @@ public class BookingController {
             this.passengerService = passengerService;
             this.ticketService = ticketService;
             this.mapper = mapper;
+            this.bucketService = bucketService;
             this.bookingForm = new BookingDto();
         }
     private static Logger logger = LoggerFactory.getLogger(BookingController.class);
@@ -143,11 +147,26 @@ public class BookingController {
 
     @PostMapping("/add-new-booking-information/{id}")
     public String handleBookingInfo(@PathVariable("id") Long id,
-                                    @ModelAttribute BookingDto bookingDto) {
+                                    @ModelAttribute BookingDto bookingDto, @RequestParam("files") MultipartFile[] files) {
+        List<String> customerImage = new ArrayList<>();
+        for (MultipartFile image : files){
+            if (image.isEmpty()) {
+                logger.warn("Uploaded image is empty: " + image.getOriginalFilename());
+                break;
+            }
+            try{
+                String fileUrl = bucketService.uploadFile(image);
+                customerImage.add(fileUrl);
+            } catch (Exception e){
+                logger.error("Error uploading image: " + e.getMessage());
+            }
+        }
+
         if(bookingDto.getCustomerDto()==null){
             return "redirect:/add-new-booking-information/" + id;
         }
         this.bookingForm.setCustomerDto(new CustomerDto());
+        bookingDto.getCustomerDto().setImagesCustomer(customerImage.toArray(new String[0]));
         this.bookingForm.setCustomerDto(bookingDto.getCustomerDto());
         return "redirect:/add-new-booking-passenger/" + id;
     }
