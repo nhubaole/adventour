@@ -1,6 +1,7 @@
 package com.adventour.web.repository;
 
 import com.adventour.web.dto.TourDto;
+import com.adventour.web.models.Booking;
 import com.adventour.web.models.Schedule;
 import com.adventour.web.models.Tour;
 import com.adventour.web.models.Trip;
@@ -23,6 +24,5 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
 
     @Query("SELECT t FROM Trip t WHERE t.startDate >= :startOfMonth AND t.startDate <= :endOfMonth")
     List<Trip> findTripsForCurrentMonth(@Param("startOfMonth") LocalDateTime startOfMonth, @Param("endOfMonth") LocalDateTime endOfMonth);
-
 
 }

@@ -27,17 +27,24 @@ import java.util.Set;
 @Controller
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private  final  CustomerService customerService;
 
-
+    private final TripService tripService;
 
     @Autowired
-    public LoginController() {
-
+    public LoginController(CustomerService customerService, TripService tripService) {
+        this.customerService = customerService;
+        this.tripService = tripService;
     }
 
     @GetMapping("/")
     public String home(Model model){
-
+        TripDto tripDto = tripService.getTripDetail(3L);
+        List<PassengerDto> passengerDtos = tripService.getTripPassenger(tripDto);
+        logger.info(String.valueOf(passengerDtos.size()));
+        for (PassengerDto passengerDto : passengerDtos){
+            logger.info(String.valueOf(passengerDto.getId()));
+        }
         return "/index";
     }
 }
