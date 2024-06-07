@@ -74,29 +74,37 @@
         <div class="card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
+                    <h6 th:text="${tour.tourName}" class=" d-flex" style="text-align:left; font-size: 24px; margin-bottom: 5px;">
+                        <!--Liên tuyến : Brunei - Malaysia khám phá thành phố Miri-->
 
                     </h6>
 
-                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                    <p  class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
-                        04/05/2024
+                        <span th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}">
+                           <!--04/05/2024 -->
+                        </span>
+
+
                     </p>
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
-                            68,000,000 đ
+                        <div th:text="${trip.priceTicket} + ' đ'" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            <!--68,000,000 đ-->
                         </div>
-                        34,000,000 đ
+                        <!--
+                                                <span th:text="${trip.priceTripFinal} + ' đ'">&lt;!&ndash;34,000,000 đ&ndash;&gt;</span>
+                        -->
+                        <span th:text="${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!--34,000,000 đ--></span>
+
                         <div class="discount">
-                            -50%
+                            <span th:text="'-' + ${trip.discount} + '%'"><!-- -50%--></span>
                         </div>
                     </div>
                     <div>
                         <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
-                            Đặt lúc 10:23 09/03/2024
+                            Đặt lúc &nbsp;<span th:text="${#temporals.format(booking.bookingDate, 'HH:mm dd/MM/yyyy')}"><!--10:23 09/03/2024--></span>
                         </p>
 
                     </div>
@@ -105,19 +113,19 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-information/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin liên hệ
                         </a>
-                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-passenger/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
                             Hành khách
                         </a>
-                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-payment/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
                             Thông tin thanh toán
                         </a>
-                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
                             Danh sách vé
                         </a>
@@ -138,107 +146,9 @@
 
                                 </tr>
                                 </thead>
-                                <!--<tbody>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">
-                                            1
-                                        </div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Lê Bảo Như</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">12/10/2003</div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">3467897654321</div>
-                                    </td>
 
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">Nữ</div>
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">2</div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Lê Tiến Hoàng</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">12/10/2003</div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">9876545678544</div>
-                                    </td>
-
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">Nam</div>
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">3</div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Nguyễn Thảo Vân</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">
-                                            12/10/2003
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">
-                                            2469876543256
-                                        </div>
-                                    </td>
-
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">
-                                            Nam
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-1">
-                                        <div class="d-flex align-items-center">4</div>
-                                    </td>
-                                    <td class="col-4">
-                                        <div class="d-flex align-items-center">
-                                            <p class="font-bold ms-3 mb-0">Trần Đình Hà</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">12/10/2003</div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">8765423546544</div>
-                                    </td>
-
-                                    <td class="col-auto">
-                                        <div class="d-flex align-items-center">Nữ</div>
-                                    </td>
-
-
-                                </tr>
-
-
-
-                                </tbody>-->
                                 <tbody>
-                                <tr th:each="passenger, stat : ${booking.passengerDtoSet}">
+                                <tr th:each="passenger, stat : ${passengerDtos}">
                                     <td class="col-1">
                                         <div class="d-flex align-items-center" th:text="${stat.count}"></div>
                                     </td>
@@ -248,7 +158,7 @@
                                         </div>
                                     </td>
                                     <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${#dates.format(passenger.dateOfBirth, 'dd/MM/yyyy')}"></div>
+                                        <div class="d-flex align-items-center" th:text="${#temporals.format(passenger.dateOfBirth, 'dd/MM/yyyy')}"></div>
                                     </td>
                                     <td class="col-auto">
                                         <div class="d-flex align-items-center" th:text="${passenger.cccd}"></div>

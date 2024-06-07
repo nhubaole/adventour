@@ -41,20 +41,22 @@
 <section class="section" layout:fragment="content">
     <div class = "col-12">
         <div class="card">
-            <div class="card-header input-style">
-                <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px">
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
+            <form th:action="@{/customer}">
+                <div class="card-header input-style">
+                    <div class="form-group position-relative has-icon-left">
+                        <input type="search" name="keyword" class="form-control" placeholder="Tìm kiếm khách hàng" style="width: 400px; height: 42px" th:value="${keyword}">
+                        <div class="form-control-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <a th:href="@{add-new-customer}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                            <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
+                            Thêm khách hàng mới
+                        </a>
                     </div>
                 </div>
-                <div>
-                    <a th:href="@{add-new-customer}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
-                        <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm khách hàng mới
-                    </a>
-                </div>
-            </div>
+            </form>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-lg">
@@ -73,41 +75,50 @@
                             <th:block th:each="customer, customerStat : ${customers}">
                                 <tr>
                                     <td class="col-1">
-                                        <div class="d-flex align-items-center" th:text="${customerStat.count}">
+                                        <div class="d-flex align-items-center">
+                                            <span th:text="${customerStat.count}"></span>
                                         </div>
                                     </td>
-                                    <td class="col-4">
+                                    <td class="col-3">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img th:src="@{'/compiled/jpg/' + ${customer.imageCustomer}}" alt="Hình ảnh của khách hàng" />
+                                                <img th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}" />
+                                                <img th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/avt.jpg" />
                                             </div>
-                                            <p class="font-bold ms-3 mb-0" th:text="${customer.nameCustomer}"></p>
+                                            <p class="font-bold ms-3 mb-0" >
+                                                <span th:text="${customer.nameCustomer}"></span>
+                                            </p>
                                         </div>
                                     </td>
                                     <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${customer.idCustomer}">
+                                        <div class="d-flex align-items-center" >
+                                            <span th:text="${customer.code}"></span>
                                         </div>
                                     </td>
                                     <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${customer.idPersonal}">
+                                        <div class="d-flex align-items-center" >
+                                            <span th:text="${customer.cccd}"></span>
                                         </div>
                                     </td>
                                     <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${customer.phoneNumber}">
+                                        <div class="d-flex align-items-center" >
+                                            <span th:text="${customer.phoneNumber}"></span>
                                         </div>
                                     </td>
                                     <td class="col-auto">
-                                        <div class="d-flex align-items-center" th:text="${customer.isMale}">
+                                        <div class="d-flex align-items-center">
+                                            <span th:text="${customer.isMale} ? 'Nam' : 'Nữ'"></span>
                                         </div>
                                     </td>
                                     <td class="col-auto">
                                         <div style="color: black; cursor: pointer;">
-                                            <a th:href="@{profile}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
-                                            <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                            <i class="bi bi-trash3"></i>
+                                            <a th:href="@{/customer/{id}(id=${customer.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                            <a th:href="@{/customer/{id}/edit(id=${customer.id})}" class="bi bi-pencil" style="padding-right: 5px;"></a>
+                                            <a th:href="@{/customer/{customerId}/delete(customerId=${customer.id})}" class="bi bi-trash3"></a>
                                         </div>
                                     </td>
                                 </tr>
+
                             </th:block>
                         </tbody>
                     </table>

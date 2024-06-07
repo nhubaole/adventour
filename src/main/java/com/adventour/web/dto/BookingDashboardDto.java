@@ -16,4 +16,7 @@ public class BookingDashboardDto {
     int numberPass;
     String typeOfTour;
     String statusOfBooking;
+
+    public PaymentDashboardDto paymentDashboardDto;
+    public TripDto tripDto;
 }

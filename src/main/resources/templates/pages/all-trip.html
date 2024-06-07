@@ -69,20 +69,22 @@
 <section class="section" layout:fragment="content">
     <div class = "col-12">
         <div class="card">
-            <div class="card-header input-style">
-                <div class="form-group position-relative has-icon-left">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm chuyến du lịch" style="width: 400px; height: 42px">
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
+            <form th:action="@{/alltrip}">
+                <div class="card-header input-style">
+                    <div class="form-group position-relative has-icon-left">
+                        <input type="search" id="search" name="keyword" class="form-control" placeholder="Tìm kiếm chuyến du lịch" style="width: 400px; height: 42px" th:value="${keyword}">
+                        <div class="form-control-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <a th:href="@{add-new-trip}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                            <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
+                            Thêm chuyến du lịch mới
+                        </a>
                     </div>
                 </div>
-                <div>
-                    <a th:href="@{add-new-trip}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
-                        <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
-                        Thêm chuyến du lịch mới
-                    </a>
-                </div>
-            </div>
+            </form>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-lg">
@@ -106,7 +108,7 @@
                             </td>
                             <td class="col-4 pd" style="">
                                 <div class="d-flex align-items-center">
-                                    <p class="font-bold mb-0" th:text="${trip.nameTrip}"></p>
+                                    <p class="font-bold mb-0" th:text="${trip.name}"></p>
                                 </div>
                             </td>
                             <td class="col-auto pd">
@@ -114,27 +116,26 @@
                                 </div>
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center" th:text="${trip.startDay}">
+                                <div class="d-flex align-items-center" th:text="${#temporals.format(trip.startDate, 'HH:mm:yy')}">
                                 </div>
                             </td>
                             <td class="col-auto pd">
-                                <div class="d-flex align-items-center" th:text="${trip.priceTrip}">
-                                    <div th:text="${trip.discountPrice}" class="discount">
-
+                                <div style="" class="d-flex">
+                                    <div class="d-flex align-items-center" th:text="${trip.priceTicket}">
+                                    </div>
+                                    <div th:if="${trip.discount != 0}" th:text="${trip.discount} + '%'" class="discount">
                                     </div>
                                 </div>
-
                             </td>
                             <td class="col-auto pd">
                                 <div th:text="${trip.actualPassenger}" class="d-flex align-items-center">
-
+                                    <span th:text="${trip.slots}"></span>
                                 </div>
                             </td>
                             <td class="col-auto pd">
                                 <div style="color: black; cursor: pointer;">
-                                    <a th:href="@{information}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
-                                    <i class="bi bi-pencil" style="padding-right: 5px;"></i>
-                                    <i class="bi bi-trash3"></i>
+                                    <a th:href="@{/information/{id}(id=${trip.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                    <a th:href="@{/information/{tripId}/edit(tripId=${trip.id})}"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -147,30 +148,6 @@
                             align-items: center;
                             justify-content: space-between;
                     ">
-                    <div class="dataTable-info">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="d-inline-block me-2 mb-1">
-                                        <div class="form-check">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="checkbox1" class="form-check-input" checked="" style="font-size: 14px;">
-                                                <label for="checkbox1" style="font-size: 14px; color: black;">Đang diễn ra</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="d-inline-block mb-1">
-                                        <div class="form-check">
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="checkbox4" class="form-check-input" style="font-size: 14px;">
-                                                <label for="checkbox4" style="font-size: 14px; color: black;">Đã kết thúc</label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                     <nav class="dataTable-pagination">
                         <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
                             <li class="pager page-item">

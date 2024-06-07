@@ -42,29 +42,31 @@
         <div class = "card">
             <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-img d-flex align-items-center">
-                    <div class="avatar avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
-                        <img th:src="@{'/compiled/jpg/' + ${customer.imageCustomer}}" style="width: 100px;height: 100px;">
+                    <div class="user-img d-flex align-items-center">
+                        <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;" th:if="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${customer.imagesCustomer[0]}">
+                        <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;" th:unless="${customer.imagesCustomer != null and customer.imagesCustomer.length > 0}" src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/avt.jpg" />
                     </div>
                 </div>
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
-                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px;">Đỗ Thị Thùy</h6>
-                    <p th:text="${phoneNumber}" class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                    <h6 th:text="${customer.nameCustomer}" class="d-flex" style="font-size: 20px; margin-bottom: 5px;"></h6>
+                    <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
                         <i class="bi bi-phone" style="display: flex; margin-right: 5px;"></i>
-                        0586180354
+                        <span th:text="${customer.phoneNumber}"></span>
                     </p>
-                    <p th:text="${email}" class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                    <p class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-envelope" style="display: flex; margin-right: 5px;"></i>
+                        <span th:text="${customer.email}"></span>
                     </p>
                 </div>
             </div>
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-2" style="margin-left: 30px;">
                     <div class="list-group">
-                        <a th:href="@{profile}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/customer/{id}(id=${customer.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-person" style="display: flex; margin-right: 20px;"></i>
                             Hồ Sơ
                         </a>
-                        <a th:href="@{booking}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/booking/{id}(id=${customer.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pass" style="display: flex; margin-right: 20px;"></i>
                             Phiếu đặt chỗ
                         </a>
@@ -85,26 +87,30 @@
                                         <th>Tổng tiền</th>
                                     </tr>
                                     </thead>
-                                    <th:block th:each="customer, customerStat : ${customer}">
+                                    <th:block th:each="booking, stat : ${bookings}">
                                     <tbody>
                                     <tr>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${customerStat.count}"></p>
+                                            <p class=" mb-0" th:text="${stat.count}"></p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${customer.idTicket}"></p>
+                                            <p class=" mb-0" th:text="${booking.id}"></p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${customer.numberOfTicket}"></p>
+                                            <p class=" mb-0" th:text="${booking.amountPaid}"></p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${customer.dateOrder}"></p>
+                                            <p class=" mb-0" th:text="${#temporals.format(booking.bookingDate, 'dd/MM/yyyy')}"></p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0 waiting setting" th:text="${customer.status}"></p>
+                                            <p class="mb-0 setting">
+                                                <span style="width: 100px;" class = "cancel setting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).CANCELLED}">Đã hủy</span>
+                                                <span style="width: 100px;" class = "waiting setting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).PENDING}">Đang chờ</span>
+                                                <span style="width: 100px;" class = "accept setting" th:if="${booking.status==T(com.adventour.web.enums.StatusOfBooking).COMPLETED}">Hoàn tất</span>
+                                            </p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${totalBill}"></p>
+                                            <p class=" mb-0" th:text="${booking.totalAmount}"></p>
                                         </td>
                                     </tr>
                                     </tbody>

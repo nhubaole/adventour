@@ -35,7 +35,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerDto> getListCustomer() {
         List<Customer> customers = customerRepository.findAll();
-
         return customers.stream().map(customer -> mapper.mapToCustomerDto(customer)).collect(Collectors.toList());
     }
 
@@ -100,7 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean deleteCustomer(CustomerDto customerDto)  {
         if(getBookingsOfCustomer(customerDto.getId()).isEmpty()){
             customerRepository.deleteById(customerDto.getId());
-            return  true;
+            return true;
         }
         return false;
     }

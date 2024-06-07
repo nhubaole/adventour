@@ -11,7 +11,7 @@
             margin-right:20px;
         }
 
-        .active{
+        .active-custom{
             color: #52a6f3;
             border-bottom: 4px solid #52a6f3;
         }
@@ -22,7 +22,7 @@
     <div class="col-12">
         <div class="card" style="margin: 0 25px;">
             <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
-                <button type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <button type="button" class=" custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
                     Thông tin tuyến
                 </button>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-end">
-                                <a th:href="@{all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <a th:href="@{/all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
 <!--                                <a th:href="@{/add-schedule(tour=${tour})}" class="btn btn-light-secondary me-1 mb-1">Tiếp tục</a>-->
                                 <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
                             </div>
