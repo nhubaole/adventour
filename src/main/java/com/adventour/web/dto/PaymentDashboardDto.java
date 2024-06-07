@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Builder
 public class PaymentDashboardDto {
     String nameCustomer;
-    int paidAmount;
+    String paidAmount;
     LocalDateTime datePaid;
 
     public PaymentDashboardDto(){};
-    public PaymentDashboardDto(String nameCustomer, int paidAmount, LocalDateTime datePaid){
+    public PaymentDashboardDto(String nameCustomer, String paidAmount, LocalDateTime datePaid){
         this.nameCustomer = nameCustomer;
         this.paidAmount = paidAmount;
         this.datePaid = datePaid;

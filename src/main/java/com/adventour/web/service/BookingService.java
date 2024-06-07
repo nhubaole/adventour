@@ -29,7 +29,7 @@ public interface BookingService {
 
     Set<PassengerDto> getPassengerOfBooking (Long idBooking);
 
-    Set<PaymentInformationDto> getPaymentOfBooking( Long idBooking);
+    Set<PaymentInformationDto> getPaymentOfBooking(Long idBooking);
 
     Set<TicketDto> getTicketOfBooking(Long idBooking);
 

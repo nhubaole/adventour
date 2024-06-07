@@ -121,7 +121,8 @@
                             </td>
                             <td class="col-auto pd">
                                 <div style="" class="d-flex">
-                                    <div class="d-flex align-items-center" th:text="${trip.priceTicket}">
+<!--                                    <div class="d-flex align-items-center" th:text="${trip.priceTicket}">-->
+                                        <div class="d-flex align-items-center" th:text="${formatNumber.formatNumberWithCommas(trip.priceTicket)}">
                                     </div>
                                     <div th:if="${trip.discount != 0}" th:text="${trip.discount} + '%'" class="discount">
                                     </div>

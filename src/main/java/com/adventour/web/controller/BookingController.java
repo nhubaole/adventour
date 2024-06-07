@@ -9,6 +9,7 @@ import com.adventour.web.models.Booking;
 import com.adventour.web.models.Customer;
 import com.adventour.web.models.Trip;
 import com.adventour.web.service.*;
+import com.adventour.web.utils.FormatNumber;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,8 @@ public class BookingController {
             model.addAttribute("keyword", keyword);
         }
         model.addAttribute("bookings", bookingDtos);
+        //TODO : format number
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/all-booking";}
 
 

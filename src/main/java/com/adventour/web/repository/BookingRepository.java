@@ -18,6 +18,13 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByCustomer(Customer customer);
     List<Booking> findByTrip(Trip trip);
+//    @Query("SELECT b.id, b.bookingDate, b.status, b.totalAmount, b.numberAdult, b.numberChildren, b.numberBaby,  b.customer " +
+//            "FROM Booking b ")
+//    List<Booking> findBoookingAndCus();
+    @Query("SELECT b.id, b.bookingDate, b.status, b.totalAmount, b.numberAdult, b.numberChildren, b.numberBaby,  b.customer " +
+            "FROM Booking b "
+            )
+    List<Object[]> findBookingsWithCustomer();
 
     @Query("SELECT t.id, t.tour.tourName, (b.numberAdult + b.numberChildren + b.numberBaby), t.tour.typeOfTour, b.status " +
             "FROM Booking b " +

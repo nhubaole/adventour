@@ -25,7 +25,7 @@ public class DashboardController {
         long totalCustomers = dashboardService.getTotalCustomer();
         long totalTickets = dashboardService.getTotalTicketCount();
         long todayTrips = dashboardService.getTodayTripCount();
-        long totalRevenue =  dashboardService.getRevenueIn30Days();
+        String totalRevenue =   String.format("%,d", dashboardService.getRevenueIn30Days());
         List<BookingDashboardDto> bookingDashboardDtos = dashboardService.getBookingAndTourNameIn7Days();
         List<PaymentDashboardDto> paymentDashboardDtos = dashboardService.getRecentPayment();
         List<TripDto> tripDtos = dashboardService.getListTripInMonth();

@@ -4,6 +4,7 @@ import com.adventour.web.dto.*;
 import com.adventour.web.enums.PaymentMethod;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.models.*;
+import com.adventour.web.repository.PaymentInformationRepository;
 import com.adventour.web.repository.TourRepository;
 import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.*;
@@ -27,24 +28,24 @@ import java.util.Set;
 @Controller
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-    private  final  CustomerService customerService;
 
-    private final TripService tripService;
+    private final BookingService bookingService;
+    private final PaymentInformationRepository paymentInformationRepository;
 
     @Autowired
-    public LoginController(CustomerService customerService, TripService tripService) {
-        this.customerService = customerService;
-        this.tripService = tripService;
+    public LoginController(BookingService bookingService, PaymentInformationRepository paymentInformationRepository) {
+        this.bookingService = bookingService;
+        this.paymentInformationRepository = paymentInformationRepository;
     }
 
     @GetMapping("/")
     public String home(Model model){
-        TripDto tripDto = tripService.getTripDetail(3L);
-        List<PassengerDto> passengerDtos = tripService.getTripPassenger(tripDto);
-        logger.info(String.valueOf(passengerDtos.size()));
-        for (PassengerDto passengerDto : passengerDtos){
-            logger.info(String.valueOf(passengerDto.getId()));
+        List<BookingDto> bookingDtos = bookingService.getListBooking();
+        for(BookingDto bookingDto : bookingDtos){
+            logger.info(String.valueOf(bookingDto.getAmountPaid()));
         }
+        //Set<Object[]> paymentInformations = paymentInformationRepository.findByIdBooking(18L);
+
         return "/index";
     }
 }

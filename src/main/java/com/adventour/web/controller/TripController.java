@@ -4,6 +4,7 @@ import com.adventour.web.dto.*;
 import com.adventour.web.service.*;
 import com.adventour.web.dto.TripDto;
 import com.adventour.web.service.TripService;
+import com.adventour.web.utils.FormatNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,7 @@ public class TripController {
             model.addAttribute("keyword", keyword);
         }
         model.addAttribute("trips", tripDtos);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/all-trip";
     }
 

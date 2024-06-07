@@ -17,6 +17,11 @@ public interface PaymentInformationRepository extends JpaRepository<PaymentInfor
 
     Set<PaymentInformation> findByBooking(Booking booking);
 
+    @Query("SELECT p.id, p.amountOfMoney, p.paymentTime, p.paymentMethod " +
+            "FROM PaymentInformation p WHERE p.booking.id = :id")
+    Set<Object[]> findByIdBooking(@Param("id") long idBooking);
+
+
     @Query("SELECT p, c.nameCustomer " +
             "FROM PaymentInformation p JOIN p.booking b JOIN b.customer c " +
             "WHERE p.paymentTime >= :startDay AND p.paymentTime <= :endDay")

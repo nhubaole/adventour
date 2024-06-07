@@ -134,7 +134,7 @@ public class Mapper {
                 .email(customerDto.getEmail())
                 .dateOfBirth(customerDto.getDateOfBirth())
                 .cccd(customerDto.getCccd())
-                .isMale(customerDto.isMale())
+                .isMale(customerDto.getIsMale())
                 .nationality(customerDto.getNationality())
                 .imagesCustomer(customerDto.getImagesCustomer())
                 .build();
@@ -175,9 +175,10 @@ public class Mapper {
         bookingDto.setNumberOfPassengers(numberOfPassenger);
 
         bookingDto.setTotalAmount(booking.getTotalAmount());
-
-        TripDto tripDto = mapToTripDto(booking.getTrip());
-        bookingDto.setTripDto(tripDto);
+        if(booking.getTrip() !=null){
+            TripDto tripDto = mapToTripDto(booking.getTrip());
+            bookingDto.setTripDto(tripDto);
+        }
 
         CustomerDto customerDto = mapToCustomerDto(booking.getCustomer());
         bookingDto.setCustomerDto(customerDto);
