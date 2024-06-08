@@ -56,7 +56,9 @@
     </style>
 </head>
 <body>
-<section class="section" layout:fragment="content">
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Tất cả địa điểm', subtitle='Thông tin tất cả địa điểm')"></span>
+    <section class="section">
     <div class = "col-12">
         <div class="card">
             <form th:action="@{/all-place}">
@@ -156,6 +158,7 @@
         </div>
     </div>
 </section>
+</div>
 <script src="/compiled/js/script.js"></script>
 </body>
 </html>

@@ -83,7 +83,9 @@
     </style>
 </head>
 <body>
-<section class="section" layout:fragment="content">
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Chỉnh sửa tuyến du lịch', subtitle='')"></span>
+    <section class="section">
     <div class="col-12">
         <div class="card" style="margin: 0 25px;">
             <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
@@ -284,5 +286,6 @@
         </div>
     </div>
 </section>
+</div>
 </body>
 </html>

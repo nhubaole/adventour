@@ -389,242 +389,246 @@
     </style>
 </head>
 <body>
-<section class="section" layout:fragment="content">
-    <div class="row">
-        <div class = "col-12 col-lg-8">
-            <div class="column">
-                <div class = "row">
-                    <div class="col-6 col-lg-6 col-md-6 pl-35">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi-people-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
+<div class="page-heading" layout:fragment="content">
+    <span th:include="fragments/header :: header (pageTitle='Xin chào, Như 👋🏻', subtitle='Chào buổi sáng')"></span>
+    <section class="section">
+        <div class="row">
+            <div class = "col-12 col-lg-8">
+                <div class="column">
+                    <div class = "row">
+                        <div class="col-6 col-lg-6 col-md-6 pl-35">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi-people-fill icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
                                                 Tổng khách hàng
-                                        </div>
-                                    </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting" th:text="${totalCustomers}"></h6>
-<!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
-<!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
-<!--                                            <div class = "setting percent-content">-->
-<!--                                                12%-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "time-update font-lexend" th:text="${updatedTime}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-6 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi bi-cash-coin icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
-                                            Doanh thu 30 ngày gần nhất
-                                        </div>
-                                    </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting" th:text="${totalRevenue}"></h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "time-update font-lexend" th:text="${updatedTime}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class = "row">
-                    <div class="col-6 col-lg-6 col-md-6 pl-35">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi bi-luggage-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
-                                            Chuyến đi hôm nay
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${totalCustomers}"></h6>
+                                            <!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+                                            <!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+                                            <!--                                            <div class = "setting percent-content">-->
+                                            <!--                                                12%-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
                                         </div>
                                     </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting" th:text="${todayTrips}"></h6>
-<!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
-<!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
-<!--                                            <div class = "setting percent-content">-->
-<!--                                                12%-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-                                    </div>
+                                </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
                                 </div>
                             </div>
-                            <div class = "time-update font-lexend" th:text="${updatedTime}">
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-lg-6 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi bi-ticket-perforated-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
-                                            Tổng vé bán ra
+                        <div class="col-6 col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi bi-cash-coin icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
+                                                Doanh thu 30 ngày gần nhất
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting" th:text="${totalTickets}"></h6>
-<!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
-<!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
-<!--                                            <div class = "setting percent-content">-->
-<!--                                                12%-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "time-update font-lexend" th:text="${updatedTime}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "column">
-                <div class="card ml-24">
-                    <div class="card-header">
-                        <h4 style="font-size: 24px; margin-left: 24px;">Mới đặt chỗ</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-lg">
-                                <thead>
-                                <tr>
-                                    <th>Tên tuyến</th>
-                                    <th>Số vé</th>
-                                    <th>Loại</th>
-                                    <th>Trạng thái</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="dashboardBooking, stat : ${dashboardBookings}">
-                                    <tr>
-                                        <td class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-md">
-                                                    <img th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${dashboardBooking.imageUrl}">
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${totalRevenue}"></h6>
+                                            <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
+                                                <i class="bi-arrow-up-circle-fill setting icon-content"></i>
+                                                <div class = "setting percent-content">
+                                                    12%
                                                 </div>
-                                                <p class="font-bold ms-3 mb-0" th:text="${dashboardBooking.tourName}"></p>
                                             </div>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0" th:text="${dashboardBooking.numberPass}"></p>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class=" mb-0" th:text="${dashboardBooking.typeOfTour}"></p>
-                                        </td>
-                                        <td class="col-auto">
-                                            <p class="mb-0 setting"
-                                               th:text="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'Đang chờ' :
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class="col-6 col-lg-6 col-md-6 pl-35">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi bi-luggage-fill icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
+                                                Chuyến đi hôm nay
+                                            </div>
+                                        </div>
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${todayTrips}"></h6>
+                                            <!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+                                            <!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+                                            <!--                                            <div class = "setting percent-content">-->
+                                            <!--                                                12%-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi bi-ticket-perforated-fill icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
+                                                Tổng vé bán ra
+                                            </div>
+                                        </div>
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${totalTickets}"></h6>
+                                            <!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+                                            <!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+                                            <!--                                            <div class = "setting percent-content">-->
+                                            <!--                                                12%-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "column">
+                    <div class="card ml-24">
+                        <div class="card-header">
+                            <h4 style="font-size: 24px; margin-left: 24px;">Mới đặt chỗ</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-lg">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên tuyến</th>
+                                        <th>Số vé</th>
+                                        <th>Loại</th>
+                                        <th>Trạng thái</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="dashboardBooking, stat : ${dashboardBookings}">
+                                        <tr>
+                                            <td class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-md">
+                                                        <img th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${dashboardBooking.imageUrl}">
+                                                    </div>
+                                                    <p class="font-bold ms-3 mb-0" th:text="${dashboardBooking.tourName}"></p>
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class=" mb-0" th:text="${dashboardBooking.numberPass}"></p>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class=" mb-0" th:text="${dashboardBooking.typeOfTour}"></p>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class="mb-0 setting"
+                                                   th:text="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'Đang chờ' :
                                                         (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'Đã hủy' :
                                                         (${dashboardBooking.statusOfBooking == 'COMPLETED'} ? 'Hoàn thành' : ''))"
-                                               th:classappend="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'waiting' :
+                                                   th:classappend="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'waiting' :
                                                                 (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'cancel' :
                                                                 (${dashboardBooking.statusOfBooking == 'COMPLETED'} ? 'accept' : ''))">
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class = "col-12 col-lg-4">
-            <div class="calendar" style="box-shadow: none !important;">
-                <div class="card-header">
-                    <h4 style="font-size: 22px;height: 40px;display: flex;flex-direction: row;flex-wrap: wrap;align-content: center;padding-top: 20px;margin-left: 20px;">Chuyến đi trong tháng</h4>
-                </div>
-                <!-- CALENDAR HEADER START -->
-                <div class="calendar-header">
-                    <span class="month-picker" id="month-picker">Tháng 6</span>
-                    <div class="year-picker">
-                        <span id="year" style="color: #52a6f3 !important;">2024</span>
-                    </div>
-                </div>
-
-                <!-- CALENDAR BODY START -->
-                <div class="calendar-body">
-                    <div class="calendar-week-day">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="calendar-day">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div th:each="day : ${#numbers.sequence(1, 30)}">
-                            <div  th:classappend="${#lists.contains(tripDays, day)} ? 'calendarDayHover currDate' : 'calendarDayHover'">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <div th:text="${day}">
-                                </div>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="month-list"><div><div>January</div></div><div><div>February</div></div><div><div>March</div></div><div><div>April</div></div><div><div>May</div></div><div><div>June</div></div><div><div>July</div></div><div><div>August</div></div><div><div>September</div></div><div><div>October</div></div><div><div>November</div></div><div><div>December</div></div></div>
-                <div class="card" style="margin-bottom: 0px !important;">
+            </div>
+            <div class = "col-12 col-lg-4">
+                <div class="calendar" style="box-shadow: none !important;">
                     <div class="card-header">
-                        <h4>Giao dịch gần đây</h4>
+                        <h4 style="font-size: 22px;height: 40px;display: flex;flex-direction: row;flex-wrap: wrap;align-content: center;padding-top: 20px;margin-left: 20px;">Chuyến đi trong tháng</h4>
                     </div>
-                    <div class="card-content">
-                        <th:block th:each="recentPaying, state: ${recentPayings}">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg setting border-style">
-                                    <h4 th:text="${#temporals.format(recentPaying.datePaid, 'HH:mm')}"></h4>
+                    <!-- CALENDAR HEADER START -->
+                    <div class="calendar-header">
+                        <span class="month-picker" id="month-picker">Tháng 6</span>
+                        <div class="year-picker">
+                            <span id="year" style="color: #52a6f3 !important;">2024</span>
+                        </div>
+                    </div>
+
+                    <!-- CALENDAR BODY START -->
+                    <div class="calendar-body">
+                        <div class="calendar-week-day">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="calendar-day">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div th:each="day : ${#numbers.sequence(1, 30)}">
+                                <div  th:classappend="${#lists.contains(tripDays, day)} ? 'calendarDayHover currDate' : 'calendarDayHover'">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <div th:text="${day}">
+                                    </div>
                                 </div>
-                                <div class="name ms-4 setting" style="
+                            </div>
+                        </div>
+                    </div>
+                    <div class="month-list"><div><div>January</div></div><div><div>February</div></div><div><div>March</div></div><div><div>April</div></div><div><div>May</div></div><div><div>June</div></div><div><div>July</div></div><div><div>August</div></div><div><div>September</div></div><div><div>October</div></div><div><div>November</div></div><div><div>December</div></div></div>
+                    <div class="card" style="margin-bottom: 0px !important;">
+                        <div class="card-header">
+                            <h4>Giao dịch gần đây</h4>
+                        </div>
+                        <div class="card-content">
+                            <th:block th:each="recentPaying, state: ${recentPayings}">
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="avatar avatar-lg setting border-style">
+                                        <h4 th:text="${#temporals.format(recentPaying.datePaid, 'HH:mm')}"></h4>
+                                    </div>
+                                    <div class="name ms-4 setting" style="
                                     flex-direction: column;
                                     justify-content: center;
                                     align-items: flex-start;
                                     flex-wrap: wrap;
                             ">
-                                    <div class="mb-1" style="color: black;" th:text="${recentPaying.nameCustomer}"></div>
-                                    <div class="d-flex">
-                                        <h6 class="text-muted mb-0" style="color: #52a6f3 !important;" th:text="${recentPaying.paidAmount}"></h6>
-                                        <h6 class="text-muted mb-0"  style="color: #52a6f3 !important;" >đ</h6>
+                                        <div class="mb-1" style="color: black;" th:text="${recentPaying.nameCustomer}"></div>
+                                        <div class="d-flex">
+                                            <h6 class="text-muted mb-0" style="color: #52a6f3 !important;" th:text="${recentPaying.paidAmount}"></h6>
+                                            <h6 class="text-muted mb-0"  style="color: #52a6f3 !important;" >đ</h6>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </th:block>
+                            </th:block>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
 
 <script src="/compiled/js/script.js"></script>
 </body>
