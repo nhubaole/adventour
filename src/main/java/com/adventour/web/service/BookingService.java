@@ -22,6 +22,9 @@ public interface BookingService {
 
     BookingDto findById(Long id);
 
+    //Khong lay tour va schedule
+    BookingDto findBookingSimpler (Long id);
+
     Booking updateBooking(BookingDto bookingDto);
 
     List<BookingDto> getBookingsByCustomerId( Long id);

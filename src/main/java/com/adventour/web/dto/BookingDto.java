@@ -38,6 +38,8 @@ public class BookingDto {
 
     private int amountPaid = 0;
 
+    private String amountPaidFormat;
+
     @Min(value = 0)
     private int numberAdult;
 

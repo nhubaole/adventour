@@ -16,11 +16,13 @@ import com.adventour.web.service.TripService;
 import com.adventour.web.utils.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+
 public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
     private final TourRepository tourRepository;

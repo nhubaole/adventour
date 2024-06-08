@@ -8,12 +8,14 @@ import com.adventour.web.repository.ScheduleRepository;
 import com.adventour.web.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 public class LocationServiceImpl implements  LocationService{
     private final LocationRepository locationRepository;
     private final ScheduleRepository scheduleRepository;

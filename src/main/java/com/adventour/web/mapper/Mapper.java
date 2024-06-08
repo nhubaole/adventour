@@ -175,6 +175,7 @@ public class Mapper {
         bookingDto.setNumberOfPassengers(numberOfPassenger);
 
         bookingDto.setTotalAmount(booking.getTotalAmount());
+        bookingDto.setAmountPaidFormat(String.format("%,d", bookingDto.getTotalAmount()));
         if(booking.getTrip() !=null){
             TripDto tripDto = mapToTripDto(booking.getTrip());
             bookingDto.setTripDto(tripDto);
@@ -221,10 +222,11 @@ public class Mapper {
         passengerDto.setCccd(passenger.getCccd());
         passengerDto.setType(passenger.getType());
 
-        BookingDto booking = mapToBookingDto(passenger.getBooking());
-        passengerDto.setBookingDto(booking);
-
-        passengerDto.setTripDto(booking.getTripDto());
+        if(passenger.getBooking() != null){
+            BookingDto booking = mapToBookingDto(passenger.getBooking());
+            passengerDto.setBookingDto(booking);
+            passengerDto.setTripDto(booking.getTripDto());
+        }
 
         return passengerDto;
     };
@@ -258,10 +260,15 @@ public class Mapper {
         TicketDto ticketDto = new TicketDto();
         ticketDto.setId(ticket.getId());
         ticketDto.setUsedAt(ticket.getUsedAt());
+
         ticketDto.setPassengerDto(mapToPassengerDto(ticket.getPassenger()));
-        ticketDto.setBookingDto(mapToBookingDto(ticket.getBooking()));
+
+        if(ticket.getBooking() != null){
+            ticketDto.setBookingDto(mapToBookingDto(ticket.getBooking()));
+        }
 
         ticketDto.setNamePassenger(ticket.getPassenger().getNamePassenger());
+
         if(ticket.getUsedAt() == null){
             ticketDto.setStatusTicket(StatusOfTicket.UNUSED);
         }

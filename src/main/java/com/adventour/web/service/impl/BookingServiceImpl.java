@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class BookingServiceImpl implements BookingService {
 
 
     @Override
+    @Transactional
     public List<BookingDto> getListBooking() {
         List<BookingDto> bookingDtoList = new ArrayList<>();
         List<Object[]> bookings = bookingRepository.findBookingsWithCustomer();
@@ -145,6 +147,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public BookingDto findById(Long id) {
         BookingDto bookingDto = new BookingDto();
         Booking booking = bookingRepository.findById(id).orElse(null);
@@ -160,6 +163,16 @@ public class BookingServiceImpl implements BookingService {
             }
 
             bookingDto.setAmountPaid(amountPaid);
+        }
+        return bookingDto;
+    }
+
+    @Override
+    public BookingDto findBookingSimpler(Long id) {
+        BookingDto bookingDto = new BookingDto();
+        Booking booking = bookingRepository.findById(id).orElse(null);
+        if (booking != null) {
+            bookingDto =  mapper.mapToBookingDto(booking);
         }
         return bookingDto;
     }

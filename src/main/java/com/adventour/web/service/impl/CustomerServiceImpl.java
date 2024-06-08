@@ -13,6 +13,7 @@ import com.adventour.web.service.CustomerService;
 import com.adventour.web.utils.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final BookingRepository bookingRepository;
