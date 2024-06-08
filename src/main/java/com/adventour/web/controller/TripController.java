@@ -83,18 +83,18 @@ public class TripController {
     public String informationTrain(@PathVariable("id") long id, Model model){
         TripDto tripDto = tripService.getTripDetail(id);
         model.addAttribute("trip", tripDto);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/trip-information";
         }
 
     @GetMapping("/train-info/{id}")
     public String trainInfo(@PathVariable("id") long id, Model model){
         TripDto tripDto = tripService.getTripDetail(id);
-        Set<PassengerDto> customerDtos = tripService.getTripPassenger(tripDto);
+        List<PassengerDto> customerDtos = tripService.getTripPassenger(tripDto);
+        logger.info(String.valueOf(customerDtos.size()) + "===================================");
 
-        for (PassengerDto passenger : customerDtos) {
-            logger.debug("Passenger Details: {}", passenger);
-        }
         model.addAttribute("trip", tripDto);
+        model.addAttribute("formatNumber", new FormatNumber());
         model.addAttribute("customers", customerDtos);
             return "/pages/train-info";
         }

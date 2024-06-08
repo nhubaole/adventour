@@ -7,9 +7,11 @@
     <style>
         th{
             color: #b3b3b8;
+            padding: 0.5rem !important;
         }
         td{
             color: black;
+            padding: 0.5rem !important;
         }
 
         .input-style{
@@ -116,7 +118,7 @@
 
     <script>
 
-        const rowsPerPage = 30;
+        const rowsPerPage = 20;
         let currentPage = 1;
 
 
@@ -164,7 +166,7 @@
     </p>
 </td>
                     <td class="col-auto" >${booking.amountPaidFormat} đ</td>
-                    <td class="col-auto">
+                    <td class="col-1">
                         <div style="color: black; cursor: pointer;">
                             <a href="/booking-detail-information/${booking.id}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
                             <!--<a href="#"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
@@ -210,7 +212,7 @@
 
 
         function formatDate(dateString) {
-    const optionsDate = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const optionsDate = { day: '2-digit', month: '2-digit', year: '2-digit' };
     const optionsTime = { hour: '2-digit', minute: '2-digit' };
     const date = new Date(dateString);
 
@@ -262,7 +264,7 @@
                     <table  id="bookingTable" class="table table-hover table-lg">
                         <thead>
                         <tr>
-                            <th>STT</th>
+                            <th style="width: 60px;">STT</th>
 
                             <th class=" column column-width-200">Tên khách hàng</th>
                             <th>Mã phiếu</th>
@@ -270,7 +272,7 @@
                             <th>Ngày đặt</th>
                             <th>Trạng thái</th>
                             <th>Tổng tiền</th>
-                            <th></th>
+                            <th style="width: 60px;"></th>
                         </tr>
                         </thead>
                         <tbody id="tableBody">

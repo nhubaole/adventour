@@ -11,7 +11,7 @@
             margin-right:20px;
         }
 
-        .active{
+        .active-custom{
             color: #52a6f3;
             border-bottom: 4px solid #52a6f3;
         }
@@ -167,7 +167,7 @@
                     <i class="bi bi-people-fill" style="display: flex; margin-right: 10px;"></i>
                     Hành khách
                 </a>
-                <a th:href="@{/add-new-booking-payment/{id}(id=${trip.id})}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <a th:href="@{/add-new-booking-payment/{id}(id=${trip.id})}" type="button" class=" custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-credit-card" style="display: flex; margin-right: 10px;"></i>
                     Thanh toán
                 </a>
@@ -233,10 +233,10 @@
                                 <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                                     <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                                    <div th:text="${trip.priceTicket} + ' đ'" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                                    <div th:text="${formatNumber.formatNumberWithCommas(trip.priceTicket)} + ' đ'" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
                                         <!--68,000,000 đ-->
                                     </div>
-                                    <span th:text="${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!--34,000,000 đ--></span>
+                                    <span th:text="${formatNumber.formatNumberWithCommas(trip.actualPrice)} + ' đ'"><!--34,000,000 đ--></span>
                                     <div class="discount">
                                         <span th:text="'-' + ${trip.discount} + '%'"><!-- -50%--></span>
                                     </div>
@@ -252,11 +252,11 @@
                                     <div style=" padding-bottom: 20px;padding-top:20px; border-bottom: 1px solid #d5d5d5; border-top: 1px solid #d5d5d5; ">
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Người lớn</div>
-                                            <div style="font-size: 14px;" th:text="${bookingform.numberAdult} + ' x ' + ${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!-- 2 x 34,000,000 đ --></div>
+                                            <div style="font-size: 14px;" th:text="${bookingform.numberAdult} + ' x ' + ${formatNumber.formatNumberWithCommas(trip.actualPrice)} + ' đ'"><!-- 2 x 34,000,000 đ --></div>
                                         </div>
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Trẻ em</div>
-                                            <div style="font-size: 14px;" th:text="${bookingform.numberChildren} + ' x ' + ${trip.priceTicket * (1 - trip.discount / 100) / 2} + ' đ'"><!-- 1 x 5,000,000 đ --></div>
+                                            <div style="font-size: 14px;" th:text="${bookingform.numberChildren} + ' x ' + ${formatNumber.formatNumberWithCommas(trip.actualPrice / 2)} + ' đ'"><!-- 1 x 5,000,000 đ --></div>
                                         </div>
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Em bé</div>
@@ -267,14 +267,14 @@
                                     <div style="margin-top: 20px;">
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Tổng tiền</div>
-                                            <div style="font-size: 14px;" th:text="${bookingform.totalAmount} + ' đ'"><!-- 72,000,000 đ --></div>
+                                            <div style="font-size: 14px;" th:text="${formatNumber.formatNumberWithCommas(bookingform.totalAmount)} + ' đ'"><!-- 72,000,000 đ --></div>
                                         </div>
                                         <div class="form-container" style="display: flex;">
                                             <div style="font-weight: bold;">Đã thanh toán</div>
                                             <div style="font-size: 14px;" class="">0đ</div>
                                         </div><div class="form-container" style="display: flex;">
                                         <div style="font-weight: bold;">Còn lại</div>
-                                        <div style="font-size: 14px;" th:text="${bookingform.totalAmount} + ' đ'" class=""></div>
+                                        <div style="font-size: 14px;" th:text="${formatNumber.formatNumberWithCommas(bookingform.totalAmount)} + ' đ'" class=""></div>
                                     </div>
                                     </div>
 

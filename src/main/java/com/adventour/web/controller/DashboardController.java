@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +36,7 @@ public class DashboardController {
         List<Integer> tripDays = tripDtos.stream()
                 .map(tripDto -> tripDto.getStartDate().getDayOfMonth())
                 .toList();
+
         model.addAttribute("tripDays",tripDays);
         model.addAttribute("totalCustomers", totalCustomers);
         model.addAttribute("totalTickets", totalTickets);
@@ -39,6 +44,9 @@ public class DashboardController {
         model.addAttribute("totalRevenue", totalRevenue);
         model.addAttribute("dashboardBookings", bookingDashboardDtos);
         model.addAttribute("recentPayings", paymentDashboardDtos);
+
+        SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        model.addAttribute("updatedTime", "Cập nhật lần cuối: " + dt1.format(Calendar.getInstance().getTime()));
         return "/pages/dashboard";
     }
 }

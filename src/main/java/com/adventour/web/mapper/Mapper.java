@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class Mapper {
                 .estimatedPrice(tour.getEstimatedPrice())
                 .numberOfDays(tour.getNumberOfDays())
                 .numberOfNights(tour.getNumberOfNights())
+                .code(String.format("T%07d",tour.getId()))
                 .typeOfTour(tour.getTypeOfTour())
                 .build();
         if (tour.getSchedules() != null) {
@@ -72,6 +75,7 @@ public class Mapper {
         tripDto.setEndDate(trip.getEndDate());
         tripDto.setPriceTicket(trip.getPriceTicket());
         tripDto.setDiscount(trip.getDiscount());
+        tripDto.setIsActive(trip.getStartDate().isAfter(LocalDateTime.now()));
         int actualPrice = (int) (trip.getPriceTicket() * (1 - trip.getDiscount()*0.01));
         tripDto.setActualPrice(actualPrice);
         tripDto.setTripType(trip.getTripType());
@@ -194,6 +198,7 @@ public class Mapper {
                 .address(location.getAddress())
                 .description(location.getDescription())
                 .images(location.getImages())
+                .code(String.format("DD%07d",location.getId()))
                 .build();
     }
 

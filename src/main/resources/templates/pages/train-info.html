@@ -110,13 +110,13 @@
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div th:text = "${trip.priceTicket}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                        <div th:if="${trip.discount != 0}">
+                            <div th:text="${formatNumber.formatNumberWithCommas(trip.priceTicket)}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be;"></div>
+                        </div>
+                        <div th:text = "${formatNumber.formatNumberWithCommas(trip.actualPrice)}" >
 
                         </div>
-                        <div th:text = "${trip.priceTicket}" >
-
-                        </div>
-                        <div th:if="${trip.discount != 0}" th:text= "${trip.discount} + '%'" class="discount">
+                        <div th:if="${trip.discount != 0}" th:text= "'-' + ${trip.discount} + '%'" class="discount">
                         </div>
                     </div>
                 </div>
@@ -174,32 +174,32 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="dataTable-bottom" style="display: flex;align-items: center;justify-content: space-between;">
-                                <div class="dataTable-info">
-                                </div>
-                                <nav class="dataTable-pagination">
-                                    <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">
-                                        <li class="pager page-item">
-                                            <a href="#" data-page="2" class="page-link">&lt;</a>
-                                        </li>
-                                        <li class="active page-item">
-                                            <a href="#" data-page="1" class="page-link">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" data-page="2" class="page-link">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" data-page="3" class="page-link">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="#" data-page="4" class="page-link">4</a>
-                                        </li>
-                                        <li class="pager page-item">
-                                            <a href="#" data-page="2" class="page-link">&gt;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+<!--                            <div class="dataTable-bottom" style="display: flex;align-items: center;justify-content: space-between;">-->
+<!--                                <div class="dataTable-info">-->
+<!--                                </div>-->
+<!--                                <nav class="dataTable-pagination">-->
+<!--                                    <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">-->
+<!--                                        <li class="pager page-item">-->
+<!--                                            <a href="#" data-page="2" class="page-link">&lt;</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="active page-item">-->
+<!--                                            <a href="#" data-page="1" class="page-link">1</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="page-item">-->
+<!--                                            <a href="#" data-page="2" class="page-link">2</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="page-item">-->
+<!--                                            <a href="#" data-page="3" class="page-link">3</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="page-item">-->
+<!--                                            <a href="#" data-page="4" class="page-link">4</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="pager page-item">-->
+<!--                                            <a href="#" data-page="2" class="page-link">&gt;</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </nav>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>

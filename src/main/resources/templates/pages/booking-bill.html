@@ -11,7 +11,7 @@
             align-items: center;
         }
         .accept{
-            background-color: #fef9e9;
+            background-color: #3FC28A1A;
             border-radius: 4px;
             font-size: 14px;
             height: 28px;
@@ -110,7 +110,7 @@
                                             </p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0" th:text="${booking.totalAmount}"></p>
+                                            <p class=" mb-0" th:text="${formatNumber.formatNumberWithCommas(booking.totalAmount)}"></p>
                                         </td>
                                     </tr>
                                     </tbody>

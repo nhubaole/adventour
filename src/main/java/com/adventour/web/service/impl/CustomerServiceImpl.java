@@ -1,5 +1,6 @@
 package com.adventour.web.service.impl;
 
+import com.adventour.web.controller.TourController;
 import com.adventour.web.dto.BookingDto;
 import com.adventour.web.dto.CustomerDto;
 import com.adventour.web.dto.PaymentInformationDto;
@@ -11,6 +12,8 @@ import com.adventour.web.repository.CustomerRepository;
 import com.adventour.web.service.BookingService;
 import com.adventour.web.service.CustomerService;
 import com.adventour.web.utils.InvalidDataException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,12 +69,15 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return result;
     }
+    private static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
 
     @Override
     public Customer  addNewCustomer(CustomerDto customerDto) {
         if(validateCustomer(customerDto)){
             Customer customer = mapper.mapToCustomer(customerDto);
+            logger.info(customer.isMale() + "==============================");
+
             return customerRepository.save(customer);
         }
         else return null;

@@ -9,6 +9,7 @@ import com.adventour.web.models.Schedule;
 import com.adventour.web.models.Tour;
 import com.adventour.web.service.LocationService;
 import com.adventour.web.service.TourService;
+import com.adventour.web.utils.FormatNumber;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,7 @@ public class TourController {
     public String tourDetail(@PathVariable("tourId") long tourId, Model model){
         TourDto tourDto = tourService.findByTourId(tourId);
         model.addAttribute("tour", tourDto);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/tour-info";
     }
 
