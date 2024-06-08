@@ -14,6 +14,7 @@ import com.adventour.web.repository.*;
 import com.adventour.web.service.DashboardService;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,21 +48,25 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
+    @Transactional
     public long getTotalCustomer() {
         return customerRepository.count();
     }
 
     @Override
+    @Transactional
     public long getTotalTicketCount() {
         return ticketRepository.count();
     }
 
     @Override
+    @Transactional
     public long getTodayTripCount() {
         return  tripRepository.countTripsStartingToday();
     }
 
     @Override
+    @Transactional
     public List<TripDto> getListTripInMonth() {
         List<TripDto> rs = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
@@ -79,6 +84,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
+    @Transactional
     public List<PaymentDashboardDto> getRecentPayment() {
         //lay trong 7 ngay gan day
         List<PaymentDashboardDto> rs = new ArrayList<>();
@@ -103,6 +109,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
+    @Transactional
     public long getRevenueIn30Days() {
         LocalDateTime endDay = LocalDateTime.now();
         LocalDateTime startDay = endDay.minusDays(30);
@@ -110,6 +117,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
+    @Transactional
     public List<BookingDashboardDto> getBookingAndTourNameIn7Days() {
         List<BookingDashboardDto> rs = new ArrayList<>();
         LocalDateTime startDay = LocalDateTime.now();

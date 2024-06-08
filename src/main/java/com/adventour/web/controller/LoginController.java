@@ -5,6 +5,7 @@ import com.adventour.web.enums.PaymentMethod;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.models.*;
 import com.adventour.web.repository.PaymentInformationRepository;
+import com.adventour.web.repository.TicketRepository;
 import com.adventour.web.repository.TourRepository;
 import com.adventour.web.repository.TripRepository;
 import com.adventour.web.service.*;
@@ -29,23 +30,14 @@ import java.util.Set;
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    private final BookingService bookingService;
-    private final PaymentInformationRepository paymentInformationRepository;
 
     @Autowired
-    public LoginController(BookingService bookingService, PaymentInformationRepository paymentInformationRepository) {
-        this.bookingService = bookingService;
-        this.paymentInformationRepository = paymentInformationRepository;
+    public LoginController() {
+
     }
 
     @GetMapping("/")
     public String home(Model model){
-        List<BookingDto> bookingDtos = bookingService.getListBooking();
-        for(BookingDto bookingDto : bookingDtos){
-            logger.info(String.valueOf(bookingDto.getAmountPaid()));
-        }
-        //Set<Object[]> paymentInformations = paymentInformationRepository.findByIdBooking(18L);
-
         return "/index";
     }
 }
