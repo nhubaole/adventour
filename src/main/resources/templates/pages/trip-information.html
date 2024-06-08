@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>AdvenTour - Trang quản lý du lịch</title>
     <style>
         .empty{
             display: flex;
@@ -66,33 +66,71 @@
             color: white;
             cursor: pointer;
         }
+        .accept{
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
-<section class="section" layout:fragment="content">
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thông tin chuyến du lịch', subtitle='Tất cả chuyến du lịch &gt; ' + ${trip.name})"></span>
+    <section class="section">
     <div class="col-12">
         <div class = "card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6 class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
-                        Liên tuyến : Brunei - Malaysia khám phá thành phố Miri
-                        <div class="empty">
-                            Còn chỗ
+                    <div class="d-flex" style="flex-wrap: wrap; align-items: center;">
+                        <h6  class="d-flex" style="font-size: 20px; margin-bottom: 5px; text-align: left;" th:text ="${trip.name}">
+
+                        </h6>
+                        <div style=" margin-left: 10px; width: 90px; font-weight: 600;" class="setting" th:if="${trip.actualPassenger < trip.slots}" th:text="'Còn chỗ'" th:classappend="'accept'">
                         </div>
-                    </h6>
-                    <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <div style=" margin-left: 10px; width: 90px; font-weight: 600;" class="setting" th:if="${trip.actualPassenger >= trip.slots}" th:text="'Hết chỗ'" th:classappend="'cancel'">
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
-                        0586180354
-                    </p>
+                        <p th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}" class="text-subtitle fw-light text-muted small" style="margin-top: 6px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+
+                        </p>
+                    </div>
+
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
-                            68,000,000 đ
+                        <div th:if="${trip.discount != 0}">
+                            <div th:text="${formatNumber.formatNumberWithCommas(trip.priceTicket)}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be;"></div>
                         </div>
-                        34,000,000 đ
-                        <div class="discount">
-                            -50%
+                        <div th:text = "${formatNumber.formatNumberWithCommas(trip.actualPrice)}" >
+
+                        </div>
+                        <div th:if="${trip.discount != 0}" th:text= "'-' + ${trip.discount} + '%'" class="discount">
                         </div>
                     </div>
                 </div>
@@ -100,14 +138,14 @@
             <div style="display:flex; justify-content: space-between">
                 <div class="col-12 col-lg-3" style="margin-left: 30px;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                        <a th:href="@{/information/{id}(id=${trip.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
                             Thông tin chuyến
-                        </button>
-                        <button type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                        </a>
+                        <a th:href="@{/train-info/{id}(id=${trip.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
                             <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
-                            Danh sách khách hàng
-                        </button>
+                            Danh sách hành khách
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-lg-8">
@@ -117,46 +155,46 @@
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="trainID" class="form-label">Mã chuyến</label>
-                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã chuyến" value="12335111">
+                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã chuyến" th:value="${trip.code}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="traintype" class="form-label">Loại chuyến</label>
-                                        <input style="border: none;" type="text" name="email" id="traintype" class="form-control" placeholder="Loại chuyến" value="Khuyến mãi">
+                                        <input style="border: none;" type="text" name="email" id="traintype" class="form-control" placeholder="Loại chuyến" th:value="${trip.tourDto.typeOfTour}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="estimateNum" class="form-label">Số lượng dự kiến</label>
-                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" value="100">
+                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số lượng dự kiến" th:value="${trip.slots}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
                                         <label for="realNum" class="form-label">Số lượng thực tế</label>
-                                        <input style="border: none;" type="text" name="birthday" id="realNum" class="form-control" placeholder="Số lượng thực tế" value="30">
+                                        <input style="border: none;" type="text" name="birthday" id="realNum" class="form-control" placeholder="Số lượng thực tế" th:value="${trip.actualPassenger}">
                                     </div>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="estimateTicket" class="form-label">Giá vé dự kiến</label>
-                                        <input style="border: none;" type="text" name="birthday" id="estimateTicket" class="form-control" placeholder="Giá vé dự kiến" value="68,000,000 đ">
+                                        <label for="estimateTicket" class="form-label">Giá vé</label>
+                                        <input style="border: none;" type="text" name="birthday" id="estimateTicket" class="form-control" placeholder="Giá vé dự kiến"  th:value="${formatNumber.formatNumberWithCommas(trip.actualPrice)}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="discount" class="form-label">CMND/CCCD</label>
-                                        <input style="border: none;" type="text" name="national" id="discount" class="form-control" placeholder="Giảm giá" value="50%">
+                                        <label for="discount" class="form-label">Khuyến mãi </label>
+                                        <input style="border: none;" type="text" name="national" id="discount" class="form-control" placeholder="Giảm giá" th:value="${trip.discount}">
                                     </div>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <div style= "display: flex; justify-content: space-between; margin-bottom: 10px;">
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="startDay" class="form-label">Quốc tịch</label>
-                                        <input style="border: none;" type="text" name="national" id="startDay" class="form-control" placeholder="Ngày bắt đầu" value="04/05/2024">
+                                        <label for="startDay" class="form-label">Ngày bắt dầu</label>
+                                        <input style="border: none;" type="text" name="national" id="startDay" class="form-control" placeholder="Ngày bắt đầu" th:value="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}">
                                     </div>
                                     <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
-                                        <label for="endDay" class="form-label">Số điện thoại</label>
-                                        <input style="border: none;" type="text" name="national" id="endDay" class="form-control" placeholder="Ngày kết thúc" value="08/05/2024">
+                                        <label for="endDay" class="form-label">Ngày kết thúc</label>
+                                        <input style="border: none;" type="text" name="national" id="endDay" class="form-control" placeholder="Ngày kết thúc" th:value="${#temporals.format(trip.endDate, 'dd/MM/yyyy')}">
                                     </div>
                                 </div>
                                 <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
-                                    <label for="address" class="form-label">Địa chỉ</label>
-                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" value="T34532123 - Liên tuyến : Brunei - Malaysia khám phá thành phố Miri">
+                                    <label for="address" class="form-label">Tuyến</label>
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${trip.name}">
                                 </div>
                             </form>
                         </div>
@@ -164,14 +202,22 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center;">
-                <div class="addBtn">
-                    <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
-                    Thêm phiếu đặt chỗ mới
-                </div>
+                <a th:href="@{/information/{id}/delete(id=${trip.id})}" style="width: 18%;">
+                    <div class="addBtn" style=" border: 1px solid red;background-color: white!important;color: red!important;/* width: 90%; */display: flex;justify-content: center;">
+                        Hủy chuyến
+                    </div>
+                </a>
+                <a th:href="@{/add-new-booking-information/{id}(id=${trip.id})}">
+                    <div class="addBtn">
+                        <i class="bi bi-plus-circle" style="margin-right: 10px;"></i>
+                        Thêm phiếu đặt chỗ mới
+                    </div>
+                </a>
             </div>
         </div>
     </div>
 </section>
+</div>
 <script src="/compiled/js/script.js"></script>
 </body>
 </html>

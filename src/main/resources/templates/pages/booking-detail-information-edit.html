@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .empty{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .full{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .addBtn{
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background-color: #52a6f3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="card">
+            <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                    <h6 th:text="${tour.tourName}" class="d-flex" style="font-size: 24px; margin-bottom: 5px;">
+                        <!--Liên tuyến : Brunei - Malaysia khám phá thành phố Miri-->
+
+                    </h6>
+
+                    <p  class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        <span th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}">
+                           <!--04/05/2024 -->
+                        </span>
+
+
+                    </p>
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                        <div th:text="${trip.priceTicket} + ' đ'" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
+                            <!--68,000,000 đ-->
+                        </div>
+                        <!--
+                                                <span th:text="${trip.priceTripFinal} + ' đ'">&lt;!&ndash;34,000,000 đ&ndash;&gt;</span>
+                        -->
+                        <span th:text="${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!--34,000,000 đ--></span>
+
+                        <div class="discount">
+                            <span th:text="'-' + ${trip.discount} + '%'"><!-- -50%--></span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                            Đặt lúc <span th:text="${#temporals.format(booking.bookingDate, 'HH:mm dd/MM/yyyy')}"><!--10:23 09/03/2024--></span>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <a th:href="@{booking-detail-information}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin liên hệ
+                        </a>
+                        <a th:href="@{booking-detail-passenger}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
+                            Hành khách
+                        </a>
+                        <a th:href="@{booking-detail-payment}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
+                            Thông tin thanh toán
+                        </a>
+                        <a th:href="@{booking-detail-ticket}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách vé
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="#" method="get">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="trainID" class="form-label">Mã khách hàng</label>
+                                        <input style="border: none;" type="text" name="name" id="trainID" class="form-control" placeholder="Mã hành khách" th:value="${customer.id}" >
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="name" class="form-label">Họ và tên</label>
+                                        <input style="border: none;" type="text" name="name" id="name" class="form-control" placeholder="Họ và tên" th:value="${customer.nameCustomer}">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="estimateNum" class="form-label">Số điện thoại</label>
+                                        <input style="border: none;" type="text" name="phone" id="estimateNum" class="form-control" placeholder="Số điện thoại" th:value="${customer.phoneNumber}">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="mail" class="form-label">Địa chỉ email</label>
+                                        <input style="border: none;" type="text" name="mail" id="mail" class="form-control" placeholder="Địa chỉ email" th:value="${customer.email}">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="birthday" class="form-label">Ngày sinh</label>
+                                        <input style="border: none;" type="text" name="birthday" id="birthday" class="form-control" placeholder="Ngày sinh" th:value="${customer.dateOfBirth}">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">CMND/CCCD</label>
+                                        <input style="border: none;" type="text" name="ID" id="ID" class="form-control" placeholder="CMND/CCCD" th:value="${customer.cccd}">
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="ismale" class="form-label">Giới tính</label>
+                                        <input style="border: none;" type="text" name="ismale" id="ismale" class="form-control" placeholder="Giới tính" th:value="${customer.isMale ? 'Nam' : 'Nữ'}">
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label for="national" class="form-label">Quốc tịch</label>
+                                        <input style="border: none;" type="text" name="national" id="national" class="form-control" placeholder="Quốc tịch" th:value="${customer.nationality}">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
+                                    <label for="address" class="form-label">Địa chỉ</label>
+                                    <input style="border: none;" type="text" name="national" id="address" class="form-control" placeholder="Địa chỉ" th:value="${customer.addressCustomer}">
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <form action="/booking-detail-information-edit/{id}/edit" method="post">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
+                                    </form>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

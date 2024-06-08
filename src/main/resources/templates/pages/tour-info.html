@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .accept{
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thông tin tuyến du lịch', subtitle='Tất cả tuyến du lịch &gt; ' + ${tour.tourName})"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-img d-flex align-items-center">
+                    <div class="avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
+                        <div th:if="${tour.schedules != null and !tour.schedules.isEmpty()}">
+                            <div th:if="${tour.schedules[0].startLocation.images != null}">
+                                <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                     th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${tour.schedules[0].startLocation.images[0]}">
+                            </div>
+                            <div th:if="${tour.schedules[0].startLocation.images == null}">
+                                <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                     src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg">
+                            </div>
+                        </div>
+                        <div th:if="${tour.schedules == null}">
+                            <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                 src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px; text-align: left;" th:text="${tour.tourName}"/>
+                    <p class=" mb-0 accept setting" style="width: 100px;"> Đang mở </p>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin tuyến
+                        </a>
+                        <a th:href="@{/tour-itinerary/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
+                            Chi tiết lịch trình
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="#" method="get">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label class="form-label">Mã tuyến</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.code}"></p>
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label class="form-label">Loại tuyến</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.typeOfTour}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="border-bottom: 1px solid #d8d8d8; margin-bottom: 40px;">
+                                    <label class="form-label">Tên tuyến</label>
+                                    <p class="fw-light" style="color: black;" th:text="${tour.tourName}"></p>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label class="form-label">Nơi xuất phát</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.departureLocation}"></p>
+                                    </div>
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label class="form-label">Số ngày đêm</label>
+                                        <p class="fw-light" style="color: black;" th:text="${tour.numberOfDays} + ' ngày ' + ${tour.numberOfNights} + ' đêm'"></p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div class="form-group" style="width: 45%; border-bottom: 1px solid #d8d8d8;">
+                                        <label class="form-label">Giá dự kiến</label>
+                                        <p class="fw-light" style="color: black;" th:text="${formatNumber.formatNumberWithCommas(tour.estimatedPrice)}"></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+        <head>
+        <meta charset="UTF-8">
+        <title>AdvenTour - Trang quản lý du lịch</title>
+            <style>
+                .custom-btn{
+                    border: none;
+                    background-color: white;
+                    margin-right:20px;
+                }
+
+                .active-custom{
+                    color: #52a6f3;
+                    border-bottom: 4px solid #52a6f3;
+                }
+                .custom-file-upload {
+                    height: 100px;
+                    display: block;
+                    width: 10%;
+                    padding: 20px;
+                    font-size: 16px;
+                    background-color: #f0f0f0;
+                    border: 2px dashed #ddd;
+                    border-radius: 5px;
+                    text-align: center;
+                    cursor: pointer;
+                    background-image: url('/compiled/jpg/Profile Photo.jpg');
+                    background-size: cover;
+                    background-position: center;
+                }
+
+                .custom-file-upload:hover {
+                    background-color: #e0e0e0;
+                }
+
+                input[type="file"] {
+                    display: none;
+                }
+                 .input-wrapper {
+                    position: relative;
+                }
+
+                .input-wrapper input {
+                    width: 100%;
+                    padding-right: 30px;
+                }
+
+                .input-wrapper i {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+
+                .form-container {
+                flex: 1; /* Allow each form-container to take equal space */
+                    padding: 10px;
+                    border: 1px solid #ccc; /* Optional: add border to form-container */
+                }
+                .form-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center; /* Align items vertically centered */
+                    padding: 10px;
+                    border: 1px solid #ccc; /* Optional: add border to form-container */
+                    flex: 1;
+                    border-radius:5px;
+                    margin-left: 5px;
+                }
+
+
+                .left-text {
+                    flex: 0 1 auto;
+                    margin-right: 10px;
+                }
+
+
+                .input-group {
+                    flex:1;
+                    display: flex;
+                    align-items: center;
+                }
+                .input-group button{
+                    margin-right:5px;
+                }
+                .input-group input {
+                    width: 40px;
+                    padding: 5px;
+                    margin: 0 5px;
+                }
+
+            </style>
+            <script>
+                function calculateAge(birthDate) {
+                    const today = new Date();
+                    const birthDateObj = new Date(birthDate);
+                    let age = today.getFullYear() - birthDateObj.getFullYear();
+                    const monthDifference = today.getMonth() - birthDateObj.getMonth();
+                    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
+                        age--;
+                    }
+                    return age;
+                }
+
+                function validateAge(input, type) {
+                    const age = calculateAge(input.value);
+                    let valid = true;
+                    let errorMessage = '';
+
+                    if (type === 'adult' && age < 16) {
+                        valid = false;
+                        errorMessage = 'Người lớn phải từ 16 tuổi trở lên.';
+                    } else if (
+                    type === 'children' && (age >= 16 || age < 6)) {
+                    valid = false;
+                    errorMessage = 'Trẻ em phải nhỏ hơn 16 tuổi và lớn hơn hoặc bằng 6 tuổi.';
+                    } else if (type === 'baby' && age >= 6) {
+                    valid = false;
+                    errorMessage = 'Em bé phải nhỏ hơn 6 tuổi.';
+                    }
+                    if (!valid) {
+                        alert(errorMessage);
+                        input.value = '';
+                    }
+
+                    return valid;
+                }
+
+                function increaseValue1() {
+            var value = parseInt(document.getElementById('quantityInput1').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('quantityInput1').value = value;
+            addAdultInfoField(value);
+            updateNumOfAdults(value);
+        }
+
+        function decreaseValue1() {
+            var value = parseInt(document.getElementById('quantityInput1').value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 0) {
+                removeAdultInfoField(value);
+                value--;
+                document.getElementById('quantityInput1').value = value;
+                updateNumOfAdults(value);
+            }
+        }
+
+        function updateNumOfAdults(value) {
+            document.getElementById('num_of_adults').value = value;
+        }
+
+        function increaseValue2() {
+            var value = parseInt(document.getElementById('quantityInput2').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('quantityInput2').value = value;
+            addChildrenInfoField(value);
+            updateNumOfChildren(value);
+        }
+
+        function decreaseValue2() {
+            var value = parseInt(document.getElementById('quantityInput2').value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 0) {
+                removeChildrenInfoField(value);
+                value--;
+                document.getElementById('quantityInput2').value = value;
+                updateNumOfChildren(value);
+            }
+        }
+
+        function updateNumOfChildren(value) {
+            document.getElementById('num_of_children').value = value;
+        }
+
+        function increaseValue3() {
+            var value = parseInt(document.getElementById('quantityInput3').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('quantityInput3').value = value;
+            addBabyInfoField(value);
+            updateNumOfBaby(value);
+        }
+
+        function decreaseValue3() {
+            var value = parseInt(document.getElementById('quantityInput3').value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 0) {
+                removeBabyInfoField(value);
+                value--;
+                document.getElementById('quantityInput3').value = value;
+                updateNumOfBaby(value);
+            }
+        }
+        function updateNumOfBaby(value) {
+            document.getElementById('num_of_baby').value = value;
+        }
+
+        function addAdultInfoField(numAdults) {
+            var container = document.getElementById('adult-container');
+            var div = document.createElement('div');
+            div.className = 'col-12 mb-3';
+            div.id = 'adult-info-' + numAdults;
+            div.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <input style="height: 50px;" type="text" class="form-control" placeholder="Họ và tên" name="adult_fname_${numAdults}" required>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <div class="form-group">
+                            <select style="height: 50px;" class="form-select" name="adult_gender_${numAdults} placeholder="Giới tính" required>
+                                <option th:value="null" disabled selected >Giới tính</option>
+                                <option th:value="true">Nam</option>
+                                <option th:value="false">Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <div class="input-wrapper">
+                                <input style="height: 50px;" type="date" class="form-control" placeholder="Ngày sinh" name="adult_birthday_${numAdults}" required>
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <input style="height: 50px;" type="text" class="form-control" placeholder="CMND/CCCD" name="adult_id_${numAdults}" required>
+                        </fieldset>
+                    </div>
+                    <input type="hidden" name="adult_type_${numAdults}" value="Adult">
+                </div>
+            `;
+            container.appendChild(div);
+
+            const birthdayInput = div.querySelector(`input[name="adult_birthday_${numAdults}"]`);
+                birthdayInput.addEventListener('blur', function() {
+                validateAge(this, 'adult');
+            });
+        }
+
+        function removeAdultInfoField(numAdults) {
+            var container = document.getElementById('adult-container');
+            var div = document.getElementById('adult-info-' + numAdults);
+            if (div) {
+                container.removeChild(div);
+            }
+        }
+
+function addChildrenInfoField(numChildren) {
+            var container = document.getElementById('children-container');
+            var div = document.createElement('div');
+            div.className = 'col-12 mb-3';
+            div.id = 'children-info-' + numChildren;
+            div.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <input style="height: 50px;" type="text" class="form-control" placeholder="Họ và tên" name="children_fname_${numChildren}" required>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <div class="form-group">
+                            <select style="height: 50px;" class="form-select" name="children_gender_${numChildren}" required>
+                                <option>Giới tính</option>
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <div class="input-wrapper">
+                                <input style="height: 50px;" type="date" class="form-control" placeholder="Ngày sinh" name="children_birthday_${numChildren}" required>
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <input style="height: 50px;" type="text" class="form-control"  name="children_id_${numChildren}" value="0" readonly><!--placeholder="CMND/CCCD"-->
+                        </fieldset>
+                    </div>
+                    <input type="hidden" name="children_type_${numChildren}" value="Child">
+
+                </div>
+            `;
+            container.appendChild(div);
+
+            const birthdayInput = div.querySelector(`input[name="children_birthday_${numChildren}"]`);
+                birthdayInput.addEventListener('blur', function() {
+                validateAge(this, 'children');
+            });
+        }
+
+        function removeChildrenInfoField(numChildren) {
+            var container = document.getElementById('children-container');
+            var div = document.getElementById('children-info-' + numChildren);
+            if (div) {
+                container.removeChild(div);
+            }
+        }
+
+        function addBabyInfoField(numBaby) {
+            var container = document.getElementById('baby-container');
+            var div = document.createElement('div');
+            div.className = 'col-12 mb-3';
+            div.id = 'baby-info-' + numBaby;
+            div.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <input style="height: 50px;" type="text" class="form-control" placeholder="Họ và tên" name="baby_fname_${numBaby}" required>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <div class="form-group">
+                            <select style="height: 50px;" class="form-select" name="baby_gender_${numBaby}" required>
+                                <option>Giới tính</option>
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <div class="input-wrapper">
+                                <input style="height: 50px;" type="date" class="form-control" placeholder="Ngày sinh" name="baby_birthday_${numBaby}" required>
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6 col-12" style="">
+                        <fieldset class="form-group">
+                            <input style="height: 50px;" type="text" class="form-control"  name="baby_id_${numBaby}" value="0" readonly><!--placeholder="CMND/CCCD"-->
+                        </fieldset>
+                    </div>
+                    <input type="hidden" name="baby_type_${numBaby}" value="Baby">
+
+                </div>
+            `;
+            container.appendChild(div);
+
+            const birthdayInput = div.querySelector(`input[name="baby_birthday_${numBaby}"]`);
+                birthdayInput.addEventListener('blur', function() {
+                validateAge(this, 'baby');
+            });
+        }
+
+        function removeBabyInfoField(numBaby) {
+            var container = document.getElementById('baby-container');
+            var div = document.getElementById('baby-info-' + numBaby);
+            if (div) {
+                container.removeChild(div);
+            }
+        }
+
+
+            </script>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thêm phiếu đặt chỗ mới', subtitle='Tất cả chuyến du lịch &gt; ' + ${trip.tourDto.tourName} + ' &gt; Thêm phiếu đặt chỗ mới')"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class="card" style="margin: 0 25px;">
+            <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
+                <a th:href="@{/add-new-booking-information/{id}(id=${trip.id})}" type="button" class=" custom-btn " style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
+                    Thông tin liên hệ
+                </a>
+                <a th:href="@{/add-new-booking-passenger/{id}(id=${trip.id})}" type="button" class="custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-people-fill" style="display: flex; margin-right: 10px;"></i>
+                    Hành khách
+                </a>
+                <a th:href="@{/add-new-booking-payment/{id}(id=${trip.id})}" type="button" class=" custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-credit-card" style="display: flex; margin-right: 10px;"></i>
+                    Thanh toán
+                </a>
+
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <form class="form" th:action="@{/add-new-booking-passenger/{id}(id=${trip.id})}" th:object="${bookingDto}" method="post">
+                        <div class="row">
+                            <div class="col-12" style="">
+
+                                <div class="form-group">
+
+                                    <div style="">
+                                        <h5 name="check">Số lượng hành khách</h5></div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div id="adult-info-container"  class="row">
+                                    <div class="form-container">
+                                        <input type="hidden" id="num_of_adults" name="num_of_adults" value="0">
+
+                                        <!-- Phần chứa text bên trái -->
+                                        <div class="left-text">
+                                            <div style="font-weight:bold">Người lớn</div>
+                                            <div style="font-size: 14px">Từ 16 tuổi</div>
+                                        </div>
+                                        <!-- Phần chứa 3 ô vuông bên phải -->
+                                        <div class="" style="margin-top:10px">
+                                            <button type="button" class="btn btn-primary me-1 mb-1" style="width: 40px; height:40px" onclick="decreaseValue1()">-</button>
+                                            <input id="quantityInput1" style="width:40px; height: 40px; border-radius: 5px; border-color: #ced4da;" min="0" value="0" type="number" readonly>
+                                            <button type="button" class="btn btn-primary me-1 mb-1" style="width:40px; height: 40px" onclick="increaseValue1()">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-container">
+                                        <input type="hidden" id="num_of_children" name="num_of_children" value="0">
+                                        <!-- Phần chứa text bên trái -->
+                                        <div class="left-text">
+                                            <div style="font-weight: bold">Trẻ em</div>
+                                            <div style="font-size:14px">Từ 6-16 tuổi</div>
+                                        </div>
+                                        <!-- Phần chứa 3 ô vuông bên phải -->
+                                        <div class="" style="margin-top:10px">
+                                            <button type="button" class="btn btn-primary me-1 mb-1" style="width: 40px; height:40px" onclick="decreaseValue2()">-</button>
+                                            <input id="quantityInput2" style="width:40px; height: 40px; border-radius: 5px; border-color: #ced4da;" min="0" value="0" type="number" readonly>
+
+                                            <button type="button" class="btn btn-primary me-1 mb-1" style="width:40px; height: 40px" onclick="increaseValue2()">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-container">
+                                        <input type="hidden" id="num_of_baby" name="num_of_baby" value="0">
+                                        <!-- Phần chứa text bên trái -->
+                                        <div class="left-text">
+                                            <div style="font-weight:bold">Em bé</div>
+                                            <div style="font-size:14px">Dưới 6 tuổi</div>
+                                        </div>
+                                        <!-- Phần chứa 3 ô vuông bên phải -->
+                                        <div class="" style="margin-top:10px">
+                                            <button type="button" class="btn btn-primary me-1 mb-1" style="width: 40px; height:40px" onclick="decreaseValue3()">-</button>
+                                            <input id="quantityInput3" style="width:40px; height: 40px; border-radius: 5px; border-color: #ced4da;" min="0" value="0" type="number" readonly>
+                                            <button type="button" class="btn btn-primary me-1 mb-1" style="width:40px; height: 40px" onclick="increaseValue3()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12" style="">
+                                <div class="form-group">
+
+                                    <div class="mt-4 mb-2">
+                                        <h5 name="check">Thông tin hành khách</h5></div>
+                                </div>
+                            </div>
+
+
+                            <div class="mini-card col-12">
+                                <div class="mb-3" id="adult-container" >
+                                    <p class="mb-3"  style="padding-bottom: 10px">Người lớn </p>
+                                </div>
+                            </div>
+
+                            <div class="mini-card col-12" style="margin-top: 10px">
+                                <div class="mb-3" id="children-container" >
+                                    <p class="mb-3"  style="padding-bottom: 10px">Trẻ em </p>
+                                </div>
+                            </div>
+
+                            <div class="mini-card col-12" style="margin-top: 10px">
+                                <div class="mb-3" id="baby-container" >
+                                    <p class="mb-3"  style="padding-bottom: 10px">Em bé </p>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end" style="margin-top:10px">
+                                <a th:href="@{/information/{id}(id=${trip.id})}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>

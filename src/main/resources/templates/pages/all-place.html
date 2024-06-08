@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        th{
+            color: #b3b3b8 !important;
+        }
+
+        td{
+            color: black !important;
+        }
+
+        .pd{
+            padding: 20px !important;
+        }
+
+        .input-style{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-style{
+            display: flex;
+            align-items: center;
+            margin: 0px !important;
+            height: 42px;
+            padding: 0 25px;
+            color: white;
+            background-color: #52a6f3;
+        }
+        .page-link{
+            background-color: white !important;
+            color: #52A6F3 !important;
+        }
+
+        .page-item + .page-item{
+            padding-left: 5px;
+        }
+
+        .discount{
+            width: 47px;
+            height: 24px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ecf9f3;
+            color: #5fcd9e;
+            margin-left: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Tất cả địa điểm', subtitle='Thông tin tất cả địa điểm')"></span>
+    <section class="section">
+    <div class = "col-12">
+        <div class="card">
+            <form th:action="@{/all-place}">
+                <div class="card-header input-style">
+                    <div class="form-group position-relative has-icon-left">
+                        <input id="keyword" type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Tìm kiếm địa điểm du lịch" style="width: 400px; height: 42px">
+                        <div class="form-control-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <a th:href="@{add-new-place}" class="btn btn-block btn-xl btn-outline-primary font-bold mt-3 btn-style">
+                            <i class="bi bi-plus-circle" style="display: flex; padding-right: 30px;"></i>
+                            Thêm địa điểm mới
+                        </a>
+                    </div>
+                </div>
+            </form>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-lg">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên địa điểm</th>
+                            <th>Mã địa điểm</th>
+                            <th>Địa chỉ</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="place, stat : ${places}">
+                            <tr>
+                                <td class="col-1 pd border-left-choose active">
+                                    <div class="d-flex align-items-center">
+                                        <p th:text="${stat.count}"></p>
+                                    </div>
+                                </td>
+                                <td class="col-3 pd" style="">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar avatar-md">
+                                            <img th:if="${place.images != null and place.images.length > 0}" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${place.images[0]}" />
+                                            <img th:unless="${place.images != null and place.images.length > 0}" src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg" />
+                                        </div>
+                                        <p class="font-bold ms-3 mb-0" th:text="${place.nameLocation}"></p>
+                                    </div>
+                                </td>
+                                <td class="col-auto pd">
+                                    <div class="d-flex align-items-center" th:text="${place.code}"/>
+                                </td>
+                                <td class="col-4 pd">
+                                    <div class="d-flex align-items-center" th:text="${place.address}"/>
+                                </td>
+                                <td class="col-auto pd">
+                                    <div style="color: black; cursor: pointer;">
+                                        <a th:href="@{/all-place/{placeId}(placeId=${place.id})}"><i class="bi bi-eye" style="padding-right: 5px;"></i></a>
+                                        <a th:href="@{/all-place/{placeId}/edit(placeId=${place.id})}"><i class="bi bi-pencil" style="padding-right: 5px;"></i></a>
+                                        <a th:href="@{/all-place/{placeId}/delete(placeId=${place.id})}"><i class="bi bi-trash3"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+
+                        </tbody>
+                    </table>
+                </div>
+<!--                <div class="dataTable-bottom" style="-->
+<!--                            display: flex;-->
+<!--                            align-items: center;-->
+<!--                            justify-content: space-between;-->
+<!--                    ">-->
+<!--                    <div></div>-->
+<!--                    <nav class="dataTable-pagination">-->
+<!--                        <ul class="dataTable-pagination-list pagination pagination-primary" style="margin: 0;">-->
+<!--                            <li class="pager page-item">-->
+<!--                                <a href="#" data-page="2" class="page-link"><</a>-->
+<!--                            </li>-->
+<!--                            <li class="active page-item">-->
+<!--                                <a href="#" data-page="1" class="page-link">1</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a href="#" data-page="2" class="page-link">2</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a href="#" data-page="3" class="page-link">3</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a href="#" data-page="4" class="page-link">4</a>-->
+<!--                            </li>-->
+<!--                            <li class="pager page-item">-->
+<!--                                <a href="#" data-page="2" class="page-link">></a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

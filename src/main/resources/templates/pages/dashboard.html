@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>AdvenTour - Trang quản lý du lịch</title>
     <style>
         .jsc-between{
             justify-content: space-between !important;
@@ -75,7 +75,7 @@
         }
 
         .accept{
-            background-color: #fef9e9;
+            background-color: #ecf9f3;
             border-radius: 4px;
             font-size: 14px;
             height: 28px;
@@ -389,462 +389,246 @@
     </style>
 </head>
 <body>
-<section class="section" layout:fragment="content">
-    <div class="row">
-        <div class = "col-12 col-lg-8">
-            <div class="column">
-                <div class = "row">
-                    <div class="col-6 col-lg-6 col-md-6 pl-35">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi-people-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
+<div class="page-heading" layout:fragment="content">
+    <span th:include="fragments/header :: header (pageTitle='Xin chào, Như 👋🏻', subtitle='Chào buổi sáng')"></span>
+    <section class="section">
+        <div class="row">
+            <div class = "col-12 col-lg-8">
+                <div class="column">
+                    <div class = "row">
+                        <div class="col-6 col-lg-6 col-md-6 pl-35">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi-people-fill icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
                                                 Tổng khách hàng
+                                            </div>
+                                        </div>
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${totalCustomers}"></h6>
+                                            <!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+                                            <!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+                                            <!--                                            <div class = "setting percent-content">-->
+                                            <!--                                                12%-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
                                         </div>
                                     </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting">560</h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
+                                </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi bi-cash-coin icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
+                                                Doanh thu 30 ngày gần nhất
+                                            </div>
+                                        </div>
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${totalRevenue}"></h6>
+                                            <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
+                                                <i class="bi-arrow-up-circle-fill setting icon-content"></i>
+                                                <div class = "setting percent-content">
+                                                    12%
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-6 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi-people-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
-                                            Tổng khách hàng
-                                        </div>
-                                    </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting">560</h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
+                    <div class = "row">
+                        <div class="col-6 col-lg-6 col-md-6 pl-35">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi bi-luggage-fill icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
+                                                Chuyến đi hôm nay
                                             </div>
+                                        </div>
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${todayTrips}"></h6>
+                                            <!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+                                            <!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+                                            <!--                                            <div class = "setting percent-content">-->
+                                            <!--                                                12%-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
                                         </div>
                                     </div>
                                 </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
                             </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                        </div>
+                        <div class="col-6 col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
+                                    <div class="column">
+                                        <div class="row setting pl-13">
+                                            <i class="bi bi-ticket-perforated-fill icon-main-page"></i>
+                                            <div class = "font-lexend width_75">
+                                                Tổng vé bán ra
+                                            </div>
+                                        </div>
+                                        <div class="row setting mg-t-10 jsc-between">
+                                            <h6 class="text width_25 setting" th:text="${totalTickets}"></h6>
+                                            <!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+                                            <!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+                                            <!--                                            <div class = "setting percent-content">-->
+                                            <!--                                                12%-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class = "time-update font-lexend" th:text="${updatedTime}">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class = "row">
-                    <div class="col-6 col-lg-6 col-md-6 pl-35">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi-people-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
-                                            Tổng khách hàng
-                                        </div>
-                                    </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting">560</h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
-                            </div>
+                <div class = "column">
+                    <div class="card ml-24">
+                        <div class="card-header">
+                            <h4 style="font-size: 24px; margin-left: 24px;">Mới đặt chỗ</h4>
                         </div>
-                    </div>
-                    <div class="col-6 col-lg-6 col-md-6">
-                        <div class="card">
-                            <div class="card-body px-4 py-4-5" style=" padding-bottom: 10px !important;">
-                                <div class="column">
-                                    <div class="row setting pl-13">
-                                        <i class="bi-people-fill icon-main-page"></i>
-                                        <div class = "font-lexend width_75">
-                                            Tổng khách hàng
-                                        </div>
-                                    </div>
-                                    <div class="row setting mg-t-10 jsc-between">
-                                        <h6 class="text width_25 setting">560</h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-lg">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên tuyến</th>
+                                        <th>Số vé</th>
+                                        <th>Loại</th>
+                                        <th>Trạng thái</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="dashboardBooking, stat : ${dashboardBookings}">
+                                        <tr>
+                                            <td class="col-6">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-md">
+                                                        <img th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${dashboardBooking.imageUrl}">
+                                                    </div>
+                                                    <p class="font-bold ms-3 mb-0" th:text="${dashboardBooking.tourName}"></p>
+                                                </div>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class=" mb-0" th:text="${dashboardBooking.numberPass}"></p>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class=" mb-0" th:text="${dashboardBooking.typeOfTour}"></p>
+                                            </td>
+                                            <td class="col-auto">
+                                                <p class="mb-0 setting"
+                                                   th:text="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'Đang chờ' :
+                                                        (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'Đã hủy' :
+                                                        (${dashboardBooking.statusOfBooking == 'COMPLETED'} ? 'Hoàn thành' : ''))"
+                                                   th:classappend="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'waiting' :
+                                                                (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'cancel' :
+                                                                (${dashboardBooking.statusOfBooking == 'COMPLETED'} ? 'accept' : ''))">
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class = "column">
-                <div class="card ml-24">
+            <div class = "col-12 col-lg-4">
+                <div class="calendar" style="box-shadow: none !important;">
                     <div class="card-header">
-                        <h4 style="font-size: 24px;">Mới đặt chỗ</h4>
+                        <h4 style="font-size: 22px;height: 40px;display: flex;flex-direction: row;flex-wrap: wrap;align-content: center;padding-top: 20px;margin-left: 20px;">Chuyến đi trong tháng</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-lg">
-                                <thead>
-                                <tr>
-                                    <th>Tên tuyến</th>
-                                    <th>Số vé</th>
-                                    <th>Loại</th>
-                                    <th>Trạng thái</th>
+                    <!-- CALENDAR HEADER START -->
+                    <div class="calendar-header">
+                        <span class="month-picker" id="month-picker">Tháng 6</span>
+                        <div class="year-picker">
+                            <span id="year" style="color: #52a6f3 !important;">2024</span>
+                        </div>
+                    </div>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture1.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
+                    <!-- CALENDAR BODY START -->
+                    <div class="calendar-body">
+                        <div class="calendar-week-day">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="calendar-day">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div th:each="day : ${#numbers.sequence(1, 30)}">
+                                <div  th:classappend="${#lists.contains(tripDays, day)} ? 'calendarDayHover currDate' : 'calendarDayHover'">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <div th:text="${day}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="month-list"><div><div>January</div></div><div><div>February</div></div><div><div>March</div></div><div><div>April</div></div><div><div>May</div></div><div><div>June</div></div><div><div>July</div></div><div><div>August</div></div><div><div>September</div></div><div><div>October</div></div><div><div>November</div></div><div><div>December</div></div></div>
+                    <div class="card" style="margin-bottom: 0px !important;">
+                        <div class="card-header">
+                            <h4>Giao dịch gần đây</h4>
+                        </div>
+                        <div class="card-content">
+                            <th:block th:each="recentPaying, state: ${recentPayings}">
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="avatar avatar-lg setting border-style">
+                                        <h4 th:text="${#temporals.format(recentPaying.datePaid, 'HH:mm')}"></h4>
+                                    </div>
+                                    <div class="name ms-4 setting" style="
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: flex-start;
+                                    flex-wrap: wrap;
+                            ">
+                                        <div class="mb-1" style="color: black;" th:text="${recentPaying.nameCustomer}"></div>
+                                        <div class="d-flex">
+                                            <h6 class="text-muted mb-0" style="color: #52a6f3 !important;" th:text="${recentPaying.paidAmount}"></h6>
+                                            <h6 class="text-muted mb-0"  style="color: #52a6f3 !important;" >đ</h6>
                                         </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 cancel setting">Đã hủy</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture2.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Hà Nội - Bái Đính - Khu Du Lịch Tràng An - Bái Đính - Hạ Long - Yên Tử</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 waiting setting">Đang chờ</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture3.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Phan Thiết - Mũi Né - KDL Núi Tà Cú - Đồi Cát Bay - Resort tương đương 4*</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 accept setting">Hoàn tất</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture1.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 cancel setting">Đã hủy</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-md">
-                                                <img src="/compiled/jpg/picture1.jpg">
-                                            </div>
-                                            <p class="font-bold ms-3 mb-0">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</p>
-                                        </div>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">1</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class=" mb-0">Nước ngoài</p>
-                                    </td>
-                                    <td class="col-auto ">
-                                        <p class=" mb-0 cancel setting">Đã hủy</p>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    </div>
+                                </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class = "col-12 col-lg-4">
-            <div class="calendar">
-                <div class="card-header">
-                    <h4 style="font-size: 22px;height: 40px;display: flex;flex-direction: row;flex-wrap: wrap;align-content: center;padding-top: 20px;margin-left: 20px;">Chuyến đi trong tháng</h4>
-                </div>
-                <!-- CALENDAR HEADER START -->
-                <div class="calendar-header">
-                    <span class="month-picker" id="month-picker">March</span>
-                    <div class="year-picker">
-                <span class="year-change mt-3" id="prev-year">
-                    <pre> &lt; </pre>
-                </span>
-                        <span id="year">2024</span>
-                        <span class="year-change mt-3" id="next-year">
-                    <pre> &gt; </pre>
-                </span>
-                    </div>
+    </section>
+</div>
 
-
-                </div>
-
-                <!-- CALENDAR BODY START -->
-                <div class="calendar-body">
-                    <div class="calendar-week-day">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="calendar-day"><div></div><div></div><div></div><div></div><div></div><div class="calendarDayHover">1<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">2<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">3<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">4<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">5<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">6<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">7<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">8<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">9<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">10<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">11<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">12<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">13<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">14<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">15<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">16<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">17<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">18<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">19<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">20<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">21<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">22<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover currDate">23<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">24<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">25<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">26<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">27<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">28<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">29<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">30<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div><div class="calendarDayHover">31<span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span></div></div>
-                </div>
-                <div class="month-list"><div><div>January</div></div><div><div>February</div></div><div><div>March</div></div><div><div>April</div></div><div><div>May</div></div><div><div>June</div></div><div><div>July</div></div><div><div>August</div></div><div><div>September</div></div><div><div>October</div></div><div><div>November</div></div><div><div>December</div></div></div>
-                <div class="card" style="margin-bottom: 0px !important;">
-                    <div class="card-header">
-                        <h4>Giao dịch gần đây</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg setting border-style">
-                                <h4>09:30</h4>
-                            </div>
-                            <div class="name ms-4 setting" style="
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    align-items: flex-start;
-                                    flex-wrap: wrap;
-                            ">
-                                <div class="mb-1" style="color: black;">Nguyễn Văn A</div>
-                                <h6 class="text-muted mb-0" style="color: #52a6f3 !important;">12,450,000đ</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <script src="/compiled/js/script.js"></script>
 </body>

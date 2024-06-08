@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .custom-btn{
+            border: none;
+            background-color: white;
+            margin-right:20px;
+        }
+
+        .active-custom{
+            color: #52a6f3;
+            border-bottom: 4px solid #52a6f3;
+        }
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thêm tuyến du lịch mới', subtitle='Tất cả tuyến du lịch &gt; Thêm tuyến du lịch mới')"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class="card" style="margin: 0 25px;">
+            <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
+                <button type="button" class=" custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
+                    Thông tin tuyến
+                </button>
+                <button type="button" class="custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-map" style="display: flex; margin-right: 10px;"></i>
+                    Chi tiết lịch trình
+                </button>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    <form role="form" method="post" class="form" th:action="@{/add-tour}" th:object="${tour}">
+                        <div class="row">
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input style="height: 50px;"
+                                           type="text"
+                                           id="first-name-column"
+                                           class="form-control"
+                                           placeholder="Tên tuyến du lịch"
+                                           name="fname-column"
+                                           th:field="*{tourName}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group" >
+                                    <select style="height: 50px;" class="form-select"
+                                            th:field="*{typeOfTour}">
+                                        <option th:value="null" selected>Chọn loại tuyến</option>
+                                        <option th:value="'Trong nước'" th:text="'Trong nước'"></option>
+                                        <option th:value="'Nước ngoài'" th:text="'Nước ngoài'"></option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group" >
+                                    <select style="height: 50px;" class="form-select"
+                                            th:field="*{departureLocation}">
+                                        <option th:value="null" selected>Chọn nơi khởi hành</option>
+                                        <option th:value="'Hà Nội'" th:text="'Hà Nội'"></option>
+                                        <option th:value="'TP HCM'" th:text="'TP HCM'"></option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <fieldset class="form-group">
+                                    <select style="height: 50px;" class="form-select" id="basicSelect2" th:field="*{numberOfDays}">
+<!--                                        <option>Số ngày đêm</option>-->
+                                        <option th:value="null" selected>Chọn số ngày đêm</option>
+                                        <option th:value='2'>2 ngày 1 đêm</option>
+                                        <option th:value='3'>3 ngày 2 đêm</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <input style="height: 50px;"
+                                           type="text"
+                                           id="company-column"
+                                           class="form-control"
+                                           name="company-column"
+                                           placeholder="Giá vé dự kiến"
+                                           th:field="*{estimatedPrice}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-end">
+                                <a th:href="@{/all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+<!--                                <a th:href="@{/add-schedule(tour=${tour})}" class="btn btn-light-secondary me-1 mb-1">Tiếp tục</a>-->
+                                <button type="submit" class="btn btn-primary me-1 mb-1">Tiếp tục</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .custom-btn{
+            border: none;
+            background-color: white;
+            margin-right:20px;
+        }
+
+        .active-custom{
+            color: #52a6f3;
+            border-bottom: 4px solid #52a6f3;
+        }
+        .border-style{
+            height: 60px;
+            padding-left: 16px;
+            border-left: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right bottom, #abd4f9, #0085ff);
+        }
+
+        .place-content{
+            margin-left: 25px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .convenience{
+            display: flex;
+            margin-top: 15px;
+            margin-left: 25px;
+            align-items: center;
+        }
+
+        .func-btn{
+            background-color: #52a6f3;
+            color: white;
+            font-size: 14px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            border-radius: 5px;
+            padding: 0px 8px;
+        }
+
+        .day-element{
+            width: 100%;
+            margin-left: 15px;
+            font-size: 14px;
+            margin-top: 10px;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .add-btn{
+            margin-right: 20px;
+            font-size: 14px;
+            color: #93c8f8;
+            cursor: pointer;
+            border: none !important;
+        }
+
+        .setting-icon{
+           display: flex;
+           margin-right: 10px;
+           cursor: pointer;
+        }
+        .info-place p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Chỉnh sửa tuyến du lịch', subtitle='')"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class="card" style="margin: 0 25px;">
+            <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
+                <button type="button" class=" custom-btn" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
+                    Thông tin tuyến
+                </button>
+                <button type="button" class="custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
+                    <i class="bi bi-map" style="display: flex; margin-right: 10px;"></i>
+                    Chi tiết lịch trình
+                </button>
+            </div>
+
+
+            <div class="row" style="margin-top: 30px; margin-left: 15px; margin-right: 15px;">
+                <div class="col-4" th:each="day : ${days}">
+                    <div class = "card" style="border: 1px solid #e8e8ea;display:flex;align-items: center;padding-bottom: 10px;">
+                        <div class="day-element">
+                            <div style="display: flex; align-items: center;">
+                                <i class="bi bi-circle-fill" style="display: flex; align-items: center; font-size:10px; color:#3fc28a; "></i>
+                                <p class="mb-0" th:text="'Ngày ' + ${day}"></p>
+                            </div>
+                            <button type="button" class="add-btn btn btn-outline-primary block" data-bs-toggle="modal" th:data-bs-target="'#modal' + ${day}">
+                                Thêm
+                            </button>
+                            <div class="modal fade text-left" th:id="'modal' + ${day}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                    <div class="modal-content" style="min-width: 590px">
+                                        <form role="form" method="post" class="form" th:action="@{/add-schedule/{day}(day=${day})}" th:object="${data}">
+                                            <div class="modal-header">
+                                                <!--                                                <h5 class="modal-title" id="myModalLabel2">Thêm lịch trình</h5>-->
+                                                <p class="mb-0" th:text="'Ngày ' + ${day}"></p>
+                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-12" style="margin-bottom: 15px;">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group" >
+                                                            <select style="height: 50px;" class="form-select"
+                                                                    th:field="*{schedule.startLocation.id}">
+                                                                <option th:each="location : ${locations}"
+                                                                        th:value="${location.id}"
+                                                                        th:text="${location.nameLocation}"></option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12" style="margin-bottom: 15px;">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group" >
+                                                            <select style="height: 50px;" class="form-select"
+                                                                    th:field="*{schedule.endLocation.id}">
+                                                                <option th:each="location : ${locations}"
+                                                                        th:value="${location.id}"
+                                                                        th:text="${location.nameLocation}"></option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="row" style="display: flex; justify-content: center; margin-bottom: 10px;">
+                                                            <div class="col-5" style="min-width: 275px;" >
+                                                                <div style="font-size: 16px;">
+                                                                    Phương tiện
+                                                                </div>
+                                                                <div class="row" style="border: 1px dashed #52a6f3;border-radius: 5px;min-height: 110px;margin-left: 0px;margin-top: 10px; ">
+                                                                    <textarea  placeholder="Nhập mỗi phương tiện trên 1 dòng"
+                                                                               class="form-control"
+                                                                               name="city-column"
+                                                                               th:field="*{schedule.vehicles[0]}"
+                                                                               style="height: 150px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-5" style="min-width: 275px;" >
+                                                                <div style="font-size: 16px;">
+                                                                    Nhà hàng
+                                                                </div>
+                                                                <div class="row" style="border: 1px dashed #52a6f3;border-radius: 5px;min-height: 110px;margin-left: 0px;margin-top: 10px; ">
+                                                                    <textarea  placeholder="Nhập mỗi nhà hàng trên 1 dòng"
+                                                                               class="form-control"
+                                                                               name="city-column"
+                                                                               th:field="*{schedule.restaurants[0]}"
+                                                                               style="height: 150px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="display: flex; justify-content: center;">
+                                                            <div class="col-5" style="min-width: 275px;" >
+                                                                <div style="font-size: 16px;">
+                                                                    Khách sạn
+                                                                </div>
+                                                                <div class="row" style="border: 1px dashed #52a6f3;border-radius: 5px;min-height: 110px;margin-left: 0px;margin-top: 10px; ">
+                                                                    <textarea  placeholder="Nhập mỗi khách sạn trên 1 dòng"
+                                                                               class="form-control"
+                                                                               name="city-column"
+                                                                               th:field="*{schedule.hotels[0]}"
+                                                                               style="height: 150px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-5" style="min-width: 275px;" >
+                                                                <div style="font-size: 16px;">
+                                                                    Dịch vụ khác
+                                                                </div>
+                                                                <div class="row" style="border: 1px dashed #52a6f3;border-radius: 5px;min-height: 110px;margin-left: 0px;margin-top: 10px; ">
+                                                                    <textarea  placeholder="Nhập mỗi dịch vụ khác trên 1 dòng"
+                                                                               class="form-control"
+                                                                               name="city-column"
+                                                                               th:field="*{schedule.otherServices[0]}"
+                                                                               style="height: 150px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn" data-bs-dismiss="modal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Hủy</span>
+                                                </button>
+                                                <button type="submit" class="btn btn-primary ms-1">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Lưu</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:each="schedule, scheduleIndex : ${data.tour.schedules}"
+                             th:if="${schedule.dayOfSchedule} == ${day}"
+                             class = "card col-10 mb-1 pb-3" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                            <div class = "place-content border-style">
+                                <div>
+                                    <div class = "info-place">
+                                        <p class="mb-0" th:text="${schedule.startLocation.nameLocation}"></p>
+                                    </div>
+                                    <span style="font-size: 12px; color: #bcbbc1;">
+                                            Đến
+                                        </span>
+                                    <div class = "info-place">
+                                        <p class="mb-0" th:text="${schedule.endLocation.nameLocation}"></p>
+                                    </div>
+                                </div>
+                                <div class="setting-icon">
+                                    <form th:action="@{/deleteSchedule}" method="post">
+                                        <input type="hidden" name="scheduleIndex" th:value="${scheduleIndex.index}">
+                                        <button class="btn" type="submit">
+                                            <i class="bi bi-trash" style="display: flex; align-items: center;"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div th:if="${schedule.vehicles != null and !schedule.vehicles.isEmpty()}" class="convenience">
+                                <i class="bi bi-truck" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                <div style="display: flex;">
+                                    <div th:each="vehicle : ${schedule.vehicles}" class="func-btn">
+                                        <p class="mb-0" th:text="${vehicle}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${schedule.restaurants != null and !schedule.restaurants.isEmpty()}" class="convenience">
+                                <i class="bi bi-cup-hot" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                <div style="display: flex;">
+                                    <div th:each="restaurant : ${schedule.restaurants}" class="func-btn">
+                                        <p class="mb-0" th:text="${restaurant}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${schedule.hotels != null and !schedule.hotels.isEmpty()}" class="convenience">
+                                <i class="bi bi-building" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                <div style="display: flex;">
+                                    <div th:each="hotel : ${schedule.hotels}" class="func-btn">
+                                        <p class="mb-0" th:text="${hotel}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${schedule.otherServices != null and !schedule.otherServices.isEmpty()}" class="convenience">
+                                <i class="bi bi-basket2" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                <div style="display: flex;">
+                                    <div th:each="service : ${schedule.otherServices}" class="func-btn">
+                                        <p class="mb-0" th:text="${service}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form role="form" method="post" class="form" th:action="@{/save-tour}">
+                <div class="col-12 d-flex justify-content-end" style="padding-bottom: 30px; padding-left: 15px; padding-right: 15px;">
+                    <a th:href="@{/all-tour}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                    <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .ticket-frame {
+            height: 700px;
+            display: block;
+            width: 70%;
+            padding: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url(/compiled/png/ticket_bg.png);
+            background-size: 100% 100%;
+            background-position: center;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<section class="section" layout:fragment="content">
+    <div class="col-12">
+        <div class="row" style="margin-top: 30px; margin-left: 15px; margin-right: 15px;">
+            <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter">
+                Launch Modal
+            </button>
+            <!-- Vertically Centered modal Modal -->
+            <div class="modal fade modal-borderless" id="exampleModalCenter" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                     role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin vé
+                            </h5>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card ticket-frame">
+                                <div class="card-header p-1 h-25">
+                                    <img alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3" src="/compiled/jpg/building.jpg">
+                                </div>
+                                <div class="card-body p-2">
+                                    <h6 class="text-start mt-3">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</h6>
+                                    <div class="row py-3">
+                                        <div class="col-6">
+                                            <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại</h6>
+                                            <p class="fw-medium text-start mb-0 text-black">Người lớn</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Thời gian</h6>
+                                            <p class="fw-medium text-start mb-0 text-black">04/05/2024</p>
+                                        </div>
+                                    </div>
+                                    <div class="row py-3">
+                                        <div class="col-6">
+                                            <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Hành khách</h6>
+                                            <p class="fw-medium text-start mb-0 text-black">Lê Bảo Như</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Số CMND/CCCD</h6>
+                                            <p class="fw-medium text-start mb-0 text-black">079303041236</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <img class="mt-5" id="barcode" src="https://api.qrserver.com/v1/create-qr-code/?data=TSK-XXX-XX&amp;size=100x100" alt="" title="HELLO" width="100" height="100">
+                                <h6 class="fw-bold mb-1 mt-4 text-black" style="font-size: 0.8rem;">MÃ CODE:
+                                    <span style="color: #52a6f3 !important;">TSK-XXX-XX</span></h6>
+                                <h6 class="fw-medium mb-1 mt-3 text-black" style="font-size: 0.7rem;">Vé chỉ sử dụng được
+                                    <span class="fw-bold" style="color: #52a6f3 !important;"> một lần</span> duy nhất.</h6>
+                                <h6 class="fw-medium mb-1 text-black" style="font-size: 0.7rem;">Vui lòng không chia sẻ thông tin vé cho bất kỳ ai.</h6>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-secondary"
+                                    data-bs-dismiss="mvodal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Hủy</span>
+                            </button>
+                            <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">In</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

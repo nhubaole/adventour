@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .ticket-frame-small {
+            height: 120px;
+            display: block;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url(/compiled/png/ticket_bg_small.png);
+            background-size: 100% 100%;
+            background-position: center;
+            margin: auto;
+        }
+
+        .ticket-frame {
+            height: 100%;
+            display: block;
+            width: 70%;
+            padding: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url(/compiled/png/ticket_bg.png);
+            background-size: 100% 100%;
+            background-position: center;
+            margin: auto;
+        }
+
+        .empty{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .full{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            width: 105px;
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .discount{
+            width: 45px;
+            height: 25px;
+            background-color: #ecf9f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #54c997;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .addBtn{
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            background-color: #52a6f3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        .border-style{
+            height: 60px;
+            padding-left: 16px;
+            border-left: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right bottom, #abd4f9, #0085ff);
+        }
+
+        .place-content{
+            margin-left: 25px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .form-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center; /* Align items vertically centered */
+                    padding: 0px;
+                     /* Optional: add border to form-container */
+                    flex: 1;
+                    border-radius:5px;
+                    margin-left: 5px;
+                }
+
+
+                .left-text {
+                    flex: 0 1 auto;
+                    margin-right: 10px;
+                }
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thông tin phiếu đặt chỗ', subtitle='Tất cả phiếu đặt chỗ &gt; ' + ${booking.code})"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class="card">
+            <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
+                    <h6 th:text="${tour.tourName}" class="d-flex" style="text-align:left; font-size: 24px; margin-bottom: 5px;">
+                        <!--Liên tuyến : Brunei - Malaysia khám phá thành phố Miri-->
+
+                    </h6>
+
+                    <p  class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
+                        <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
+                        <span th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}">
+                           <!--04/05/2024 -->
+                        </span>
+
+
+                    </p>
+                    <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
+                        <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
+
+                        <div th:if="${trip.discount != 0}">
+                            <div th:text="${formatNumber.formatNumberWithCommas(trip.priceTicket)}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be;"></div>
+                        </div>
+                        <!--
+                                                <span th:text="${trip.priceTripFinal} + ' đ'">&lt;!&ndash;34,000,000 đ&ndash;&gt;</span>
+                        -->
+                        <span th:text="${formatNumber.formatNumberWithCommas(trip.actualPrice)} + ' đ'"><!--34,000,000 đ--></span>
+
+                        <div class="discount">
+                            <span th:text="'-' + ${trip.discount} + '%'"><!-- -50%--></span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-subtitle fw-light text-muted small" style="margin-top: 15px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: #16151C !important;">
+                            Đặt lúc&nbsp;  <span th:text="${#temporals.format(booking.bookingDate, 'HH:mm dd/MM/yyyy')}"><!--10:23 09/03/2024--></span>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;">
+                    <div class="list-group">
+                        <a th:href="@{/booking-detail-information/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action " style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin liên hệ
+                        </a>
+                        <a th:href="@{/booking-detail-passenger/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-people-fill" style="display: flex; margin-right: 20px;"></i>
+                            Hành khách
+                        </a>
+                        <a th:href="@{/booking-detail-payment/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-credit-card " style="display: flex; margin-right: 20px;"></i>
+                            Thông tin thanh toán
+                        </a>
+                        <a th:href="@{/booking-detail-ticket/{id}(id=${booking.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-ticket" style="display: flex; margin-right: 20px;"></i>
+                            Danh sách vé
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="card">
+                        <div class="card-body p-0">
+
+                            <div th:if="${booking.amountPaid < booking.totalAmount}" class="d-flex justify-content-center align-items-center" style="height: 400px;">
+                                <h6 class="fw-normal" style="font-size: 0.8rem;">Bạn cần hoàn tất thanh toán để có thể xuất vé.</h6>
+                            </div >
+
+                            <div th:if="${booking.amountPaid  >= booking.totalAmount}" class="d-flex flex-wrap">
+                                <div class="col-6 pe-3 pb-3" th:each="ticket : ${tickets}">
+                                    <div   data-bs-toggle="modal" th:data-bs-target="'#modal' + ${ticket.id}">
+                                        <div class="ticket-frame-small">
+                                            <div class="row m-0 h-100 d-flex justify-content-center align-items-center">
+                                                <div class="col-3 ">
+                                                    <img src="/compiled/png/ic_ticket.png" style="width: 40px; height: 40px;">
+                                                    <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;" th:text="${ticket.usedAt != null} ? ${ticket.usedAt} : ''"></h6>
+                                                </div>
+                                                <div class="col-9 p-3">
+                                                    <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span th:text="${ticket.code}"></span></h6>
+                                                    <h6 class="text-start" th:text="${ticket.namePassenger}"></h6>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại vé</h6>
+                                                            <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;">
+                                                                <span th:if="${ticket.passengerDto.type == 'Adult'}">Người lớn</span>
+                                                                <span th:if="${ticket.passengerDto.type == 'Child'}">Trẻ em</span>
+                                                                <span th:if="${ticket.passengerDto.type == 'Baby'}">Em bé</span>
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Tình trạng</h6>
+                                                            <h6 class="fw-normal mb-1 text-start" style="font-size: 0.8rem;"  >
+                                                                <span th:if="${ticket.statusTicket == T(com.adventour.web.enums.StatusOfTicket).USED}">Đã sử dụng</span>
+                                                                <span th:if="${ticket.statusTicket == T(com.adventour.web.enums.StatusOfTicket).UNUSED}">Chưa sử dụng</span>
+                                                                <span th:if="${ticket.statusTicket == T(com.adventour.web.enums.StatusOfTicket).CANCELLED}">Đã hủy</span>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade modal-borderless" th:id="'modal' + ${ticket.id}" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                                             role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Thông tin vé
+                                                    </h5>
+                                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card ticket-frame">
+                                                        <div class="card-header p-1 h-25">
+                                                            <!--<img alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3" th:src="@{${ticket.mainImageOfTour}}" >-->
+                                                            <img src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/7006989_Mesa_de_trabajo_1_Mesa_de_trabajo_1.png"  alt="..." class="d-block h-100 w-100 object-fit-cover border rounded-3"  >
+                                                        </div>
+                                                        <div class="card-body p-2">
+                                                            <h6 th:text="${tour.tourName}" class="d-flex" style="text-align:left; font-size: 24px; margin-bottom: 5px;">
+
+
+                                                            </h6>
+                                                            <div class="row py-3">
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Loại</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black">
+                                                                        <span th:if="${ticket.passengerDto.type == 'Adult'}">Người lớn</span>
+                                                                        <span th:if="${ticket.passengerDto.type == 'Child'}">Trẻ em</span>
+                                                                        <span th:if="${ticket.passengerDto.type == 'Baby'}">Em bé</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Thời gian</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black"th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy HH:mm')}"  ></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row py-3">
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Hành khách</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.namePassenger}"></p>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <h6 class="fw-bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Số CMND/CCCD</h6>
+                                                                    <p class="fw-medium text-start mb-0 text-black" th:text="${ticket.passengerDto.cccd}"></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class = "img-container">
+                                                            <img class="mt-5" id="barcode" th:src="'https://api.qrserver.com/v1/create-qr-code/?data=' + ${ticket.code} + '&size=100x100'" alt="" title="HELLO" width="100" height="100">
+                                                        </div>
+
+                                                        <h6 class="fw-bold mb-1 mt-4 text-black" style="font-size: 0.8rem;">MÃ CODE:
+                                                            <span style="color: #52a6f3 !important;" th:text="${ticket.code}"></span></h6>
+                                                        <h6 class="fw-medium mb-1 mt-3 text-black" style="font-size: 0.7rem;">Vé chỉ sử dụng được
+                                                            <span class="fw-bold" style="color: #52a6f3 !important;"> một lần</span> duy nhất.</h6>
+                                                        <h6 class="fw-medium mb-1 text-black" style="font-size: 0.7rem;">Vui lòng không chia sẻ thông tin vé cho bất kỳ ai.</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Hủy</span>
+                                                    </button>
+                                                    <button style="width: 60px;" type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">In</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center;">
+
+            </div>
+
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

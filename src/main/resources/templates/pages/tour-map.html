@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .accept{
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+
+        .custom-btn{
+            border: none;
+            background-color: white;
+            margin-right:20px;
+        }
+
+        .border-style{
+            height: 60px;
+            padding-left: 16px;
+            border-left: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right bottom, #abd4f9, #0085ff);
+        }
+
+        .place-content{
+            margin-left: 25px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .convenience{
+            display: flex;
+            margin-top: 15px;
+            margin-left: 25px;
+            align-items: center;
+        }
+
+        .func-btn{
+            background-color: #52a6f3;
+            color: white;
+            font-size: 14px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            border-radius: 5px;
+            padding: 0px 8px;
+        }
+
+        .day-element{
+            width: 100%;
+            margin-left: 15px;
+            font-size: 14px;
+            margin-top: 10px;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .add-btn{
+            margin-right: 20px;
+            font-size: 14px;
+            color: #93c8f8;
+            cursor: pointer;
+            border: none !important;
+        }
+
+        .setting-icon{
+           display: flex;
+           margin-right: 10px;
+           cursor: pointer;
+        }
+        .info-place p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thông tin tuyến du lịch', subtitle='Tất cả tuyến du lịch &gt; ' + ${tour.tourName})"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class = "card">
+            <div class="user-menu d-flex" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
+                <div class="user-img d-flex align-items-center">
+                    <div class="avatar-md" style="border-radius: 0%; width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px;">
+                        <div th:if="${tour.schedules != null and !tour.schedules.isEmpty()}">
+                            <div th:if="${tour.schedules[0].startLocation.images != null}">
+                                <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                     th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${tour.schedules[0].startLocation.images[0]}">
+                            </div>
+                            <div th:if="${tour.schedules[0].startLocation.images == null}">
+                                <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                     src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg">
+                            </div>
+                        </div>
+                        <div th:if="${tour.schedules == null}">
+                            <img style="width: 100px; height: 100px; border-radius: 10px; margin: 10px;"
+                                 src="https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/images__2_.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center;">
+                    <h6 class="d-flex" style="font-size: 20px; margin-bottom: 5px; text-align: left;" th:text="${tour.tourName}"/>
+                    <p class=" mb-0 accept setting" style="width: 100px;"> Đang mở </p>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between">
+                <div class="col-12 col-lg-3" style="margin-left: 30px;margin-bottom: 30px;">
+                    <div class="list-group">
+                        <a th:href="@{/all-tour/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-pencil-square" style="display: flex; margin-right: 20px;"></i>
+                            Thông tin tuyến
+                        </a>
+                        <a th:href="@{/tour-itinerary/{tourId}(tourId=${tour.id})}" type="button" class="list-group-item list-group-item-action active" style="height: 50px;display: flex;align-items: center;">
+                            <i class="bi bi-map" style="display: flex; margin-right: 20px;"></i>
+                            Chi tiết lịch trình
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8" style="margin-right: 30px;">
+                    <div class="row flex-row flex-nowrap" style="margin-left: 15px; margin-right: 15px; overflow-x: auto;">
+                        <div class="col-6" th:each="day : ${days}">
+                            <div class="card" style="border: 1px solid #e8e8ea; display:flex; align-items: center; padding-bottom: 10px;">
+                                <div class="day-element">
+                                    <div style="display: flex; align-items: center;">
+                                        <i class="bi bi-circle-fill" style="display: flex; align-items: center; font-size:10px; color:#3fc28a;"></i>
+                                        <p class="mb-0" th:text="'Ngày ' + ${day}"></p>
+                                    </div>
+                                </div>
+                                <div th:each="schedule: ${tour.schedules}"
+                                     th:if="${schedule.dayOfSchedule} == ${day}"
+                                     class="card col-10 mb-1 pb-3" style="color: black; background-color: #f6f6f6; font-size: 14px; margin-top: 20px;">
+                                    <div class="place-content border-style">
+                                        <div>
+                                            <div class="info-place">
+                                                <p class="mb-0" th:text="${schedule.startLocation.nameLocation}"></p>
+                                            </div>
+                                            <span style="font-size: 12px; color: #bcbbc1;">Đến</span>
+                                            <div class="info-place">
+                                                <p class="mb-0" th:text="${schedule.endLocation.nameLocation}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:if="${schedule.vehicles != null and !schedule.vehicles.isEmpty()}" class="convenience">
+                                        <i class="bi bi-truck" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                        <div style="display: flex;">
+                                            <div th:each="vehicle : ${schedule.vehicles}" class="func-btn">
+                                                <p class="mb-0" th:text="${vehicle}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:if="${schedule.restaurants != null and !schedule.restaurants.isEmpty()}" class="convenience">
+                                        <i class="bi bi-cup-hot" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                        <div style="display: flex;">
+                                            <div th:each="restaurant : ${schedule.restaurants}" class="func-btn">
+                                                <p class="mb-0" th:text="${restaurant}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:if="${schedule.hotels != null and !schedule.hotels.isEmpty()}" class="convenience">
+                                        <i class="bi bi-building" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                        <div style="display: flex;">
+                                            <div th:each="hotel : ${schedule.hotels}" class="func-btn">
+                                                <p class="mb-0" th:text="${hotel}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:if="${schedule.otherServices != null and !schedule.otherServices.isEmpty()}" class="convenience">
+                                        <i class="bi bi-basket2" style="display: flex; align-items: center; font-size: 20px; margin-right: 20px;"></i>
+                                        <div style="display: flex;">
+                                            <div th:each="service : ${schedule.otherServices}" class="func-btn">
+                                                <p class="mb-0" th:text="${service}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

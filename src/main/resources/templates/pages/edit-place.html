@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+
+        .custom-file-upload {
+            height: 100px;
+            display: block;
+            width: 10%;
+            padding: 20px;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            background-image: url('/compiled/jpg/Profile Photo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .image-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .image-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Chỉnh sửa địa điểm', subtitle='Tất cả địa điểm &gt; ' + ${place.code})"></span>
+    <section class="section">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body" style="min-height: 550px;">
+<!--                        <form id="uploadForm" method="post" th:action="@{/add-new-place}" enctype="multipart/form-data">-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="file" class="custom-file-upload">-->
+<!--                                    Chọn ảnh-->
+<!--                                </label>-->
+<!--                                <input type="file" id="file" name="file" accept="image/*" multiple onchange="previewImages()" required>-->
+<!--                            </div>-->
+<!--                            <div class="image-preview" id="imagePreview"></div>-->
+<!--                            <button class="btn btn-success" type="submit">Upload</button>-->
+<!--                            <p th:text="${message}"></p>-->
+<!--                        </form>-->
+
+<!--                        <script>-->
+<!--                            function previewImages() {-->
+<!--                                const imagePreview = document.getElementById('imagePreview');-->
+<!--                                imagePreview.innerHTML = '';-->
+<!--                                const files = document.getElementById('file').files;-->
+<!--                                if (files) {-->
+<!--                                    Array.from(files).forEach(file => {-->
+<!--                                        const reader = new FileReader();-->
+<!--                                        reader.onload = function (e) {-->
+<!--                                            const img = document.createElement('img');-->
+<!--                                            img.src = e.target.result;-->
+<!--                                            imagePreview.appendChild(img);-->
+<!--                                        }-->
+<!--                                        reader.readAsDataURL(file);-->
+<!--                                    });-->
+<!--                                }-->
+<!--                            }-->
+<!--                        </script>-->
+                        <form class="form" role="form" method="post" th:action="@{/all-place/{placeId}/edit(placeId=${place.id})}" th:object="${place}">
+                            <div class="col-12">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="text"
+                                               id="first-name-column"
+                                               class="form-control"
+                                               placeholder="Tên địa điểm"
+                                               th:field="*{nameLocation}"
+                                               name="fname-column"
+                                               style="height: 45px;">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input type="text"
+                                               id="last-name-column"
+                                               class="form-control"
+                                               placeholder="Địa chỉ"
+                                               name="lname-column"
+                                               th:field="*{address}"
+                                               style="height: 45px;">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea  id="city-column"
+                                                   placeholder="Mô tả"
+                                                   class="form-control"
+                                                   name="city-column"
+                                                   th:field="*{description}"
+                                                   style="height: 230px;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12" style="margin-top: 25px;">
+                                </div>
+                                <div class="col-12 d-flex justify-content-end" style="margin-top: 35px;">
+                                    <a th:href="@{all-place}" type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

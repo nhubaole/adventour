@@ -1,22 +1,56 @@
 package com.adventour.web.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Min;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class TourDto {
     private Long id;
+
     private String tourName;
+
+    @Nullable
     private String departureLocation;
-    private int estimatedPrice;
-    private int numberOfDays;
+
+    @Min(value = 0)
+    @Nullable
+    private Integer estimatedPrice;
+
+    @Nullable
+    @Min(value = 0)
+    private Integer numberOfDays;
+
+    @Min(value = 0)
     private int numberOfNights;
-    private String tourType;
+
+    @Nullable
+    private String typeOfTour;
+
+    public List<ScheduleDto> schedules;
+    public String code;
+
+    @Override
+    public String toString() {
+        return "TourDto{" +
+                "id=" + id +
+                ", tourName='" + tourName + '\'' +
+                ", estimatedPrice=" + estimatedPrice +
+                ", numberOfDays=" + numberOfDays +
+                ", numberOfNights=" + numberOfNights +
+                ", typeOfTour='" + typeOfTour + '\'' +
+                ", departureLocation='" + departureLocation + '\'' +
+                ", schedules=" + schedules.size() +
+                '}';
+    }
 }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
+<head>
+    <meta charset="UTF-8">
+    <title>AdvenTour - Trang quản lý du lịch</title>
+    <style>
+        .image-card{
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 20px;
+            border-bottom: 1px solid #dedede;
+        }
+    </style>
+</head>
+<body>
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thông tin địa điểm', subtitle='Tất cả địa điểm &gt; ' + ${place.nameLocation})"></span>
+    <section class="section">
+    <div class="col-12">
+        <div class="card">
+            <div class="image-card">
+                <div class="user-img d-flex align-items-center mb-3">
+                    <div th:each="url : ${place.images}" class="row gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
+                        <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+                            <a href="#">
+                                <img style="width: 200px; height: 200px; border-radius: 10px; margin: 10px;" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${url}" data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="place-info">
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form form-vertical">
+                            <div class="form-body">
+                                <div class="row">
+                                    <div class="col-12" style="color: #a3a2a7;">
+                                        <div class="form-group">
+                                            <label>Tên địa điểm</label>
+                                            <p class="fw-light" style="color: black;" th:text="${place.nameLocation}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" style="color: #a3a2a7;">
+                                        <div class="form-group">
+                                            <label>Địa chỉ</label>
+                                            <p class="fw-light" style="color: black;" th:text="${place.address}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" style="color: #a3a2a7;">
+                                        <div class="form-group">
+                                            <label>Mô tả</label>
+                                            <p class="fw-light" style="color: black;" th:text="${place.description}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalTitle" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div th:each="url : ${place.images}" class="carousel-item active">
+                                <img class="d-block w-100" th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${url}">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#Gallerycarousel" role="button" type="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#Gallerycarousel" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<script src="/compiled/js/script.js"></script>
+</body>
+</html>

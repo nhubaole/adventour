@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/dashboard}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>AdvenTour - Trang quản lý du lịch</title>
     <style>
         .empty{
             display: flex;
@@ -69,54 +69,53 @@
     </style>
 </head>
 <body>
-<section class="section" layout:fragment="content">
+<div class="page-heading" layout:fragment="content">
+    <span th:replace="fragments/header :: header (pageTitle='Thêm chuyến du lịch mới', subtitle='Tất cả chuyến du lịch &gt; Thêm chuyến du lịch mới')"></span>
+    <section class="section">
     <div class="col-12">
         <div class="card">
             <div class="card-content">
                 <div class="card-body">
-                    <form class="form">
+                    <form role="form" method="post" th:action="@{/add-new-trip}" class="form" th:object="${trip}">
                         <div class="row">
                             <div class="col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <select class="form-select" aria-label="Default select example" style="height: 55px;">
-                                        <option selected>Chọn tuyến</option>
-                                        <option value="1">Liên tuyến : Brunei - Malaysia khám phá thành phố Miri</option>
-                                        <option value="2">Hà Nội - Bái Đính - Khu Du Lịch Tràng An - Bái Đính - Hạ Long...</option>
-                                        <option value="3">Malaysia - Indonesia - Singapore</option>
-                                    </select>
+                                    <fieldset class="form-group" >
+                                        <select th:field="*{tourDto.id}" class="form-select" style="height: 55px;">
+                                            <option value="" selected>Chọn tuyến</option>
+                                            <option th:each ="tour : ${tours}"
+                                                    th:value="${tour.id}"
+                                                    th:text="${tour.tourName}">
+                                            </option>
+                                        </select>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <input style="height: 55px;" type="text" id="train-type" class="form-control" placeholder="Chọn loại tuyến" name="city-column">
+                                    <input style="height: 55px;" type="number" id="train-type" class="form-control" placeholder="Phần trăm giảm giá" name="city-column" th:field="*{discount}">
                                 </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <input style="height: 55px;" type="text" id="seat-number" class="form-control" name="country-floating" placeholder="Số lượng chỗ">
+                                    <input style="height: 55px;" type="number" id="seat-number" class="form-control" name="country-floating" placeholder="Số lượng chỗ" th:field = *{slots}>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <input style="height: 55px;" type="date" id="day-start" class="form-control" name="company-column" placeholder="Ngày bắt đầu">
+                                    <input style="height: 55px;" type="datetime-local" id="day-start" class="form-control" name="company-column" placeholder="Ngày bắt đầu" th:field="*{startDate}">
                                 </div>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <div class="form-group">
-                                    <input style="height: 55px;" type="date" id="day-end" class="form-control" name="email-id-column" placeholder="Ngày kết thúc">
+                                    <input style="height: 55px;" type="datetime-local" id="day-end" class="form-control" name="email-id-column" placeholder="Ngày kết thúc" th:field="*{endDate}">
                                 </div>
                             </div>
                             <div class="form-group col-12">
-                                <div class="form-check">
-                                    <div class="checkbox">
-                                        <input type="checkbox" id="checkbox5" class="form-check-input" checked="">
-                                        <label for="checkbox5">Remember Me</label>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-12 d-flex justify-content-end">
-                                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                <a th:href="@{/alltrip}"  type="reset" class="btn btn-light-secondary me-1 mb-1">Hủy</a>
+                                <button  type="submit" class="btn btn-primary me-1 mb-1">Lưu</button>
                             </div>
                         </div>
                     </form>
@@ -125,6 +124,7 @@
         </div>
     </div>
 </section>
+</div>
 <script src="/compiled/js/script.js"></script>
 </body>
 </html>
