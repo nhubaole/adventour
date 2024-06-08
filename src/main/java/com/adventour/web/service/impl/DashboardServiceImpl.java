@@ -116,7 +116,8 @@ public class DashboardServiceImpl implements DashboardService {
     public long getRevenueIn30Days() {
         LocalDateTime endDay = LocalDateTime.now();
         LocalDateTime startDay = endDay.minusDays(30);
-        return paymentInformationRepository.getRevenueInSomeDays(startDay, endDay);
+        Long revenue = paymentInformationRepository.getRevenueInSomeDays(startDay, endDay);
+        return revenue == null ? 0 : revenue;
     }
 
     @Override

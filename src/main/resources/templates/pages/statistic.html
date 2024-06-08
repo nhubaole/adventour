@@ -6,7 +6,9 @@
   <title>Title</title>
 </head>
 <body>
-<section class="section" layout:fragment="content">
+<div class="page-heading" layout:fragment="content">
+  <span th:replace="fragments/header :: header (pageTitle='Thống kê', subtitle='Thống kê doanh thu và chuyến đi')"></span>
+  <section class="section">
   <div class="row">
     <div class="col-md-6">
       <div class="card">
@@ -52,6 +54,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <script th:inline="javascript">
   var lineData = [[${revenuePerMonth}]];

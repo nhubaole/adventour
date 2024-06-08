@@ -46,7 +46,7 @@ public class TourController {
             tourDtos = tourService.searchTour(keyword);
             model.addAttribute("keyword", keyword);
         }
-        logger.info(tourDtos.get(0).getTypeOfTour());
+//        logger.info(tourDtos.get(0).getTypeOfTour());
         model.addAttribute("tours", tourDtos);
         return "/pages/all-tour";
     }
