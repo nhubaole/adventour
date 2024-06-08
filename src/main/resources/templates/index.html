@@ -38,19 +38,21 @@
                         </a>
                         <h1 class="mw-xl h3">Chào mừng bạn trở lại 👋 </h1>
                         <p class="text-muted fw-light mb-4">Vui lòng đăng nhập</p>
-                        <div class="form-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nhập Email">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nhập mật khẩu">
-                        </div>
-                        <div class="form-check form-check-lg d-flex align-items-end mb-4">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label fw-light text-black" for="flexCheckDefault">
-                                Nhớ mật khẩu
-                            </label>
-                        </div>
-                        <a class="btn btn-primary btn-block btn-lg" href="#">Đăng nhập</a>
+                        <form th:action="@{/login}" method="post">
+                            <div class="form-group mb-3">
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Nhập Email">
+                            </div>
+                            <div class="form-group mb-4">
+                                <input  id="password" name="password" type="password" class="form-control" placeholder="Nhập mật khẩu">
+                            </div>
+<!--                        <div class="form-check form-check-lg d-flex align-items-end mb-4">-->
+<!--                            <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">-->
+<!--                            <label class="form-check-label fw-light text-black" for="flexCheckDefault">-->
+<!--                                Nhớ mật khẩu-->
+<!--                            </label>-->
+<!--                        </div>-->
+                        <button th:href="@{/login}" value="Log in" type="submit" class="btn btn-primary btn-block btn-lg" >Đăng nhập</button>
+                        </form>
                     </div>
 
                 </div>
