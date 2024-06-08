@@ -215,7 +215,7 @@
                                                     <h6 class="fw-normal mb-1 mt-2" style="color: #F45B69 !important; font-size: 0.6rem;" th:text="${ticket.usedAt != null} ? ${ticket.usedAt} : ''"></h6>
                                                 </div>
                                                 <div class="col-9 p-3">
-                                                    <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span th:text="${ticket.id}"></span></h6>
+                                                    <h6 class="fw-semi bold mb-1 text-start" style="color: #52a6f3 !important; font-size: 0.8rem;">Mã code: <span th:text="${ticket.code}"></span></h6>
                                                     <h6 class="text-start" th:text="${ticket.namePassenger}"></h6>
                                                     <div class="row">
                                                         <div class="col-6">
@@ -294,7 +294,7 @@
                                                         </div>
 
                                                         <h6 class="fw-bold mb-1 mt-4 text-black" style="font-size: 0.8rem;">MÃ CODE:
-                                                            <span style="color: #52a6f3 !important;" th:text="${ticket.id}"></span></h6>
+                                                            <span style="color: #52a6f3 !important;" th:text="${ticket.code}"></span></h6>
                                                         <h6 class="fw-medium mb-1 mt-3 text-black" style="font-size: 0.7rem;">Vé chỉ sử dụng được
                                                             <span class="fw-bold" style="color: #52a6f3 !important;"> một lần</span> duy nhất.</h6>
                                                         <h6 class="fw-medium mb-1 text-black" style="font-size: 0.7rem;">Vui lòng không chia sẻ thông tin vé cho bất kỳ ai.</h6>
