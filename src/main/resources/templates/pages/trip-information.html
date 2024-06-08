@@ -66,6 +66,35 @@
             color: white;
             cursor: pointer;
         }
+        .accept{
+            background-color: #ecf9f3;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #6ad0a5 !important;
+            justify-content: center;
+        }
+        .waiting{
+            background-color: #fef9e9;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: #f4c726 !important;
+            justify-content: center;
+        }
+        .cancel{
+            background-color: #feeff0;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 28px;
+            color: red !important;
+            justify-content: center;
+        }
+        .setting{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -74,9 +103,15 @@
         <div class = "card">
             <div class="user-menu" style="margin: 20px 30px; border-bottom: 1px solid #d5d5d5;">
                 <div class="user-name text-end me-3" style="display: flex;flex-direction: column;justify-content: center; padding-bottom: 20px;">
-                    <h6  class="d-flex" style="font-size: 20px; margin-bottom: 5px; text-align: left;" th:text ="${trip.name}">
+                    <div class="d-flex" style="flex-wrap: wrap; align-items: center;">
+                        <h6  class="d-flex" style="font-size: 20px; margin-bottom: 5px; text-align: left;" th:text ="${trip.name}">
 
-                    </h6>
+                        </h6>
+                        <div style=" margin-left: 10px; width: 90px; font-weight: 600;" class="setting" th:if="${trip.actualPassenger < trip.slots}" th:text="'Còn chỗ'" th:classappend="'accept'">
+                        </div>
+                        <div style=" margin-left: 10px; width: 90px; font-weight: 600;" class="setting" th:if="${trip.actualPassenger >= trip.slots}" th:text="'Hết chỗ'" th:classappend="'cancel'">
+                        </div>
+                    </div>
                     <div style="display: flex; align-items: center;">
                         <i class="bi bi-calendar-event" style="display: flex; margin-right: 5px;"></i>
                         <p th:text="${#temporals.format(trip.startDate, 'dd/MM/yyyy')}" class="text-subtitle fw-light text-muted small" style="margin-top: 6px; display: flex; align-items: center; margin-bottom: 5px; font-size: 15px; color: black !important;">
@@ -93,7 +128,7 @@
                         <div th:text = "${trip.priceTicket}" >
 
                         </div>
-                        <div th:if="${trip.discount != 0}" th:text= "${trip.discount}" class="discount">
+                        <div th:if="${trip.discount != 0}" th:text= "${trip.discount} + '%'" class="discount">
                         </div>
                     </div>
                 </div>
