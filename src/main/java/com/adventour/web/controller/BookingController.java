@@ -286,7 +286,7 @@ public class BookingController {
     }
     @GetMapping("/booking-detail-ticket/{id}")
     public String viewBookingDetailTicket(@PathVariable Long id,Model model){
-        BookingDto booking = bookingService.findBookingSimpler(id);
+        BookingDto booking = bookingService.findById(id);
         CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
         TripDto trip = booking.getTripDto();
         TourDto tour = booking.getTripDto().getTourDto();
