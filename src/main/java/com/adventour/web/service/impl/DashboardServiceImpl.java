@@ -1,5 +1,6 @@
 package com.adventour.web.service.impl;
 
+import com.adventour.web.controller.TourController;
 import com.adventour.web.dto.BookingDashboardDto;
 import com.adventour.web.dto.PaymentDashboardDto;
 import com.adventour.web.dto.PaymentInformationDto;
@@ -13,6 +14,8 @@ import com.adventour.web.models.Trip;
 import com.adventour.web.repository.*;
 import com.adventour.web.service.DashboardService;
 import jakarta.persistence.TypedQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -143,23 +146,22 @@ public class DashboardServiceImpl implements DashboardService {
         }
         return rs;
     }
+    private static Logger logger = LoggerFactory.getLogger(DashboardServiceImpl.class);
 
     private String getImageForBooking(long idTrip) {
 
         Trip trip = tripRepository.findById(idTrip).orElse(null);
         if(trip != null){
-            Set<Schedule> schedules = trip.getTour().getSchedules();
-            Schedule first = schedules.stream().findFirst().orElse(null);
-            if(first != null){
-                String[] images = first.getStartLocation().getImages();
-                if(images != null){
-                    if(!images[0].isEmpty()){
-                        return images[0];
-                    }
+            List<Schedule> schedules = trip.getTour().getSchedules().stream().toList();
+
+            if(!schedules.isEmpty() && schedules.get(0) != null){
+                String[] images = schedules.get(0).getStartLocation().getImages();
+                if(images != null && images.length > 0){
+                    return images[0];
                 }
             }
         }
-            return "https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/testBucket/1717057258329-images.jpg";
+        return "testBucket/images__2_.jpg";
 
 
     }

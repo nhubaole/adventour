@@ -12,7 +12,7 @@
             margin-right:20px;
         }
 
-        .active{
+        .active-custom{
             color: #52a6f3;
             border-bottom: 4px solid #52a6f3;
         }
@@ -112,7 +112,7 @@
     <div class="col-12">
         <div class="card" style="margin: 0 25px;">
             <div class="menu-element" style="display:flex; margin-top: 5px; margin-left: 20px; margin-right:20px; border-bottom: 1px solid #e2e2e5;">
-                <a th:href="@{/add-new-booking-information/{id}(id=${trip.id})}" type="button" class=" custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <a th:href="@{/add-new-booking-information/{id}(id=${trip.id})}" type="button" class=" custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
                     Thông tin liên hệ
                 </a>
@@ -178,7 +178,7 @@
                         </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
                                 <fieldset class="form-group">
-                                    <input style="height: 50px;" type="text" id="email" class="form-control" placeholder="địa chỉ email" name="fname-column" th:field="*{customerDto.email}" required>
+                                    <input style="height: 50px;" type="text" id="email" class="form-control" placeholder="Địa chỉ email" name="fname-column" th:field="*{customerDto.email}" required>
                                 </fieldset>
                             </div>
                             <div class="col-md-6 col-12" style="margin-bottom: 15px;">
@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                             <div class="col-12" style="margin-bottom: 15px;">
-                                <input style="height: 50px;" type="text" id="address" class="form-control" placeholder="địa chỉ" name="fname-column" th:field="*{customerDto.addressCustomer}" required>
+                                <input style="height: 50px;" type="text" id="address" class="form-control" placeholder="Địa chỉ" name="fname-column" th:field="*{customerDto.addressCustomer}" required>
                             </div>
 
                             <div class="col-12 d-flex justify-content-end">

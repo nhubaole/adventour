@@ -11,7 +11,7 @@
                     margin-right:20px;
                 }
 
-                .active{
+                .active-custom{
                     color: #52a6f3;
                     border-bottom: 4px solid #52a6f3;
                 }
@@ -372,7 +372,7 @@ function addChildrenInfoField(numChildren) {
                     <i class="bi bi-pencil" style="display: flex; margin-right: 10px;"></i>
                     Thông tin liên hệ
                 </a>
-                <a th:href="@{/add-new-booking-passenger/{id}(id=${trip.id})}" type="button" class="custom-btn active" style="height: 50px;display: flex;align-items: center;">
+                <a th:href="@{/add-new-booking-passenger/{id}(id=${trip.id})}" type="button" class="custom-btn active-custom" style="height: 50px;display: flex;align-items: center;">
                     <i class="bi bi-people-fill" style="display: flex; margin-right: 10px;"></i>
                     Hành khách
                 </a>
@@ -391,7 +391,7 @@ function addChildrenInfoField(numChildren) {
                                 <div class="form-group">
 
                                     <div style="">
-                                        <p name="check"></p>Số lượng hành khách</div>
+                                        <h5 name="check">Số lượng hành khách</h5></div>
                                 </div>
                             </div>
 
@@ -408,7 +408,7 @@ function addChildrenInfoField(numChildren) {
                                         <!-- Phần chứa 3 ô vuông bên phải -->
                                         <div class="" style="margin-top:10px">
                                             <button type="button" class="btn btn-primary me-1 mb-1" style="width: 40px; height:40px" onclick="decreaseValue1()">-</button>
-                                            <input id="quantityInput1" style="width:40px; height: 40px; border-radius: 5px" min="0" value="0" type="number" readonly>
+                                            <input id="quantityInput1" style="width:40px; height: 40px; border-radius: 5px; border-color: #ced4da;" min="0" value="0" type="number" readonly>
                                             <button type="button" class="btn btn-primary me-1 mb-1" style="width:40px; height: 40px" onclick="increaseValue1()">+</button>
                                         </div>
                                     </div>
@@ -422,7 +422,7 @@ function addChildrenInfoField(numChildren) {
                                         <!-- Phần chứa 3 ô vuông bên phải -->
                                         <div class="" style="margin-top:10px">
                                             <button type="button" class="btn btn-primary me-1 mb-1" style="width: 40px; height:40px" onclick="decreaseValue2()">-</button>
-                                            <input id="quantityInput2" style="width:40px; height: 40px; border-radius: 5px" min="0" value="0" type="number" readonly>
+                                            <input id="quantityInput2" style="width:40px; height: 40px; border-radius: 5px; border-color: #ced4da;" min="0" value="0" type="number" readonly>
 
                                             <button type="button" class="btn btn-primary me-1 mb-1" style="width:40px; height: 40px" onclick="increaseValue2()">+</button>
                                         </div>
@@ -437,7 +437,7 @@ function addChildrenInfoField(numChildren) {
                                         <!-- Phần chứa 3 ô vuông bên phải -->
                                         <div class="" style="margin-top:10px">
                                             <button type="button" class="btn btn-primary me-1 mb-1" style="width: 40px; height:40px" onclick="decreaseValue3()">-</button>
-                                            <input id="quantityInput3" style="width:40px; height: 40px; border-radius: 5px" min="0" value="0" type="number" readonly>
+                                            <input id="quantityInput3" style="width:40px; height: 40px; border-radius: 5px; border-color: #ced4da;" min="0" value="0" type="number" readonly>
                                             <button type="button" class="btn btn-primary me-1 mb-1" style="width:40px; height: 40px" onclick="increaseValue3()">+</button>
                                         </div>
                                     </div>
@@ -447,27 +447,27 @@ function addChildrenInfoField(numChildren) {
                             <div class="col-12" style="">
                                 <div class="form-group">
 
-                                    <div style="">
-                                        <p name="check"></p>Thông tin hành khách</div>
+                                    <div class="mt-4 mb-2">
+                                        <h5 name="check">Thông tin hành khách</h5></div>
                                 </div>
                             </div>
 
 
                             <div class="mini-card col-12">
                                 <div class="mb-3" id="adult-container" >
-                                    <h5 class="mb-3"  style="padding-bottom: 10px">Người lớn </h5>
+                                    <p class="mb-3"  style="padding-bottom: 10px">Người lớn </p>
                                 </div>
                             </div>
 
                             <div class="mini-card col-12" style="margin-top: 10px">
                                 <div class="mb-3" id="children-container" >
-                                    <h5 class="mb-3"  style="padding-bottom: 10px">Trẻ em </h5>
+                                    <p class="mb-3"  style="padding-bottom: 10px">Trẻ em </p>
                                 </div>
                             </div>
 
                             <div class="mini-card col-12" style="margin-top: 10px">
                                 <div class="mb-3" id="baby-container" >
-                                    <h5 class="mb-3"  style="padding-bottom: 10px">Em bé </h5>
+                                    <p class="mb-3"  style="padding-bottom: 10px">Em bé </p>
                                 </div>
                             </div>
 

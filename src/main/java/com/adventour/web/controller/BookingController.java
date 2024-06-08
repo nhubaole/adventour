@@ -96,6 +96,7 @@ public class BookingController {
         model.addAttribute("trip", trip);
         model.addAttribute("tour",tour);
         model.addAttribute("customer", customer);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/booking-detail-information";}
 
     @PostMapping("/booking-detail-information/{id}")
@@ -177,15 +178,16 @@ public class BookingController {
     @GetMapping("/booking-detail-passenger/{id}")
     public String bookingDetailPassenger(@PathVariable Long id,Model model){
         BookingDto booking = bookingService.findById(id);
-        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
+//        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
         Set<PassengerDto> passengerDtos = passengerService.getPassengersByIdBooking(id);
         TripDto trip = booking.getTripDto();
         TourDto tour = booking.getTripDto().getTourDto();
         model.addAttribute("booking", booking);
         model.addAttribute("trip", trip);
         model.addAttribute("tour",tour);
-        model.addAttribute("customer", customer);
+//        model.addAttribute("customer", customer);
         model.addAttribute("passengerDtos",passengerDtos);
+        model.addAttribute("formatNumber", new FormatNumber());
             return "/pages/booking-detail-passenger";}
 
     @GetMapping("/add-new-booking-passenger/{id}")
@@ -272,6 +274,7 @@ public class BookingController {
         model.addAttribute("paymentInformationDto", paymentInformationDto);
         model.addAttribute("paymentInformationDtos",paymentInformationDtos);
         model.addAttribute("paidAmount",paidAmount);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/booking-detail-payment";}
 
     @PostMapping("/booking-detail-payment/{id}/add-payment")
@@ -286,17 +289,18 @@ public class BookingController {
     }
     @GetMapping("/booking-detail-ticket/{id}")
     public String viewBookingDetailTicket(@PathVariable Long id,Model model){
-        BookingDto booking = bookingService.findBookingSimpler(id);
-        CustomerDto customer = customerService.findById(booking.getCustomerDto().getId());
+        BookingDto booking = bookingService.findById(id);
         TripDto trip = booking.getTripDto();
         TourDto tour = booking.getTripDto().getTourDto();
-        Set<PassengerDto> passengerDtos = passengerService.getPassengersByIdBooking(id);
-        Set<TicketDto> ticketDtos = ticketService.getTicketsByIdBooking(id);
-        model.addAttribute("passengers",passengerDtos);
+//        Set<PassengerDto> passengerDtos = passengerService.getPassengersByIdBooking(id);
+        List<TicketDto> ticketDtos = ticketService.getTicketsByIdBooking(id).stream().toList();
+//        logger.info("======== " + booking.getAmountPaid() + " " + booking.getTotalAmount());
+//        model.addAttribute("passengers", booking.getPassengerDtos());
         model.addAttribute("booking",booking);
         model.addAttribute("tour",tour);
         model.addAttribute("trip",trip);
         model.addAttribute("tickets", ticketDtos);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/booking-detail-ticket";
     }
 
@@ -311,7 +315,8 @@ public class BookingController {
         model.addAttribute("tour",tour);
         model.addAttribute("trip",trip);
         model.addAttribute("bookingform", this.bookingForm);
-            return "/pages/add-new-booking-payment";
+        model.addAttribute("formatNumber", new FormatNumber());
+        return "/pages/add-new-booking-payment";
         }
 
     @PostMapping("/add-new-booking-payment/{id}")

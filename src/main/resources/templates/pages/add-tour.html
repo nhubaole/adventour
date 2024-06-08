@@ -51,6 +51,7 @@
                                 <fieldset class="form-group" >
                                     <select style="height: 50px;" class="form-select"
                                             th:field="*{typeOfTour}">
+                                        <option th:value="null" selected>Chọn loại tuyến</option>
                                         <option th:value="'Trong nước'" th:text="'Trong nước'"></option>
                                         <option th:value="'Nước ngoài'" th:text="'Nước ngoài'"></option>
                                     </select>
@@ -60,6 +61,7 @@
                                 <fieldset class="form-group" >
                                     <select style="height: 50px;" class="form-select"
                                             th:field="*{departureLocation}">
+                                        <option th:value="null" selected>Chọn nơi khởi hành</option>
                                         <option th:value="'Hà Nội'" th:text="'Hà Nội'"></option>
                                         <option th:value="'TP HCM'" th:text="'TP HCM'"></option>
                                     </select>
@@ -69,6 +71,7 @@
                                 <fieldset class="form-group">
                                     <select style="height: 50px;" class="form-select" id="basicSelect2" th:field="*{numberOfDays}">
 <!--                                        <option>Số ngày đêm</option>-->
+                                        <option th:value="null" selected>Chọn số ngày đêm</option>
                                         <option th:value='2'>2 ngày 1 đêm</option>
                                         <option th:value='3'>3 ngày 2 đêm</option>
                                     </select>

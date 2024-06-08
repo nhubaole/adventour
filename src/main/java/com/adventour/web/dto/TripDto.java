@@ -1,7 +1,9 @@
 package com.adventour.web.dto;
 
 import com.adventour.web.models.*;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,14 +22,18 @@ public class TripDto {
     private Long id;
 
     private String code;
+    private Boolean isActive;
 
     private String name;
 
     @Min(value = 0)
-    private int slots;
+    @Nullable
+    private Integer slots;
 
+    @Nullable
     private LocalDateTime startDate;
 
+    @Nullable
     private LocalDateTime endDate;
 
     @Min(value = 0)
@@ -35,7 +41,8 @@ public class TripDto {
 
     private int priceTicket;
 
-    private double discount;
+    @Nullable
+    private Double discount;
 
     private int actualPrice;
 

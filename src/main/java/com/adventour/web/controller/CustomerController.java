@@ -8,6 +8,7 @@ import com.adventour.web.models.Customer;
 import com.adventour.web.service.BookingService;
 import com.adventour.web.service.BucketService;
 import com.adventour.web.service.CustomerService;
+import com.adventour.web.utils.FormatNumber;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -93,16 +94,23 @@ public class CustomerController {
     public String saveCustomer(@ModelAttribute("customer") CustomerDto customer,
                                @RequestParam("files") MultipartFile[] files){
         logger.info("Number of images: " + files.length);
-        List<String> placeImages = new ArrayList<>();
-        for (MultipartFile image : files){
-            try{
-                String fileUrl = bucketService.uploadFile(image);
-                placeImages.add(fileUrl);
-            } catch (Exception e){
-                logger.error("Error uploading image: " + e.getMessage());
-            }
+        if(files.length == 1 && files[0].getOriginalFilename().isEmpty()){
+
         }
-        customer.setImagesCustomer(placeImages.toArray(new String[0]));
+        else {
+            List<String> placeImages = new ArrayList<>();
+            for (MultipartFile image : files){
+                try{
+                    String fileUrl = bucketService.uploadFile(image);
+                    placeImages.add(fileUrl);
+                } catch (Exception e){
+                    logger.error("Error uploading image: " + e.getMessage());
+                }
+            }
+            customer.setImagesCustomer(placeImages.toArray(new String[0]));
+        }
+        logger.info(customer.getIsMale() + "==============================");
+
         customerService.addNewCustomer(customer);
         return "redirect:/customer";
     }
@@ -114,6 +122,7 @@ public class CustomerController {
         model.addAttribute("customer", customerDto);
 
         model.addAttribute("bookings", bookingDtos);
+        model.addAttribute("formatNumber", new FormatNumber());
         return "/pages/booking-bill";
     }
 

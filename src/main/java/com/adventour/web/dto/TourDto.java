@@ -1,19 +1,12 @@
 package com.adventour.web.dto;
 
-import com.adventour.web.models.Schedule;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -27,20 +20,25 @@ public class TourDto {
 
     private String tourName;
 
+    @Nullable
     private String departureLocation;
 
     @Min(value = 0)
-    private int estimatedPrice;
+    @Nullable
+    private Integer estimatedPrice;
 
+    @Nullable
     @Min(value = 0)
-    private int numberOfDays;
+    private Integer numberOfDays;
 
     @Min(value = 0)
     private int numberOfNights;
 
+    @Nullable
     private String typeOfTour;
 
     public List<ScheduleDto> schedules;
+    public String code;
 
     @Override
     public String toString() {

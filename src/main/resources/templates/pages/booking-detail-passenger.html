@@ -90,13 +90,13 @@
                     <div class="text-subtitle fw-light text-muted small" style="display: flex; align-items: center; font-size: 15px; color: black !important;">
                         <i class="bi bi-cash" style="display: flex; margin-right: 5px;"></i>
 
-                        <div th:text="${trip.priceTicket} + ' đ'" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be; ">
-                            <!--68,000,000 đ-->
+                        <div th:if="${trip.discount != 0}">
+                            <div th:text="${formatNumber.formatNumberWithCommas(trip.priceTicket)}" style="margin-right: 10px; font-size: 12px; text-decoration: line-through; color: #bab9be;"></div>
                         </div>
                         <!--
                                                 <span th:text="${trip.priceTripFinal} + ' đ'">&lt;!&ndash;34,000,000 đ&ndash;&gt;</span>
                         -->
-                        <span th:text="${trip.priceTicket * (1 - trip.discount / 100)} + ' đ'"><!--34,000,000 đ--></span>
+                        <span th:text="${formatNumber.formatNumberWithCommas(trip.actualPrice)} + ' đ'"><!--34,000,000 đ--></span>
 
                         <div class="discount">
                             <span th:text="'-' + ${trip.discount} + '%'"><!-- -50%--></span>
@@ -138,7 +138,7 @@
                                 <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th class=" column column-width-200">tên hành khách</th>
+                                    <th class=" column column-width-200">Tên hành khách</th>
                                     <th>Ngày sinh</th>
                                     <th>Số CMND/CCCD</th>
                                     <th>Giới tính</th>

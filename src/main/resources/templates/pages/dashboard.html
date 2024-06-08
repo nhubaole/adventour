@@ -406,17 +406,16 @@
                                     </div>
                                     <div class="row setting mg-t-10 jsc-between">
                                         <h6 class="text width_25 setting" th:text="${totalCustomers}"></h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
-                                            </div>
-                                        </div>
+<!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+<!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+<!--                                            <div class = "setting percent-content">-->
+<!--                                                12%-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                            <div class = "time-update font-lexend" th:text="${updatedTime}">
                             </div>
                         </div>
                     </div>
@@ -441,8 +440,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                            <div class = "time-update font-lexend" th:text="${updatedTime}">
                             </div>
                         </div>
                     </div>
@@ -460,17 +458,16 @@
                                     </div>
                                     <div class="row setting mg-t-10 jsc-between">
                                         <h6 class="text width_25 setting" th:text="${todayTrips}"></h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
-                                            </div>
-                                        </div>
+<!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+<!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+<!--                                            <div class = "setting percent-content">-->
+<!--                                                12%-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                            <div class = "time-update font-lexend" th:text="${updatedTime}">
                             </div>
                         </div>
                     </div>
@@ -486,17 +483,16 @@
                                     </div>
                                     <div class="row setting mg-t-10 jsc-between">
                                         <h6 class="text width_25 setting" th:text="${totalTickets}"></h6>
-                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">
-                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>
-                                            <div class = "setting percent-content">
-                                                12%
-                                            </div>
-                                        </div>
+<!--                                        <div class = "width_25 setting jsc-between" style="background-color: #eaf9f3;height: 30px;border-radius: 10px;width: 70px;">-->
+<!--                                            <i class="bi-arrow-up-circle-fill setting icon-content"></i>-->
+<!--                                            <div class = "setting percent-content">-->
+<!--                                                12%-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
-                            <div class = "time-update font-lexend">
-                                Cập nhật lần cuối: 29/3/2023
+                            <div class = "time-update font-lexend" th:text="${updatedTime}">
                             </div>
                         </div>
                     </div>
@@ -525,7 +521,7 @@
                                         <td class="col-6">
                                             <div class="d-flex align-items-center">
                                                 <div class="avatar avatar-md">
-                                                    <img th:src="${dashboardBooking.imageUrl}">
+                                                    <img th:src="'https://ztxujxoonvnlhrnacclt.supabase.co/storage/v1/object/public/' + ${dashboardBooking.imageUrl}">
                                                 </div>
                                                 <p class="font-bold ms-3 mb-0" th:text="${dashboardBooking.tourName}"></p>
                                             </div>
@@ -539,7 +535,7 @@
                                         <td class="col-auto">
                                             <p class="mb-0 setting"
                                                th:text="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'Đang chờ' :
-                                                        (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'Hủy' :
+                                                        (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'Đã hủy' :
                                                         (${dashboardBooking.statusOfBooking == 'COMPLETED'} ? 'Hoàn thành' : ''))"
                                                th:classappend="${dashboardBooking.statusOfBooking == 'PENDING'} ? 'waiting' :
                                                                 (${dashboardBooking.statusOfBooking == 'CANCELLED'} ? 'cancel' :
@@ -562,18 +558,10 @@
                 </div>
                 <!-- CALENDAR HEADER START -->
                 <div class="calendar-header">
-                    <span class="month-picker" id="month-picker">June</span>
+                    <span class="month-picker" id="month-picker">Tháng 6</span>
                     <div class="year-picker">
-                <span class="year-change mt-3" id="prev-year">
-                    <pre> &lt; </pre>
-                </span>
-                        <span id="year">2024</span>
-                        <span class="year-change mt-3" id="next-year">
-                    <pre> &gt; </pre>
-                </span>
+                        <span id="year" style="color: #52a6f3 !important;">2024</span>
                     </div>
-
-
                 </div>
 
                 <!-- CALENDAR BODY START -->
