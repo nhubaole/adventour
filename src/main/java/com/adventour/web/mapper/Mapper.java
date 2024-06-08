@@ -193,6 +193,7 @@ public class Mapper {
     public LocationDto mapToLocationDto(Location location) {
         return LocationDto.builder()
                 .id(location.getId())
+                .code(String.format("DD%07d",location.getId()))
                 .nameLocation(location.getNameLocation())
                 .address(location.getAddress())
                 .description(location.getDescription())
