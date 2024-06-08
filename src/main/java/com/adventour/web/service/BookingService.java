@@ -27,9 +27,9 @@ public interface BookingService {
     List<BookingDto> getBookingsByCustomerId( Long id);
     List<BookingDto> getBookingsByTripId(Long id);
 
-    Set<PassengerDto> getPassengerOfBooking (Long  idBooking);
+    Set<PassengerDto> getPassengerOfBooking (Long idBooking);
 
-    Set<PaymentInformationDto> getPaymentOfBooking( Long idBooking);
+    Set<PaymentInformationDto> getPaymentOfBooking(Long idBooking);
 
     Set<TicketDto> getTicketOfBooking(Long idBooking);
 

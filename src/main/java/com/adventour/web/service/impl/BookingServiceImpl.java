@@ -1,14 +1,14 @@
 package com.adventour.web.service.impl;
 
+import com.adventour.web.controller.LoginController;
 import com.adventour.web.dto.*;
 import com.adventour.web.enums.StatusOfBooking;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.*;
-import com.adventour.web.repository.BookingRepository;
-import com.adventour.web.repository.CustomerRepository;
-import com.adventour.web.repository.PassengerRepository;
-import com.adventour.web.repository.TripRepository;
+import com.adventour.web.repository.*;
 import com.adventour.web.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +30,10 @@ public class BookingServiceImpl implements BookingService {
     private final PaymentInformationService paymentInformationService;
 
     private final TicketService ticketService;
+    private static final Logger logger = LoggerFactory.getLogger(BookingServiceImpl.class);
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, Mapper mapper, TripRepository tripRepository, CustomerService customerService, CustomerRepository customerRepository, PassengerService passengerService, PaymentInformationService paymentInformationService, TicketService ticketService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, Mapper mapper, TripRepository tripRepository, CustomerService customerService, CustomerRepository customerRepository, PassengerService passengerService, PaymentInformationService paymentInformationService, PaymentInformationRepository paymentInformationRepository, TicketService ticketService) {
         this.bookingRepository = bookingRepository;
         this.mapper = mapper;
         this.tripRepository = tripRepository;
@@ -47,15 +48,21 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDto> getListBooking() {
         List<BookingDto> bookingDtoList = new ArrayList<>();
-        List<Booking> bookings = bookingRepository.findAll();
-        for(Booking booking : bookings){
+        List<Object[]> bookings = bookingRepository.findBookingsWithCustomer();
+
+        for(Object[] result : bookings){
+            Long id = (Long) result[0]; // id
+            LocalDateTime bookingDate = (LocalDateTime) result[1]; // bookingDate
+            StatusOfBooking status = (StatusOfBooking) result[2]; // status
+            int totalAmount = (int) result[3]; // totalAmount
+            int numberAdult = (int) result[4]; // numberAdult
+            int numberChildren = (int) result[5]; // numberChildren
+            int numberBaby = (int) result[6]; // numberBaby
+            Customer customer = (Customer) result[7]; // customer
+            Booking booking = new Booking(id, bookingDate,status,totalAmount, numberAdult,numberChildren, numberBaby,null,customer,null,null, null);
             BookingDto bookingDto = mapper.mapToBookingDto(booking);
 
-//            Set<PassengerDto> passengerDtos = getPassengerOfBooking(booking.getId());
-//            bookingDto.setPassengerDtos(passengerDtos);
-
             Set<PaymentInformationDto> paymentInformationDtos = getPaymentOfBooking(booking.getId());
-//            bookingDto.setPaymentInformationDtos(paymentInformationDtos);
 
             int amountPaid = 0;
             for (PaymentInformationDto paymentInformation : paymentInformationDtos){
@@ -63,13 +70,8 @@ public class BookingServiceImpl implements BookingService {
             }
             bookingDto.setAmountPaid(amountPaid);
 
-//            if(bookingDto.getStatus() == StatusOfBooking.COMPLETED){
-//                //TODO: Set<Ticket>;
-//                Set<TicketDto> ticketDtos = getTicketOfBooking(booking.getId());
-//                bookingDto.setTicketDtos(ticketDtos);
-//            }
-
             bookingDtoList.add(bookingDto);
+
         }
         return  bookingDtoList;
     }
@@ -230,6 +232,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Set<PaymentInformationDto> getPaymentOfBooking(Long idBooking) {
         return paymentInformationService.getPaymentInforByIdBooking(idBooking);
+
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.adventour.web.models.Passenger;
 import com.adventour.web.models.Trip;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public interface TripService {
@@ -19,7 +18,7 @@ public interface TripService {
 
     public List<TripDto> searchTrip(String search);
 
-    public Set<PassengerDto> getTripPassenger(TripDto tripDto);
+    public List<PassengerDto> getTripPassenger(TripDto tripDto);
 
     public void cancelTrip(TripDto tripDto);
 

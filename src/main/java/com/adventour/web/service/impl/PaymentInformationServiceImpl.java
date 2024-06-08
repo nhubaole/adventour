@@ -1,16 +1,21 @@
 package com.adventour.web.service.impl;
 
+import com.adventour.web.controller.LoginController;
 import com.adventour.web.dto.PassengerDto;
 import com.adventour.web.dto.PaymentInformationDto;
+import com.adventour.web.enums.PaymentMethod;
 import com.adventour.web.mapper.Mapper;
 import com.adventour.web.models.Booking;
 import com.adventour.web.models.PaymentInformation;
 import com.adventour.web.repository.BookingRepository;
 import com.adventour.web.repository.PaymentInformationRepository;
 import com.adventour.web.service.PaymentInformationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,6 +26,8 @@ public class PaymentInformationServiceImpl implements PaymentInformationService 
     private final BookingRepository bookingRepository;
 
     private final Mapper mapper;
+    private static final Logger logger = LoggerFactory.getLogger(PaymentInformationServiceImpl.class);
+
 
     @Autowired
     private PaymentInformationServiceImpl(PaymentInformationRepository paymentInformationRepository, BookingRepository bookingRepository, Mapper mapper){
@@ -48,15 +55,29 @@ public class PaymentInformationServiceImpl implements PaymentInformationService 
     }
 
     @Override
+    public Set<PaymentInformationDto> getPaymentInforByBooking(Booking booking) {
+        Set<PaymentInformation> paymentInformations = paymentInformationRepository.findByBooking(booking);
+        return paymentInformations.stream().map(mapper::mapToPaymentInformationDto).collect(Collectors.toSet());
+    }
+
+    @Override
     public Set<PaymentInformationDto> getPaymentInforByIdBooking(Long idBooking) {
+        //VietHam
+        Set<PaymentInformationDto> paymentInformationDtos = new HashSet<>();
+        logger.info("___________________________________________________________________");
+        Set<Object[]> results = paymentInformationRepository.findByIdBooking(idBooking);
+        for(Object[] row : results){
+            long id = (long) row[0];
+            int amountMoney = (int) row[1];
+            LocalDateTime date  = (LocalDateTime) row[2];
+            PaymentMethod paymentMethod = (PaymentMethod) row[3];
 
-        Booking booking = bookingRepository.findById(idBooking).orElse(null);
-        if(booking != null){
-            Set<PaymentInformation> paymentInformations = paymentInformationRepository.findByBooking(booking);
+            PaymentInformationDto paymentInformationDto = new PaymentInformationDto(id, amountMoney, date, paymentMethod, null);
 
-            return paymentInformations.stream().map(mapper::mapToPaymentInformationDto).collect(Collectors.toSet());
+            paymentInformationDtos.add(paymentInformationDto);
         }
-        return null;
+        return paymentInformationDtos;
+
     }
 
     @Override

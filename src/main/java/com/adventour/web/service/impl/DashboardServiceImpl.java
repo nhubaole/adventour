@@ -92,7 +92,7 @@ public class DashboardServiceImpl implements DashboardService {
 
             int amountPaid = paymentInformation.getAmountOfMoney();
             LocalDateTime dateTime = paymentInformation.getPaymentTime();
-            PaymentDashboardDto paymentDashboardDto = new PaymentDashboardDto(nameCus, amountPaid, dateTime);
+            PaymentDashboardDto paymentDashboardDto = new PaymentDashboardDto(nameCus, String.format("%,d",amountPaid ), dateTime);
             rs.add(paymentDashboardDto);
 
         }
