@@ -47,8 +47,8 @@ public class Mapper {
 
         tour.setId(tourDto.getId());
         tour.setTourName(tourDto.getTourName());
-        tour.setEstimatedPrice(tourDto.getEstimatedPrice());
-        tour.setNumberOfDays(tourDto.getNumberOfDays());
+        tour.setEstimatedPrice(tourDto.getEstimatedPrice() == null ? 0 : tourDto.getEstimatedPrice());
+        tour.setNumberOfDays(tourDto.getNumberOfDays()== null ? 0 :tourDto.getNumberOfDays());
         tour.setNumberOfNights(tourDto.getNumberOfNights());
         tour.setTypeOfTour(tourDto.getTypeOfTour());
         tour.setDepartureLocation(tourDto.getDepartureLocation());
