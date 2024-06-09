@@ -72,7 +72,7 @@ public class TripServiceImpl implements TripService {
         if (validateTrip(tripDto)){
             Trip trip = mapper.mapToTrip(tripDto);
 
-            int price = tripDto.getTourDto().getEstimatedPrice();
+            int price = tripDto.getTourDto().getEstimatedPrice() == null ? 0 : tripDto.getTourDto().getEstimatedPrice();
             trip.setPriceTicket((int) (price - price * trip.getDiscount()*0.01));
 
             trip = tripRepository.save(trip);

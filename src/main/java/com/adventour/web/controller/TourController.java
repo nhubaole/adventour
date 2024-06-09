@@ -79,7 +79,7 @@ public class TourController {
         TourDto tourDto = tourService.findByTourId(tourId);
 
         tour.setId(tourId);
-        tour.setNumberOfNights(tour.getNumberOfDays() - 1);
+        tour.setNumberOfNights((tour.getNumberOfDays() == null ? 0: tour.getNumberOfDays()) - 1);
         tour.setSchedules(tourDto.getSchedules());
         AddScheduleFormData data = new AddScheduleFormData();
         for(int i = 0; i < tour.getNumberOfDays(); i++){
@@ -158,7 +158,6 @@ public class TourController {
         List<LocationDto> locations = locationService.findAllLocation();
         model.addAttribute("locations", locations);
 
-        logger.info(String.valueOf(tour.getNumberOfDays()));
         return "/pages/add-schedule";
     }
 
@@ -174,9 +173,6 @@ public class TourController {
 
         List<Integer> days = new ArrayList<>();
         data.setTour(currentAddingTour);
-        logger.info(String.valueOf("getNumberOfDays " + data.tour.getNumberOfDays()));
-        logger.info(String.valueOf("getTourName " + data.tour.getTourName()));
-        logger.info(String.valueOf("schedule vehicle " + data.schedule.getVehicles().get(0)));
 
         List<String> vehicles = data.schedule.getVehicles().isEmpty() || data.schedule.getVehicles().get(0).trim().isEmpty()
                 ? null
@@ -207,7 +203,7 @@ public class TourController {
                 .collect(Collectors.toList());
 
 
-        for (int i = 0; i < data.tour.getNumberOfDays(); i++){
+        for (int i = 0; i < (data.tour.getNumberOfDays() == null ? 0: data.tour.getNumberOfDays()) ; i++){
             days.add(i + 1);
             if (i + 1 == day) {
                 ScheduleDto scheduleDto = new ScheduleDto();
